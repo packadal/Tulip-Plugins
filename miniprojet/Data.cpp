@@ -7,11 +7,24 @@
 
 #include "Data.h"
 
-Data::Data() {
-	// TODO Auto-generated constructor stub
+void Data::setX(int index, float value)
+{
+	if(index < _array.size())
+	{
+	}
+}
+
+void Data::setY(int index, float value)
+{
 
 }
 
-Data::~Data() {
-	// TODO Auto-generated destructor stub
+float Data::getX(int i) const
+{
+	return _array.at(i).first;
+}
+
+float Data::getY(int i) const
+{
+	return _array.at(i).second;
 }
