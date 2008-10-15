@@ -10,9 +10,7 @@
 #include <cppunit/ui/text/TestRunner.h>
 #include <cppunit/TestResult.h>
 
-//#include <KApplication>
-//#include <KAboutData>
-//#include <KCmdLineArgs>
+
 
 int main (int argc, char* argv[])
 {
