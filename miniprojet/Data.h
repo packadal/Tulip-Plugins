@@ -16,12 +16,12 @@
 class Data : public IData<float>
 {
 public:
-	inline int size() const { return _array.size(); }
+	inline size_t size() const { return _array.size(); }
 	inline void add(float x, float y) { _array.push_back(std::pair<float, float>(x, y)); }
-	float getX(int) const;
-	float getY(int) const;
-	void setX(int, float);
-	void setY(int, float);
+	inline float getX(int i) const { return _array.at(i).first; }
+	inline float getY(int i) const { return _array.at(i).second; }
+	void setX(size_t, float);
+	void setY(size_t, float);
 private:
 	std::vector<std::pair<float, float> > _array;
 };

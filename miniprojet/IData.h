@@ -11,12 +11,12 @@
 template<typename T> class IData
 {
 	public:
-		virtual int size() const = 0;
+		virtual size_t size() const = 0;
 		virtual void add(T, T) = 0;
 		virtual T getX(int) const = 0;
 		virtual T getY(int) const = 0;
-		virtual void setX(int, T) = 0;
-		virtual void setY(int, T) = 0;
+		virtual void setX(size_t, T) = 0;
+		virtual void setY(size_t, T) = 0;
 };
 
 #endif /* IDATA_H_ */

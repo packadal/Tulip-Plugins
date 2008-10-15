@@ -7,24 +7,18 @@
 
 #include "Data.h"
 
-void Data::setX(int index, float value)
+#include <stdexcept>
+
+void Data::setX(size_t index, float value)
 {
-	if(index < _array.size())
-	{
-	}
+	if(index >= _array.size())
+		throw new std::out_of_range("Data: index out of range");
+	_array[index].first = value;
 }
 
-void Data::setY(int index, float value)
+void Data::setY(size_t index, float value)
 {
-
-}
-
-float Data::getX(int i) const
-{
-	return _array.at(i).first;
-}
-
-float Data::getY(int i) const
-{
-	return _array.at(i).second;
+	if(index >= _array.size())
+		throw new std::out_of_range("Data: index out of range");
+	_array[index].second = value;
 }
