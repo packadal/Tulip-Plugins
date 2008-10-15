@@ -1,22 +1,22 @@
-#include "IDataTestCase.h"
+#include "DataTestCase.h"
 #include "Data.h"
 
-CPPUNIT_TEST_SUITE_REGISTRATION(IDataTestCase);
+CPPUNIT_TEST_SUITE_REGISTRATION(DataTestCase);
 
 
-void IDataTestCase::setUp()
+void DataTestCase::setUp()
 {
 	_data = new Data();
 }
 
-void IDataTestCase::tearDown()
+void DataTestCase::tearDown()
 {
 	delete _data;
 	_data = NULL;
 }
 
 
-void IDataTestCase::loadTest()
+void DataTestCase::loadTest()
 {
 	double x1 = 1, x2 = -2.2, x3 = 3.003;
 	double y1 = 4, y2 = 4.2, y3 = -4.003;
@@ -35,7 +35,7 @@ void IDataTestCase::loadTest()
 
 	_data->setX( 0, x3 );
 	_data->setY( 1, y1 );
-	
+
 	CPPUNIT_ASSERT_EQUAL( x3, _data->getX( 0 ) );
 	CPPUNIT_ASSERT_EQUAL( y1, _data->getY( 1 ) );
 

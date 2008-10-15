@@ -5,23 +5,21 @@
 #include <cppunit/extensions/HelperMacros.h>
 
 #include "IData.h"
-#include "IDataImpl.h"
+#include "Data.h"
 
-class IDataTestCase : public CppUnit::TestCase
+class DataTestCase : public CppUnit::TestCase
 {
   CPPUNIT_TEST_SUITE(IDataTestCase);
       CPPUNIT_TEST(loadTest);
-      CPPUNIT_TEST(storeTest);
   CPPUNIT_TEST_SUITE_END();
 private:
-
+	IData *_data;
 public:
     void setUp();
     void tearDown();
 
 protected:
     void loadTest();
-    void storeTest();
 
 };
 
