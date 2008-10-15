@@ -4,8 +4,8 @@
 #include <cppunit/TestCase.h>
 #include <cppunit/extensions/HelperMacros.h>
 
-#include "IData.h"
-#include "Data.h"
+#include "../miniprojet/IData.h"
+#include "../miniprojet/Data.h"
 
 class DataTestCase : public CppUnit::TestCase
 {
