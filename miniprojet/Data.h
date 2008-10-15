@@ -13,17 +13,17 @@
 
 #include "IData.h"
 
-class Data : public IData<float>
+template <typename T>class Data : public IData<T>
 {
 public:
 	inline size_t size() const { return _array.size(); }
-	inline void add(float x, float y) { _array.push_back(std::pair<float, float>(x, y)); }
+	inline void add(T x, T y) { _array.push_back(std::pair<T, T>(x, y)); }
 	inline float getX(int i) const { return _array.at(i).first; }
 	inline float getY(int i) const { return _array.at(i).second; }
-	void setX(size_t, float);
-	void setY(size_t, float);
+	void setX(size_t, T);
+	void setY(size_t, T);
 private:
-	std::vector<std::pair<float, float> > _array;
+	std::vector<std::pair<T, T> > _array;
 };
 
 #endif /* DATA_H_ */

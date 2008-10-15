@@ -8,13 +8,16 @@
 #ifndef IMODEL_H_
 #define IMODEL_H_
 
-class IModel
+#include "IData.h"
+
+template <typename T> class IModel
 {
 	public:
-		IData operator[](int);
-		virtual IData get(int) = 0;
-		virtual void add(IData) = 0;
-		virtual void erase(IData) = 0;
+		virtual size_t nbFunctions() = 0;
+//		IData operator[](int);
+		virtual IData<T>* get(int) = 0;
+		virtual void add(const IData<T>&) = 0;
+		virtual void erase(const IData<T>&) = 0;
 };
 
 #endif /* IMODEL_H_ */

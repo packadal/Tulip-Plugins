@@ -8,6 +8,8 @@
 #ifndef IDATA_H_
 #define IDATA_H_
 
+#include <cstddef>
+
 template<typename T> class IData
 {
 	public:
