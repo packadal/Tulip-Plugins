@@ -10,6 +10,10 @@
 
 #include "IData.h"
 
+/**
+ * This interface describes an array of IData.
+ * This typically is a list of functions.
+ */
 template <typename T> class IModel
 {
 	public:

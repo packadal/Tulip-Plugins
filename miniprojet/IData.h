@@ -10,6 +10,10 @@
 
 #include <cstddef>
 
+/**
+ * This interface describes the API for an array object.
+ * This is restrictive so the observer pattern may be used.
+ */
 template<typename T> class IData
 {
 	public:

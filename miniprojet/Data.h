@@ -13,6 +13,11 @@
 
 #include "IData.h"
 
+/**
+ * Implements the IData interface, so this will be manipulable as an IData item.
+ * This is implemented using a vector of pairs, to represent a function
+ * (pair.first ~= x; pair.second ~= y)
+ */
 template <typename T>class Data : public IData<T>
 {
 public:
