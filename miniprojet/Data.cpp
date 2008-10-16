@@ -11,12 +11,16 @@
 template<typename T>
 void Data<T>::setX(size_t index, T value)
 {
-
+	if(index >= _array.size())
+		throw new std::out_of_range("Data: index out of range");
+	_array[index].first = value;
 }
 
 template<typename T>
 void Data<T>::setY(size_t index, T value)
 {
-
+	if(index >= _array.size())
+		throw new std::out_of_range("Data: index out of range");
+	_array[index].second = value;
 }
 */

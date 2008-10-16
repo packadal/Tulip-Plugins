@@ -2,9 +2,7 @@
 #include <cstdlib>
 #include <ctime>
 
-
 CPPUNIT_TEST_SUITE_REGISTRATION(DataTestCase);
-
 
 void DataTestCase::setUp()
 {
@@ -17,16 +15,14 @@ void DataTestCase::tearDown()
 	_data = NULL;
 }
 
-
 void DataTestCase::loadTest()
 {
-
 	srand(time(NULL));
 
 	float x;
 	float y;
 
-	for(int i = 0; i< 100000; i++)
+	for(int i = 0; i< 1000; i++)
 	{
 		x =   (float) (1000.0 * (rand() / (RAND_MAX + 1.0))) - 500.0;
 		y =   (float) (1000.0 * (rand() / (RAND_MAX + 1.0))) - 500.0;
@@ -50,8 +46,5 @@ void DataTestCase::loadTest()
 		CPPUNIT_ASSERT_ASSERTION_FAIL( CPPUNIT_ASSERT_EQUAL( x, _data->getX( i ) + 1) );
 		CPPUNIT_ASSERT_ASSERTION_FAIL( CPPUNIT_ASSERT_EQUAL( y, _data->getY( i ) + 1) );
 	}
-	CPPUNIT_ASSERT_EQUAL((size_t)100000, _data->size());
+	CPPUNIT_ASSERT_EQUAL((size_t)1000, _data->size());
 }
-
-
-

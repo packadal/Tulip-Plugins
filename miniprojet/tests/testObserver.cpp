@@ -29,7 +29,7 @@ public:
 		std::cout << "L'objet observé a changé ! Il est désormais de taille " << ((Data<int> *)(subject))->size() << "." << std::endl;
 	}
 };
-
+/*
 int main()
 {
 	Data<int> * donneeObservee = new Data<int>;
@@ -39,3 +39,4 @@ int main()
 	delete donneeObservee;
 	delete objetObservateur;
 }
+*/
