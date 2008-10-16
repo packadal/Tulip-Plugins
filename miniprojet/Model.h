@@ -23,7 +23,7 @@ public:
 	inline size_t nbFunctions() { return _array.size(); }
 //	IData operator[](int);
 	inline IData<float>* get(int index) { return _array.at(index); }
-	inline void add(IData<float>* d) { _array.push_back(d); }
+	inline void add(const IData<float> * d) { _array.push_back(d); }
 	void erase(const IData<float>&);
 private:
 	std::vector<IData<float>*> _array;
