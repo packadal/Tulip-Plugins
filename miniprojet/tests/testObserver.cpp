@@ -1,8 +1,6 @@
 #ifndef TESTOBSERVER_H
 #define TESTOBSERVER_H
 
-
-#include <iostream>
 #include <cppunit/TestCase.h>
 #include <cppunit/extensions/HelperMacros.h>
 
@@ -20,7 +18,6 @@ public:
 	}
 	virtual void update(Observable * subject)
 	{
-		std::cout << "L'objet observé a changé ! Il est désormais de taille " << ((Data<int> *)(subject))->size() << "." << std::endl;
 		_data = ((Data<int> *)subject)->size();
 	}
 	inline int getData() const { return _data; }
@@ -59,7 +56,6 @@ protected:
 		_donneeObservee->add(8, 5);
     	CPPUNIT_ASSERT_EQUAL(_objetObservateur->getData(), 2);
     }
-
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION(ObserverTest);
