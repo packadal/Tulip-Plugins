@@ -10,10 +10,10 @@
 
 class ICurveContainer{
 	public :
-		virtual void addCurve(IData*)=0;
-		virtual void removeCurve(IData*)=0;
-		virtual void removeAll()=0;
-		virtual void setScale(IData*, float)=0;
+		virtual void addCurve(IData*) = 0;
+		virtual void removeCurve(IData*) = 0;
+		virtual void removeAll() = 0;
+		virtual void setScale(IData*, float) = 0;
 };
 
 #endif /* ICURVEContainer_H_ */
