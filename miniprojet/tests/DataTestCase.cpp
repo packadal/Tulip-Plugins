@@ -6,7 +6,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(DataTestCase);
 
 void DataTestCase::setUp()
 {
-	_data = new Data();
+	_data = new Data<float>();
 }
 
 void DataTestCase::tearDown()
@@ -18,8 +18,8 @@ void DataTestCase::tearDown()
 
 void DataTestCase::loadTest()
 {
-	double x1 = 1, x2 = -2.2, x3 = 3.003;
-	double y1 = 4, y2 = 4.2, y3 = -4.003;
+	float x1 = 1, x2 = -2.2, x3 = 3.003;
+	float y1 = 4, y2 = 4.2, y3 = -4.003;
 
 	_data->add( x1, y1 );
 	_data->add( x2, y2 );
