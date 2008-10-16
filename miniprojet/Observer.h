@@ -1,6 +1,8 @@
 #ifndef OBSERVER_H_
 #define OBSERVER_H_
 
+#include <string>
+
 class Observable;
 
 class Observer

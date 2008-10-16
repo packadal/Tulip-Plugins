@@ -13,7 +13,7 @@ void Observable::addObserver(Observer * observer)
 	_observers.insert(observer);
 }
 
-void Observable::removeObserver(Observer * observer) 
+void Observable::removeObserver(Observer * observer)
 {
 	_observers.erase(observer);
 }
