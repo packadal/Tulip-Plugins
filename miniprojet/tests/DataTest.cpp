@@ -1,21 +1,21 @@
-#include "DataTestCase.h"
+#include "DataTest.h"
 #include <cstdlib>
 #include <ctime>
 
-CPPUNIT_TEST_SUITE_REGISTRATION(DataTestCase);
+CPPUNIT_TEST_SUITE_REGISTRATION(DataTest);
 
-void DataTestCase::setUp()
+void DataTest::setUp()
 {
 	_data = new Data<float>();
 }
 
-void DataTestCase::tearDown()
+void DataTest::tearDown()
 {
 	delete _data;
 	_data = NULL;
 }
 
-void DataTestCase::loadTest()
+void DataTest::loadTest()
 {
 	srand(time(NULL));
 

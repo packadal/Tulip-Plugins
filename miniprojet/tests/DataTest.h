@@ -7,9 +7,9 @@
 #include "../IData.h"
 #include "../Data.h"
 
-class DataTestCase : public CppUnit::TestCase
+class DataTest : public CppUnit::TestCase
 {
-  CPPUNIT_TEST_SUITE(DataTestCase);
+  CPPUNIT_TEST_SUITE(DataTest);
       CPPUNIT_TEST(loadTest);
   CPPUNIT_TEST_SUITE_END();
 private:
