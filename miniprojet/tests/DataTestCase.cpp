@@ -50,6 +50,7 @@ void DataTestCase::loadTest()
 		CPPUNIT_ASSERT_ASSERTION_FAIL( CPPUNIT_ASSERT_EQUAL( x, _data->getX( i ) + 1) );
 		CPPUNIT_ASSERT_ASSERTION_FAIL( CPPUNIT_ASSERT_EQUAL( y, _data->getY( i ) + 1) );
 	}
+	CPPUNIT_ASSERT_EQUAL((size_t)100000, _data->size());
 }
 
 
