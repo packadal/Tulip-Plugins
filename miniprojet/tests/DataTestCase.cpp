@@ -1,4 +1,6 @@
 #include "DataTestCase.h"
+#include <cstdlib>
+#include <ctime>
 
 
 CPPUNIT_TEST_SUITE_REGISTRATION(DataTestCase);
@@ -18,30 +20,36 @@ void DataTestCase::tearDown()
 
 void DataTestCase::loadTest()
 {
-	float x1 = 1, x2 = -2.2, x3 = 3.003;
-	float y1 = 4, y2 = 4.2, y3 = -4.003;
 
-	_data->add( x1, y1 );
-	_data->add( x2, y2 );
-	_data->add( x3, y3 );
+	srand(time(NULL));
 
-	CPPUNIT_ASSERT_EQUAL( x1, _data->getX( 0 ) );
-	CPPUNIT_ASSERT_EQUAL( x3, _data->getX( 2 ) );
-	CPPUNIT_ASSERT_EQUAL( y2, _data->getY( 1 ) );
-	CPPUNIT_ASSERT_EQUAL( y3, _data->getY( 2 ) );
+	float x;
+	float y;
 
-	CPPUNIT_ASSERT_ASSERTION_FAIL( CPPUNIT_ASSERT_EQUAL( x1, _data->getX( 1 ) ) );
-	CPPUNIT_ASSERT_ASSERTION_FAIL( CPPUNIT_ASSERT_EQUAL( y2, _data->getY( 0 ) ) );
+	for(int i = 0; i< 100000; i++)
+	{
+		x =   (float) (1000.0 * (rand() / (RAND_MAX + 1.0))) - 500.0;
+		y =   (float) (1000.0 * (rand() / (RAND_MAX + 1.0))) - 500.0;
 
-	_data->setX( 0, x3 );
-	_data->setY( 1, y1 );
+		_data->add(x, y);
+		CPPUNIT_ASSERT_EQUAL( x, _data->getX( i ) );
+		CPPUNIT_ASSERT_EQUAL( y, _data->getY( i ) );
 
-	CPPUNIT_ASSERT_EQUAL( x3, _data->getX( 0 ) );
-	CPPUNIT_ASSERT_EQUAL( y1, _data->getY( 1 ) );
+		CPPUNIT_ASSERT_ASSERTION_FAIL( CPPUNIT_ASSERT_EQUAL( x, _data->getX( i ) + 1) );
+		CPPUNIT_ASSERT_ASSERTION_FAIL( CPPUNIT_ASSERT_EQUAL( y, _data->getY( i ) + 1) );
 
-	CPPUNIT_ASSERT_ASSERTION_FAIL( CPPUNIT_ASSERT_EQUAL( x3, _data->getX( 1 ) ) );
-	CPPUNIT_ASSERT_ASSERTION_FAIL( CPPUNIT_ASSERT_EQUAL( y1, _data->getY( 0 ) ) );
+		x =   (float) (1000.0 * (rand() / (RAND_MAX + 1.0))) - 500.0;
+		y =   (float) (1000.0 * (rand() / (RAND_MAX + 1.0))) - 500.0;
 
+		_data->setX(i, x);
+		_data->setY(i, y);
+
+		CPPUNIT_ASSERT_EQUAL( x, _data->getX( i ) );
+		CPPUNIT_ASSERT_EQUAL( y, _data->getY( i ) );
+
+		CPPUNIT_ASSERT_ASSERTION_FAIL( CPPUNIT_ASSERT_EQUAL( x, _data->getX( i ) + 1) );
+		CPPUNIT_ASSERT_ASSERTION_FAIL( CPPUNIT_ASSERT_EQUAL( y, _data->getY( i ) + 1) );
+	}
 }
 
 
