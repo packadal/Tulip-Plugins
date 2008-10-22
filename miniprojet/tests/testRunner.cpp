@@ -10,8 +10,18 @@
 #include <cppunit/ui/text/TestRunner.h>
 #include <cppunit/TestResult.h>
 
+#include <QApplication>
+#include "CurveWidgetTest.h"
+
+
 int main (int argc, char* argv[])
 {
+	// Tests de recette graphiques
+	QApplication app(argc, argv);
+    new CurveWidgetTest();
+	app.exec();
+
+    // Tests de recette "unitaires"
 	CppUnit::TextUi::TestRunner runner;
 
 	CppUnit::TestFactoryRegistry& registry = CppUnit::TestFactoryRegistry::getRegistry();
