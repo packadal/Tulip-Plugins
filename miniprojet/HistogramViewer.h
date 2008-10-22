@@ -11,17 +11,20 @@
 #include <QGraphicsItemGroup>
 
 #include "IGraphic.h"
+#include "Data.h"
 
 class HistogramViewer : public QGraphicsItemGroup, public IGraphic<float>
 {
 public:
-	HistogramViewer(IData<float>* graphic = 0);
+	HistogramViewer(IData<float>* graphic = new Data);
 	inline void setGraphic(IData<float>* graphic) { _graphic = graphic; updateGroup(); }
 	inline IData<float>* getGraphic() { return _graphic; }
-	void setScale(IData<float>*, float);
+	inline void setScale(float scale) { _scale = scale; }
+	inline float getScale() {return _scale; }
 private:
 	void updateGroup();
 	IData<float>* _graphic;
+	float _scale;
 };
 
 #endif /* HISTOGRAMVIEWER_H_ */

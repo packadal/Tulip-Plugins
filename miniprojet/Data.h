@@ -11,6 +11,7 @@
 #include <stdexcept>
 #include <vector>
 #include <map>
+#include <iostream>
 
 #include "IData.h"
 #include "Observable.h"
@@ -43,7 +44,9 @@ public:
 
 	virtual float getXMin() const
 	{
-		float temp;
+		if (_array.size() == 0)
+			return 0;
+		float temp = _array.begin()->first;
 		for(std::vector<std::pair<float, float> >::const_iterator it = _array.begin(); it != _array.end(); ++it)
 			temp = (temp < it->first ? temp : it->first );
 		return temp;
@@ -51,7 +54,9 @@ public:
 
 	virtual float getYMin() const
 	{
-		float temp;
+		if (_array.size() == 0)
+			return 0;
+		float temp = _array.begin()->second;
 		for(std::vector<std::pair<float, float> >::const_iterator it = _array.begin(); it != _array.end(); ++it)
 			temp = (temp < it->second ? temp : it->second);
 		return temp;
@@ -59,7 +64,9 @@ public:
 
 	virtual float getXMax() const
 	{
-		float temp;
+		if (_array.size() == 0)
+			return 0;
+		float temp = _array.begin()->first;
 		for(std::vector<std::pair<float, float> >::const_iterator it = _array.begin(); it != _array.end(); ++it)
 			temp = (temp > it->first ? temp : it->first);
 		return temp;
@@ -67,7 +74,9 @@ public:
 
 	virtual float getYMax() const
 	{
-		float temp;
+		if (_array.size() == 0)
+			return 0;
+		float temp = _array.begin()->second;
 		for(std::vector<std::pair<float, float> >::const_iterator it = _array.begin(); it != _array.end(); ++it)
 			temp = (temp > it->second ? temp : it->second);
 		return temp;
