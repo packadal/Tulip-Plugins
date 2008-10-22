@@ -18,12 +18,15 @@ class CurveGroup : public Graphic<float>
 {
 public:
 	CurveGroup(IData<float>*);
-	void setGraphic(IData<float>*);
+	~CurveGroup();
+
+	inline void setGraphic(IData<float>* graphic) { _graphic = graphic; updateGroup(); }
 	inline IData<float>* getGraphic(){return _graphic;};
 	void setScale(float f){_scale = f; scale(f,f);}
 	inline float getScale(){return _scale;};
-	~CurveGroup();
+	void update(Observable * subject);
 private:
+	void updateGroup();
 	IData<float>* _graphic;
 	float _scale;
 };

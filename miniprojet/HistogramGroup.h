@@ -22,7 +22,7 @@ public:
 	inline void setScale(float f) { _scale = f; scale(f, f); }
 	inline float getScale() {return _scale; }
 
-	void update(Observable * subject);
+	void update(Observable* subject);
 private:
 	void updateGroup();
 	IData<float>* _graphic;

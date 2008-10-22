@@ -22,7 +22,7 @@
  * (pair.first ~= x; pair.second ~= y)
  */
 
-class Data : public IData<float>, public Observable
+class Data : public IData<float>
 {
 public:
 	inline size_t size() const { return _array.size(); }

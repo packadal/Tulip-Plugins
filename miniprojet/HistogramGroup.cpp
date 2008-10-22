@@ -10,9 +10,10 @@
 #include <iostream>
 
 HistogramGroup::HistogramGroup(IData<float>* graphic)
-:_graphic(graphic)
+:_graphic(graphic), _scale(1)
 {
 	updateGroup();
+	_graphic->addObserver(this);
 }
 
 HistogramGroup::~HistogramGroup()
@@ -23,9 +24,9 @@ HistogramGroup::~HistogramGroup()
 void HistogramGroup::updateGroup()
 {
 	addToGroup(new QGraphicsLineItem(
-			QLine(0, _graphic->getYMin(), 0, _graphic->getYMax())));
+		QLine(0, _graphic->getYMin(), 0, _graphic->getYMax())));
 	addToGroup(new QGraphicsLineItem(
-			QLine(0, 0, _graphic->getXMax(), 0)));
+		QLine(0, 0, _graphic->getXMax(), 0)));
 
 	const int rectWidth = 5;
 	for(unsigned int i = 0; i < _graphic->size(); ++i)

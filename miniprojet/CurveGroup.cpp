@@ -11,11 +11,16 @@ CurveGroup::CurveGroup(IData<float>* graphic)
 {
 	setGraphic(graphic);
 	_scale = 1;
+	_graphic->addObserver(this);
 }
 
-void CurveGroup::setGraphic(IData<float>* graphic)
+CurveGroup::~CurveGroup()
 {
-	_graphic = graphic;
+	delete _graphic;
+}
+
+void CurveGroup::updateGroup()
+{
 	QGraphicsLineItem* qgi;
 	for(unsigned int i = 1; i < _graphic->size(); i++)
 	{
@@ -24,7 +29,11 @@ void CurveGroup::setGraphic(IData<float>* graphic)
 	}
 }
 
-CurveGroup::~CurveGroup()
+void CurveGroup::update(Observable * subject)
 {
-	delete(_graphic);
+	QList<QGraphicsItem*> list = children();
+	for(QList<QGraphicsItem*>::iterator it = list.begin(); it != list.end(); ++it)
+		removeFromGroup(*it);
+	updateGroup();
 }
+

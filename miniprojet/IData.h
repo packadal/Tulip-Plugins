@@ -9,12 +9,14 @@
 #define IDATA_H_
 
 #include <cstddef>
+#include "Observable.h"
 
 /**
  * This interface describes the API for an array object.
  * This is restrictive so the observer pattern may be used.
  */
-template<typename T> class IData
+template<typename T>
+class IData : public Observable
 {
 	public:
 		virtual size_t size() const = 0;
