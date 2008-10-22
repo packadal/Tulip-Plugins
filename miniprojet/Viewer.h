@@ -17,6 +17,7 @@ public:
 	inline Graphic<float>* getGraphic() { return _graphic; }
 
 private:
+	void setAxes();
 	QGraphicsScene* _scene; //do not delete, it's Qt's job
 	QGraphicsView* _view; //do not delete, it's Qt's job
 	Graphic<float>* _graphic;
