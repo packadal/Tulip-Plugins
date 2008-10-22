@@ -30,6 +30,7 @@
 <option id="gnu.cpp.compiler.exe.debug.option.debugging.level.1502993645" name="Debug Level" superClass="gnu.cpp.compiler.exe.debug.option.debugging.level" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
 <option id="gnu.cpp.compiler.option.include.paths.1642613620" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
 <listOptionValue builtIn="false" value="/autofs/netapp/account/cremi/chuet/liens/cppunit-1.12.1/include"/>
+<listOptionValue builtIn="false" value="/usr/include/qt4/QtGui"/>
 <listOptionValue builtIn="false" value="/usr/include/qt4"/>
 <listOptionValue builtIn="false" value="/usr/include/qt4/Qt"/>
 </option>
@@ -585,6 +586,7 @@
 </profile>
 </scannerConfigBuildInfo>
 </storageModule>
+<storageModule moduleId="org.eclipse.cdt.core.language.mapping"/>
 </cconfiguration>
 <cconfiguration id="cdt.managedbuild.config.gnu.exe.release.1192464624">
 <storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.gnu.exe.release.1192464624" moduleId="org.eclipse.cdt.core.settings" name="Release">
@@ -1149,6 +1151,7 @@
 </profile>
 </scannerConfigBuildInfo>
 </storageModule>
+<storageModule moduleId="org.eclipse.cdt.core.language.mapping"/>
 </cconfiguration>
 </storageModule>
 <storageModule moduleId="cdtBuildSystem" version="4.0.0">

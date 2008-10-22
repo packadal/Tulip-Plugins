@@ -8,14 +8,20 @@
 #ifndef HISTOGRAMVIEWER_H_
 #define HISTOGRAMVIEWER_H_
 
-#include <qwidget.h>
+#include <QGraphicsItemGroup>
 
-#include "IGraphicContainer.h"
+#include "IGraphic.h"
 
-class HistogramViewer : public QWidget, public IGraphicContainer<float>
+class HistogramViewer : public QGraphicsItemGroup, public IGraphic<float>
 {
 public:
-	HistogramViewer();
+	HistogramViewer(IData<float>* graphic = 0);
+	inline void setGraphic(IData<float>* graphic) { _graphic = graphic; updateGroup(); }
+	inline IData<float>* getGraphic() { return _graphic; }
+	void setScale(IData<float>*, float);
+private:
+	void updateGroup();
+	IData<float>* _graphic;
 };
 
 #endif /* HISTOGRAMVIEWER_H_ */

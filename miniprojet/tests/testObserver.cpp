@@ -18,7 +18,7 @@ public:
 	}
 	virtual void update(Observable * subject)
 	{
-		_data = ((Data<int> *)subject)->size();
+		_data = ((Data *)subject)->size();
 	}
 	inline int getData() const { return _data; }
 private:
@@ -33,11 +33,11 @@ class ObserverTest : public CppUnit::TestCase
 private:
 	IData<float> *_data;
 	TestObservateur * _objetObservateur;
-	Data<int> * _donneeObservee;
+	Data * _donneeObservee;
 public:
     void setUp()
     {
-    	_donneeObservee = new Data<int>;
+    	_donneeObservee = new Data;
 		_objetObservateur = new TestObservateur(_donneeObservee);
     }
 

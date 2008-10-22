@@ -7,8 +7,18 @@
 
 #include "HistogramViewer.h"
 
-HistogramViewer::HistogramViewer()
-:QWidget()
+HistogramViewer::HistogramViewer(IData<float>* graphic)
+:QGraphicsItemGroup(), _graphic(graphic)
+{
+	updateGroup();
+}
+
+void HistogramViewer::setScale(IData<float>*, float)
+{
+
+}
+
+void HistogramViewer::updateGroup()
 {
 
 }

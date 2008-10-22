@@ -20,27 +20,62 @@
  * This is implemented using a vector of pairs, to represent a function
  * (pair.first ~= x; pair.second ~= y)
  */
-template <typename T>class Data : public IData<T>, public Observable
+
+class Data : public IData<float>, public Observable
 {
 public:
 	inline size_t size() const { return _array.size(); }
-	inline void add(T x, T y) { _array.push_back(std::pair<T, T>(x, y)); notifyObservers(); }
-	inline T getX(int i) const { return _array.at(i).first; }
-	inline T getY(int i) const { return _array.at(i).second; }
-	virtual void setX(size_t index, T value)
+	inline void add(float x, float y) { _array.push_back(std::pair<float, float>(x, y)); notifyObservers(); }
+	inline float getX(int i) const { return _array.at(i).first; }
+	inline float getY(int i) const { return _array.at(i).second; }
+	virtual void setX(size_t index, float value)
 	{
 		if(index >= _array.size())
 			throw new std::out_of_range("Data: index out of range");
 		_array[index].first = value;
 	}
-	virtual void setY(size_t index, T value)
+	virtual void setY(size_t index, float value)
 	{
 		if(index >= _array.size())
 			throw new std::out_of_range("Data: index out of range");
 		_array[index].second = value;
 	}
+
+	virtual float getXMin() const
+	{
+		float temp;
+		for(std::vector<std::pair<float, float> >::const_iterator it = _array.begin(); it != _array.end(); ++it)
+			temp = (temp < it->first ? temp : it->first );
+		return temp;
+	}
+
+	virtual float getYMin() const
+	{
+		float temp;
+		for(std::vector<std::pair<float, float> >::const_iterator it = _array.begin(); it != _array.end(); ++it)
+			temp = (temp < it->second ? temp : it->second);
+		return temp;
+	}
+
+	virtual float getXMax() const
+	{
+		float temp;
+		for(std::vector<std::pair<float, float> >::const_iterator it = _array.begin(); it != _array.end(); ++it)
+			temp = (temp > it->first ? temp : it->first);
+		return temp;
+	}
+
+	virtual float getYMax() const
+	{
+		float temp;
+		for(std::vector<std::pair<float, float> >::const_iterator it = _array.begin(); it != _array.end(); ++it)
+			temp = (temp > it->second ? temp : it->second);
+		return temp;
+	}
+
+
 private:
-	std::vector<std::pair<T, T> > _array;
+	std::vector<std::pair<float, float> > _array;
 };
 
 #endif /* DATA_H_ */

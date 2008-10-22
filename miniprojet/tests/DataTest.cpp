@@ -6,7 +6,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(DataTest);
 
 void DataTest::setUp()
 {
-	_data = new Data<float>();
+	_data = new Data();
 }
 
 void DataTest::tearDown()

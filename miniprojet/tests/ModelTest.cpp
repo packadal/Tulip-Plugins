@@ -29,7 +29,7 @@ void ModelTest::tearDown()
 
 void ModelTest::loadTest()
 {
-	IData<float> * courbe = new Data<float>();
+	IData<float> * courbe = new Data();
 	_model->add(courbe);
 	CPPUNIT_ASSERT_EQUAL(courbe, _model->get(0));
 	CPPUNIT_ASSERT_EQUAL((size_t)1, _model->nbFunctions());
@@ -41,7 +41,7 @@ void ModelTest::loadTest()
 	}
 	catch(std::out_of_range e){ ; }
 
-	IData<float> * courbe2 = new Data<float>();
+	IData<float> * courbe2 = new Data();
 	_model->add(courbe);
 	_model->add(courbe2);
 	CPPUNIT_ASSERT_EQUAL(courbe2, _model->get(1));

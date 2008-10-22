@@ -23,6 +23,10 @@ template<typename T> class IData
 		virtual T getY(int) const = 0;
 		virtual void setX(size_t, T) = 0;
 		virtual void setY(size_t, T) = 0;
+		virtual T getXMin() const = 0;
+		virtual T getYMin() const = 0;
+		virtual T getXMax() const = 0;
+		virtual T getYMax() const = 0;
 };
 
 #endif /* IDATA_H_ */
