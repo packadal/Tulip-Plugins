@@ -20,5 +20,5 @@ GraphicsWidgetTest::GraphicsWidgetTest()
      hg->setScale(10);
      new Viewer(cg);
      new Viewer(hg);
-
+     d->add(70, -40);
 }

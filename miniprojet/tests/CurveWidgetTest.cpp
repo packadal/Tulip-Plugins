@@ -15,6 +15,8 @@ CurveWidgetTest::CurveWidgetTest()
 
      CurveGroup* cg = new CurveGroup(d);
      cg->setScale(10);
+
      new Viewer(cg);
 
+     d->add(70, -40);
 }
