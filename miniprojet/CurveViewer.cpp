@@ -26,7 +26,7 @@ void CurveViewer::setScale(float scale)
 	_scale = scale;
 }
 
-float CurveViewer::setScale()
+float CurveViewer::getScale()
 {
 	return _scale;
 }

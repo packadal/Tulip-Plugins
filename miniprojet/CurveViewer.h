@@ -18,7 +18,7 @@ public:
 	CurveViewer();
 	void setGraphic(IData<float>*);
 	IData<float>* getGraphic();
-	void setScale(IData<float>*, float);
+	void setScale(float);
 	float getScale();
 private:
 	IData<float>* _array;
