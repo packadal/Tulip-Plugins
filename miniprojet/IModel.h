@@ -18,7 +18,6 @@ template <typename T> class IModel
 {
 	public:
 		virtual size_t nbFunctions() = 0;
-//		IData operator[](int);
 		virtual IData<T>* get(int) = 0;
 		virtual void add(IData<T> *) = 0;
 		virtual void erase(const IData<T>*) = 0;
