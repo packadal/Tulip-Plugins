@@ -11,10 +11,10 @@
 #include "Graphic.h"
 #include "Data.h"
 
-class HistogramViewer : public Graphic<float>
+class HistogramGroup : public Graphic<float>
 {
 public:
-	HistogramViewer(IData<float>* graphic = new Data);
+	HistogramGroup(IData<float>* graphic = new Data);
 	inline void setGraphic(IData<float>* graphic) { _graphic = graphic; updateGroup(); }
 	inline IData<float>* getGraphic() { return _graphic; }
 	inline void setScale(float f) { _scale = f; scale(f, f); }

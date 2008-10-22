@@ -9,13 +9,13 @@
 
 #include <iostream>
 
-HistogramViewer::HistogramViewer(IData<float>* graphic)
+HistogramGroup::HistogramGroup(IData<float>* graphic)
 :_graphic(graphic)
 {
 	updateGroup();
 }
 
-void HistogramViewer::updateGroup()
+void HistogramGroup::updateGroup()
 {
 	addToGroup(new QGraphicsLineItem(
 			QLine(0, _graphic->getYMin(), 0, _graphic->getYMax())));
