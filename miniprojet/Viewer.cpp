@@ -13,6 +13,11 @@ Viewer::Viewer(Graphic<float>* graphic)
 	_view->show();
 }
 
+Viewer::~Viewer()
+{
+	delete _graphic;
+}
+
 void Viewer::setGraphic(Graphic<float>* graphic)
 {
 	_graphic = graphic;

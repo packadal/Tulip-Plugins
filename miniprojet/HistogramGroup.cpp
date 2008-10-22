@@ -15,6 +15,11 @@ HistogramGroup::HistogramGroup(IData<float>* graphic)
 	updateGroup();
 }
 
+HistogramGroup::~HistogramGroup()
+{
+	delete _graphic;
+}
+
 void HistogramGroup::updateGroup()
 {
 	addToGroup(new QGraphicsLineItem(

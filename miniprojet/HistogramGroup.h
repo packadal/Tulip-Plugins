@@ -15,6 +15,8 @@ class HistogramGroup : public Graphic<float>
 {
 public:
 	HistogramGroup(IData<float>* graphic = new Data);
+	virtual ~HistogramGroup();
+
 	inline void setGraphic(IData<float>* graphic) { _graphic = graphic; updateGroup(); }
 	inline IData<float>* getGraphic() { return _graphic; }
 	inline void setScale(float f) { _scale = f; scale(f, f); }
