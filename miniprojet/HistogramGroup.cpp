@@ -35,3 +35,11 @@ void HistogramGroup::updateGroup()
 		addToGroup(new QGraphicsRectItem(rectWidth*2*i, 0, rectWidth, -y));
 	}
 }
+
+void HistogramGroup::update(Observable * subject)
+{
+	QList<QGraphicsItem*> list = children();
+	for(QList<QGraphicsItem*>::iterator it = list.begin(); it != list.end(); ++it)
+		removeFromGroup(*it);
+	updateGroup();
+}
