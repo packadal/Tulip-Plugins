@@ -14,19 +14,15 @@ CurveViewer::CurveViewer()
 void CurveViewer::setGraphic(IData<float>* array)
 {
 	_array = array;
-}
-
-IData<float>* CurveViewer::getGraphic()
-{
-	return _array;
+	QGraphicsLineItem* qgi;
+	for(unsigned int i = 1; i < _array->size(); i++)
+	{
+		qgi = new QGraphicsLineItem(_array->getX(i-1), _array->getY(i-1), _array->getX(i), _array->getY(i));
+		addToGroup(qgi);
+	}
 }
 
 void CurveViewer::setScale(float scale)
 {
-	_scale = scale;
-}
-
-float CurveViewer::getScale()
-{
-	return _scale;
+	_scale=scale;
 }

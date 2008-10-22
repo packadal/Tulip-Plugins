@@ -9,17 +9,19 @@
 #define CURVEVIEWER_H_
 
 #include <qwidget.h>
+#include <QGraphicsItem>
+#include <QGraphicsItemGroup>
 
 #include "IGraphic.h"
 
-class CurveViewer : public QWidget, public IGraphic<float>
+class CurveViewer : public QGraphicsItemGroup, public IGraphic<float>
 {
 public:
 	CurveViewer();
 	void setGraphic(IData<float>*);
-	IData<float>* getGraphic();
+	inline IData<float>* getGraphic(){return _array;};
 	void setScale(float);
-	float getScale();
+	inline float getScale(){return _scale;};
 private:
 	IData<float>* _array;
 	float _scale;
