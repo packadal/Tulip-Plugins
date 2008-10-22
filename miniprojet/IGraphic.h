@@ -14,7 +14,8 @@ template <typename T>class IGraphic{
 	public :
 		virtual void setGraphic(IData<T>*) = 0;
 		virtual IData<T>* getGraphic() = 0;
-		virtual void setScale(IData<T>*, float) = 0;
+		virtual void setScale(float) = 0;
+		virtual float getScale() = 0;
 };
 
 #endif /* IGraphicContainer_H_ */
