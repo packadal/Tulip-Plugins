@@ -10,7 +10,7 @@
 #include <iostream>
 
 HistogramViewer::HistogramViewer(IData<float>* graphic)
-:QGraphicsItemGroup(), _graphic(graphic)
+:_graphic(graphic)
 {
 	updateGroup();
 }

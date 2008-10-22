@@ -64,7 +64,7 @@
 </toolChain>
 </folderInfo>
 <sourceEntries>
-<entry excluding="testExamples/testObserver.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+<entry excluding="tests/testRunner.cpp|testExamples/testObserver.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 </sourceEntries>
 </configuration>
 </storageModule>
@@ -629,7 +629,7 @@
 </toolChain>
 </folderInfo>
 <sourceEntries>
-<entry excluding="testExamples/testObserver.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+<entry excluding="tests/testRunner.cpp|testExamples/testObserver.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 </sourceEntries>
 </configuration>
 </storageModule>
@@ -1155,6 +1155,6 @@
 </cconfiguration>
 </storageModule>
 <storageModule moduleId="cdtBuildSystem" version="4.0.0">
-<project id="miniprojet-2.cdt.managedbuild.target.gnu.exe.2002876861" name="Executable" projectType="cdt.managedbuild.target.gnu.exe"/>
+<project id="tulip-plugins.cdt.managedbuild.target.gnu.exe.1495144396" name="Executable" projectType="cdt.managedbuild.target.gnu.exe"/>
 </storageModule>
 </cproject>

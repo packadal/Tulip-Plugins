@@ -8,9 +8,13 @@
 #ifndef ICURVECONTAINER_H_
 #define ICURVECONTAINER_H_
 
+#include <QGraphicsItemGroup>
+
 #include "IData.h"
 
-template <typename T>class IGraphic{
+template <typename T>
+class Graphic : public QGraphicsItemGroup
+{
 	public :
 		virtual void setGraphic(IData<T>*) = 0;
 		virtual IData<T>* getGraphic() = 0;
