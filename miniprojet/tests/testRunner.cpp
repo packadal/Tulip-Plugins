@@ -11,14 +11,14 @@
 #include <cppunit/TestResult.h>
 
 #include <QApplication>
-#include "CurveWidgetTest.h"
+#include "GraphicsWidgetTest.h"
 
 
 int main (int argc, char* argv[])
 {
 	// Tests de recette graphiques
 	QApplication app(argc, argv);
-    new CurveWidgetTest();
+    new GraphicsWidgetTest();
 	app.exec();
 
     // Tests de recette "unitaires"
