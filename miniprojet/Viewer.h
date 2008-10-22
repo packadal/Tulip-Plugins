@@ -12,6 +12,9 @@ public:
 	Viewer();
 	Viewer(Graphic<float>*);
 
+	void setGraphic(Graphic<float>*);
+	inline Graphic<float>* getGraphic() { return _graphic; }
+
 private:
 	QGraphicsScene* _scene;
 	QGraphicsView* _view;

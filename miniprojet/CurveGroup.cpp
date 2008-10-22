@@ -14,11 +14,11 @@ CurveGroup::CurveGroup(IData<float>* graphic)
 
 void CurveGroup::setGraphic(IData<float>* graphic)
 {
-	_array = graphic;
+	_graphic = graphic;
 	QGraphicsLineItem* qgi;
-	for(unsigned int i = 1; i < _array->size(); i++)
+	for(unsigned int i = 1; i < _graphic->size(); i++)
 	{
-		qgi = new QGraphicsLineItem(_array->getX(i-1), _array->getY(i-1), _array->getX(i), _array->getY(i));
+		qgi = new QGraphicsLineItem(_graphic->getX(i-1), _graphic->getY(i-1), _graphic->getX(i), _graphic->getY(i));
 		addToGroup(qgi);
 	}
 }

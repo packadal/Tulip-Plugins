@@ -5,7 +5,7 @@
  *      Author: chuet
  */
 
-#include "HistogramViewer.h"
+#include "HistogramGroup.h"
 
 #include <iostream>
 
