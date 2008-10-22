@@ -12,16 +12,16 @@
 #include <QGraphicsItem>
 #include <QGraphicsItemGroup>
 
-#include "IGraphic.h"
+#include "Graphic.h"
 
-class CurveViewer : public QGraphicsItemGroup, public IGraphic<float>
+class CurveViewer : public QGraphicsItemGroup, public Graphic<float>
 {
 public:
 	CurveViewer();
 	void setGraphic(IData<float>*);
 	inline IData<float>* getGraphic(){return _array;};
 	void setScale(float);
-	inline float getScale(){return _scale;};
+	inline float getScale(){return _scale;}
 private:
 	IData<float>* _array;
 	float _scale;
