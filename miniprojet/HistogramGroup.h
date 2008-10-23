@@ -8,10 +8,10 @@
 #ifndef HISTOGRAMVIEWER_H_
 #define HISTOGRAMVIEWER_H_
 
-#include "Graphic.h"
+#include "QGraphic.h"
 #include "Data.h"
 
-class HistogramGroup : public Graphic<float>
+class HistogramGroup : public QGraphic
 {
 public:
 	HistogramGroup(IData<float>* graphic = new Data);
