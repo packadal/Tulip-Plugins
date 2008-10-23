@@ -22,7 +22,7 @@ private:
 	QGraphicsView* _view; //do not delete, it's Qt's job
 	Graphic<float>* _graphic;
 
-	virtual void update(Observable * subject);
+	void update(Observable * subject);
 };
 
 #endif /* VIEWER_H_ */

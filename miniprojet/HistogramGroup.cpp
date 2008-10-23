@@ -22,6 +22,9 @@ HistogramGroup::~HistogramGroup()
 
 void HistogramGroup::updateGroup()
 {
+	QList<QGraphicsItem*> list = children();
+	for(QList<QGraphicsItem*>::iterator it = list.begin(); it != list.end(); ++it)
+		removeFromGroup(*it);
 	const int rectWidth = 5;
 	for(unsigned int i = 0; i < _graphic->size(); ++i)
 	{

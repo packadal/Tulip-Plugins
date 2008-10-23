@@ -17,10 +17,10 @@ public:
 	HistogramGroup(IData<float>* graphic = new Data);
 	virtual ~HistogramGroup();
 
-	inline void setGraphic(IData<float>* graphic) { _graphic = graphic; updateGroup(); }
+	inline void setGraphic(IData<float>* graphic) { _graphic = graphic;}
 	inline IData<float>* getGraphic() { return _graphic; }
-	inline void setScale(float f) { _scale = f; scale(f, f); }
-	inline float getScale() {return _scale; }
+	inline void setScale(float f) { _scale = f; scale(f, f);}
+	inline float getScale() {return _scale;}
 	void updateGroup();
 private:
 	IData<float>* _graphic;

@@ -20,6 +20,9 @@ CurveGroup::~CurveGroup()
 
 void CurveGroup::updateGroup()
 {
+	QList<QGraphicsItem*> list = children();
+	for(QList<QGraphicsItem*>::iterator it = list.begin(); it != list.end(); ++it)
+		removeFromGroup(*it);
 	QGraphicsLineItem* qgi;
 	for(unsigned int i = 1; i < _graphic->size(); i++)
 	{
