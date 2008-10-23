@@ -8,7 +8,7 @@
 #ifndef CURVEGROUP_H_
 #define CURVEGROUP_H_
 
-#include <qwidget.h>
+#include <QWidget>
 #include <QGraphicsItem>
 #include <QGraphicsItemGroup>
 
