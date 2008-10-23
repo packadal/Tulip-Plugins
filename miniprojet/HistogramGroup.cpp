@@ -22,7 +22,7 @@ HistogramGroup::~HistogramGroup()
 
 void HistogramGroup::updateGroup()
 {
-	QList<QGraphicsItem*> list = children();
+	QList<QGraphicsItem*> list = QGraphicsItemGroup::children();
 	for(QList<QGraphicsItem*>::iterator it = list.begin(); it != list.end(); ++it)
 		removeFromGroup(*it);
 	const int rectWidth = 5;

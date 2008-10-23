@@ -22,8 +22,6 @@ public slots :
 	virtual IData<float>* getGraphic() = 0;
 	virtual void setScale(float) = 0;
 	virtual float getScale() = 0;
-
-	virtual void update(Observable * subject) = 0;
 };
 
 #endif /* QGRAPHIC_H_ */
