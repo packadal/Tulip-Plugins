@@ -5,8 +5,8 @@
  *      Author: rnappee
  */
 
-#ifndef ICURVECONTAINER_H_
-#define ICURVECONTAINER_H_
+#ifndef GRAPHIC_H_
+#define GRAPHIC_H_
 
 #include <QGraphicsItemGroup>
 
@@ -24,4 +24,4 @@ class Graphic : public QGraphicsItemGroup
 		virtual void updateGroup() = 0;
 };
 
-#endif /* IGraphicContainer_H_ */
+#endif /* GRAPHIC_H_ */

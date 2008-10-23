@@ -12,13 +12,15 @@
 
 #include <QApplication>
 #include "GraphicsWidgetTest.h"
+#include "ScriptWidgetTest.h"
 
 
 int main (int argc, char* argv[])
 {
 	// Tests de recette graphiques
 	QApplication app(argc, argv);
-    new GraphicsWidgetTest();
+//    new GraphicsWidgetTest();
+    new ScriptWidgetTest();
 	app.exec();
 
     // Tests de recette "unitaires"
