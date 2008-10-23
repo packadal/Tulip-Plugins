@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "Viewer.h"
 
 Viewer::Viewer()
@@ -9,7 +11,9 @@ Viewer::Viewer()
 Viewer::Viewer(Graphic<float>* graphic)
 :QWidget(), _scene(new QGraphicsScene), _view(new QGraphicsView(_scene)), _graphic(graphic)
 {
+	_graphic->getGraphic()->addObserver(this);
 	_scene->addItem(_graphic);
+	setAxes();
 	_view->show();
 }
 
@@ -27,9 +31,25 @@ void Viewer::setGraphic(Graphic<float>* graphic)
 
 void Viewer::setAxes()
 {
+
 	float xmin,xmax, ymin, ymax;
-	QList<Graphic*> ql = items();
-	for(unsigned int i = 0; i < ql.size(); i++)
-	{;
-	}
+	IData<float>* id = _graphic->getGraphic();
+	xmin = id->getXMin();
+	xmax = id->getXMax();
+	ymin = id->getYMin();
+	ymax = id->getYMax();
+	QGraphicsItemGroup* axes = new QGraphicsItemGroup();
+	axes->addToGroup(new QGraphicsLineItem(xmin, 0, xmax, 0));
+	axes->addToGroup(new QGraphicsLineItem(0, ymin, 0, ymax));
+	_scene->addItem(axes);
+	_view->show();
 }
+
+void Viewer::update(Observable * subject)
+{
+	QList<QGraphicsItem*> list = _graphic->children();
+	for(QList<QGraphicsItem*>::iterator it = list.begin(); it != list.end(); ++it)
+		_graphic->removeFromGroup(*it);
+	_graphic->updateGroup();
+}
+

@@ -6,7 +6,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 
-class Viewer : public QWidget
+class Viewer : public QWidget, public Observer
 {
 public:
 	Viewer();
@@ -21,6 +21,8 @@ private:
 	QGraphicsScene* _scene; //do not delete, it's Qt's job
 	QGraphicsView* _view; //do not delete, it's Qt's job
 	Graphic<float>* _graphic;
+
+	virtual void update(Observable * subject);
 };
 
 #endif /* VIEWER_H_ */

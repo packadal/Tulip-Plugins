@@ -24,9 +24,8 @@ public:
 	inline IData<float>* getGraphic(){return _graphic;};
 	void setScale(float f){_scale = f; scale(f,f);}
 	inline float getScale(){return _scale;};
-	void update(Observable * subject);
-private:
 	void updateGroup();
+private:
 	IData<float>* _graphic;
 	float _scale;
 };
