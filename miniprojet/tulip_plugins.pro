@@ -39,4 +39,4 @@ RESOURCES +=
 LIBS += -L/net/cremi/chuet/liens/cppunit/lib
 LIBS += -lcppunit
 INCLUDEPATH += /net/cremi/chuet/liens/cppunit/include
-FORMS += tulip_plugins.ui
+FORMS += ScriptViewer.ui
