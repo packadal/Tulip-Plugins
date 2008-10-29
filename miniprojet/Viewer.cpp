@@ -2,8 +2,8 @@
 
 #include "Viewer.h"
 
-Viewer::Viewer()
-:QWidget(), _scene(new QGraphicsScene), _view(new QGraphicsView(_scene))
+Viewer::Viewer(QWidget* parent)
+:QWidget(), _scene(new QGraphicsScene(parent)), _view(new QGraphicsView(_scene))
 {
 	_view->show();
 }

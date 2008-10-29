@@ -9,7 +9,7 @@
 class Viewer : public QWidget, public Observer
 {
 public:
-	Viewer();
+	Viewer(QWidget* parent = 0);
 	Viewer(IData<float>*, Graphic<float>*);
 
 	void addGraphic(IData<float>*, Graphic<float>*);
