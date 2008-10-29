@@ -3,7 +3,7 @@
 #include "Viewer.h"
 
 Viewer::Viewer(QWidget* parent)
-:QWidget(), _scene(new QGraphicsScene(parent)), _view(new QGraphicsView(_scene))
+:QWidget(parent), _scene(new QGraphicsScene(parent)), _view(new QGraphicsView(_scene))
 {
 	_view->show();
 }
@@ -64,6 +64,7 @@ void Viewer::update(Observable* subject)
 		it != _mapGraphics.upper_bound((IData<float>*)(subject));
 		it++
 	) {
+		it->second->setData(it->first);
 		_scene->addItem(it->second);
 	}
 }
