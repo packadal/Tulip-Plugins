@@ -27,7 +27,7 @@ SOURCES += tests/CurveWidgetTest.cpp \
     tests/ModelTest.cpp \
     tests/ScriptWidgetTest.cpp \
    	tests/testObserver.cpp \
-    main.cpp \
+   	tests/testRunner.cpp \
     ScriptViewer.cpp \
     CurveGroup.cpp \
     HistogramGroup.cpp \
