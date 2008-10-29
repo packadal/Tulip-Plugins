@@ -3,17 +3,15 @@
 #include "Viewer.h"
 #include "Data.h"
 
-Viewer::Viewer(QWidget* parent)
-:QWidget(parent), _scene(new QGraphicsScene()), _view(new QGraphicsView(_scene))
+Viewer::Viewer()
+:QWidget(), _scene(new QGraphicsScene()), _view(new QGraphicsView(_scene))
 {
-	_view->show();
 }
 
-Viewer::Viewer(IData<float>* data, Graphic<float>* graphic, QWidget* parent)
-:QWidget(parent), _scene(new QGraphicsScene()), _view(new QGraphicsView(_scene)), _axis(0)
+Viewer::Viewer(IData<float>* data, Graphic<float>* graphic)
+:QWidget(), _scene(new QGraphicsScene()), _view(new QGraphicsView(_scene)), _axis(0)
 {
 	addGraphic(data, graphic);
-	_view->show();
 }
 
 void Viewer::addGraphic(IData<float>* data, Graphic<float>* graphic)
@@ -64,10 +62,10 @@ void Viewer::update(Observable* subject)
 
 void Viewer::updateAxis()
 {
-	if (_axis != 0)
-		_scene->removeItem(_axis);
+//	if (_axis != 0)
+//		_scene->removeItem(_axis);
 
-	float xmin, xmax, ymin, ymax;
+	float xmin = 0., xmax =0., ymin = 0., ymax = 0.;
 	for (std::multimap<IData<float>*, Graphic<float>* >::const_iterator it = _mapGraphics.begin();
 		it != _mapGraphics.end();
 		it++)
@@ -82,5 +80,9 @@ void Viewer::updateAxis()
 	_axis->addToGroup(new QGraphicsLineItem(xmin, 0, xmax, 0));
 	_axis->addToGroup(new QGraphicsLineItem(0, -ymin, 0, -ymax));
 	_scene->addItem(_axis);
+}
+
+void Viewer::show()
+{
 	_view->show();
 }

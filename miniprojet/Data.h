@@ -14,7 +14,7 @@
 #include <set>
 #include <iostream>
 
-#include "IData.h"
+#include "QData.h"
 #include "Observable.h"
 
 /**
@@ -23,24 +23,26 @@
  * (pair.first ~= x; pair.second ~= y)
  */
 
-class Data : public IData<float>
+class Data : public QData
 {
 public:
 	inline size_t size() const { return _array.size(); }
 	inline void add(float x, float y) { _array.push_back(std::pair<float, float>(x, y)); notifyObservers(); }
 	inline float getX(int i) const { return _array.at(i).first; }
 	inline float getY(int i) const { return _array.at(i).second; }
-	virtual void setX(size_t index, float value)
+	virtual void setX(unsigned int index, float value)
 	{
 		if(index >= _array.size())
 			throw new std::out_of_range("Data: index out of range");
 		_array[index].first = value;
+		notifyObservers();
 	}
-	virtual void setY(size_t index, float value)
+	virtual void setY(unsigned int index, float value)
 	{
 		if(index >= _array.size())
 			throw new std::out_of_range("Data: index out of range");
 		_array[index].second = value;
+		notifyObservers();
 	}
 
 	virtual float getXMin() const

@@ -9,14 +9,16 @@
 class Viewer : public QWidget, public Observer
 {
 public:
-	Viewer(QWidget* parent = 0);
-	Viewer(IData<float>*, Graphic<float>*, QWidget* parent = 0);
+	Viewer();
+	Viewer(IData<float>*, Graphic<float>*);
 
 	void addGraphic(IData<float>*, Graphic<float>*);
 	std::set<Graphic<float>*> getGraphics(IData<float>*);
 	void removeGraphic(IData<float>*, Graphic<float>*);
 
-private:
+	void show();
+
+protected:
 	void updateAxis();
 	QGraphicsScene* _scene; //do not delete, it's Qt's job
 	QGraphicsView* _view; //do not delete, it's Qt's job

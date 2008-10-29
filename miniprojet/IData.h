@@ -23,8 +23,8 @@ class IData : public Observable
 		virtual void add(T, T) = 0;
 		virtual T getX(int) const = 0;
 		virtual T getY(int) const = 0;
-		virtual void setX(size_t, T) = 0;
-		virtual void setY(size_t, T) = 0;
+		virtual void setX(unsigned int, T) = 0;
+		virtual void setY(unsigned int, T) = 0;
 		virtual T getXMin() const = 0;
 		virtual T getYMin() const = 0;
 		virtual T getXMax() const = 0;
