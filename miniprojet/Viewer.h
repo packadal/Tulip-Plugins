@@ -10,7 +10,7 @@ class Viewer : public QWidget, public Observer
 {
 public:
 	Viewer(QWidget* parent = 0);
-	Viewer(IData<float>*, Graphic<float>*);
+	Viewer(IData<float>*, Graphic<float>*, QWidget* parent = 0);
 
 	void addGraphic(IData<float>*, Graphic<float>*);
 	std::set<Graphic<float>*> getGraphics(IData<float>*);

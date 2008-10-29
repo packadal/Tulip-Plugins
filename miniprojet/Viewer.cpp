@@ -3,41 +3,48 @@
 #include "Viewer.h"
 
 Viewer::Viewer(QWidget* parent)
-:QWidget(parent), _scene(new QGraphicsScene(parent)), _view(new QGraphicsView(_scene))
+:QWidget(parent), _scene(new QGraphicsScene()), _view(new QGraphicsView(_scene))
 {
 	_view->show();
 }
 
-Viewer::Viewer(IData<float>* data, Graphic<float>* graphic)
-:QWidget(), _scene(new QGraphicsScene), _view(new QGraphicsView(_scene))
+Viewer::Viewer(IData<float>* data, Graphic<float>* graphic, QWidget* parent)
+:QWidget(parent), _scene(new QGraphicsScene()), _view(new QGraphicsView(_scene))
 {
+	std::cout << "totototocacacaca1" << std::endl;
 	addGraphic(data, graphic);
+	std::cout << "totototocacacaca2" << std::endl;
 	_view->show();
+	std::cout << "totototocacacaca3" << std::endl;
+
 }
-
-
-//void Viewer::addGraphic(Graphic<float>* graphic)
-//{
-//	_graphic = graphic;
-//	_scene->addItem(_graphic);
-//	setAxes();
-//}
 
 void Viewer::addGraphic(IData<float>* data, Graphic<float>* graphic)
 {
 	std::pair<IData<float>*, Graphic<float>*> pair(data, graphic);
+	std::cout << "totototocacacaca6" << std::endl;
+
 	_mapGraphics.insert(pair);
+	std::cout << "totototocacacaca5" << std::endl;
+
 	update((Observable *)(data));
+	std::cout << "totototocacacaca4" << std::endl;
+
+
 }
 
 std::set<Graphic<float>*> Viewer::getGraphics(IData<float>* data)
 {
 	std::set<Graphic<float>*> result;
+	std::cout << "totototocacacaca" << std::endl;
+
 	for (
 		std::multimap<IData<float>*, Graphic<float>* >::const_iterator it = _mapGraphics.lower_bound(data);
 		it != _mapGraphics.upper_bound(data);
 		it++
 	) {
+		std::cout << "totototocacacaca" << std::endl;
+
 		result.insert(it->second);
 	}
 	return result;
@@ -71,7 +78,8 @@ void Viewer::update(Observable* subject)
 
 void Viewer::updateAxis()
 {
-	_scene->removeItem(_axis);
+	//if (_axis != 0)
+		//_scene->removeItem(_axis);
 
 	float xmin, xmax, ymin, ymax;
 	for (

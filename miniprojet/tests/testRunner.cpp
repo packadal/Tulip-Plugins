@@ -13,14 +13,19 @@
 #include <QApplication>
 #include "GraphicsWidgetTest.h"
 #include "ScriptWidgetTest.h"
+#include <iostream>
 
 int main (int argc, char* argv[])
 {
+
 	// Tests de recette graphiques
 	QApplication app(argc, argv);
+
     new GraphicsWidgetTest();
+
     new ScriptWidgetTest();
-	app.exec();
+
+    app.exec();
 
     // Tests de recette "unitaires"
 	CppUnit::TextUi::TestRunner runner;

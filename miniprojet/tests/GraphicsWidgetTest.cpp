@@ -18,7 +18,12 @@ GraphicsWidgetTest::GraphicsWidgetTest()
      HistogramGroup* hg = new HistogramGroup(d);
 //     cg->setScale(10);
 //     hg->setScale(10);
+
      new Viewer(d, cg);
      new Viewer(d, hg);
+     std::cout << "totototocacacaca" << std::endl;
+
      d->add(70, -40);
+ 	std::cout << "totototocacacaca" << std::endl;
+
 }
