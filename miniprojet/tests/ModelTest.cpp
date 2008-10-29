@@ -5,11 +5,13 @@
  *      Author: dmothes
  */
 
-#include "ModelTest.h"
-#include "../Model.h"
-#include "../Data.h"
+#include <stdexcept>
 #include <cstdlib>
 #include <ctime>
+
+#include "ModelTest.h"
+#include "Model.h"
+#include "Data.h"
 
 
 CPPUNIT_TEST_SUITE_REGISTRATION(ModelTest);
