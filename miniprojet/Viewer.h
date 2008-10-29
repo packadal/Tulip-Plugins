@@ -17,6 +17,7 @@ public:
 	void removeGraphic(IData<float>*, Graphic<float>*);
 
 	void show();
+	inline void scale(float factor) { _view->scale(factor, factor); }
 
 protected:
 	void updateAxis();

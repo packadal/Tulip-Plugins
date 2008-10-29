@@ -21,14 +21,14 @@ HEADERS += QData.h \
     Observer.h \
     QGraphic.h \
     Viewer.h
-SOURCES += tests/CurveWidgetTest.cpp \
+SOURCES += ScriptViewer.cpp \
+    tests/CurveWidgetTest.cpp \
     tests/DataTest.cpp \
     tests/GraphicsWidgetTest.cpp \
     tests/ModelTest.cpp \
     tests/ScriptWidgetTest.cpp \
-   	tests/testObserver.cpp \
-   	tests/testRunner.cpp \
-    ScriptViewer.cpp \
+    tests/testObserver.cpp \
+    tests/testRunner.cpp \
     CurveGroup.cpp \
     HistogramGroup.cpp \
     Model.cpp \

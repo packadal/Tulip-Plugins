@@ -40,8 +40,10 @@ void Viewer::removeGraphic(IData<float> * data, Graphic<float>* graphic)
 		it != _mapGraphics.upper_bound(data);
 		it++)
 	{
-		if (it->second == graphic)
+		if (it->second == graphic && _scene->items().contains(it->second)) {
+			_scene->removeItem(it->second);
 			_mapGraphics.erase(it);
+		}
 	}
 	update(data);
 }
@@ -62,10 +64,10 @@ void Viewer::update(Observable* subject)
 
 void Viewer::updateAxis()
 {
-//	if (_axis != 0)
-//		_scene->removeItem(_axis);
+	if (_axis != 0)
+		_scene->removeItem(_axis);
 
-	float xmin = 0., xmax =0., ymin = 0., ymax = 0.;
+	float xmin = 0., xmax = 0., ymin = 0., ymax = 0.;
 	for (std::multimap<IData<float>*, Graphic<float>* >::const_iterator it = _mapGraphics.begin();
 		it != _mapGraphics.end();
 		it++)
@@ -78,7 +80,12 @@ void Viewer::updateAxis()
 
 	_axis = new QGraphicsItemGroup();
 	_axis->addToGroup(new QGraphicsLineItem(xmin, 0, xmax, 0));
+	_axis->addToGroup(new QGraphicsLineItem(xmax - 2, -2, xmax, 0));
+	_axis->addToGroup(new QGraphicsLineItem(xmax - 2, 2, xmax, 0));
 	_axis->addToGroup(new QGraphicsLineItem(0, -ymin, 0, -ymax));
+	_axis->addToGroup(new QGraphicsLineItem(-2, -ymax + 2, 0, -ymax));
+	_axis->addToGroup(new QGraphicsLineItem(2, -ymax + 2, 0, -ymax));
+
 	_scene->addItem(_axis);
 }
 

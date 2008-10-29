@@ -20,10 +20,14 @@ ScriptWidgetTest::ScriptWidgetTest()
 //	cg->setScale(10);
 //	hg->setScale(10);
 	Viewer* v1 = new Viewer(d, cg);
+	v1->show();
 	Viewer* v2 = new Viewer(d, hg);
+	v2->show();
 	d->add(70, -40);
 	v1->addGraphic(d, hg);
-	v2->removeGraphic(d, hg);
+	v1->removeGraphic(d, hg);
+	v1->scale(3);
+	v2->scale(2);
 /*	QScriptEngine* engine = new QScriptEngine();
 
 	QScriptValue value = engine->newQObject(hg);
