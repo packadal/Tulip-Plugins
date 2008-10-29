@@ -37,3 +37,5 @@ RESOURCES +=
 LIBS += -L/net/cremi/chuet/liens/cppunit/lib
 LIBS += -lcppunit
 INCLUDEPATH += /net/cremi/chuet/liens/cppunit/include
+INCLUDEPATH += /usr/include/c++/4.2
+INCLUDEPATH += /usr/include/c++/4.2/backward

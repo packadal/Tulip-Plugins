@@ -18,10 +18,7 @@ class QGraphic : public QObject, public Graphic<float>
 {
 	Q_OBJECT
 public slots :
-	virtual void setGraphic(IData<float>*) = 0;
-	virtual IData<float>* getGraphic() = 0;
-	virtual void setScale(float) = 0;
-	virtual float getScale() = 0;
+	virtual void setData(IData<float>*) = 0;
 };
 
 #endif /* QGRAPHIC_H_ */

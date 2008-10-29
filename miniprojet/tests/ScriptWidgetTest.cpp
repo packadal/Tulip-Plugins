@@ -17,10 +17,10 @@ ScriptWidgetTest::ScriptWidgetTest()
 
 	CurveGroup* cg = new CurveGroup(d);
 	HistogramGroup* hg = new HistogramGroup(d);
-	cg->setScale(10);
-	hg->setScale(10);
-	new Viewer(cg);
-	new Viewer(hg);
+//	cg->setScale(10);
+//	hg->setScale(10);
+	new Viewer(d, cg);
+	new Viewer(d, hg);
 	d->add(70, -40);
 
 	QScriptEngine* engine = new QScriptEngine();

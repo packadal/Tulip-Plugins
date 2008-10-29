@@ -9,27 +9,21 @@
 
 #include <iostream>
 
-HistogramGroup::HistogramGroup(IData<float>* graphic)
-:_graphic(graphic), _scale(1)
+HistogramGroup::HistogramGroup(IData<float>* data)
 {
-	updateGroup();
+	setData(data);
 }
 
-HistogramGroup::~HistogramGroup()
-{
-	delete _graphic;
-}
-
-void HistogramGroup::updateGroup()
+void HistogramGroup::setData(IData<float>* data)
 {
 	QList<QGraphicsItem*> list = QGraphicsItemGroup::children();
 	for(QList<QGraphicsItem*>::iterator it = list.begin(); it != list.end(); ++it)
 		removeFromGroup(*it);
 	const int rectWidth = 5;
-	for(unsigned int i = 0; i < _graphic->size(); ++i)
+	for(unsigned int i = 0; i < data->size(); ++i)
 	{
-//		int x = _graphic->getX(i);
-		int y = _graphic->getY(i);
+//		int x = data->getX(i);
+		int y = data->getY(i);
 		addToGroup(new QGraphicsRectItem(rectWidth*2*i, 0, rectWidth, -y));
 	}
 }

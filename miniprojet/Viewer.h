@@ -10,19 +10,20 @@ class Viewer : public QWidget, public Observer
 {
 public:
 	Viewer();
-	Viewer(Graphic<float>*);
-	~Viewer();
+	Viewer(IData<float>*, Graphic<float>*);
 
-	void setGraphic(Graphic<float>*);
-	inline Graphic<float>* getGraphic() { return _graphic; }
+	void addGraphic(IData<float>*, Graphic<float>*);
+	std::set<Graphic<float>*> getGraphics(IData<float>*);
+	void removeGraphic(IData<float>*, Graphic<float>*);
 
 private:
-	void setAxes();
+	//void setAxes();
 	QGraphicsScene* _scene; //do not delete, it's Qt's job
 	QGraphicsView* _view; //do not delete, it's Qt's job
-	Graphic<float>* _graphic;
 
 	void update(Observable * subject);
+
+	std::multimap<IData<float>*, Graphic<float>* > _mapGraphics;
 };
 
 #endif /* VIEWER_H_ */

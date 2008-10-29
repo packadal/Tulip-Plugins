@@ -17,11 +17,7 @@ template <typename T>
 class Graphic : public QGraphicsItemGroup
 {
 	public :
-		virtual void setGraphic(IData<T>*) = 0;
-		virtual IData<T>* getGraphic() = 0;
-		virtual void setScale(float) = 0;
-		virtual float getScale() = 0;
-		virtual void updateGroup() = 0;
+		virtual void setData(IData<T>*) = 0;
 };
 
 #endif /* GRAPHIC_H_ */

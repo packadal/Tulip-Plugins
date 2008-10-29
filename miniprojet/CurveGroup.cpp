@@ -7,26 +7,20 @@
 
 #include "CurveGroup.h"
 
-CurveGroup::CurveGroup(IData<float>* graphic)
+CurveGroup::CurveGroup(IData<float>* data)
 {
-	setGraphic(graphic);
-	_scale = 1;
+	setData(data);
 }
 
-CurveGroup::~CurveGroup()
-{
-	delete _graphic;
-}
-
-void CurveGroup::updateGroup()
+void CurveGroup::setData(IData<float>* data)
 {
 	QList<QGraphicsItem*> list = children();
 	for(QList<QGraphicsItem*>::iterator it = list.begin(); it != list.end(); ++it)
 		removeFromGroup(*it);
 	QGraphicsLineItem* qgi;
-	for(unsigned int i = 1; i < _graphic->size(); i++)
+	for(unsigned int i = 1; i < data->size(); i++)
 	{
-		qgi = new QGraphicsLineItem(_graphic->getX(i-1), -_graphic->getY(i-1), _graphic->getX(i), -_graphic->getY(i));
+		qgi = new QGraphicsLineItem(data->getX(i-1), -data->getY(i-1), data->getX(i), -data->getY(i));
 		addToGroup(qgi);
 	}
 }
