@@ -19,14 +19,15 @@ ScriptWidgetTest::ScriptWidgetTest()
 	HistogramGroup* hg = new HistogramGroup(d);
 //	cg->setScale(10);
 //	hg->setScale(10);
-	new Viewer(d, cg);
-	new Viewer(d, hg);
+	Viewer* v1 = new Viewer(d, cg);
+	Viewer* v2 = new Viewer(d, hg);
 	d->add(70, -40);
-
-	QScriptEngine* engine = new QScriptEngine();
+	v1->addGraphic(d, hg);
+	v2->removeGraphic(d, hg);
+/*	QScriptEngine* engine = new QScriptEngine();
 
 	QScriptValue value = engine->newQObject(hg);
 	engine->globalObject().setProperty("histo", value);
 
-	engine->evaluate("histo.setScale(10);");
+	engine->evaluate("histo.setScale(10);");*/
 }

@@ -2,6 +2,7 @@
 #define OBSERVABLE_H_
 
 #include <set>
+#include <list>
 
 class Observer;
 
@@ -10,11 +11,11 @@ class Observable
 public:
 	Observable();
 	virtual ~Observable();
-	void addObserver(Observer * observer);
-	void removeObserver(Observer * observer);
+	void addObserver(Observer* observer);
+	void removeObserver(Observer* observer);
 	void notifyObservers();
 private:
-	std::set<Observer *> _observers;
+	std::set<Observer*> _observers;
 };
 
 #include "Observer.h"

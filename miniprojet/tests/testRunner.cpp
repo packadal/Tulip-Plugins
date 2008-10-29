@@ -21,7 +21,7 @@ int main (int argc, char* argv[])
 	// Tests de recette graphiques
 	QApplication app(argc, argv);
 
-    new GraphicsWidgetTest();
+//    new GraphicsWidgetTest();
 
     new ScriptWidgetTest();
 

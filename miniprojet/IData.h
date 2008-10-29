@@ -16,7 +16,7 @@
  * This is restrictive so the observer pattern may be used.
  */
 template<typename T>
-class IData
+class IData : public Observable
 {
 	public:
 		virtual size_t size() const = 0;

@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "Viewer.h"
+#include "Data.h"
 
 Viewer::Viewer(QWidget* parent)
 :QWidget(parent), _scene(new QGraphicsScene()), _view(new QGraphicsView(_scene))
@@ -19,17 +20,17 @@ void Viewer::addGraphic(IData<float>* data, Graphic<float>* graphic)
 {
 	std::pair<IData<float>*, Graphic<float>*> pair(data, graphic);
 	_mapGraphics.insert(pair);
-	update((Observable *)(data));
+	data->addObserver(this);
+	update(data);
 }
 
 std::set<Graphic<float>*> Viewer::getGraphics(IData<float>* data)
 {
 	std::set<Graphic<float>*> result;
-	for (
-		std::multimap<IData<float>*, Graphic<float>* >::const_iterator it = _mapGraphics.lower_bound(data);
+	for (std::multimap<IData<float>*, Graphic<float>* >::const_iterator it = _mapGraphics.lower_bound(data);
 		it != _mapGraphics.upper_bound(data);
-		it++
-	) {
+		it++)
+	{
 		result.insert(it->second);
 	}
 	return result;
@@ -37,25 +38,25 @@ std::set<Graphic<float>*> Viewer::getGraphics(IData<float>* data)
 
 void Viewer::removeGraphic(IData<float> * data, Graphic<float>* graphic)
 {
-	for (
-		std::multimap<IData<float>*, Graphic<float>* >::iterator it = _mapGraphics.lower_bound(data);
+	for (std::multimap<IData<float>*, Graphic<float>* >::iterator it = _mapGraphics.lower_bound(data);
 		it != _mapGraphics.upper_bound(data);
-		it++
-	) {
+		it++)
+	{
 		if (it->second == graphic)
 			_mapGraphics.erase(it);
 	}
-	update((Observable*)(data));
+	update(data);
 }
 
 void Viewer::update(Observable* subject)
 {
 	updateAxis();
-	for (
-		std::multimap<IData<float>*, Graphic<float>* >::iterator it = _mapGraphics.lower_bound((IData<float>*)(subject));
+	for (std::multimap<IData<float>*, Graphic<float>* >::iterator it = _mapGraphics.lower_bound((IData<float>*)(subject));
 		it != _mapGraphics.upper_bound((IData<float>*)(subject));
-		it++
-	) {
+		it++)
+	{
+		if (_scene->items().contains(it->second))
+			_scene->removeItem(it->second);
 		it->second->setData(it->first);
 		_scene->addItem(it->second);
 	}
@@ -67,11 +68,10 @@ void Viewer::updateAxis()
 		_scene->removeItem(_axis);
 
 	float xmin, xmax, ymin, ymax;
-	for (
-		std::multimap<IData<float>*, Graphic<float>* >::const_iterator it = _mapGraphics.begin();
+	for (std::multimap<IData<float>*, Graphic<float>* >::const_iterator it = _mapGraphics.begin();
 		it != _mapGraphics.end();
-		it++
-	) {
+		it++)
+	{
 		if (it->first->getXMin() < xmin) xmin = it->first->getXMin();
 		if (it->first->getYMin() < ymin) ymin = it->first->getYMin();
 		if (it->first->getXMax() > xmax) xmax = it->first->getXMax();
