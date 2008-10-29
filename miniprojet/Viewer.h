@@ -17,9 +17,10 @@ public:
 	void removeGraphic(IData<float>*, Graphic<float>*);
 
 private:
-	//void setAxes();
+	void updateAxis();
 	QGraphicsScene* _scene; //do not delete, it's Qt's job
 	QGraphicsView* _view; //do not delete, it's Qt's job
+	QGraphicsItemGroup* _axis;
 
 	void update(Observable * subject);
 

@@ -33,7 +33,7 @@ SOURCES += CurveGroup.cpp \
     tests/ModelTest.cpp \
     tests/testObserver.cpp \
     tests/testRunner.cpp
-RESOURCES +=
+RESOURCES += 
 LIBS += -L/net/cremi/chuet/liens/cppunit/lib
 LIBS += -lcppunit
 INCLUDEPATH += /net/cremi/chuet/liens/cppunit/include
