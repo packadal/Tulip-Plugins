@@ -8,8 +8,6 @@
 
 ScriptWidgetTest::ScriptWidgetTest()
 {
-	std::cout << "totototocacacaca" << std::endl;
-
 	IData<float>* d = new Data();
 	d->add(10, 3);
 	d->add(30, 4);
