@@ -1,3 +1,5 @@
+#include <QApplication>
+
 #include "Application.h"
 
 #include "Data.h"
@@ -40,4 +42,15 @@ Application::Application()
 Application::~Application()
 {
 
+}
+
+int main(int argc, char** argv)
+{
+	QApplication app(argc, argv);
+
+
+
+	Application appli;
+
+	return app.exec();
 }

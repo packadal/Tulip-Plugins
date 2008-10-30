@@ -30,7 +30,7 @@ SOURCES += Application.cpp \
     tests/ModelTest.cpp \
     tests/ScriptWidgetTest.cpp \
     tests/testObserver.cpp \
-    tests/testRunner.cpp \
+    # tests/testRunner.cpp \
     CurveGroup.cpp \
     HistogramGroup.cpp \
     Model.cpp \
