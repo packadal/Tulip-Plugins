@@ -9,28 +9,32 @@
 
 Application::Application()
 {
-	IData<float>* d = new Data();
+	IData<float>* d = new Data(),
+		*d2 = new Data();
 	d->add(10, 3);
 	d->add(30, 4);
 	d->add(40, -10);
 	d->add(50, 6);
 	d->add(60, 12);
 
+	d2->add(10, -5);
+	d2->add(20, 10);
+	d2->add(30, 50);
+
 	CurveGroup* cg = new CurveGroup(d);
-	HistogramGroup* hg = new HistogramGroup(d);
+	HistogramGroup* hg = new HistogramGroup(d),
+		*hg2 = new HistogramGroup(d2);
 	hg->setColor(QColor(255, 0, 0));
+	hg2->setColor(QColor(0, 255, 0));
 	cg->setColor(QColor(0, 0, 255));
 	//	cg->setScale(10);
 	//	hg->setScale(10);
 	Viewer* v1 = new Viewer(d, cg);
 	v1->show();
-	Viewer* v2 = new Viewer(d, hg);
-	v2->show();
 	d->add(70, -40);
+	v1->addGraphic(d2, hg2);
 	v1->addGraphic(d, hg);
-	v1->removeGraphic(d, hg);
 	v1->scale(3);
-	v2->scale(2);
 /*	QScriptEngine* engine = new QScriptEngine();
 
 	QScriptValue value = engine->newQObject(hg);
@@ -47,8 +51,6 @@ Application::~Application()
 int main(int argc, char** argv)
 {
 	QApplication app(argc, argv);
-
-
 
 	Application appli;
 
