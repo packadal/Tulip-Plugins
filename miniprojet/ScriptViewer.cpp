@@ -6,24 +6,29 @@
  */
 
 #include "ScriptViewer.h"
-
+#include "Data.h"
 #include <iostream>
 
 using namespace std;
 
-ScriptViewer::ScriptViewer(QData* data, Graphic<float>* graphic)
-:Viewer(data, graphic), _engine(new QScriptEngine())
+ScriptViewer::ScriptViewer()
+:Viewer(), _engine(new QScriptEngine())
 {
 	ui.setupUi(this);
 //	ui.graphicsView = _view;
 	ui.verticalLayout->addWidget(_view);
 
 
+	/*
 	QScriptValue value = _engine->newQObject(ui.pushButton);
 	_engine->globalObject().setProperty("button", value);
 
 	value = _engine->newQObject(data);
 	_engine->globalObject().setProperty("data", value);
+
+	QData* d = new DataScript(_engine);
+	_engine->globalObject().setProperty("Data", d->constructor());*/
+
 
 	connect(ui.pushButton, SIGNAL(clicked(bool)), this, SLOT(evaluate()));
 	connect(ui.textEdit, SIGNAL(textChanged()), this, SLOT(check()));
@@ -32,6 +37,14 @@ ScriptViewer::ScriptViewer(QData* data, Graphic<float>* graphic)
 ScriptViewer::~ScriptViewer()
 {
 	delete _engine;
+}
+
+void ScriptViewer::addGraphic(IData<float>* dat, Graphic<float>* graphic)
+{
+	QData* data = new Data(dat);
+	QScriptValue value = _engine->newQObject(data);
+	_engine->globalObject().setProperty("data"+QString::number(_mapGraphics.size()), value);
+	Viewer::addGraphic(data, graphic);
 }
 
 void ScriptViewer::check()
@@ -53,8 +66,9 @@ void ScriptViewer::evaluate()
 		ui.label->setText("");
 }
 
-QScriptValue ScriptViewer::addGraphic()
+/*
+void ScriptViewer::addGraphic()
 {
 	QScriptValue q;
 	return q;
-}
+}*/

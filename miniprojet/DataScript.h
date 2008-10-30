@@ -5,8 +5,8 @@
  *      Author: chuet, rpatau, rnappee
  */
 
-#ifndef DATA_H_
-#define DATA_H_
+#ifndef DATASCRIPT_H_
+#define DATASCRIPT_H_
 
 #include <stdexcept>
 #include <vector>
@@ -22,16 +22,18 @@
  * This is implemented using a vector of pairs, to represent a function
  * (pair.first ~= x; pair.second ~= y)
  */
-
-class Data : public QData
+/*
+class DataScript : public QData
 {
 	Q_OBJECT
 public:
-	Data() {}
-	Data(IData<float>* data)
+	DataScript(QScriptEngine* engine):QData(engine) {}
+	DataScript(QScriptEngine* engine, IData<float>* data):QData(engine)
 	{
 		for(uint i = 0; i < data->size(); ++i)
+		{
 			add(data->getX(i), data->getY(i));
+		}
 	}
 	inline size_t size() const { return _array.size(); }
 	inline void add(float x, float y) { _array.push_back(std::pair<float, float>(x, y)); notifyObservers(); }
@@ -96,5 +98,5 @@ public:
 private:
 	std::vector<std::pair<float, float> > _array;
 };
-
-#endif /* DATA_H_ */
+*/
+#endif /* DATASCRIPT_H_ */

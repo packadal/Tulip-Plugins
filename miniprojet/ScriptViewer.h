@@ -18,15 +18,17 @@ class ScriptViewer: public Viewer
 {
 	Q_OBJECT
 public:
-	ScriptViewer(QData*, Graphic<float>*);
+	ScriptViewer();
 	virtual ~ScriptViewer();
 
 	void show() { QWidget::show(); }
+	inline QScriptEngine* getEngine() { return _engine; }
+	void addGraphic(IData<float>*, Graphic<float>*);
 
 public slots:
     void evaluate();
     void check();
-    QScriptValue addGraphic();
+//    QScriptValue addGraphic();
 //    QScriptValue getGraphics(QData*);
 
 private:

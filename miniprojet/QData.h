@@ -9,9 +9,14 @@
 #define QDATA_H_
 
 #include <QObject>
+#include <QScriptable>
+#include <QtScript/QScriptEngine>
+
+
 #include "IData.h"
 
-class QData : public QObject, public IData<float>
+
+class QData : public QObject, public QScriptable, public IData<float>
 {
 	Q_OBJECT
 public slots:
@@ -25,6 +30,12 @@ public slots:
 		virtual float getYMin() const = 0;
 		virtual float getXMax() const = 0;
 		virtual float getYMax() const = 0;
+/*
+		virtual QScriptValue constructor()
+		{
+			QData* q = qscriptvalue_cast<QData*>(this);
+			return q->newInstance();
+		}*/
 };
 
 #endif /* QDATA_H_ */
