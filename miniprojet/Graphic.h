@@ -18,6 +18,7 @@ class Graphic : public QGraphicsItemGroup
 {
 	public :
 		virtual void setData(IData<T>*) = 0;
+		virtual void setColor(QColor) = 0;
 };
 
 #endif /* GRAPHIC_H_ */

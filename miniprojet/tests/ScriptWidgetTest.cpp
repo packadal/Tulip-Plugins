@@ -17,7 +17,9 @@ ScriptWidgetTest::ScriptWidgetTest()
 
 	CurveGroup* cg = new CurveGroup(d);
 	HistogramGroup* hg = new HistogramGroup(d);
-//	cg->setScale(10);
+	hg->setColor(QColor(255, 0, 0));
+	cg->setColor(QColor(0, 0, 255));
+	//	cg->setScale(10);
 //	hg->setScale(10);
 	Viewer* v1 = new Viewer(d, cg);
 	v1->show();

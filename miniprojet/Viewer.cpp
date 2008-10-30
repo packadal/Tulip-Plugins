@@ -34,7 +34,7 @@ std::set<Graphic<float>*> Viewer::getGraphics(IData<float>* data)
 	return result;
 }
 
-void Viewer::removeGraphic(IData<float> * data, Graphic<float>* graphic)
+void Viewer::removeGraphic(IData<float>* data, Graphic<float>* graphic)
 {
 	for (std::multimap<IData<float>*, Graphic<float>* >::iterator it = _mapGraphics.lower_bound(data);
 		it != _mapGraphics.upper_bound(data);

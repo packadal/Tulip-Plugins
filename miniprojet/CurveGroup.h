@@ -20,7 +20,9 @@ public:
 	CurveGroup(IData<float>*);
 
 	void setData(IData<float>*);
+	void setColor(QColor);
 private:
+	QColor _color;
 
 };
 

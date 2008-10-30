@@ -17,7 +17,9 @@ public:
 	HistogramGroup(IData<float>*);
 
 	void setData(IData<float>*);
+	void setColor(QColor);
 private:
+	QColor _color;
 };
 
 #endif /* HISTOGRAMVIEWER_H_ */
