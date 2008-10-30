@@ -89,6 +89,29 @@ void Viewer::updateAxis()
 	_scene->addItem(_axis);
 }
 
+//void Viewer::paintEvent(QPaintEvent* event)
+//{
+//	QPainter painter(this);
+//
+////	painter.setColor
+////	painter.drawLine(width())
+//	painter.setPen(QPen(QColor(255, 0, 0)));
+//	painter.drawLine(width()-50, height()-50, width()+50, height()+50);
+//
+//	int i = 0;
+//	for (std::multimap<IData<float>*, Graphic<float>* >::const_iterator it = _mapGraphics.begin();
+//		it != _mapGraphics.end();//
+//		it++)
+//	{
+//
+//		painter.setPen(QPen(it->second->getColor()));
+//		painter.drawLine(width()-50, height()-50, width()+50, height()+50);
+//
+//		i++;
+//	}
+//
+//}
+
 void Viewer::show()
 {
 	_view->show();

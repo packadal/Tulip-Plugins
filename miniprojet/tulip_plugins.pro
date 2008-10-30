@@ -3,7 +3,8 @@ TARGET = tulip_plugins
 QT += core \
     gui \
     script
-HEADERS += QData.h \
+HEADERS += Application.h \
+    QData.h \
     tests/CurveWidgetTest.h \
     tests/DataTest.h \
     tests/GraphicsWidgetTest.h \
@@ -21,7 +22,8 @@ HEADERS += QData.h \
     Observer.h \
     QGraphic.h \
     Viewer.h
-SOURCES += ScriptViewer.cpp \
+SOURCES += Application.cpp \
+    ScriptViewer.cpp \
     tests/CurveWidgetTest.cpp \
     tests/DataTest.cpp \
     tests/GraphicsWidgetTest.cpp \

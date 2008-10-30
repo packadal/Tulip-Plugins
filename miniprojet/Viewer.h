@@ -21,6 +21,7 @@ public:
 
 protected:
 	void updateAxis();
+	//void paintEvent(QPaintEvent* event);
 	QGraphicsScene* _scene; //do not delete, it's Qt's job
 	QGraphicsView* _view; //do not delete, it's Qt's job
 	QGraphicsItemGroup* _axis;

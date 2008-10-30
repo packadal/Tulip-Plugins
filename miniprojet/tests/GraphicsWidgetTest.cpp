@@ -5,22 +5,44 @@
 #include "../IData.h"
 #include "../Data.h"
 
-GraphicsWidgetTest::GraphicsWidgetTest()
+CPPUNIT_TEST_SUITE_REGISTRATION(GraphicsWidgetTest);
+
+void GraphicsWidgetTest::setUp()
 {
-     IData<float>* d = new Data();
-     d->add(10, 3);
-     d->add(30, 4);
-     d->add(40, -10);
-     d->add(50, 6);
-     d->add(60, 12);
+	_data = new Data();
+	_data->add(10, 3);
+	_data->add(30, 4);
+	_data->add(40, -10);
+	_data->add(50, 6);
+	_data->add(60, 12);
 
-     CurveGroup* cg = new CurveGroup(d);
-     HistogramGroup* hg = new HistogramGroup(d);
-//     cg->setScale(10);
-//     hg->setScale(10);
+	_graphic = new CurveGroup(_data);
+	_graphic2 = new HistogramGroup(_data);
+	_graphic->setColor(QColor(255, 0, 0));
+	_graphic2->setColor(QColor(0, 0, 255));
 
-     new Viewer(d, cg);
-     new Viewer(d, hg);
+	_viewer = new Viewer(_data, _graphic);
+	_viewer2 = new Viewer(_data, _graphic2);
 
-     d->add(70, -40);
+	_data->add(70, -40);
+
+	_viewer->addGraphic(_data, _graphic2);
+	_viewer->removeGraphic(_data, _graphic2);
+	_viewer->scale(3);
+	_viewer2->scale(2);
+}
+
+void GraphicsWidgetTest::tearDown()
+{
+	delete _viewer;
+	delete _viewer2;
+	delete _data;
+	delete _data2;
+	delete _graphic;
+	delete _graphic2;
+}
+
+void GraphicsWidgetTest::loadTest()
+{
+
 }

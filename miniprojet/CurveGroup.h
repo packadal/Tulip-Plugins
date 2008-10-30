@@ -21,6 +21,7 @@ public:
 
 	void setData(IData<float>*);
 	void setColor(QColor);
+	QColor getColor();
 private:
 	QColor _color;
 

@@ -40,3 +40,8 @@ void HistogramGroup::setColor(QColor color)
 	_color = color;
 }
 
+QColor HistogramGroup::getColor()
+{
+	return _color;
+}
+

@@ -23,7 +23,7 @@ int main (int argc, char* argv[])
 
 //    new GraphicsWidgetTest();
 
-    new ScriptWidgetTest();
+    //new ScriptWidgetTest();
 
     app.exec();
 

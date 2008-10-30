@@ -1,10 +1,3 @@
-/*
- * CurveGroup.cpp
- *
- *  Created on: 22 oct. 2008
- *      Author: lburelou
- */
-
 #include "CurveGroup.h"
 #include <QPen>
 
@@ -33,3 +26,7 @@ void CurveGroup::setColor(QColor color)
 	_color = color;
 }
 
+QColor CurveGroup::getColor()
+{
+	return _color;
+}
