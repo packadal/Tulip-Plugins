@@ -12,7 +12,7 @@
 class GraphicsWidgetTest : public CppUnit::TestCase
 {
   CPPUNIT_TEST_SUITE(GraphicsWidgetTest);
-      CPPUNIT_TEST(loadTest);
+      CPPUNIT_TEST(runTest);
   CPPUNIT_TEST_SUITE_END();
 private:
 	IData<float> *_data, *_data2;
@@ -23,7 +23,7 @@ public:
     void tearDown();
 
 protected:
-    void loadTest();
+    void runTest();
 
 };
 

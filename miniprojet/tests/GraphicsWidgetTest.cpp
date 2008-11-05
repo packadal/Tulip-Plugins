@@ -5,8 +5,6 @@
 #include "../IData.h"
 #include "../Data.h"
 
-CPPUNIT_TEST_SUITE_REGISTRATION(GraphicsWidgetTest);
-
 void GraphicsWidgetTest::setUp()
 {
 	_data = new Data();
@@ -34,15 +32,11 @@ void GraphicsWidgetTest::setUp()
 
 void GraphicsWidgetTest::tearDown()
 {
-	delete _viewer;
-	delete _viewer2;
-	delete _data;
-	delete _data2;
-	delete _graphic;
-	delete _graphic2;
 }
 
-void GraphicsWidgetTest::loadTest()
+void GraphicsWidgetTest::runTest()
 {
-
+	CPPUNIT_ASSERT(true);
 }
+
+CPPUNIT_TEST_SUITE_REGISTRATION(GraphicsWidgetTest);

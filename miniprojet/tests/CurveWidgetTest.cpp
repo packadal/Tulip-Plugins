@@ -17,5 +17,6 @@ CurveWidgetTest::CurveWidgetTest()
 
      new Viewer(d, cg);
 
-     d->add(70, -40);
+
+
 }
