@@ -11,19 +11,12 @@
 #include <cppunit/TestResult.h>
 
 #include <QApplication>
-#include "GraphicsWidgetTest.h"
-#include "ScriptWidgetTest.h"
 #include <iostream>
 
 int main (int argc, char* argv[])
 {
 	QApplication app(argc, argv);
 
-//new ScriptWidgetTest();
-
-//    app.exec();
-
-    // Tests de recette "unitaires"
 	CppUnit::TextUi::TestRunner runner;
 
 	CppUnit::TestFactoryRegistry& registry = CppUnit::TestFactoryRegistry::getRegistry();
