@@ -5,7 +5,10 @@ QT += core \
     script
 HEADERS += tests/HistogramWidgetTest.h \
     tests/CurveWidgetTest.h \
-    QData.h \ # Application.h \
+    tests/AddDeleteTest.h \
+    tests/ColorGraphicTest.h \
+    QData.h \ 
+    # Application.h \
     tests/DataTest.h \
     tests/ModelTest.h \
     tests/ScriptWidgetTest.h \
@@ -24,13 +27,16 @@ HEADERS += tests/HistogramWidgetTest.h \
     DataScriptClass.h
 SOURCES += tests/HistogramWidgetTest.cpp \
     tests/CurveWidgetTest.cpp \
-    ScriptViewer.cpp \ # DataScriptClass.cpp \
-# Application.cpp \
+    ScriptViewer.cpp \ 
+    # DataScriptClass.cpp \
+	# Application.cpp \
     tests/DataTest.cpp \
     tests/ModelTest.cpp \
     tests/ScriptWidgetTest.cpp \
     tests/testObserver.cpp \
     tests/testRunner.cpp \
+    tests/AddDeleteTest.cpp \
+    tests/ColorGraphicTest.cpp \
     CurveGroup.cpp \
     HistogramGroup.cpp \
     Model.cpp \
