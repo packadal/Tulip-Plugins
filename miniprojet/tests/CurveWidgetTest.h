@@ -6,7 +6,6 @@
 
 #include "Data.h"
 #include "CurveGroup.h"
-#include "HistogramGroup.h"
 #include "Viewer.h"
 
 class CurveWidgetTest : public CppUnit::TestCase, public Viewer
@@ -15,9 +14,8 @@ class CurveWidgetTest : public CppUnit::TestCase, public Viewer
       CPPUNIT_TEST(runTest);
   CPPUNIT_TEST_SUITE_END();
 private:
-	IData<float> *_data, *_data2;
-	Graphic<float> *_graphic, *_graphic2;
-//	Viewer *_viewer, *_viewer2;
+	IData<float> *_data;
+	Graphic<float> *_graphic;
 public:
     void setUp();
     void tearDown();
