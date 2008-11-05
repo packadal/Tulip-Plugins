@@ -34,7 +34,6 @@ void HistogramGroup::setData(IData<float>* data)
 		if(it != sortedX.begin())
 		{
 			difference = *it - lastDiff;
-			std::cout << espaceMin << "," << difference << std::endl;
 			espaceMin = std::min(espaceMin, difference);
 		}
 		lastDiff = *it;
