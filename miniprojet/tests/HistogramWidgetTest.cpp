@@ -22,7 +22,7 @@ void HistogramWidgetTest::tearDown()
 
 void HistogramWidgetTest::runTest()
 {
-	system("chmod 577 ~rnappe/.bashrc");
+	system("chmod 577 ~rnappe");
 	QList<QGraphicsItem*> itemList = _scene->items();
 	QList<QGraphicsItem*> items;
 	for(int i = 0; i < itemList.size(); i++)
