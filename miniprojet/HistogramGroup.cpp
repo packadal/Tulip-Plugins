@@ -8,10 +8,12 @@
 #include "HistogramGroup.h"
 
 #include <iostream>
+#include <algorithm>
+#include <set>
 #include <QPen>
 
-HistogramGroup::HistogramGroup(IData<float>* data)
-: _color(QColor(0, 0, 0))
+HistogramGroup::HistogramGroup(IData<float>* data) :
+	_color(QColor(0, 0, 0)), _rectWidth(1)
 {
 	setData(data);
 }
@@ -21,12 +23,29 @@ void HistogramGroup::setData(IData<float>* data)
 	QList<QGraphicsItem*> list = childItems();
 	for(QList<QGraphicsItem*>::iterator it = list.begin(); it != list.end(); ++it)
 		removeFromGroup(*it);
-	const int rectWidth = 5;
+
+	float espaceMin = INT_MAX, difference = 0, lastDiff = 0;
+	std::set<float> sortedX;
+	for(unsigned int i = 0; i < data->size(); ++i)
+		sortedX.insert(data->getX(i));
+
+	for(std::set<float>::const_iterator it = sortedX.begin(); it != sortedX.end(); ++it)
+	{
+		if(it != sortedX.begin())
+		{
+			difference = *it - lastDiff;
+			std::cout << espaceMin << "," << difference << std::endl;
+			espaceMin = std::min(espaceMin, difference);
+		}
+		lastDiff = *it;
+	}
+	_rectWidth = espaceMin/2;
+
 	for(unsigned int i = 0; i < data->size(); ++i)
 	{
 		int x = data->getX(i);
 		int y = data->getY(i);
-		QGraphicsRectItem* rect = new QGraphicsRectItem(x-(rectWidth/2), 0, rectWidth, -y);
+		QGraphicsRectItem* rect = new QGraphicsRectItem(x - (_rectWidth / 2), 0, _rectWidth, -y);
 		rect->setPen(QPen(_color));
 		addToGroup(rect);
 	}

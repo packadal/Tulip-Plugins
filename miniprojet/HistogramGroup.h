@@ -21,6 +21,7 @@ public:
 	inline QColor getColor() { return _color; }
 private:
 	QColor _color;
+	uint _rectWidth;
 };
 
 #endif /* HISTOGRAMVIEWER_H_ */
