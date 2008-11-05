@@ -7,6 +7,7 @@
 
 #include "HistogramGroup.h"
 
+#include <QGraphicsScene>
 #include <iostream>
 #include <algorithm>
 #include <set>
@@ -21,8 +22,9 @@ HistogramGroup::HistogramGroup(IData<float>* data) :
 void HistogramGroup::setData(IData<float>* data)
 {
 	QList<QGraphicsItem*> list = childItems();
-	for(QList<QGraphicsItem*>::iterator it = list.begin(); it != list.end(); ++it)
-		removeFromGroup(*it);
+	if(scene() != 0)
+		for(QList<QGraphicsItem*>::iterator it = list.begin(); it != list.end(); ++it)
+			scene()->removeItem(*it);
 
 	float espaceMin = INT_MAX, difference = 0, lastDiff = 0;
 	std::set<float> sortedX;

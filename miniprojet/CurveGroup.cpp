@@ -1,4 +1,6 @@
 #include "CurveGroup.h"
+
+#include <QGraphicsScene>
 #include <QPen>
 
 CurveGroup::CurveGroup(IData<float>* data) :
@@ -10,8 +12,10 @@ CurveGroup::CurveGroup(IData<float>* data) :
 void CurveGroup::setData(IData<float>* data)
 {
 	QList<QGraphicsItem*> list = childItems();
-	for(QList<QGraphicsItem*>::iterator it = list.begin(); it != list.end(); ++it)
-		removeFromGroup(*it);
+		if(scene() != 0)
+			for(QList<QGraphicsItem*>::iterator it = list.begin(); it != list.end(); ++it)
+				scene()->removeItem(*it);
+
 	QGraphicsLineItem* qgi;
 	for(unsigned int i = 1; i < data->size(); i++)
 	{
