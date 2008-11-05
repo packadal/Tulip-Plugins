@@ -24,9 +24,9 @@ void HistogramGroup::setData(IData<float>* data)
 	const int rectWidth = 5;
 	for(unsigned int i = 0; i < data->size(); ++i)
 	{
-///		int x = data->getX(i);
+		int x = data->getX(i);
 		int y = data->getY(i);
-		QGraphicsRectItem* rect = new QGraphicsRectItem(rectWidth*2*i, 0, rectWidth, -y);
+		QGraphicsRectItem* rect = new QGraphicsRectItem(x-(rectWidth/2), 0, rectWidth, -y);
 		rect->setPen(QPen(_color));
 		addToGroup(rect);
 	}
