@@ -12,7 +12,7 @@
 
 #include "Viewer.h"
 #include "QData.h"
-#include "ui_tulip_plugins.h"
+#include "ui_ScriptViewer.h"
 
 class ScriptViewer: public Viewer
 {

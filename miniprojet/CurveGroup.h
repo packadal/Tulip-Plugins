@@ -20,12 +20,11 @@ public:
 	CurveGroup(IData<float>*);
 
 	void setData(IData<float>*);
-	void setColor(QColor);
-	QColor getColor();
+	inline void setColor(const QColor &color) { _color = color; }
+	inline const QColor& getColor() { return _color; }
 private:
 	QColor _color;
 
 };
-
 
 #endif /* CURVEGROUP_H_ */

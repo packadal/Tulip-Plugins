@@ -18,8 +18,8 @@ class Graphic : public QGraphicsItemGroup
 {
 	public :
 		virtual void setData(IData<T>*) = 0;
-		virtual void setColor(QColor) = 0;
-		virtual QColor getColor() = 0;
+		virtual void setColor(const QColor&) = 0;
+		virtual const QColor& getColor() = 0;
 };
 
 #endif /* GRAPHIC_H_ */

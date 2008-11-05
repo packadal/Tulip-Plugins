@@ -18,7 +18,7 @@ HistogramGroup::HistogramGroup(IData<float>* data)
 
 void HistogramGroup::setData(IData<float>* data)
 {
-	QList<QGraphicsItem*> list = QGraphicsItemGroup::children();
+	QList<QGraphicsItem*> list = childItems();
 	for(QList<QGraphicsItem*>::iterator it = list.begin(); it != list.end(); ++it)
 		removeFromGroup(*it);
 	const int rectWidth = 5;
@@ -30,18 +30,4 @@ void HistogramGroup::setData(IData<float>* data)
 		rect->setPen(QPen(_color));
 		addToGroup(rect);
 	}
-	QGraphicsLineItem* legend = new QGraphicsLineItem(10, 40, 20, 40);
-	legend->setPen(QPen(_color));
-	addToGroup(legend);
 }
-
-void HistogramGroup::setColor(QColor color)
-{
-	_color = color;
-}
-
-QColor HistogramGroup::getColor()
-{
-	return _color;
-}
-
