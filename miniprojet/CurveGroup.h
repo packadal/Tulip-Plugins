@@ -20,8 +20,8 @@ public:
 	CurveGroup(IData<float>*);
 
 	void setData(IData<float>*);
-	inline void setColor(const QColor &color) { _color = color; }
-	inline const QColor& getColor() { return _color; }
+	inline void setColor(QColor color) { _color = color; }
+	inline QColor getColor() { return _color; }
 private:
 	QColor _color;
 
