@@ -12,6 +12,7 @@ Viewer::Viewer() :
 Viewer::Viewer(IData<float>* data, Graphic<float>* graphic) :
 	QWidget(), _scene(new QGraphicsScene()), _view(new QGraphicsView(_scene)), _axis(new Axis())
 {
+	_graphicLegend = new GraphicLegend<float> ();
 	addGraphic(data, graphic);
 }
 
@@ -84,7 +85,7 @@ void Viewer::update(Observable* subject)
 
 void Viewer::updateAxis()
 {
-	float xmin = 0., xmax = 0., ymin = 0., ymax = 0.;
+	float xmin = -10., xmax = 10., ymin = -10., ymax = 10.;
 	for(std::multimap<IData<float>*, Graphic<float>*>::const_iterator it = _mapGraphics.begin(); it != _mapGraphics.end(); it++)
 	{
 		if(it->first->getXMin() < xmin)

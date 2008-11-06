@@ -27,7 +27,7 @@ protected:
 	//void paintEvent(QPaintEvent* event);
 	QGraphicsScene* _scene; //do not delete, it's Qt's job
 	QGraphicsView* _view; //do not delete, it's Qt's job
-	Axis* _axis;
+	Axis* _axis; //do not delete, it's Qt's job
 	GraphicLegend<float>* _graphicLegend;
 
 	void update(Observable * subject);

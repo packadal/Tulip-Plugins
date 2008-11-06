@@ -13,12 +13,12 @@ void CurveGroup::setData(IData<float>* data)
 {
 	QList<QGraphicsItem*> list = childItems();
 
-		for(QList<QGraphicsItem*>::iterator it = list.begin(); it != list.end(); ++it)
-		{
-			removeFromGroup(*it);
-			if(scene() != 0)
-				scene()->removeItem(*it);
-		}
+	for(QList<QGraphicsItem*>::iterator it = list.begin(); it != list.end(); ++it)
+	{
+		removeFromGroup(*it);
+		if(scene() != 0)
+			scene()->removeItem(*it);
+	}
 
 	QGraphicsLineItem* qgi;
 	for(unsigned int i = 1; i < data->size(); i++)

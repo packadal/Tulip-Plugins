@@ -23,17 +23,27 @@ void Axis::updateAxis(float xmin, float xmax, float ymin, float ymax)
 			scene()->removeItem(*it);
 	}
 
-	//X axis
+	//Y axis
 	addToGroup(new QGraphicsLineItem(xmin, 0, xmax, 0));
-	//X axis arrow
+	//Y axis arrow
 	addToGroup(new QGraphicsLineItem(xmax - 2, -2, xmax, 0));
 	addToGroup(new QGraphicsLineItem(xmax - 2, 2, xmax, 0));
 
-	//Y axis
+	//X axis
 	addToGroup(new QGraphicsLineItem(0, -ymin, 0, -ymax));
-	//Y axis arrow
+	//X axis arrow
 	addToGroup(new QGraphicsLineItem(-2, -ymax + 2, 0, -ymax));
 	addToGroup(new QGraphicsLineItem(2, -ymax + 2, 0, -ymax));
 
-
+	const float nbSpace = xmax-xmin;
+	for(float i = xmin; i < xmax; i++)
+	{
+		if((int)i%10 == 0)
+			addToGroup(new QGraphicsLineItem(i, 2, i, -2));
+		else if ((int)i%5 == 0 && nbSpace < 500)
+			addToGroup(new QGraphicsLineItem(i, 1, i, -1));
+		else
+			if(nbSpace < 100)
+				addToGroup(new QGraphicsLineItem(i, 0.5, i, -0.5));
+	}
 }
