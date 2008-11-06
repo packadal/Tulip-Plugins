@@ -39,37 +39,34 @@ QList<QGraphicsItemGroup *> AddDeleteTest::fetchGroups(QList<QGraphicsItem *> it
 
 void AddDeleteTest::runTest()
 {
-	int nbGroups = fetchGroups(_scene->items()).size();
-
-	CPPUNIT_ASSERT(nbGroups == 0);
+	CPPUNIT_ASSERT(fetchGroups(_scene->items()).size() == 0);
 
 	addGraphic(_data, _graphic);
 	// Axis added at the first call of addGraphic() as a node
-	nbGroups++;
-	CPPUNIT_ASSERT(fetchGroups(_scene->items()).size() == (nbGroups + 1));
+
+	CPPUNIT_ASSERT(fetchGroups(_scene->items()).size() == 2);
 
 	addGraphic(_data2, _graphic2);
-	CPPUNIT_ASSERT(fetchGroups(_scene->items()).size() == (nbGroups + 2));
+	CPPUNIT_ASSERT(fetchGroups(_scene->items()).size() == 3);
 
 	addGraphic(_data2, _graphic3);
-	CPPUNIT_ASSERT(fetchGroups(_scene->items()).size() == (nbGroups + 3));
+	CPPUNIT_ASSERT(fetchGroups(_scene->items()).size() == 4);
 
 	addGraphic(_data, _graphic4);
-	CPPUNIT_ASSERT(fetchGroups(_scene->items()).size() == (nbGroups + 4));
+	CPPUNIT_ASSERT(fetchGroups(_scene->items()).size() == 5);
 
 	removeGraphic(_data, _graphic);
-	CPPUNIT_ASSERT(fetchGroups(_scene->items()).size() == (nbGroups + 3));
+	CPPUNIT_ASSERT(fetchGroups(_scene->items()).size() == 4);
 
 	removeGraphic(_data2, _graphic2);
-	CPPUNIT_ASSERT(fetchGroups(_scene->items()).size() == (nbGroups + 2));
+	CPPUNIT_ASSERT(fetchGroups(_scene->items()).size() == 3);
 
 	removeGraphic(_data2, _graphic3);
-	CPPUNIT_ASSERT(fetchGroups(_scene->items()).size() == (nbGroups + 1));
+	CPPUNIT_ASSERT(fetchGroups(_scene->items()).size() == 2);
 
 	removeGraphic(_data, _graphic4);
 	// Axis removed at the last call of removeGraphic()
-	nbGroups--;
-	CPPUNIT_ASSERT(fetchGroups(_scene->items()).size() == (nbGroups + 0));
+	CPPUNIT_ASSERT(fetchGroups(_scene->items()).size() == 0);
 }
 
 CPPUNIT_TEST_SUITE_REGISTRATION(AddDeleteTest);
