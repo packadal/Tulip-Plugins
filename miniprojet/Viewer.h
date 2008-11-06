@@ -2,6 +2,7 @@
 #define VIEWER_H_
 
 #include "Graphic.h"
+#include "GraphicLegend.h"
 
 #include <QGraphicsScene>
 #include <QGraphicsView>
@@ -30,6 +31,7 @@ protected:
 	void update(Observable * subject);
 
 	std::multimap<IData<float>*, Graphic<float>* > _mapGraphics;
+	GraphicLegend<float>* _graphicLegend;
 };
 
 #endif /* VIEWER_H_ */
