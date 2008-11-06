@@ -8,7 +8,7 @@ HEADERS += tests/HistogramWidgetTest.h \
     tests/AddDeleteTest.h \
     tests/ColorGraphicTest.h \
     QData.h \ 
-    # Application.h \
+    #Application.h \
     tests/DataTest.h \
     tests/ModelTest.h \
     tests/ScriptWidgetTest.h \
@@ -29,7 +29,7 @@ SOURCES += tests/HistogramWidgetTest.cpp \
     tests/CurveWidgetTest.cpp \
     ScriptViewer.cpp \ 
     # DataScriptClass.cpp \
-	# Application.cpp \
+	#Application.cpp \
     tests/DataTest.cpp \
     tests/ModelTest.cpp \
     tests/ScriptWidgetTest.cpp \
@@ -44,7 +44,7 @@ SOURCES += tests/HistogramWidgetTest.cpp \
     Observer.cpp \
     Viewer.cpp
 RESOURCES += 
-LIBS += -L/net/cremi/chuet/liens/cppunit/lib
+LIBS += -L/net/cremi/rnappee/root/lib
 LIBS += -lcppunit
-INCLUDEPATH += /net/cremi/chuet/liens/cppunit/include
+INCLUDEPATH += /net/cremi/rnappee/root/include
 FORMS += ScriptViewer.ui

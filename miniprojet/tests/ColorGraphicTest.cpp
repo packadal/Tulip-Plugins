@@ -46,6 +46,7 @@ void ColorGraphicTest::runTest()
 
 	for (QList<QGraphicsItem *>::const_iterator it = children.begin(); it != children.end(); it++)
 		CPPUNIT_ASSERT(((QGraphicsRectItem*)(*it))->pen().color() == color2);
+
 }
 
 CPPUNIT_TEST_SUITE_REGISTRATION(ColorGraphicTest);
