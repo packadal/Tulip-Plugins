@@ -59,6 +59,8 @@ void Viewer::removeGraphic(IData<float>* data, Graphic<float>* graphic)
 		}
 	}
 	update(data);
+	if(_mapGraphics.size() == 0)
+		_scene->removeItem(_axis);
 }
 
 void Viewer::update(Observable* subject)
