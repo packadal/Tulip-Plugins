@@ -24,14 +24,15 @@ void Viewer::addGraphic(IData<float>* data, Graphic<float>* graphic)
 
 void Viewer::setData(IData<float>* data, Graphic<float>* graphic)
 {
-	for(std::multimap<IData<float>*, Graphic<float>*>::iterator it = _mapGraphics.lower_bound(data); it != _mapGraphics.upper_bound(data); it++)
+	for(std::multimap<IData<float>*, Graphic<float>*>::iterator it = _mapGraphics.begin(); it != _mapGraphics.end(); ++it)
 	{
 		if(it->second == graphic)
 		{
 			_mapGraphics.erase(it);
-			_mapGraphics.insert(std::pair<IData<float>*, Graphic<float>*>(data, graphic));
+			continue;
 		}
 	}
+	_mapGraphics.insert(std::pair<IData<float>*, Graphic<float>*>(data, graphic));
 	graphic->setData(data);
 	data->addObserver(this);
 	update(data);
