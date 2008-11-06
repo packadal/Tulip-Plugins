@@ -6,6 +6,7 @@
 Viewer::Viewer() :
 	QWidget(), _scene(new QGraphicsScene()), _view(new QGraphicsView(_scene)), _axis(0)
 {
+	_graphicLegend = new GraphicLegend<float> ();
 }
 
 Viewer::Viewer(IData<float>* data, Graphic<float>* graphic) :
@@ -18,6 +19,7 @@ void Viewer::addGraphic(IData<float>* data, Graphic<float>* graphic)
 {
 	std::pair<IData<float>*, Graphic<float>*> pair(data, graphic);
 	_mapGraphics.insert(pair);
+	_graphicLegend->addGraphic(graphic);
 	data->addObserver(this);
 	update(data);
 }
@@ -50,6 +52,7 @@ std::set<Graphic<float>*> Viewer::getGraphics(IData<float>* data)
 
 void Viewer::removeGraphic(IData<float>* data, Graphic<float>* graphic)
 {
+	_graphicLegend->removeGraphic(graphic);
 	for(std::multimap<IData<float>*, Graphic<float>*>::iterator it = _mapGraphics.lower_bound(data); it != _mapGraphics.upper_bound(data); it++)
 	{
 		if(it->second == graphic && _scene->items().contains(it->second))
