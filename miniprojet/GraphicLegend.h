@@ -12,29 +12,28 @@
 #include "Graphic.h"
 #include <QWidget>
 
-template <typename T>
-class GraphicLegend : public QWidget
+template<typename T>
+class GraphicLegend: public QWidget
 {
-	protected :
-		QList<Graphic<T>* > _graphics;
-	public :
+protected:
+	QList<Graphic<T>*> _graphics;
+public:
 
+	void addGraphic(Graphic<T>* graphic)
+	{
+		_graphics.push_back(graphic);
+	}
 
-		void addGraphic(Graphic<T>* graphic)
-		{
-			_graphics.push_back(graphic);
-		}
+	void removeGraphic(Graphic<T>* graphic)
+	{
+		_graphics.removeOne(graphic);
 
-		void removeGraphic(Graphic<T>* graphic)
-		{
-			_graphics.removeOne(graphic);
+	}
 
-		}
-
-		QList<Graphic<T>* > getGraphics()
-		{
-			return _graphics;
-		}
+	QList<Graphic<T>*> getGraphics()
+	{
+		return _graphics;
+	}
 };
 
 #endif /* GRAPHICLEGEND_H_ */
