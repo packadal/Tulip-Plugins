@@ -32,9 +32,34 @@ Application::Application()
 	Viewer* v1 = new Viewer(d, cg);
 	v1->show();
 	d->add(70, -40);
-	v1->addGraphic(d2, hg2);
+//	v1->addGraphic(d2, hg2);
 	v1->addGraphic(d, hg);
 	v1->scale(3);
+
+	v1->setData(d2, hg);
+
+	QList<QGraphicsItem*> itemList = hg->scene()->items();
+	QList<QGraphicsItem*> items;
+	for(int i = 0; i < itemList.size(); i++)
+		if(itemList.value(i) == hg)
+			items = itemList.value(i)->childItems();
+
+	for(int i = 0; i < items.size(); i++)
+	{
+		QGraphicsItem* g = items.value(i);
+		QGraphicsLineItem* h = dynamic_cast<QGraphicsLineItem*> (g);
+		if(h != 0)
+		{
+			//the coordinates system in Qt have the origin in the upper left corner
+			//the conventional cartesian system have the origin in the lower left corner
+			//so we invert the Y coordinates
+			std::cout << h->line().x1() << std::endl;
+			std::cout << h->line().y1() << std::endl;
+			std::cout << h->line().x2() << std::endl;
+			std::cout << h->line().y2() << std::endl;
+		}
+	}
+
 /*	QScriptEngine* engine = new QScriptEngine();
 
 	QScriptValue value = engine->newQObject(hg);
