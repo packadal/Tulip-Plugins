@@ -51,7 +51,7 @@ void HistogramGroup::setData(IData<float>* data)
 		int x = data->getX(i);
 		int y = data->getY(i);
 		QGraphicsRectItem* rect = new QGraphicsRectItem(x - (_rectWidth / 2), 0, _rectWidth, -y);
-		rect->setPen(QPen(_color));
+		rect->setBrush(QBrush(_color));
 		addToGroup(rect);
 	}
 }
