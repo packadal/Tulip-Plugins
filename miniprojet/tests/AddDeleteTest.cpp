@@ -48,7 +48,7 @@ void AddDeleteTest::runTest()
 	nbGroups++;
 	CPPUNIT_ASSERT(fetchGroups(_scene->items()).size() == (nbGroups + 1));
 
-	/*addGraphic(_data2, _graphic2);
+	addGraphic(_data2, _graphic2);
 	CPPUNIT_ASSERT(fetchGroups(_scene->items()).size() == (nbGroups + 2));
 
 	addGraphic(_data2, _graphic3);
@@ -69,7 +69,7 @@ void AddDeleteTest::runTest()
 	removeGraphic(_data, _graphic4);
 	// Axis removed at the last call of removeGraphic()
 	nbGroups--;
-	CPPUNIT_ASSERT(fetchGroups(_scene->items()).size() == (nbGroups + 0));*/
+	CPPUNIT_ASSERT(fetchGroups(_scene->items()).size() == (nbGroups + 0));
 }
 
 CPPUNIT_TEST_SUITE_REGISTRATION(AddDeleteTest);
