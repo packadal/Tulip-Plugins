@@ -4,7 +4,7 @@
 #include "Data.h"
 
 Viewer::Viewer() :
-	QWidget(), _scene(new QGraphicsScene()), _view(new QGraphicsView(_scene))
+	QWidget(), _scene(new QGraphicsScene()), _view(new QGraphicsView(_scene)), _axis(0)
 {
 }
 
@@ -76,8 +76,8 @@ void Viewer::update(Observable* subject)
 
 void Viewer::updateAxis()
 {
-	//	if (_axis != 0)
-	//		_scene->removeItem(_axis);
+	if (_axis != 0)
+		_scene->removeItem(_axis);
 
 	float xmin = 0., xmax = 0., ymin = 0., ymax = 0.;
 	for(std::multimap<IData<float>*, Graphic<float>*>::const_iterator it = _mapGraphics.begin(); it != _mapGraphics.end(); it++)
