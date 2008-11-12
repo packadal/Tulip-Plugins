@@ -17,6 +17,8 @@ public:
 	void addGraphic(IData<float>*, Graphic<float>*);
 	std::set<Graphic<float>*> getGraphics(IData<float>*);
 	void removeGraphic(IData<float>*, Graphic<float>*);
+	void changeGraphic(Graphic<float>*, Graphic<float>*);
+
 	void setData(IData<float>*, Graphic<float>*);
 
 	void show();

@@ -3,12 +3,14 @@ TARGET = tulip_plugins
 QT += core \
     gui \
     script
-HEADERS += tests/HistogramWidgetTest.h \
+HEADERS += tests/ScriptChangeGraphicTest.h \
+    tests/HistogramWidgetTest.h \
     tests/CurveWidgetTest.h \
     tests/AddDeleteTest.h \
     tests/ColorGraphicTest.h \
-    QData.h \ 
-    #Application.h \
+    tests/GraphicLegendTest.h \
+    QData.h \
+    Application.h \
     tests/DataTest.h \
     tests/ModelTest.h \
     tests/ScriptWidgetTest.h \
@@ -24,12 +26,15 @@ HEADERS += tests/HistogramWidgetTest.h \
     Observer.h \
     QGraphic.h \
     Viewer.h \
-    DataScriptClass.h
-SOURCES += tests/HistogramWidgetTest.cpp \
+    DataScriptClass.h \
+    Axis.h
+SOURCES += tests/ScriptChangeGraphicTest.cpp \
+    tests/HistogramWidgetTest.cpp \
     tests/CurveWidgetTest.cpp \
-    ScriptViewer.cpp \ 
+    tests/GraphicLegendTest.cpp \
+    ScriptViewer.cpp \
     # DataScriptClass.cpp \
-	#Application.cpp \
+    # Application.cpp \
     tests/DataTest.cpp \
     tests/ModelTest.cpp \
     tests/ScriptWidgetTest.cpp \
@@ -42,7 +47,8 @@ SOURCES += tests/HistogramWidgetTest.cpp \
     Model.cpp \
     Observable.cpp \
     Observer.cpp \
-    Viewer.cpp
+    Viewer.cpp \
+    Axis.cpp
 RESOURCES += 
 LIBS += -L/net/cremi/rnappee/root/lib
 LIBS += -lcppunit

@@ -12,9 +12,7 @@
 #include <QScriptable>
 #include <QtScript/QScriptEngine>
 
-
 #include "IData.h"
-
 
 class QData : public QObject, public QScriptable, public IData<float>
 {

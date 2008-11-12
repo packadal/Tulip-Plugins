@@ -28,6 +28,24 @@ void Viewer::addGraphic(IData<float>* data, Graphic<float>* graphic)
 	update(data);
 }
 
+void Viewer::changeGraphic(Graphic<float>* oldGraphic, Graphic<float>* newGraphic)
+{
+	IData<float> *data = 0;
+	for(std::multimap<IData<float>*, Graphic<float>*>::iterator it = _mapGraphics.begin(); it != _mapGraphics.end(); ++it)
+	{
+		if(it->second == oldGraphic)
+		{
+			data = it->first;
+		}
+	}
+
+	if (data)
+	{
+		removeGraphic(data, oldGraphic);
+		addGraphic(data, newGraphic);
+	}
+}
+
 void Viewer::setData(IData<float>* data, Graphic<float>* graphic)
 {
 	for(std::multimap<IData<float>*, Graphic<float>*>::iterator it = _mapGraphics.begin(); it != _mapGraphics.end(); ++it)

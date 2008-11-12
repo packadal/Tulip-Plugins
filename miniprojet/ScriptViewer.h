@@ -31,7 +31,7 @@ public slots:
 //    QScriptValue addGraphic();
 //    QScriptValue getGraphics(QData*);
 
-private:
+protected:
 	QScriptEngine* _engine;
 	Ui::tulip_pluginsClass ui;
 };

@@ -5,42 +5,47 @@
 #include "Data.h"
 #include "CurveGroup.h"
 #include "HistogramGroup.h"
-#include "Viewer.h"
+#include "ScriptViewer.h"
 
 Application::Application()
 {
-	IData<float>* d = new Data(),
-		*d2 = new Data();
+	IData<float>* d = new Data();
+		//*d2 = new Data();
 	d->add(10, 3);
 	d->add(30, 4);
 	d->add(40, -10);
 	d->add(50, 6);
 	d->add(60, 12);
-
+/*
 	d2->add(10, -5);
 	d2->add(20, 10);
 	d2->add(30, 50);
-
+*/
 	CurveGroup* cg = new CurveGroup(d);
-	HistogramGroup* hg = new HistogramGroup(d),
-		*hg2 = new HistogramGroup(d2);
+	HistogramGroup* hg = new HistogramGroup(d);
+		//*hg2 = new HistogramGroup(d2);
 	hg->setColor(QColor(255, 0, 0, 10));
-	hg2->setColor(QColor(0, 255, 0));
-	cg->setColor(QColor(0, 0, 255));
+	//hg2->setColor(QColor(0, 255, 0));
+	//cg->setColor(QColor(0, 0, 255));
 	//	cg->setScale(10);
 	//	hg->setScale(10);
-	Viewer* v1 = new Viewer(d, hg);
+
+	ScriptViewer* v1 = new ScriptViewer();
 	v1->show();
-	d->add(-70, -40);
+	v1->addGraphic(d, hg);
+	d->add(70, -40);
 //	v1->addGraphic(d2, hg2);
-	v1->addGraphic(d, cg);
-	v1->removeGraphic(d, cg);
-	v1->addGraphic(d, cg);
+	//v1->addGraphic(d, cg);
+
+	CurveGroup *courbe = new CurveGroup();
+	courbe->setColor(QColor(200, 200, 10, 255));
+	v1->changeGraphic(hg, courbe);
+
 	v1->scale(3);
 
-	v1->setData(d2, hg);
+	//v1->setData(d2, hg);
 
-	QList<QGraphicsItem*> itemList = hg->scene()->items();
+	/*QList<QGraphicsItem*> itemList = hg->scene()->items();
 	QList<QGraphicsItem*> items;
 	for(int i = 0; i < itemList.size(); i++)
 		if(itemList.value(i) == hg)
@@ -61,7 +66,7 @@ Application::Application()
 			std::cout << h->line().y2() << std::endl;
 		}
 	}
-
+*/
 /*	QScriptEngine* engine = new QScriptEngine();
 
 	QScriptValue value = engine->newQObject(hg);

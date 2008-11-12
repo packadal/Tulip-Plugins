@@ -9,12 +9,13 @@
 #define QGRAPHIC_H_
 
 #include <QGraphicsItemGroup>
+#include <QScriptable>
 
 #include "Graphic.h"
 #include "Observer.h"
 #include "IData.h"
 
-class QGraphic : public QObject, public Graphic<float>
+class QGraphic : public QObject, public QScriptable, public Graphic<float>
 {
 	Q_OBJECT
 public slots :

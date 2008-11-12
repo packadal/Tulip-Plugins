@@ -3,6 +3,10 @@
 #include <QGraphicsScene>
 #include <QPen>
 
+CurveGroup::CurveGroup() :
+	_color(QColor(0, 0, 0))
+{}
+
 CurveGroup::CurveGroup(IData<float>* data) :
 	_color(QColor(0, 0, 0))
 {

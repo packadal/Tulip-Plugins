@@ -13,7 +13,9 @@
 
 class HistogramGroup : public QGraphic
 {
+	Q_OBJECT
 public:
+	HistogramGroup();
 	HistogramGroup(IData<float>*);
 
 	void setData(IData<float>*);

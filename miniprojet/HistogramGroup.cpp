@@ -19,6 +19,11 @@ HistogramGroup::HistogramGroup(IData<float>* data) :
 	setData(data);
 }
 
+HistogramGroup::HistogramGroup() :
+	_color(QColor(0, 0, 0)), _rectWidth(1)
+{}
+
+
 void HistogramGroup::setData(IData<float>* data)
 {
 	QList<QGraphicsItem*> list = childItems();

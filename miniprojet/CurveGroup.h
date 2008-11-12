@@ -12,11 +12,13 @@
 #include <QGraphicsItem>
 #include <QGraphicsItemGroup>
 
-#include "Graphic.h"
+#include "QGraphic.h"
 
-class CurveGroup : public Graphic<float>
+class CurveGroup : public QGraphic
 {
+	Q_OBJECT
 public:
+	CurveGroup();
 	CurveGroup(IData<float>*);
 
 	void setData(IData<float>*);

@@ -23,7 +23,6 @@ public:
 	GraphicLegend()
 	{
 		setEnabled(false);
-		show();
 	}
 
 	void addGraphic(Graphic<T>* graphic)
