@@ -32,7 +32,7 @@ protected:
 
 	void update(Observable * subject);
 
-	std::multimap<IData<float>*, Graphic<float>* > _mapGraphics;
+	std::multimap<IData<float>*, Graphic<float>*> _mapGraphics;
 };
 
 #endif /* VIEWER_H_ */

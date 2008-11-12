@@ -99,16 +99,6 @@ void Viewer::updateAxis()
 	}
 
 	_axis->updateAxis(xmin, xmax, ymin, ymax);
-	/*
-	_axis = new QGraphicsItemGroup();
-	_axis->addToGroup(new QGraphicsLineItem(xmin, 0, xmax, 0));
-	_axis->addToGroup(new QGraphicsLineItem(xmax - 2, -2, xmax, 0));
-	_axis->addToGroup(new QGraphicsLineItem(xmax - 2, 2, xmax, 0));
-	_axis->addToGroup(new QGraphicsLineItem(0, -ymin, 0, -ymax));
-	_axis->addToGroup(new QGraphicsLineItem(-2, -ymax + 2, 0, -ymax));
-	_axis->addToGroup(new QGraphicsLineItem(2, -ymax + 2, 0, -ymax));
-
-	_scene->addItem(_axis);*/
 }
 
 //void Viewer::paintEvent(QPaintEvent* event)
