@@ -34,12 +34,12 @@ SOURCES += tests/ScriptChangeGraphicTest.cpp \
     tests/GraphicLegendTest.cpp \
     ScriptViewer.cpp \
     # DataScriptClass.cpp \
-    # Application.cpp \
+    Application.cpp \
     tests/DataTest.cpp \
     tests/ModelTest.cpp \
     tests/ScriptWidgetTest.cpp \
     tests/testObserver.cpp \
-    tests/testRunner.cpp \
+    #tests/testRunner.cpp \
     tests/AddDeleteTest.cpp \
     tests/ColorGraphicTest.cpp \
     CurveGroup.cpp \
