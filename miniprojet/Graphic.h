@@ -20,6 +20,7 @@ class Graphic : public QGraphicsItemGroup
 		virtual void setData(IData<T>*) = 0;
 		virtual void setColor(const QColor&) = 0;
 		virtual QColor getColor() = 0;
+		virtual QString getType() = 0;
 };
 
 #endif /* GRAPHIC_H_ */

@@ -19,6 +19,7 @@ public:
 	void setData(IData<float>*);
 	inline void setColor(const QColor& color) { _color = color; }
 	inline QColor getColor() { return _color; }
+	inline QString getType() { return "Histogram"; }
 private:
 	QColor _color;
 	uint _rectWidth;

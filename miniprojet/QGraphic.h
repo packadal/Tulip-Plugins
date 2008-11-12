@@ -21,6 +21,7 @@ public slots :
 	virtual void setData(IData<float>*) = 0;
 	virtual void setColor(const QColor&) = 0;
 	virtual QColor getColor() = 0;
+	virtual QString getType() = 0;
 };
 
 #endif /* QGRAPHIC_H_ */

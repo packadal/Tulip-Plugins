@@ -24,16 +24,18 @@ Application::Application()
 	CurveGroup* cg = new CurveGroup(d);
 	HistogramGroup* hg = new HistogramGroup(d),
 		*hg2 = new HistogramGroup(d2);
-	hg->setColor(QColor(255, 0, 0));
+	hg->setColor(QColor(255, 0, 0, 10));
 	hg2->setColor(QColor(0, 255, 0));
 	cg->setColor(QColor(0, 0, 255));
 	//	cg->setScale(10);
 	//	hg->setScale(10);
-	Viewer* v1 = new Viewer(d, cg);
+	Viewer* v1 = new Viewer(d, hg);
 	v1->show();
-	d->add(70, -40);
+	d->add(-70, -40);
 //	v1->addGraphic(d2, hg2);
-	v1->addGraphic(d, hg);
+	v1->addGraphic(d, cg);
+	v1->removeGraphic(d, cg);
+	v1->addGraphic(d, cg);
 	v1->scale(3);
 
 	v1->setData(d2, hg);

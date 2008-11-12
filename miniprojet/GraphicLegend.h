@@ -11,22 +11,45 @@
 #include <QList>
 #include "Graphic.h"
 #include <QWidget>
+#include <QListWidgetItem>
 
 template<typename T>
-class GraphicLegend: public QWidget
+class GraphicLegend: public QListWidget
 {
 protected:
 	QList<Graphic<T>*> _graphics;
 public:
 
+	GraphicLegend()
+	{
+		setEnabled(false);
+		show();
+	}
+
 	void addGraphic(Graphic<T>* graphic)
 	{
 		_graphics.push_back(graphic);
+		QListWidgetItem *item = new QListWidgetItem();
+		item->setText(graphic->getType());
+		QColor color = graphic->getColor();
+		color.setAlpha(255);
+		item->setForeground(QBrush(color));
+		addItem(item);
 	}
 
 	void removeGraphic(Graphic<T>* graphic)
 	{
 		_graphics.removeOne(graphic);
+		clear();
+		for (int i = 0; i < _graphics.size(); i++)
+		{
+			QListWidgetItem *item = new QListWidgetItem();
+			item->setText(_graphics.at(i)->getType());
+			QColor color = _graphics.at(i)->getColor();
+			color.setAlpha(255);
+			item->setForeground(QBrush(color));
+			addItem(item);
+		}
 
 	}
 
