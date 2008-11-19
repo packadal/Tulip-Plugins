@@ -15,7 +15,7 @@
 #include "Observer.h"
 #include "IData.h"
 
-class QGraphic : public QObject, public QScriptable, public Graphic<float>
+class QGraphic : public QObject, public Graphic<float>
 {
 	Q_OBJECT
 public slots :
