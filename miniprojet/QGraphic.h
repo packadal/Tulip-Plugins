@@ -9,7 +9,6 @@
 #define QGRAPHIC_H_
 
 #include <QGraphicsItemGroup>
-#include <QScriptable>
 
 #include "Graphic.h"
 #include "Observer.h"

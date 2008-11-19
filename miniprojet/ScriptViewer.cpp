@@ -73,3 +73,10 @@ void ScriptViewer::addHistogram(Data* data)
 	Graphic<float>* g = new HistogramGroup(data);
 	addGraphic(data, g);
 }
+
+QScriptValue dataFactory(QScriptContext *context, QScriptEngine *engine)
+{
+	(void) context; //to avoid a warning, we need this function signature
+    QObject *object = new Data();
+    return engine->newQObject(object, QScriptEngine::ScriptOwnership);
+}

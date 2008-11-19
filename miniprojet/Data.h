@@ -14,8 +14,6 @@
 #include <set>
 #include <iostream>
 
-#include <QtScript>
-
 #include "QData.h"
 #include "Observable.h"
 
@@ -44,8 +42,6 @@ public:
 		for(uint i = 0; i < data->size(); ++i)
 			add(data->getX(i), data->getY(i));
 	}
-
-	void fromScriptValue(const QScriptValue &obj, Data &d);
 
 	inline size_t size() const { return _array.size(); }
 	inline void add(float x, float y) { _array.push_back(std::pair<float, float>(x, y)); notifyObservers(); }
@@ -114,7 +110,5 @@ public:
 private:
 	std::vector<std::pair<float, float> > _array;
 };
-
-QScriptValue dataFactory(QScriptContext *context, QScriptEngine *engine);
 
 #endif /* DATA_H_ */
