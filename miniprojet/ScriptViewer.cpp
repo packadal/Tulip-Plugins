@@ -5,9 +5,14 @@
  *      Author: chuet
  */
 
-#include "ScriptViewer.h"
-#include "Data.h"
 #include <iostream>
+
+#include <QtScript>
+#include <QtScript/QScriptEngine>
+
+#include "CurveGroup.h"
+#include "HistogramGroup.h"
+#include "ScriptViewer.h"
 
 using namespace std;
 
@@ -15,20 +20,13 @@ ScriptViewer::ScriptViewer()
 :Viewer(), _engine(new QScriptEngine())
 {
 	ui.setupUi(this);
-//	ui.graphicsView = _view;
 	ui.verticalLayout->addWidget(_view);
 
+	QScriptValue value = _engine->newQObject(this);
+	_engine->globalObject().setProperty("viewer", value);
 
-	/*
-	QScriptValue value = _engine->newQObject(ui.pushButton);
-	_engine->globalObject().setProperty("button", value);
-
-	value = _engine->newQObject(data);
-	_engine->globalObject().setProperty("data", value);
-
-	QData* d = new DataScript(_engine);
-	_engine->globalObject().setProperty("Data", d->constructor());*/
-
+	QScriptValue ctor = _engine->newFunction(dataFactory);
+	_engine->globalObject().setProperty("Data", ctor);
 
 	connect(ui.pushButton, SIGNAL(clicked(bool)), this, SLOT(evaluate()));
 	connect(ui.textEdit, SIGNAL(textChanged()), this, SLOT(check()));
@@ -49,13 +47,11 @@ void ScriptViewer::addGraphic(IData<float>* dat, Graphic<float>* graphic)
 
 void ScriptViewer::check()
 {
-//	cout << "check()" << _engine->canEvaluate(ui.textEdit->toPlainText()) << ":" << qPrintable(ui.textEdit->toPlainText()) << endl;
 	ui.pushButton->setEnabled(_engine->canEvaluate(ui.textEdit->toPlainText()));
 }
 
 void ScriptViewer::evaluate()
 {
-//	ui.pushButton->setText("MWAHAHA");
 	_engine->evaluate(ui.textEdit->toPlainText());
 	if(_engine->hasUncaughtException())
 	{
@@ -66,9 +62,14 @@ void ScriptViewer::evaluate()
 		ui.label->setText("");
 }
 
-/*
-void ScriptViewer::addGraphic()
+void ScriptViewer::addCurve(Data* data)
 {
-	QScriptValue q;
-	return q;
-}*/
+	Graphic<float>* g = new CurveGroup(data);
+	addGraphic(data, g);
+}
+
+void ScriptViewer::addHistogram(Data* data)
+{
+	Graphic<float>* g = new HistogramGroup(data);
+	addGraphic(data, g);
+}

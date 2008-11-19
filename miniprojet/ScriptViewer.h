@@ -11,7 +11,7 @@
 #include <QtScript>
 
 #include "Viewer.h"
-#include "QData.h"
+#include "Data.h"
 #include "ui_ScriptViewer.h"
 
 class ScriptViewer: public Viewer
@@ -26,10 +26,10 @@ public:
 	void addGraphic(IData<float>*, Graphic<float>*);
 
 public slots:
+	void addCurve(Data*);
+	void addHistogram(Data*);
     void evaluate();
     void check();
-//    QScriptValue addGraphic();
-//    QScriptValue getGraphics(QData*);
 
 protected:
 	QScriptEngine* _engine;
