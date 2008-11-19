@@ -14,7 +14,7 @@
 
 #include "IData.h"
 
-class QData : public QObject, public QScriptable, public IData<float>
+class QData : public QObject, public IData<float>
 {
 	Q_OBJECT
 public slots:
