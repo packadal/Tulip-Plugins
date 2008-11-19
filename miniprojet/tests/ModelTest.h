@@ -11,7 +11,7 @@
 #include <cppunit/TestCase.h>
 #include <cppunit/extensions/HelperMacros.h>
 
-#include "../IModel.h"
+#include "IModel.h"
 
 
 class ModelTest : public CppUnit::TestCase
