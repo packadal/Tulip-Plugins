@@ -20,6 +20,7 @@ class ScriptTest : public CppUnit::TestCase
   CPPUNIT_TEST_SUITE(ScriptTest);
       CPPUNIT_TEST(invokeTest);
       CPPUNIT_TEST(newTest);
+      CPPUNIT_TEST(argTest);
   CPPUNIT_TEST_SUITE_END();
 private:
 	QScriptEngine* _engine;
@@ -31,6 +32,7 @@ public:
 protected:
     void invokeTest();
     void newTest();
+    void argTest();
 };
 
 QScriptValue test(QScriptContext *context, QScriptEngine *engine);

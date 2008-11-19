@@ -12,6 +12,7 @@
 #include "ScriptTest.h"
 #include "Model.h"
 #include "Data.h"
+#include "ScriptTestUtility.h"
 
 const float TESTVALUE = 42.;
 const int TESTVALUE2 = 42;
@@ -25,6 +26,11 @@ void ScriptTest::setUp()
 	_data = new Data();
 	_data->add(0, 0);
 	_engine = new QScriptEngine();
+
+	QScriptValue ctor = _engine->newFunction(dataFactory);
+	_engine->globalObject().setProperty("Data", ctor);
+
+	testvalue = 0;
 }
 
 void ScriptTest::tearDown()
@@ -49,10 +55,6 @@ void ScriptTest::invokeTest()
 
 void ScriptTest::newTest()
 {
-
-	QScriptValue ctor = _engine->newFunction(dataFactory);
-	_engine->globalObject().setProperty("Data", ctor);
-
 	QScriptValue value = _engine->newFunction(test);
 	_engine->globalObject().setProperty("test", value);
 
@@ -63,7 +65,26 @@ void ScriptTest::newTest()
 			std::cout << qPrintable(_engine->uncaughtException().toString()) << std::endl;
 
 	CPPUNIT_ASSERT_EQUAL(TESTVALUE, testvalue);
-	//not sure what whe should expect though
+}
+
+void ScriptTest::argTest()
+{
+	testvalue = 0;
+	ScriptTestUtility* testArg = new ScriptTestUtility();
+	QScriptValue value = _engine->newQObject(testArg);
+	_engine->globalObject().setProperty("test", value);
+
+
+	value = _engine->newQObject(_data);
+	_engine->globalObject().setProperty("data", value);
+
+	const QString script = "data.setY(0, "+QString::number(TESTVALUE)+"); test.passArg(data);";
+
+	_engine->evaluate(script);
+	if(_engine->hasUncaughtException())
+		std::cout << qPrintable(_engine->uncaughtException().toString()) << std::endl;
+
+	CPPUNIT_ASSERT_EQUAL(RESVALUE, _data->getY(0));
 }
 
 QScriptValue test(QScriptContext *context, QScriptEngine *engine)
@@ -71,3 +92,4 @@ QScriptValue test(QScriptContext *context, QScriptEngine *engine)
 	testvalue = context->argument(0).toNumber();
 	return QScriptValue(engine, testvalue);
 }
+
