@@ -13,6 +13,7 @@
 #include "Model.h"
 #include "Data.h"
 #include "ScriptTestUtility.h"
+#include "ScriptViewer.h"
 
 const float TESTVALUE = 42.;
 const int TESTVALUE2 = 42;

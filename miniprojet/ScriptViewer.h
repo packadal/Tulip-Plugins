@@ -36,4 +36,6 @@ protected:
 	Ui::tulip_pluginsClass ui;
 };
 
+QScriptValue dataFactory(QScriptContext *context, QScriptEngine *engine);
+
 #endif /* SCRIPTVIEWER_H_ */
