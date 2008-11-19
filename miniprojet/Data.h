@@ -14,6 +14,8 @@
 #include <set>
 #include <iostream>
 
+#include <QtScript>
+
 #include "QData.h"
 #include "Observable.h"
 
@@ -28,11 +30,23 @@ class Data : public QData
 	Q_OBJECT
 public:
 	Data() {}
+	Data(const Data& data): QData()
+	{
+//		std::cout << "copy constructor" << std::endl;
+		for(uint i = 0; i < data.size(); ++i)
+//		{
+//			std::cout << "adding value: " <<  data.getX(i) <<"; " << data.getY(i) << std::endl;
+			add(data.getX(i), data.getY(i));
+//		}
+	}
 	Data(IData<float>* data)
 	{
 		for(uint i = 0; i < data->size(); ++i)
 			add(data->getX(i), data->getY(i));
 	}
+
+	void fromScriptValue(const QScriptValue &obj, Data &d);
+
 	inline size_t size() const { return _array.size(); }
 	inline void add(float x, float y) { _array.push_back(std::pair<float, float>(x, y)); notifyObservers(); }
 	inline float getX(int i) const { return _array.at(i).first; }
@@ -92,9 +106,15 @@ public:
 		return temp;
 	}
 
-
+	Data &operator=(const Data&d)
+	{
+		Data* d2 = new Data(d);
+		return *d2;
+	}
 private:
 	std::vector<std::pair<float, float> > _array;
 };
+
+QScriptValue dataFactory(QScriptContext *context, QScriptEngine *engine);
 
 #endif /* DATA_H_ */
