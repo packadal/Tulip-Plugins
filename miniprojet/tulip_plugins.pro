@@ -26,14 +26,12 @@ HEADERS += tests/ScriptChangeGraphicTest.h \
     Observer.h \
     QGraphic.h \
     Viewer.h \
-    DataScriptClass.h \
     Axis.h
 SOURCES += tests/ScriptChangeGraphicTest.cpp \
     tests/HistogramWidgetTest.cpp \
     tests/CurveWidgetTest.cpp \
     tests/GraphicLegendTest.cpp \
-    ScriptViewer.cpp \
-    # DataScriptClass.cpp \
+    ScriptViewer.cpp \ 
     Application.cpp \
     tests/DataTest.cpp \
     tests/ModelTest.cpp \

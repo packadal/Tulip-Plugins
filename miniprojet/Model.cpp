@@ -1,10 +1,3 @@
-/*
- * Model.cpp
- *
- *  Created on: 15 oct. 2008
- *      Author: chuet
- */
-
 #include "Model.h"
 
 Model::~Model()

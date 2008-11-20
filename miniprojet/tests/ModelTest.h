@@ -1,10 +1,3 @@
-/*
- * ModelTestCase.h
- *
- *  Created on: 16 oct. 2008
- *      Author: dmothes
- */
-
 #ifndef MODELTESTCASE_H_
 #define MODELTESTCASE_H_
 

@@ -1,10 +1,3 @@
-/*
- * ModelTestCase.cpp
- *
- *  Created on: 16 oct. 2008
- *      Author: dmothes
- */
-
 #include <stdexcept>
 #include <cstdlib>
 #include <ctime>

@@ -1,10 +1,3 @@
-/*
- * Axis.h
- *
- *  Created on: 6 nov. 2008
- *      Author: chuet
- */
-
 #ifndef AXIS_H_
 #define AXIS_H_
 

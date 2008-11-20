@@ -1,10 +1,3 @@
-/*
- * GraphicLegendLegendTest.h
- *
- *  Created on: 5 nov. 2008
- *      Author: rpatau
- */
-
 #ifndef GRAPHICLEGENDTEST_H_
 #define GRAPHICLEGENDTEST_H_
 

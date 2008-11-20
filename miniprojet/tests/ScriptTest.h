@@ -1,10 +1,3 @@
-/*
- * ModelTestCase.h
- *
- *  Created on: 16 oct. 2008
- *      Author: chuet
- */
-
 #ifndef SCRIPTTESTCASE_H_
 #define SCRIPTTESTCASE_H_
 

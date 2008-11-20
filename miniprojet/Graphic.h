@@ -1,10 +1,3 @@
-/*
- * IGraphicContainer.h
- *
- *  Created on: 16 oct. 2008
- *      Author: rnappee
- */
-
 #ifndef GRAPHIC_H_
 #define GRAPHIC_H_
 
@@ -19,6 +12,7 @@ class Graphic : public QGraphicsItemGroup
 	public :
 		virtual void setData(IData<T>*) = 0;
 		virtual void setColor(const QColor&) = 0;
+		virtual void setColor(int r, int g, int b, int alpha = 255) = 0;
 		virtual QColor getColor() = 0;
 		virtual QString getType() = 0;
 };

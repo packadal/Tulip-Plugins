@@ -1,17 +1,8 @@
-/*
- * ScriptViewer.cpp
- *
- *  Created on: 29 oct. 2008
- *      Author: chuet
- */
-
 #include <iostream>
 
 #include <QtScript>
 #include <QtScript/QScriptEngine>
 
-#include "CurveGroup.h"
-#include "HistogramGroup.h"
 #include "ScriptViewer.h"
 
 using namespace std;
@@ -37,14 +28,6 @@ ScriptViewer::~ScriptViewer()
 	delete _engine;
 }
 
-void ScriptViewer::addGraphic(IData<float>* dat, Graphic<float>* graphic)
-{
-	QData* data = new Data(dat);
-	QScriptValue value = _engine->newQObject(data);
-	_engine->globalObject().setProperty("data"+QString::number(_mapGraphics.size()), value);
-	Viewer::addGraphic(data, graphic);
-}
-
 void ScriptViewer::check()
 {
 	ui.pushButton->setEnabled(_engine->canEvaluate(ui.textEdit->toPlainText()));
@@ -62,16 +45,18 @@ void ScriptViewer::evaluate()
 		ui.label->setText("");
 }
 
-void ScriptViewer::addCurve(Data* data)
+QScriptValue ScriptViewer::addCurve(Data* data)
 {
-	Graphic<float>* g = new CurveGroup(data);
-	addGraphic(data, g);
+	CurveGroup *curve = new CurveGroup(data);
+	addGraphic(data, curve);
+	return _engine->newQObject(curve, QScriptEngine::ScriptOwnership);
 }
 
-void ScriptViewer::addHistogram(Data* data)
+QScriptValue ScriptViewer::addHistogram(Data* data)
 {
-	Graphic<float>* g = new HistogramGroup(data);
-	addGraphic(data, g);
+	HistogramGroup *histogram = new HistogramGroup(data);
+	addGraphic(data, histogram);
+	return _engine->newQObject(histogram, QScriptEngine::ScriptOwnership);
 }
 
 QScriptValue dataFactory(QScriptContext *context, QScriptEngine *engine)

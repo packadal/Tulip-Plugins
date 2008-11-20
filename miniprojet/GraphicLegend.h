@@ -1,10 +1,3 @@
-/*
- * GraphicLegend.h
- *
- *  Created on: 5 nov. 2008
- *      Author: rpatau
- */
-
 #ifndef GRAPHICLEGEND_H_
 #define GRAPHICLEGEND_H_
 

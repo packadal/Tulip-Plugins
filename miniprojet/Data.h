@@ -1,10 +1,3 @@
-/*
- * Data.h
- *
- *  Created on: 15 oct. 2008
- *      Author: chuet, rpatau, rnappee
- */
-
 #ifndef DATA_H_
 #define DATA_H_
 

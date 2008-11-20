@@ -1,10 +1,3 @@
-/*
- * QData.h
- *
- *  Created on: 29 oct. 2008
- *      Author: chuet
- */
-
 #ifndef QDATA_H_
 #define QDATA_H_
 

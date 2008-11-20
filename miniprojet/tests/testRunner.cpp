@@ -1,11 +1,3 @@
-/*
- * testRunner.cpp
- *
- *  Created on: 15 oct. 2008
- *      Author: dmothes
- */
-
-
 #include <cppunit/extensions/TestFactoryRegistry.h>
 #include <cppunit/ui/text/TestRunner.h>
 #include <cppunit/TestResult.h>

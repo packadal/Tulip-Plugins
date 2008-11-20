@@ -1,10 +1,3 @@
-/*
- * IData.h
- *
- *  Created on: 15 oct. 2008
- *      Author: chuet
- */
-
 #ifndef IDATA_H_
 #define IDATA_H_
 

@@ -1,10 +1,3 @@
-/*
- * ScriptViewer.h
- *
- *  Created on: 29 oct. 2008
- *      Author: chuet
- */
-
 #ifndef SCRIPTVIEWER_H_
 #define SCRIPTVIEWER_H_
 
@@ -13,6 +6,9 @@
 #include "Viewer.h"
 #include "Data.h"
 #include "ui_ScriptViewer.h"
+
+#include "CurveGroup.h"
+#include "HistogramGroup.h"
 
 class ScriptViewer: public Viewer
 {
@@ -23,11 +19,10 @@ public:
 
 	void show() { QWidget::show(); }
 	inline QScriptEngine* getEngine() { return _engine; }
-	void addGraphic(IData<float>*, Graphic<float>*);
 
 public slots:
-	void addCurve(Data*);
-	void addHistogram(Data*);
+	QScriptValue addCurve(Data*);
+	QScriptValue addHistogram(Data*);
     void evaluate();
     void check();
 

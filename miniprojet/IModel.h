@@ -1,10 +1,3 @@
-/*
- * IData.h
- *
- *  Created on: 15 oct. 2008
- *      Author: chuet
- */
-
 #ifndef IMODEL_H_
 #define IMODEL_H_
 

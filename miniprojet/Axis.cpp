@@ -1,10 +1,3 @@
-/*
- * Axis.cpp
- *
- *  Created on: 6 nov. 2008
- *      Author: chuet
- */
-
 #include "Axis.h"
 
 #include <QGraphicsLineItem>
