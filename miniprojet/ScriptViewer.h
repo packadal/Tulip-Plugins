@@ -25,6 +25,7 @@ public slots:
 	QScriptValue addHistogram(Data*);
     void evaluate();
     void check();
+    void refresh();
 
 protected:
 	QScriptEngine* _engine;

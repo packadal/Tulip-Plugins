@@ -100,6 +100,18 @@ void Viewer::update(Observable* subject)
 		_scene->addItem(it->second);
 	}
 }
+void Viewer::update()
+{
+	updateAxis();
+	for(std::multimap<IData<float>*, Graphic<float>*>::iterator it = _mapGraphics.begin();
+		it != _mapGraphics.end(); it++)
+	{
+		if(_scene->items().contains(it->second))
+			_scene->removeItem(it->second);
+		it->second->setData(it->first);
+		_scene->addItem(it->second);
+	}
+}
 
 void Viewer::updateAxis()
 {

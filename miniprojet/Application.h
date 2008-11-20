@@ -4,7 +4,6 @@
 class Application {
 public:
 	Application();
-	virtual ~Application();
 };
 
 #endif /* APPLICATION_H_ */

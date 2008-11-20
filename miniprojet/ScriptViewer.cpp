@@ -45,6 +45,11 @@ void ScriptViewer::evaluate()
 		ui.label->setText("");
 }
 
+void ScriptViewer::refresh()
+{
+	Viewer::update();
+}
+
 QScriptValue ScriptViewer::addCurve(Data* data)
 {
 	CurveGroup *curve = new CurveGroup(data);

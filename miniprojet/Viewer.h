@@ -33,7 +33,7 @@ protected:
 	GraphicLegend<float>* _graphicLegend;
 
 	void update(Observable * subject);
-
+	void update();
 	std::multimap<IData<float>*, Graphic<float>*> _mapGraphics;
 };
 
