@@ -6,9 +6,16 @@
 
 #include <tulip/Graph.h>
 
-class TestGraphCreate : public CppUnit::TestCase
+#include <QScriptEngine>
+#include <QObject>
+
+#include "QGraph.h"
+#include "QEdge.h"
+#include "QNode.h"
+
+class TestGraphCreate : public QObject, public CppUnit::TestCase
 {
-  CPPUNIT_TEST_SUITE(TestGraphCreate);
+	CPPUNIT_TEST_SUITE(TestGraphCreate);
       CPPUNIT_TEST(invokeTest);
   CPPUNIT_TEST_SUITE_END();
 private:
@@ -16,8 +23,12 @@ private:
 public:
     void setUp();
     void tearDown();
+    Q_SLOTS void storeGraph(QGraph *graph);
 protected:
     void invokeTest(); // Entry point
+	tlp::Graph* _graph;
+	QScriptEngine* _engine;
+	std::string _savedFile;
 };
 
 #endif /* TESTGRAPHCREATE_H_ */
