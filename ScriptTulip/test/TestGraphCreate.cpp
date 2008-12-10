@@ -1,5 +1,7 @@
 #include "TestGraphCreate.h"
+#include <iostream>
 
+using namespace std;
 using namespace tlp;
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestGraphCreate);
@@ -9,7 +11,8 @@ void TestGraphCreate::setUp()
 	_engine = new QScriptEngine();
 	_graph = 0;
 
-	_engine->globalObject().setProperty("test", _engine->newQObject(this));
+	QScriptValue value = _engine->newFunction(storeGraph);
+	_engine->globalObject().setProperty("storeGraph", value);
 }
 
 void TestGraphCreate::tearDown()
@@ -21,12 +24,14 @@ void TestGraphCreate::tearDown()
 
 void TestGraphCreate::invokeTest()
 {
-
-	_engine->evaluate("var g = newGraph(); test.storeGraph(g); ");
+	_engine->evaluate("var g = newGraph(); storeGraph(g); ");
 
 	CPPUNIT_ASSERT(_graph != 0);
 }
 
-void TestGraphCreate::storeGraph(QGraph *graph) {
-	_graph = graph;
+QScriptValue storeGraph(QScriptContext *context, QScriptEngine *engine)
+{
+	(void) engine;
+	_graph = (QGraph *)(context->argument(0).toQObject());
+	return QScriptValue();
 }

@@ -23,12 +23,14 @@ private:
 public:
     void setUp();
     void tearDown();
-    Q_SLOTS void storeGraph(QGraph *graph);
 protected:
     void invokeTest(); // Entry point
-	tlp::Graph* _graph;
-	QScriptEngine* _engine;
+	QScriptEngine *_engine;
 	std::string _savedFile;
 };
+
+tlp::Graph *_graph;
+
+QScriptValue storeGraph(QScriptContext *context, QScriptEngine *engine);
 
 #endif /* TESTGRAPHCREATE_H_ */
