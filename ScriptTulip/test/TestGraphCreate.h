@@ -29,7 +29,7 @@ protected:
 	std::string _savedFile;
 };
 
-tlp::Graph *_graph;
+QGraph *_graph;
 
 QScriptValue storeGraph(QScriptContext *context, QScriptEngine *engine);
 
