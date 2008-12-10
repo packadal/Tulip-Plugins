@@ -13,6 +13,9 @@ void TestGraphCreate::setUp()
 
 	QScriptValue value = _engine->newFunction(storeGraph);
 	_engine->globalObject().setProperty("storeGraph", value);
+
+	QScriptValue ctor = _engine->newFunction(graphFactory);
+	_engine->globalObject().setProperty("newGraph", ctor);
 }
 
 void TestGraphCreate::tearDown()
