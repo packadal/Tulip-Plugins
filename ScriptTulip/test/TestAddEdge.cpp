@@ -38,7 +38,7 @@ void TestAddEdge::invokeTest()
 	_engine->evaluate("var e = g.addEdge(n1, n2); storeGraph(g);");
 	CPPUNIT_ASSERT(_graph.numberOfEdges() == 1);
 
-	_engine->evaluate("var e2 = g.addEdge(e); storeGraph(g);");
+	_engine->evaluate("g.addEdge(e); storeGraph(g);");
 	CPPUNIT_ASSERT(_graph.numberOfEdges() == 2);
 }
 
