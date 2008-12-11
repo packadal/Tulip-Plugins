@@ -26,13 +26,13 @@ void TestAddEdge::tearDown()
 void TestAddEdge::invokeTest()
 {
 	_engine->evaluate("var g = newGraph(); var n1 = g.addNode(); var n2 = g.addNode(); storeGraph(g);");
-	CPPUNIT_ASSERT(_graph.numberOfEdges() == 0);
+	CPPUNIT_ASSERT(_graph->numberOfEdges() == 0);
 
 	_engine->evaluate("var e = g.addEdge(n1, n2); storeGraph(g);");
-	CPPUNIT_ASSERT(_graph.numberOfEdges() == 1);
+	CPPUNIT_ASSERT(_graph->numberOfEdges() == 1);
 
 	_engine->evaluate("g.addEdge(e); storeGraph(g);");
-	CPPUNIT_ASSERT(_graph.numberOfEdges() == 2);
+	CPPUNIT_ASSERT(_graph->numberOfEdges() == 2);
 }
 
 
