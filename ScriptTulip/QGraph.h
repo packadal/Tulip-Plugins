@@ -115,5 +115,6 @@ private:
 };
 
 QScriptValue graphFactory(QScriptContext *context, QScriptEngine *engine);
+QScriptValue saveGraph(QScriptContext *context, QScriptEngine *engine);
 
 #endif /* QGRAPH_H_ */

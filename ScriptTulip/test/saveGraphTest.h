@@ -16,6 +16,7 @@ private:
 	tlp::Graph* _graph;
 	QScriptEngine* _engine;
 	std::string _savedFile;
+	std::string filename;
 public:
     void setUp();
     void tearDown();

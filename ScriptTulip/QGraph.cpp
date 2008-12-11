@@ -12,24 +12,30 @@
 using namespace tlp;
 
 QGraph::QGraph() {
-	// TODO Auto-generated constructor stub
-
 }
 
 QGraph::QGraph(tlp::Graph* g)
 :_graph(g)
 {
-
 }
 
 QGraph::~QGraph() {
-	// TODO Auto-generated destructor stub
+
 }
 
 QScriptValue graphFactory(QScriptContext*, QScriptEngine *engine)
 {
     QObject *graph = new QGraph(tlp::newGraph());
     return engine->newQObject(graph);
+}
+
+QScriptValue saveGraph(QScriptContext* context, QScriptEngine *engine)
+{
+	(void) engine;
+	QGraph *graph = (QGraph *)(context->argument(0).toQObject());
+	QString filename= context->argument(1).toString();
+	tlp::saveGraph(graph->asGraph(), filename.toStdString());
+	return QScriptValue();
 }
 
 void QGraph::clear()
@@ -130,7 +136,7 @@ void QGraph::reverse(const edge e)
 	_graph->reverse(e);
 }
 
-Graph* QGraph::asGraph()
+tlp::Graph* QGraph::asGraph()
 {
 	return _graph;
 }
