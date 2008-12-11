@@ -7,7 +7,13 @@
 
 #include "QNode.h"
 
-QNode::QNode() {
+#include <QtScript/QScriptValue>
+#include <QtScript/QScriptContext>
+#include <QtScript/QScriptEngine>
+
+QNode::QNode()
+:_node(new tlp::node())
+{
 }
 
 QNode::QNode(const tlp::node& n)
@@ -16,4 +22,10 @@ QNode::QNode(const tlp::node& n)
 }
 
 QNode::~QNode() {
+}
+
+QScriptValue nodeFactory(QScriptContext*, QScriptEngine *engine)
+{
+    QObject *node = new QNode();
+    return engine->newQObject(node);
 }

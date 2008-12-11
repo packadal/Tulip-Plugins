@@ -150,3 +150,57 @@ tlp::Graph* QGraph::asGraph()
 	return _graph;
 }
 
+unsigned int QGraph::numberOfNodes()const
+{
+	return _graph->numberOfNodes();
+}
+
+unsigned int QGraph::numberOfEdges()const
+{
+	return _graph->numberOfEdges();
+}
+
+unsigned int QGraph::deg(const QNode* n)const
+{
+	return _graph->deg(n->asNode());
+}
+
+unsigned int QGraph::indeg(const QNode* n)const
+{
+	return _graph->indeg(n->asNode());
+}
+
+unsigned int QGraph::outdeg(const QNode* n)const
+{
+	return _graph->outdeg(n->asNode());
+}
+
+QNode* QGraph::source(const QEdge* e)const
+{
+	return new QNode(_graph->source(e->asEdge()));
+}
+
+QNode* QGraph::target(const QEdge* e)const
+{
+	return new QNode(_graph->target(e->asEdge()));
+}
+
+QNode* QGraph::opposite(const QEdge* e, const QNode* n)const
+{
+	return new QNode(_graph->opposite(e->asEdge(), n->asNode()));
+}
+
+bool QGraph::isElement(const QNode* n) const
+{
+	return _graph->isElement(n->asNode());
+}
+
+bool QGraph::isElement(const QEdge* e) const
+{
+	return _graph->isElement(e->asEdge());
+}
+
+QEdge* QGraph::existEdge(const QNode* n1, const QNode* n2) const
+{
+	return new QEdge(_graph->existEdge(n1->asNode(), n2->asNode()));
+}

@@ -7,7 +7,13 @@
 
 #include "QEdge.h"
 
-QEdge::QEdge() {
+#include <QtScript/QScriptValue>
+#include <QtScript/QScriptContext>
+#include <QtScript/QScriptEngine>
+
+QEdge::QEdge()
+:_edge(new tlp::edge())
+{
 }
 
 QEdge::QEdge(const tlp::edge& e)
@@ -16,4 +22,10 @@ QEdge::QEdge(const tlp::edge& e)
 }
 
 QEdge::~QEdge() {
+}
+
+QScriptValue edgeFactory(QScriptContext*, QScriptEngine *engine)
+{
+    QObject *edge = new QEdge();
+    return engine->newQObject(edge);
 }

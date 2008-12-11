@@ -5,6 +5,10 @@
 
 #include <tulip/Edge.h>
 
+class QScriptValue;
+class QScriptContext;
+class QScriptEngine;
+
 class QEdge : public QObject {
 	Q_OBJECT
 public:
@@ -17,5 +21,7 @@ private:
 	Q_DISABLE_COPY(QEdge)
 	const tlp::edge* _edge;
 };
+
+QScriptValue edgeFactory(QScriptContext *context, QScriptEngine *engine);
 
 #endif /* QEDGE_H_ */

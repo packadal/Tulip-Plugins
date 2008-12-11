@@ -72,19 +72,17 @@ public slots:
 	// Graph, nodes and edges informations about the graph stucture
 	//================================================================================
 	int getId() const {return id;}
-	/*
-	virtual unsigned int numberOfNodes()const =0;
-	virtual unsigned int numberOfEdges()const =0;
-	virtual unsigned int deg(const node)const =0;
-	virtual unsigned int indeg(const node)const =0;
-	virtual unsigned int outdeg(const node)const =0;
-	virtual node source(const edge)const =0;
-	virtual node target(const edge)const =0;
-	virtual node opposite(const edge, const node)const =0;
-	virtual bool isElement(const node ) const =0;
-	virtual bool isElement(const edge ) const =0;
-	virtual edge existEdge(const node , const node) const =0;
-	*/
+	virtual unsigned int numberOfNodes()const;
+	virtual unsigned int numberOfEdges()const;
+	virtual unsigned int deg(const QNode*)const;
+	virtual unsigned int indeg(const QNode*)const;
+	virtual unsigned int outdeg(const QNode*)const;
+	virtual QNode* source(const QEdge*)const;
+	virtual QNode* target(const QEdge*)const;
+	virtual QNode* opposite(const QEdge*, const QNode*)const;
+	virtual bool isElement(const QNode*) const;
+	virtual bool isElement(const QEdge*) const;
+	virtual QEdge* existEdge(const QNode* , const QNode*) const;
 	//================================================================================
 	// Access to the graph attributes and to the node/edge property.
 	//================================================================================
