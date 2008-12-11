@@ -9,6 +9,12 @@
 
 #include <QtScript/QScriptEngine>
 
+#include <tulip/Node.h>
+#include <tulip/Edge.h>
+
+#include "QEdge.h"
+#include "QNode.h"
+
 using namespace tlp;
 
 QGraph::QGraph() {
@@ -79,61 +85,64 @@ Iterator<Graph *> * QGraph::getSubGraphs() const
 	_graph->getSubGraphs();
 }*/
 
-/*
-node QGraph::addNode()
-{
-	return _graph->addNode();
-}*/
 
-void QGraph::addNode(const node n)
+QNode* QGraph::addNode()
 {
-	_graph->addNode(n);
+	return new QNode(_graph->addNode());
 }
 
-void QGraph::delNode(const node n)
+void QGraph::addNode(const QNode* n)
 {
-	_graph->delNode(n);
+	_graph->addNode(n->asNode());
 }
 
-void QGraph::delAllNode(const node n)
+void QGraph::delNode(const QNode* n)
 {
-	_graph->delAllNode(n);
+	_graph->delNode(n->asNode());
 }
 
-/*
-edge QGraph::addEdge(const node n1, const node n2)
+void QGraph::delAllNode(const QNode* n)
 {
-	return _graph->addEdge(n1, n2);
-}*/
-
-void QGraph::addEdge(const edge e)
-{
-	_graph->addEdge(e);
+	_graph->delAllNode(n->asNode());
 }
 
-void QGraph::delEdge(const edge e)
+
+QEdge* QGraph::addEdge(const QNode* n1, const QNode* n2)
 {
-	_graph->delEdge(e);
+	return new QEdge(_graph->addEdge(n1->asNode(), n2->asNode()));;
 }
 
-void QGraph::delAllEdge(const edge e)
+void QGraph::addEdge(const QEdge* e)
 {
-	_graph->delAllEdge(e);
+	_graph->addEdge(e->asEdge());
 }
 
-void QGraph::setEdgeOrder(const node n,const std::vector<edge> & ve)
+void QGraph::delEdge(const QEdge* e)
 {
-	_graph->setEdgeOrder(n, ve);
+	_graph->delEdge(e->asEdge());
 }
 
-void QGraph::swapEdgeOrder(const node n,const edge e1, const edge e2)
+void QGraph::delAllEdge(const QEdge* e)
 {
-	_graph->swapEdgeOrder(n, e1, e2);
+	_graph->delAllEdge(e->asEdge());
 }
 
-void QGraph::reverse(const edge e)
+void QGraph::setEdgeOrder(const QNode* n, const std::vector<QEdge*> &v)
 {
-	_graph->reverse(e);
+	std::vector<tlp::edge> vec;
+	for(std::vector<QEdge*>::const_iterator it = v.begin(); it != v.end(); ++it)
+		vec.push_back((*it)->asEdge());
+	_graph->setEdgeOrder(n->asNode(), vec);
+}
+
+void QGraph::swapEdgeOrder(const QNode* n, const QEdge* e1, const QEdge* e2)
+{
+	_graph->swapEdgeOrder(n->asNode(), e1->asEdge(), e2->asEdge());
+}
+
+void QGraph::reverse(const QEdge* e)
+{
+	_graph->reverse(e->asEdge());
 }
 
 tlp::Graph* QGraph::asGraph()

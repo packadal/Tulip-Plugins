@@ -8,10 +8,12 @@
 #include "QEdge.h"
 
 QEdge::QEdge() {
-	// TODO Auto-generated constructor stub
+}
 
+QEdge::QEdge(const tlp::edge& e)
+:QObject(new QObject()), _edge(&e)
+{
 }
 
 QEdge::~QEdge() {
-	// TODO Auto-generated destructor stub
 }

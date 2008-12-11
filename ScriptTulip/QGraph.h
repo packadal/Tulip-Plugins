@@ -9,8 +9,9 @@
 #define QGRAPH_H_
 
 #include <tulip/Graph.h>
-#include <tulip/Node.h>
-#include <tulip/Edge.h>
+
+#include "QEdge.h"
+#include "QNode.h"
 
 #include <QtCore/QObject>
 #include <QtScript/QScriptValue>
@@ -41,17 +42,17 @@ public slots:
 		setFather(sg);
 	  }
 //	Iterator<Graph *> * getSubGraphs() const;
-//	node addNode();
-	void addNode(const tlp::node);
-	void delNode(const tlp::node);
-	void delAllNode(const tlp::node);
-//	edge addEdge(const node, const node );
-	void addEdge(const tlp::edge);
-	void delEdge(const tlp::edge);
-	void delAllEdge(const tlp::edge);
-	void setEdgeOrder(const tlp::node,const std::vector<tlp::edge> & );
-	void swapEdgeOrder(const tlp::node,const tlp::edge , const tlp::edge );
-	void reverse(const tlp::edge);
+	QNode* addNode();
+	void addNode(const QNode*);
+	void delNode(const QNode*);
+	void delAllNode(const QNode*);
+	QEdge* addEdge(const QNode*, const QNode*);
+	void addEdge(const QEdge*);
+	void delEdge(const QEdge*);
+	void delAllEdge(const QEdge*);
+	void setEdgeOrder(const QNode*, const std::vector<QEdge*> & );
+	void swapEdgeOrder(const QNode*, const QEdge*, const QEdge*);
+	void reverse(const QEdge*);
 	/*
 	virtual node getOneNode() const =0;
 	virtual Iterator<node>* getNodes() const =0;

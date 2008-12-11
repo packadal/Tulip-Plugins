@@ -8,10 +8,12 @@
 #include "QNode.h"
 
 QNode::QNode() {
-	// TODO Auto-generated constructor stub
+}
 
+QNode::QNode(const tlp::node& n)
+:QObject(new QObject()), _node(&n)
+{
 }
 
 QNode::~QNode() {
-	// TODO Auto-generated destructor stub
 }
