@@ -3,6 +3,7 @@
 
 #include <QObject>
 
+#include "tulip/tulipconf.h"
 #include <tulip/Edge.h>
 
 class QScriptValue;
