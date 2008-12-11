@@ -14,13 +14,6 @@ void TestAddEdge::setUp()
 	QScriptValue ctor1 = _engine->newFunction(graphFactory);
 	_engine->globalObject().setProperty("newGraph", ctor1);
 
-	QScriptValue ctor2 = _engine->newFunction(nodeFactory);
-	_engine->globalObject().setProperty("addNode", ctor2);
-
-	QScriptValue ctor3 = _engine->newFunction(edgeFactory);
-	_engine->globalObject().setProperty("addEdge", ctor3);
-
-
 }
 
 void TestAddEdge::tearDown()
