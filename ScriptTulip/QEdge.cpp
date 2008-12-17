@@ -12,13 +12,16 @@
 #include <QtScript/QScriptEngine>
 
 QEdge::QEdge()
-:_edge(tlp::edge())
+:_edge(new tlp::edge())
 {
 }
 
-QEdge::QEdge(const tlp::edge e)
-:QObject(new QObject()), _edge(e)
+QEdge::QEdge(const tlp::edge& e)
+:QObject(new QObject())
 {
+	tlp::edge* e2 = new tlp::edge();
+	e2->id = e.id;
+	_edge = e2;
 }
 
 QEdge::~QEdge() {
