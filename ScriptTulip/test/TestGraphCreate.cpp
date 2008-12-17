@@ -8,14 +8,11 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestGraphCreate);
 
 void TestGraphCreate::setUp()
 {
-	_engine = new QScriptEngine();
+	_engine = new TulipScriptEngine();
 	_graph = 0;
 
-	QScriptValue value = _engine->newFunction(storeGraph);
-	_engine->globalObject().setProperty("storeGraph", value);
-
-	QScriptValue ctor = _engine->newFunction(graphFactory);
-	_engine->globalObject().setProperty("newGraph", ctor);
+	_engine->addScriptFunction(graphFactory, "newGraph");
+	_engine->addScriptFunction(storeGraph, "storeGraph");
 }
 
 void TestGraphCreate::tearDown()

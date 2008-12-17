@@ -6,18 +6,18 @@
 
 #include <tulip/Graph.h>
 
-#include <QScriptEngine>
 #include <QObject>
 
 #include "QGraph.h"
 #include "QEdge.h"
 #include "QNode.h"
+#include "TulipScriptEngine.h"
 
 #include "utilsTest.h"
 
 class TestAddEdge: public QObject, public CppUnit::TestCase {
 	CPPUNIT_TEST_SUITE( TestAddEdge);
-	CPPUNIT_TEST( invokeTest);
+	CPPUNIT_TEST(invokeTest);
 	CPPUNIT_TEST_SUITE_END();
 	private:
 		/* attributes here */
@@ -26,7 +26,7 @@ class TestAddEdge: public QObject, public CppUnit::TestCase {
 		void tearDown();
 	protected:
 		void invokeTest(); // Entry point
-		QScriptEngine *_engine;
+		TulipScriptEngine *_engine;
 };
 
 #endif /* TESTADDEDGE_H_ */

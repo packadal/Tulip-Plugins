@@ -15,7 +15,6 @@
 
 QScriptValue storeGraph(QScriptContext *context, QScriptEngine*)
 {
-	std::cout << "coucou !! " << std::endl;
 	_graph = (QGraph *)(context->argument(0).toQObject());
 	return QScriptValue();
 }

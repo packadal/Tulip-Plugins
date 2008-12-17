@@ -5,7 +5,8 @@
 #include <cppunit/extensions/HelperMacros.h>
 
 #include <tulip/Graph.h>
-class QScriptEngine;
+
+#include "TulipScriptEngine.h"
 
 class saveGraphTest : public CppUnit::TestCase
 {
@@ -14,7 +15,7 @@ class saveGraphTest : public CppUnit::TestCase
   CPPUNIT_TEST_SUITE_END();
 private:
 	tlp::Graph* _graph;
-	QScriptEngine* _engine;
+	TulipScriptEngine* _engine;
 	std::string _savedFile;
 	std::string filename;
 public:

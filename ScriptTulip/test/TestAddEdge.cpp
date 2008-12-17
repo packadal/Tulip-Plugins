@@ -8,14 +8,10 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestAddEdge);
 
 void TestAddEdge::setUp()
 {
-	_engine = new QScriptEngine();
+	_engine = new TulipScriptEngine();
 
-	QScriptValue ctor1 = _engine->newFunction(graphFactory);
-	_engine->globalObject().setProperty("newGraph", ctor1);
-
-	QScriptValue value = _engine->newFunction(storeGraph);
-	_engine->globalObject().setProperty("storeGraph", value);
-
+	_engine->addScriptFunction(graphFactory, "newGraph");
+	_engine->addScriptFunction(storeGraph, "storeGraph");
 }
 
 void TestAddEdge::tearDown()
@@ -26,7 +22,10 @@ void TestAddEdge::tearDown()
 void TestAddEdge::invokeTest()
 {
 	_engine->evaluate("var g = newGraph(); var n1 = g.addNode(); var n2 = g.addNode(); storeGraph(g);");
-	cout << qPrintable(_engine->uncaughtException().toString()) << endl;
+	if(_engine->hasUncaughtException())
+	{
+		cout << qPrintable(_engine->uncaughtException().toString()) << endl;
+	}
 	CPPUNIT_ASSERT(_graph != 0);
 	CPPUNIT_ASSERT(_graph->numberOfEdges() == 0);
 

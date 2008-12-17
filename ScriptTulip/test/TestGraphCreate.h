@@ -6,12 +6,12 @@
 
 #include <tulip/Graph.h>
 
-#include <QScriptEngine>
 #include <QObject>
 
 #include "QGraph.h"
 #include "QEdge.h"
 #include "QNode.h"
+#include "TulipScriptEngine.h"
 
 #include "utilsTest.h"
 
@@ -27,7 +27,7 @@ public:
     void tearDown();
 protected:
     void invokeTest(); // Entry point
-	QScriptEngine *_engine;
+	TulipScriptEngine *_engine;
 	std::string _savedFile;
 };
 
