@@ -20,7 +20,7 @@
 class QGraph : public QObject {
 	Q_OBJECT
 public:
-	QGraph(tlp::Graph*);
+	QGraph(QScriptEngine* engine, tlp::Graph*);
 	QGraph();
 	virtual ~QGraph();
 	tlp::Graph* asGraph();
@@ -42,7 +42,7 @@ public slots:
 		setFather(sg);
 	  }
 //	Iterator<Graph *> * getSubGraphs() const;
-	QNode* addNode();
+	QScriptValue addNode();
 	void addNode(const QNode*);
 	void delNode(const QNode*);
 	void delAllNode(const QNode*);
@@ -111,6 +111,7 @@ public slots:
 private:
 	unsigned int id;
 	tlp::Graph* _graph;
+	QScriptEngine* _engine;
 };
 
 QScriptValue graphFactory(QScriptContext *context, QScriptEngine *engine);

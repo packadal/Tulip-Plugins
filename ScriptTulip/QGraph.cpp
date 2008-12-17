@@ -20,8 +20,8 @@ using namespace tlp;
 QGraph::QGraph() {
 }
 
-QGraph::QGraph(tlp::Graph* g)
-:_graph(g)
+QGraph::QGraph(QScriptEngine* engine, tlp::Graph* g)
+:_graph(g),_engine(engine)
 {
 }
 
@@ -31,7 +31,7 @@ QGraph::~QGraph() {
 
 QScriptValue graphFactory(QScriptContext*, QScriptEngine *engine)
 {
-    QObject *graph = new QGraph(tlp::newGraph());
+    QObject *graph = new QGraph(engine, tlp::newGraph());
     return engine->newQObject(graph);
 }
 
@@ -67,12 +67,12 @@ void QGraph::delAllSubGraphs(QGraph *g)
 
 QGraph* QGraph::getSuperGraph()const
 {
-	return new QGraph(_graph->getSuperGraph());
+	return new QGraph(_engine, _graph->getSuperGraph());
 }
 
 QGraph* QGraph::getRoot() const
 {
-	return new QGraph(_graph->getRoot());
+	return new QGraph(_engine, _graph->getRoot());
 }
 
 void QGraph::setSuperGraph(QGraph *g)
@@ -86,9 +86,10 @@ Iterator<Graph *> * QGraph::getSubGraphs() const
 }*/
 
 
-QNode* QGraph::addNode()
+QScriptValue QGraph::addNode()
 {
-	return new QNode(_graph->addNode());
+	//ouh, memory leak ? QNode is never deleted
+	return  _engine->newQObject(new QNode(_graph->addNode()));
 }
 
 void QGraph::addNode(const QNode* n)
