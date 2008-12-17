@@ -67,6 +67,7 @@ QGraph *QGraph::addSubGraph(BooleanProperty *selection)
 	return new QGraph(_graph->addSubGraph(selection));
 }*/
 
+//this should be remplaced by the upper method when the properties will work
 QScriptValue QGraph::addSubGraph()
 {
 	QGraph* g = new QGraph(_engine, _graph->addSubGraph());

@@ -29,6 +29,8 @@ public:
 public slots:
 	void clear();
 //	QGraph *addSubGraph(BooleanProperty *selection=0);
+
+	//this should be remplaced by the upper method when the properties will work
 	QScriptValue addSubGraph();
 	void delSubGraph(QGraph *);
 	void delAllSubGraphs(QGraph *);
