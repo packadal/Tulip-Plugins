@@ -14,7 +14,7 @@
 
 using namespace std;
 
-CPPUNIT_TEST_SUITE_REGISTRATION(saveGraphTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(SaveGraphTest);
 
 void SaveGraphTest::setUp()
 {
