@@ -13,8 +13,6 @@
 #include "QNode.h"
 #include "TulipScriptEngine.h"
 
-#include "utilsTest.h"
-
 class TestAddEdge: public QObject, public CppUnit::TestCase {
 	CPPUNIT_TEST_SUITE( TestAddEdge);
 	CPPUNIT_TEST(invokeTest);

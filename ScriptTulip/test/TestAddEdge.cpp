@@ -23,9 +23,8 @@ void TestAddEdge::invokeTest()
 {
 	_engine->evaluate("var g = newGraph(); var n1 = g.addNode(); var n2 = g.addNode(); storeGraph(g);");
 	if(_engine->hasUncaughtException())
-	{
 		cout << qPrintable(_engine->uncaughtException().toString()) << endl;
-	}
+
 	CPPUNIT_ASSERT(_graph != 0);
 	CPPUNIT_ASSERT(_graph->numberOfEdges() == 0);
 
