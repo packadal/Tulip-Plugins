@@ -88,7 +88,9 @@ Iterator<Graph *> * QGraph::getSubGraphs() const
 
 QScriptValue QGraph::addNode()
 {
+	//ouh, memory leak ? QNode is never deleted
 	return  _engine->newQObject(new QNode(_graph->addNode()), QScriptEngine::ScriptOwnership);
+
 }
 
 void QGraph::addNode(const QNode* n)

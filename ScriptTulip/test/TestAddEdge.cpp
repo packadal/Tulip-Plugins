@@ -23,6 +23,7 @@ void TestAddEdge::tearDown()
 void TestAddEdge::invokeTest()
 {
 	_engine->evaluate("var g = newGraph(); var n1 = g.addNode(); var n2 = g.addNode(); storeGraph(g);");
+
 	if(_engine->hasUncaughtException())
 		cout << qPrintable(_engine->uncaughtException().toString()) << endl;
 

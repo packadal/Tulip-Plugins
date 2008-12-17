@@ -17,7 +17,7 @@ QNode::QNode()
 }
 
 QNode::QNode(const tlp::node& n)
-:QObject(new QObject()), _node(&n)
+:_node(&n)
 {
 }
 
