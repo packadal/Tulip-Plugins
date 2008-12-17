@@ -17,6 +17,8 @@
 #include <QtScript/QScriptValue>
 #include <QtScript/QScriptContext>
 
+#include "QProperty.h"
+
 class QGraph : public QObject {
 	Q_OBJECT
 public:
@@ -99,9 +101,9 @@ public slots:
 	bool computeProperty(const std::string &algorithm, Proxytype result, std::string &msg,
 				   PluginProgress *progress=0, DataSet *data=0);
 	template<typename Proxytype>
-	Proxytype* getProperty(const std::string &name);
-	virtual PropertyInterface* getProperty(const std::string& name)=0;
-	virtual  bool existProperty(const std::string& name)=0;
+	Proxytype* getProperty(const std::string &name);*/
+	QProperty* getProperty(QString name);
+	/*virtual  bool existProperty(const std::string& name)=0;
 	virtual  bool existLocalProperty(const std::string& name)=0;
 	virtual  void delLocalProperty(const std::string& name)=0;
 	virtual Iterator<std::string>* getLocalProperties()=0;
@@ -116,5 +118,6 @@ private:
 
 QScriptValue graphFactory(QScriptContext *context, QScriptEngine *engine);
 QScriptValue saveGraph(QScriptContext *context, QScriptEngine *engine);
+QScriptValue loadGraph(QScriptContext *context, QScriptEngine *engine);
 
 #endif /* QGRAPH_H_ */

@@ -20,5 +20,4 @@ static QScriptValue storeGraph(QScriptContext *context, QScriptEngine*)
 	_graph = qobject_cast<QGraph*>(context->argument(0).toQObject());
 	return QScriptValue();
 }
-
 #endif /* UTILSTEST_H_ */

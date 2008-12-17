@@ -35,13 +35,20 @@ QScriptValue graphFactory(QScriptContext*, QScriptEngine *engine)
     return engine->newQObject(graph);
 }
 
-QScriptValue saveGraph(QScriptContext* context, QScriptEngine *engine)
+QScriptValue saveGraph(QScriptContext* context, QScriptEngine *)
 {
-	(void) engine;
-	QGraph *graph = (QGraph *)(context->argument(0).toQObject());
 	QString filename= context->argument(1).toString();
+	QGraph *graph = (QGraph *)(context->argument(0).toQObject());
 	tlp::saveGraph(graph->asGraph(), filename.toStdString());
 	return QScriptValue();
+}
+
+QScriptValue loadGraph(QScriptContext *context, QScriptEngine *engine){
+	QString filename= context->argument(0).toString();
+	tlp::Graph* graph = tlp::loadGraph(filename.toStdString());
+	QGraph *qgraph = new QGraph(engine,graph);
+	QScriptValue value = engine->newQObject(qgraph);
+	return value;
 }
 
 void QGraph::clear()
@@ -150,6 +157,10 @@ void QGraph::reverse(const QEdge* e)
 tlp::Graph* QGraph::asGraph()
 {
 	return _graph;
+}
+
+QProperty* QGraph::getProperty(QString name) {
+	return new QProperty(_graph->getProperty(name.toStdString()));
 }
 
 unsigned int QGraph::numberOfNodes()const
