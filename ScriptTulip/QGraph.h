@@ -46,7 +46,7 @@ public slots:
 	void addNode(const QNode*);
 	void delNode(const QNode*);
 	void delAllNode(const QNode*);
-	QEdge* addEdge(const QNode*, const QNode*);
+	QScriptValue addEdge(const QNode*, const QNode*);
 	void addEdge(const QEdge*);
 	void delEdge(const QEdge*);
 	void delAllEdge(const QEdge*);
@@ -77,12 +77,12 @@ public slots:
 	virtual unsigned int deg(const QNode*)const;
 	virtual unsigned int indeg(const QNode*)const;
 	virtual unsigned int outdeg(const QNode*)const;
-	virtual QNode* source(const QEdge*)const;
-	virtual QNode* target(const QEdge*)const;
-	virtual QNode* opposite(const QEdge*, const QNode*)const;
+	virtual QScriptValue source(const QEdge*)const;
+	virtual QScriptValue target(const QEdge*)const;
+	virtual QScriptValue opposite(const QEdge*, const QNode*)const;
 	virtual bool isElement(const QNode*) const;
 	virtual bool isElement(const QEdge*) const;
-	virtual QEdge* existEdge(const QNode* , const QNode*) const;
+	virtual QScriptValue existEdge(const QNode* , const QNode*) const;
 	//================================================================================
 	// Access to the graph attributes and to the node/edge property.
 	//================================================================================

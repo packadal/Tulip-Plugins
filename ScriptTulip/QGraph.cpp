@@ -88,8 +88,7 @@ Iterator<Graph *> * QGraph::getSubGraphs() const
 
 QScriptValue QGraph::addNode()
 {
-	//ouh, memory leak ? QNode is never deleted
-	return  _engine->newQObject(new QNode(_graph->addNode()));
+	return  _engine->newQObject(new QNode(_graph->addNode()), QScriptEngine::ScriptOwnership);
 }
 
 void QGraph::addNode(const QNode* n)
@@ -108,9 +107,9 @@ void QGraph::delAllNode(const QNode* n)
 }
 
 
-QEdge* QGraph::addEdge(const QNode* n1, const QNode* n2)
+QScriptValue QGraph::addEdge(const QNode* n1, const QNode* n2)
 {
-	return new QEdge(_graph->addEdge(n1->asNode(), n2->asNode()));;
+	return _engine->newQObject(new QEdge(_graph->addEdge(n1->asNode(), n2->asNode())), QScriptEngine::ScriptOwnership);
 }
 
 void QGraph::addEdge(const QEdge* e)
@@ -176,19 +175,19 @@ unsigned int QGraph::outdeg(const QNode* n)const
 	return _graph->outdeg(n->asNode());
 }
 
-QNode* QGraph::source(const QEdge* e)const
+QScriptValue QGraph::source(const QEdge* e)const
 {
-	return new QNode(_graph->source(e->asEdge()));
+	return _engine->newQObject(new QNode(_graph->source(e->asEdge())), QScriptEngine::ScriptOwnership);
 }
 
-QNode* QGraph::target(const QEdge* e)const
+QScriptValue QGraph::target(const QEdge* e)const
 {
-	return new QNode(_graph->target(e->asEdge()));
+	return _engine->newQObject(new QNode(_graph->target(e->asEdge())), QScriptEngine::ScriptOwnership);
 }
 
-QNode* QGraph::opposite(const QEdge* e, const QNode* n)const
+QScriptValue QGraph::opposite(const QEdge* e, const QNode* n)const
 {
-	return new QNode(_graph->opposite(e->asEdge(), n->asNode()));
+	return _engine->newQObject(new QNode(_graph->opposite(e->asEdge(), n->asNode())), QScriptEngine::ScriptOwnership);
 }
 
 bool QGraph::isElement(const QNode* n) const
@@ -201,7 +200,7 @@ bool QGraph::isElement(const QEdge* e) const
 	return _graph->isElement(e->asEdge());
 }
 
-QEdge* QGraph::existEdge(const QNode* n1, const QNode* n2) const
+QScriptValue QGraph::existEdge(const QNode* n1, const QNode* n2) const
 {
-	return new QEdge(_graph->existEdge(n1->asNode(), n2->asNode()));
+	return _engine->newQObject(new QEdge(_graph->existEdge(n1->asNode(), n2->asNode())), QScriptEngine::ScriptOwnership);
 }
