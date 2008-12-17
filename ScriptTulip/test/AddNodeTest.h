@@ -1,5 +1,5 @@
-#ifndef TESTADDNODE_H_
-#define TESTADDNODE_H_
+#ifndef AddNodeTest_H_
+#define AddNodeTest_H_
 
 #include <cppunit/TestCase.h>
 #include <cppunit/extensions/HelperMacros.h>
@@ -14,8 +14,8 @@
 
 #include "utilsTest.h"
 
-class TestAddNode : public QObject, public CppUnit::TestCase {
-	CPPUNIT_TEST_SUITE(TestAddNode);
+class AddNodeTest : public QObject, public CppUnit::TestCase {
+	CPPUNIT_TEST_SUITE(AddNodeTest);
 	CPPUNIT_TEST(invokeTest);
 	CPPUNIT_TEST_SUITE_END();
 	private:
@@ -28,4 +28,4 @@ class TestAddNode : public QObject, public CppUnit::TestCase {
 		TulipScriptEngine *_engine;
 };
 
-#endif /* TESTADDNODE_H_ */
+#endif /* AddNodeTest_H_ */

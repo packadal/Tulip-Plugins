@@ -1,12 +1,12 @@
-#include "TestAddNode.h"
+#include "AddNodeTest.h"
 #include <iostream>
 
 using namespace std;
 using namespace tlp;
 
-CPPUNIT_TEST_SUITE_REGISTRATION(TestAddNode);
+CPPUNIT_TEST_SUITE_REGISTRATION(AddNodeTest);
 
-void TestAddNode::setUp()
+void AddNodeTest::setUp()
 {
 	_engine = new TulipScriptEngine();
 
@@ -14,12 +14,12 @@ void TestAddNode::setUp()
 	_engine->addScriptFunction(storeGraph, "storeGraph");
 }
 
-void TestAddNode::tearDown()
+void AddNodeTest::tearDown()
 {
 	delete _engine;
 }
 
-void TestAddNode::invokeTest()
+void AddNodeTest::invokeTest()
 {
 	_engine->evaluate("var g = newGraph(); storeGraph(g);");
 	if(_engine->hasUncaughtException())

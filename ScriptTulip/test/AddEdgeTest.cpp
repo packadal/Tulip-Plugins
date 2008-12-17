@@ -1,13 +1,13 @@
-#include "TestAddEdge.h"
+#include "AddEdgeTest.h"
 #include "utilsTest.h"
 #include <iostream>
 
 using namespace std;
 using namespace tlp;
 
-CPPUNIT_TEST_SUITE_REGISTRATION(TestAddEdge);
+CPPUNIT_TEST_SUITE_REGISTRATION(AddEdgeTest);
 
-void TestAddEdge::setUp()
+void AddEdgeTest::setUp()
 {
 	_engine = new TulipScriptEngine();
 
@@ -15,12 +15,12 @@ void TestAddEdge::setUp()
 	_engine->addScriptFunction(storeGraph, "storeGraph");
 }
 
-void TestAddEdge::tearDown()
+void AddEdgeTest::tearDown()
 {
 	delete _engine;
 }
 
-void TestAddEdge::invokeTest()
+void AddEdgeTest::invokeTest()
 {
 	_engine->evaluate("var g = newGraph(); var n1 = g.addNode(); var n2 = g.addNode(); storeGraph(g);");
 

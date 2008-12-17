@@ -1,5 +1,5 @@
-#ifndef TESTGRAPHCREATE_H_
-#define TESTGRAPHCREATE_H_
+#ifndef GraphCreateTest_H_
+#define GraphCreateTest_H_
 
 #include <cppunit/TestCase.h>
 #include <cppunit/extensions/HelperMacros.h>
@@ -15,9 +15,9 @@
 
 #include "utilsTest.h"
 
-class TestGraphCreate : public CppUnit::TestCase
+class GraphCreateTest : public CppUnit::TestCase
 {
-	CPPUNIT_TEST_SUITE(TestGraphCreate);
+	CPPUNIT_TEST_SUITE(GraphCreateTest);
       CPPUNIT_TEST(invokeTest);
   CPPUNIT_TEST_SUITE_END();
 private:
@@ -31,4 +31,4 @@ protected:
 	std::string _savedFile;
 };
 
-#endif /* TESTGRAPHCREATE_H_ */
+#endif /* GraphCreateTest_H_ */

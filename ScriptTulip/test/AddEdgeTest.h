@@ -1,5 +1,5 @@
-#ifndef TESTADDEDGE_H_
-#define TESTADDEDGE_H_
+#ifndef AddEdgeTest_H_
+#define AddEdgeTest_H_
 
 #include <cppunit/TestCase.h>
 #include <cppunit/extensions/HelperMacros.h>
@@ -13,8 +13,8 @@
 #include "QNode.h"
 #include "TulipScriptEngine.h"
 
-class TestAddEdge: public QObject, public CppUnit::TestCase {
-	CPPUNIT_TEST_SUITE( TestAddEdge);
+class AddEdgeTest: public QObject, public CppUnit::TestCase {
+	CPPUNIT_TEST_SUITE( AddEdgeTest);
 	CPPUNIT_TEST(invokeTest);
 	CPPUNIT_TEST_SUITE_END();
 	private:
@@ -27,4 +27,4 @@ class TestAddEdge: public QObject, public CppUnit::TestCase {
 		TulipScriptEngine *_engine;
 };
 
-#endif /* TESTADDEDGE_H_ */
+#endif /* AddEdgeTest_H_ */
