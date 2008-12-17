@@ -1,5 +1,5 @@
-#ifndef SAVELOAD_TESTCASE_H
-#define SAVELOAD_TESTCASE_H
+#ifndef LOAD_TESTCASE_H
+#define LOAD_TESTCASE_H
 
 #include <cppunit/TestCase.h>
 #include <cppunit/extensions/HelperMacros.h>
@@ -8,10 +8,10 @@
 
 #include "TulipScriptEngine.h"
 
-class SaveGraphTest : public CppUnit::TestCase
+class LoadGraphTest : public CppUnit::TestCase
 {
-  CPPUNIT_TEST_SUITE(SaveGraphTest);
-      CPPUNIT_TEST(saveTest);
+  CPPUNIT_TEST_SUITE(LoadGraphTest);
+      CPPUNIT_TEST(loadTest);
   CPPUNIT_TEST_SUITE_END();
 private:
 	TulipScriptEngine* _engine;
@@ -21,7 +21,7 @@ public:
     void tearDown();
 
 protected:
-    void saveTest();
+    void loadTest();
 
 };
 

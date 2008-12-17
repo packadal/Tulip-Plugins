@@ -1,4 +1,4 @@
-#include "SaveGraphTest.h"
+#include "LoadGraphTest.h"
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
@@ -10,45 +10,43 @@
 #include <QFile>
 #include <QScriptValue>
 #include "QGraph.h"
+#include "utilsTest.h"
 
 
 using namespace std;
 
-CPPUNIT_TEST_SUITE_REGISTRATION(SaveGraphTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(LoadGraphTest);
 
-void SaveGraphTest::setUp()
+void LoadGraphTest::setUp()
 {
 	_engine = new TulipScriptEngine();
 
 	_engine->addScriptFunction(graphFactory, "newGraph");
-	_engine->addScriptFunction(saveGraph, "saveGraph");
 	_engine->addScriptFunction(loadGraph, "loadGraph");
+	_engine->addScriptFunction(storeGraph, "storeGraph");
 
 	filename = "grapheTest.tlp";
 	filenameReference = "graphReference.tlp";
 }
 
-void SaveGraphTest::tearDown()
+void LoadGraphTest::tearDown()
 {
 	std::system(std::string("rm " + filename).c_str());
+	delete _graph;
 	delete _engine;
 }
 
-void SaveGraphTest::saveTest()
+void LoadGraphTest::loadTest()
 {
-
-	tlp::Graph* referenceGraph = tlp::loadGraph(filenameReference);
-	tlp::saveGraph(referenceGraph,filenameReference);
-	QGraph* qreferenceGraph = new QGraph(_engine,referenceGraph);
-	QScriptValue value = _engine->newQObject(qreferenceGraph);
-	_engine->globalObject().setProperty("refrenceGraph",value);
-
-
-	_engine->evaluate(QString::fromStdString(" saveGraph(refrenceGraph, \""+filename+"\");"));
+	_engine->evaluate(QString::fromStdString("var g = loadGraph(\""+filenameReference+"\"); storeGraph(g);"));
 	if(_engine->hasUncaughtException())
 	{
 			CPPUNIT_FAIL(qPrintable(_engine->uncaughtException().toString()));
 	}
+
+	tlp::Graph* referenceGraph = tlp::loadGraph(filenameReference);
+	tlp::saveGraph(referenceGraph,filenameReference);
+	tlp::saveGraph(_graph->asGraph(),filename);
 
 
 	QFile file(QString::fromStdString(filename)), fileReference(QString::fromStdString(filenameReference));
@@ -56,7 +54,6 @@ void SaveGraphTest::saveTest()
 	fileReference.open(QFile::ReadOnly);
 	QTextStream data(&file);
 	QTextStream dataReference(&fileReference);
-
 
 	CPPUNIT_ASSERT_EQUAL(dataReference.readAll().toStdString(), data.readAll().toStdString());
 }
