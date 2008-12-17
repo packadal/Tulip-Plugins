@@ -159,8 +159,11 @@ tlp::Graph* QGraph::asGraph()
 	return _graph;
 }
 
-QProperty* QGraph::getProperty(QString name) {
-	return new QProperty(_graph->getProperty(name.toStdString()));
+QScriptValue QGraph::getProperty(QString name) {
+	if(_graph->existProperty(name.toStdString()))
+		return _engine->newQObject(new QProperty(_graph->getProperty(name.toStdString())));
+	else return QScriptValue();
+
 }
 
 unsigned int QGraph::numberOfNodes()const

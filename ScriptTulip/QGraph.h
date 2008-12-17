@@ -102,7 +102,7 @@ public slots:
 				   PluginProgress *progress=0, DataSet *data=0);
 	template<typename Proxytype>
 	Proxytype* getProperty(const std::string &name);*/
-	QProperty* getProperty(QString name);
+	QScriptValue getProperty(QString name);
 	/*virtual  bool existProperty(const std::string& name)=0;
 	virtual  bool existLocalProperty(const std::string& name)=0;
 	virtual  void delLocalProperty(const std::string& name)=0;

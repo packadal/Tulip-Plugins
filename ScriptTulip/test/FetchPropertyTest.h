@@ -4,12 +4,12 @@
 #include <cppunit/TestCase.h>
 #include <cppunit/extensions/HelperMacros.h>
 
-#include <QScriptEngine>
 #include <QObject>
 
 #include "QGraph.h"
 #include "QEdge.h"
 #include "QNode.h"
+#include "TulipScriptEngine.h"
 
 class FetchPropertyTest : public CppUnit::TestCase
 {
@@ -23,7 +23,7 @@ public:
     void tearDown();
 protected:
     void invokeTest(); // Entry point
-    QScriptEngine *_engine;
+    TulipScriptEngine *_engine;
 };
 
 QProperty *_prop;

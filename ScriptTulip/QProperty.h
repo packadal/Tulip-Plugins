@@ -6,6 +6,7 @@
 #include <QScriptValue>
 
 #include <tulip/AbstractProperty.h>
+#include <tulip/PropertyAlgorithm.h>
 
 #include "QNode.h"
 
@@ -13,8 +14,9 @@ class QProperty : public QObject {
 	Q_OBJECT
 	public:
 		QProperty();
-		QProperty(tlp::PropertyInterface *property);
+		QProperty(tlp::PropertyInterface*);
 		virtual ~QProperty();
+		tlp::PropertyInterface* asProperty();
 	public slots:
 		QString getNodeStringValue(QNode *node);
 		bool setNodeStringValue(QNode *node, QString value);
@@ -38,10 +40,7 @@ class QProperty : public QObject {
 		virtual Iterator<node>* getNonDefaultValuatedNodes()=0;
 		virtual Iterator<edge>* getNonDefaultValuatedEdges()=0;*/
 	private:
-		tlp::PropertyInterface *_property;
+		tlp::PropertyInterface* _property;
 };
-
-QScriptValue qPropertyToScriptValue(QScriptEngine *engine, const QProperty &prop);
-void qPropertyFromScriptValue(const QScriptValue &obj, QProperty &prop);
 
 #endif /* QPROPERTY_H_ */

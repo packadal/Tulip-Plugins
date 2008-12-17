@@ -6,14 +6,10 @@ using namespace std;
 
 void FetchPropertyTest::setUp()
 {
-	_engine = new QScriptEngine();
+	_engine = new TulipScriptEngine();
 
-	QScriptValue ctor = _engine->newFunction(graphFactory);
-	_engine->globalObject().setProperty("newGraph", ctor);
-
-	QScriptValue ctor2 = _engine->newFunction(storeProperty);
-	_engine->globalObject().setProperty("storeProperty", ctor2);
-
+	_engine->addScriptFunction(graphFactory, "newGraph");
+	_engine->addScriptFunction(storeProperty, "storeProperty");
 }
 
 void FetchPropertyTest::tearDown()
@@ -23,18 +19,24 @@ void FetchPropertyTest::tearDown()
 
 void FetchPropertyTest::invokeTest()
 {
-	_engine->evaluate(QString::fromStdString("var g = newGraph(); var prop = g.getProperty(\"viewColor\"); storeProperty(prop); "));//saveGraph(g, \""+filename+"\");"));
-	if(_engine->hasUncaughtException())
-		{
-			cout << qPrintable(_engine->uncaughtException().toString()) << endl;
-		}
+	_engine->evaluate(QString::fromStdString("var g = newGraph();"));//saveGraph(g, \""+filename+"\");"));
 
-	//CPPUNIT_ASSERT_EQUAL(_savedFile , data.readAll().toStdString());
+	_engine->evaluate(QString::fromStdString("var prop = g.getProperty(\"viewColor\");"));
+
+	_engine->evaluate(QString::fromStdString("storeProperty(prop);"));
+
+	if(_engine->hasUncaughtException())
+	{
+		cout << qPrintable(_engine->uncaughtException().toString()) << endl;
+	}
 }
 
 QScriptValue storeProperty(QScriptContext *context, QScriptEngine *)
 {
 	_prop = (QProperty *)(context->argument(0).toQObject());
-	cout << _prop->getNodeDefaultStringValue().toStdString() << endl;
+	if (_prop != 0) {
+		cout << _prop->getNodeDefaultStringValue().toStdString() << endl;
+	}
 	return QScriptValue();
+
 }

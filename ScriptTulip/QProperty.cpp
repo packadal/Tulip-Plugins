@@ -2,14 +2,20 @@
 
 using namespace tlp;
 
-QProperty::QProperty() {
+QProperty::QProperty()
+:_property()
+{
 }
 
-QProperty::QProperty(PropertyInterface *property)
+QProperty::QProperty(tlp::PropertyInterface* property)
 :_property(property) {
 }
 
 QProperty::~QProperty() {
+}
+
+tlp::PropertyInterface* QProperty::asProperty() {
+	return _property;
 }
 
 QString QProperty::getNodeStringValue(QNode *node) {
@@ -28,17 +34,4 @@ QString QProperty::getNodeDefaultStringValue() {
 
 QString QProperty::getEdgeDefaultStringValue() {
 	return QString::fromStdString(_property->getEdgeDefaultStringValue());
-}
-
-QScriptValue qPropertyToScriptValue(QScriptEngine *engine, const QProperty &prop) {
-
-	//TODO: finir  ça
-	QScriptValue ret;// = engine->newObject()->ret;
-
-
-	return ret;
-}
-
-void qPropertyFromScriptValue(const QScriptValue &obj, QProperty &prop) {
-
 }
