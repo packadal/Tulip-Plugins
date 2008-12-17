@@ -27,4 +27,7 @@ class AddEdgeTest: public QObject, public CppUnit::TestCase {
 		TulipScriptEngine *_engine;
 };
 
+static QEdge* _edge;
+QScriptValue testEdge(QScriptContext*, QScriptEngine*);
+
 #endif /* AddEdgeTest_H_ */

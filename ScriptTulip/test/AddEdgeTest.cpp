@@ -13,6 +13,7 @@ void AddEdgeTest::setUp()
 
 	_engine->addScriptFunction(graphFactory, "newGraph");
 	_engine->addScriptFunction(storeGraph, "storeGraph");
+	_engine->addScriptFunction(testEdge, "testEdge");
 }
 
 void AddEdgeTest::tearDown()
@@ -30,9 +31,18 @@ void AddEdgeTest::invokeTest()
 	CPPUNIT_ASSERT(_graph != 0);
 	CPPUNIT_ASSERT(_graph->numberOfEdges() == 0);
 
-	_engine->evaluate("var e = g.addEdge(n1, n2); storeGraph(g);");
+	_engine->evaluate("var e = g.addEdge(n1, n2); testEdge(g, e);");
 	CPPUNIT_ASSERT(_graph->numberOfEdges() == 1);
 
-	_engine->evaluate("g.addEdge(e); storeGraph(g);");
-	CPPUNIT_ASSERT(_graph->numberOfEdges() == 2);
+	CPPUNIT_ASSERT(_graph->isElement(_edge));
+
+//	_engine->evaluate("g.addEdge(e); storeGraph(g);");
+//	CPPUNIT_ASSERT(_graph->numberOfEdges() == 2);
+}
+
+QScriptValue testEdge(QScriptContext *context, QScriptEngine*)
+{
+	_graph = qobject_cast<QGraph*>(context->argument(0).toQObject());
+	_edge = qobject_cast<QEdge*>(context->argument(1).toQObject());
+	return QScriptValue();
 }
