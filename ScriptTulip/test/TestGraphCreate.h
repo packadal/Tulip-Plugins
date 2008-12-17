@@ -15,7 +15,7 @@
 
 #include "utilsTest.h"
 
-class TestGraphCreate : public QObject, public CppUnit::TestCase
+class TestGraphCreate : public CppUnit::TestCase
 {
 	CPPUNIT_TEST_SUITE(TestGraphCreate);
       CPPUNIT_TEST(invokeTest);
