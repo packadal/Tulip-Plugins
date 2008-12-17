@@ -37,11 +37,10 @@ void AddEdgeTest::invokeTest()
 
 	CPPUNIT_ASSERT(_graph->isElement(_edge));
 
-//	_engine->evaluate("var n3 = g.addNode(); var e2 = new Edge(); g.addEdge(e2); storeGraph(g);");
-	_engine->evaluate("var g2 = newGraph(); g2.addNode(n1); g2.addNode(n2); g.addEdge(e); storeGraph(g);");
+	_engine->evaluate("var g2 = g.addSubGraph(); g2.addNode(n1); g2.addNode(n2); g2.addEdge(e); storeGraph(g2);");
 	if(_engine->hasUncaughtException())
 			cout << qPrintable(_engine->uncaughtException().toString()) << endl;
-	CPPUNIT_ASSERT(_graph->numberOfEdges() == 2);
+	CPPUNIT_ASSERT(_graph->numberOfEdges() == 1);
 }
 
 QScriptValue testEdge(QScriptContext *context, QScriptEngine*)
