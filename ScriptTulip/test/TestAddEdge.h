@@ -13,6 +13,8 @@
 #include "QEdge.h"
 #include "QNode.h"
 
+#include "utilsTest.h"
+
 class TestAddEdge: public QObject, public CppUnit::TestCase {
 	CPPUNIT_TEST_SUITE( TestAddEdge);
 	CPPUNIT_TEST( invokeTest);
@@ -26,9 +28,5 @@ class TestAddEdge: public QObject, public CppUnit::TestCase {
 		void invokeTest(); // Entry point
 		QScriptEngine *_engine;
 };
-
-QGraph *_graph;
-
-QScriptValue storeGraph(QScriptContext *context, QScriptEngine *engine);
 
 #endif /* TESTADDEDGE_H_ */

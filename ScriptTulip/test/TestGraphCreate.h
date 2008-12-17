@@ -13,6 +13,8 @@
 #include "QEdge.h"
 #include "QNode.h"
 
+#include "utilsTest.h"
+
 class TestGraphCreate : public QObject, public CppUnit::TestCase
 {
 	CPPUNIT_TEST_SUITE(TestGraphCreate);
@@ -28,9 +30,5 @@ protected:
 	QScriptEngine *_engine;
 	std::string _savedFile;
 };
-
-QGraph *_graph;
-
-QScriptValue storeGraph(QScriptContext *context, QScriptEngine *engine);
 
 #endif /* TESTGRAPHCREATE_H_ */

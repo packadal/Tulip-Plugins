@@ -31,10 +31,3 @@ void TestGraphCreate::invokeTest()
 
 	CPPUNIT_ASSERT(_graph != 0);
 }
-
-QScriptValue storeGraph(QScriptContext *context, QScriptEngine *engine)
-{
-	(void) engine;
-	_graph = (QGraph *)(context->argument(0).toQObject());
-	return QScriptValue();
-}
