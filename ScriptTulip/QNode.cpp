@@ -12,12 +12,12 @@
 #include <QtScript/QScriptEngine>
 
 QNode::QNode()
-:_node(new tlp::node())
+:_node(tlp::node())
 {
 }
 
-QNode::QNode(const tlp::node& n)
-:_node(&n)
+QNode::QNode(const tlp::node n)
+:_node(n)
 {
 }
 
@@ -27,5 +27,5 @@ QNode::~QNode() {
 QScriptValue nodeFactory(QScriptContext*, QScriptEngine *engine)
 {
     QObject *node = new QNode();
-    return engine->newQObject(node);
+    return engine->newQObject(node, QScriptEngine::ScriptOwnership);
 }

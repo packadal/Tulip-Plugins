@@ -14,13 +14,13 @@ class QEdge : public QObject {
 	Q_OBJECT
 public:
 	QEdge();
-	QEdge(const tlp::edge&);
+	QEdge(const tlp::edge);
 	virtual ~QEdge();
 
-	tlp::edge asEdge() const { return *_edge; }
+	tlp::edge asEdge() const { return _edge; }
 private:
 	Q_DISABLE_COPY(QEdge)
-	const tlp::edge* _edge;
+	const tlp::edge _edge;
 };
 
 QScriptValue edgeFactory(QScriptContext *context, QScriptEngine *engine);

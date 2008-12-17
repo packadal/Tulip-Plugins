@@ -13,13 +13,13 @@ class QNode : public QObject {
 	Q_OBJECT
 public:
 	QNode();
-	QNode(const tlp::node&);
+	QNode(const tlp::node);
 	virtual ~QNode();
 
-	tlp::node asNode() const { return *_node; }
+	tlp::node asNode() const { return _node; }
 private:
 	Q_DISABLE_COPY(QNode);
-	const tlp::node* _node;
+	const tlp::node _node;
 };
 
 QScriptValue nodeFactory(QScriptContext *context, QScriptEngine *engine);
