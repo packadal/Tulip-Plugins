@@ -29,15 +29,16 @@ public:
 public slots:
 	void clear();
 //	QGraph *addSubGraph(BooleanProperty *selection=0);
+	QScriptValue addSubGraph();
 	void delSubGraph(QGraph *);
 	void delAllSubGraphs(QGraph *);
-	QGraph* getSuperGraph()const;
+	QScriptValue getSuperGraph()const;
 
-	QGraph* getFather()const {
+	QScriptValue getFather()const {
 		std::cerr << __PRETTY_FUNCTION__ << " is deprecated, use getSuperGraph() instead." << std::endl;
 		return getSuperGraph();
 	  }
-	QGraph* getRoot() const;
+	QScriptValue getRoot() const;
 	void setSuperGraph(QGraph *);
 	void setFather(QGraph *sg) {
 		std::cerr << __PRETTY_FUNCTION__ << " is deprecated, use setSuperGraph() instead." << std::endl;
@@ -111,6 +112,7 @@ public slots:
 	virtual Iterator<std::string>* getProperties()=0;
 	*/
 private:
+	QScriptValue getPrivateScriptValue(QObject*) const;
 	unsigned int id;
 	tlp::Graph* _graph;
 	QScriptEngine* _engine;

@@ -12,6 +12,7 @@ void AddEdgeTest::setUp()
 	_engine = new TulipScriptEngine();
 
 	_engine->addScriptFunction(graphFactory, "newGraph");
+	_engine->addScriptFunction(edgeFactory, "Edge");
 	_engine->addScriptFunction(storeGraph, "storeGraph");
 	_engine->addScriptFunction(testEdge, "testEdge");
 }
@@ -36,8 +37,11 @@ void AddEdgeTest::invokeTest()
 
 	CPPUNIT_ASSERT(_graph->isElement(_edge));
 
-//	_engine->evaluate("g.addEdge(e); storeGraph(g);");
-//	CPPUNIT_ASSERT(_graph->numberOfEdges() == 2);
+//	_engine->evaluate("var n3 = g.addNode(); var e2 = new Edge(); g.addEdge(e2); storeGraph(g);");
+	_engine->evaluate("var g2 = newGraph(); g2.addNode(n1); g2.addNode(n2); g.addEdge(e); storeGraph(g);");
+	if(_engine->hasUncaughtException())
+			cout << qPrintable(_engine->uncaughtException().toString()) << endl;
+	CPPUNIT_ASSERT(_graph->numberOfEdges() == 2);
 }
 
 QScriptValue testEdge(QScriptContext *context, QScriptEngine*)

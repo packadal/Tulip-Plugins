@@ -29,6 +29,11 @@ QGraph::~QGraph() {
 
 }
 
+QScriptValue QGraph::getPrivateScriptValue(QObject* o) const
+{
+	return _engine->newQObject(o, QScriptEngine::ScriptOwnership);
+}
+
 QScriptValue graphFactory(QScriptContext*, QScriptEngine *engine)
 {
     QObject *graph = new QGraph(engine, tlp::newGraph());
@@ -62,6 +67,12 @@ QGraph *QGraph::addSubGraph(BooleanProperty *selection)
 	return new QGraph(_graph->addSubGraph(selection));
 }*/
 
+QScriptValue QGraph::addSubGraph()
+{
+	QGraph* g = new QGraph(_engine, _graph->addSubGraph());
+	return getPrivateScriptValue(g);
+}
+
 void QGraph::delSubGraph(QGraph *g)
 {
 	_graph->delSubGraph(g->asGraph());
@@ -69,22 +80,22 @@ void QGraph::delSubGraph(QGraph *g)
 
 void QGraph::delAllSubGraphs(QGraph *g)
 {
-	return _graph->delAllSubGraphs(g->asGraph());
+	_graph->delAllSubGraphs(g->asGraph());
 }
 
-QGraph* QGraph::getSuperGraph()const
+QScriptValue QGraph::getSuperGraph()const
 {
-	return new QGraph(_engine, _graph->getSuperGraph());
+	return getPrivateScriptValue(new QGraph(_engine, _graph->getSuperGraph()));
 }
 
-QGraph* QGraph::getRoot() const
+QScriptValue QGraph::getRoot() const
 {
-	return new QGraph(_engine, _graph->getRoot());
+	return getPrivateScriptValue(new QGraph(_engine, _graph->getRoot()));
 }
 
 void QGraph::setSuperGraph(QGraph *g)
 {
-	return _graph->setSuperGraph(g->asGraph());
+	_graph->setSuperGraph(g->asGraph());
 }
 /*
 Iterator<Graph *> * QGraph::getSubGraphs() const
@@ -95,9 +106,7 @@ Iterator<Graph *> * QGraph::getSubGraphs() const
 
 QScriptValue QGraph::addNode()
 {
-	//ouh, memory leak ? QNode is never deleted
-	return  _engine->newQObject(new QNode(_graph->addNode()), QScriptEngine::ScriptOwnership);
-
+	return getPrivateScriptValue(new QNode(_graph->addNode()));
 }
 
 void QGraph::addNode(const QNode* n)
@@ -118,7 +127,7 @@ void QGraph::delAllNode(const QNode* n)
 
 QScriptValue QGraph::addEdge(const QNode* n1, const QNode* n2)
 {
-	return _engine->newQObject(new QEdge(_graph->addEdge(n1->asNode(), n2->asNode())), QScriptEngine::ScriptOwnership);
+	return getPrivateScriptValue(new QEdge(_graph->addEdge(n1->asNode(), n2->asNode())));
 }
 
 void QGraph::addEdge(const QEdge* e)
@@ -193,17 +202,17 @@ unsigned int QGraph::outdeg(const QNode* n)const
 
 QScriptValue QGraph::source(const QEdge* e)const
 {
-	return _engine->newQObject(new QNode(_graph->source(e->asEdge())), QScriptEngine::ScriptOwnership);
+	return getPrivateScriptValue(new QNode(_graph->source(e->asEdge())));
 }
 
 QScriptValue QGraph::target(const QEdge* e)const
 {
-	return _engine->newQObject(new QNode(_graph->target(e->asEdge())), QScriptEngine::ScriptOwnership);
+	return getPrivateScriptValue(new QNode(_graph->target(e->asEdge())));
 }
 
 QScriptValue QGraph::opposite(const QEdge* e, const QNode* n)const
 {
-	return _engine->newQObject(new QNode(_graph->opposite(e->asEdge(), n->asNode())), QScriptEngine::ScriptOwnership);
+	return getPrivateScriptValue(new QNode(_graph->opposite(e->asEdge(), n->asNode())));
 }
 
 bool QGraph::isElement(const QNode* n) const
@@ -218,5 +227,5 @@ bool QGraph::isElement(const QEdge* e) const
 
 QScriptValue QGraph::existEdge(const QNode* n1, const QNode* n2) const
 {
-	return _engine->newQObject(new QEdge(_graph->existEdge(n1->asNode(), n2->asNode())), QScriptEngine::ScriptOwnership);
+	return getPrivateScriptValue(new QEdge(_graph->existEdge(n1->asNode(), n2->asNode())));
 }

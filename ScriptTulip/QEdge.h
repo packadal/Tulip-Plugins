@@ -23,6 +23,6 @@ private:
 	const tlp::edge* _edge;
 };
 
-//QScriptValue edgeFactory(QScriptContext *context, QScriptEngine *engine);
+QScriptValue edgeFactory(QScriptContext *context, QScriptEngine *engine);
 
 #endif /* QEDGE_H_ */

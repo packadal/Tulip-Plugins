@@ -28,4 +28,7 @@ class AddNodeTest : public QObject, public CppUnit::TestCase {
 		TulipScriptEngine *_engine;
 };
 
+static QNode* _node;
+QScriptValue testNode(QScriptContext*, QScriptEngine*);
+
 #endif /* AddNodeTest_H_ */

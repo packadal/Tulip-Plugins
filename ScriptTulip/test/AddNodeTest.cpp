@@ -12,6 +12,7 @@ void AddNodeTest::setUp()
 
 	_engine->addScriptFunction(graphFactory, "newGraph");
 	_engine->addScriptFunction(storeGraph, "storeGraph");
+	_engine->addScriptFunction(testNode, "testNode");
 }
 
 void AddNodeTest::tearDown()
@@ -36,4 +37,11 @@ void AddNodeTest::invokeTest()
 
 	_engine->evaluate("var n2 = g.addNode();");
 	CPPUNIT_ASSERT(_graph->numberOfNodes() == 2);
+}
+
+QScriptValue testNode(QScriptContext *context, QScriptEngine*)
+{
+	_graph = qobject_cast<QGraph*>(context->argument(0).toQObject());
+	_node = qobject_cast<QNode*>(context->argument(1).toQObject());
+	return QScriptValue();
 }
