@@ -14,10 +14,18 @@
 #include "QGraph.h"
 
 static QGraph* _graph = 0;
+static QString _string = 0;
 
 static QScriptValue storeGraph(QScriptContext *context, QScriptEngine*)
 {
 	_graph = qobject_cast<QGraph*>(context->argument(0).toQObject());
 	return QScriptValue();
 }
+
+static QScriptValue storeString(QScriptContext *context, QScriptEngine*)
+{
+	_string = context->argument(0).toString();
+	return QScriptValue();
+}
+
 #endif /* UTILSTEST_H_ */

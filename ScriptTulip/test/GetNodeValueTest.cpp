@@ -20,7 +20,6 @@ void GetNodeValueTest::setUp()
 void GetNodeValueTest::tearDown()
 {
 	delete _engine;
-	delete _string;
 }
 
 void GetNodeValueTest::invokeTest()
@@ -31,7 +30,7 @@ void GetNodeValueTest::invokeTest()
 	qgraph.addNode(&node);
 	QProperty property(graph->getProperty("viewColor"));
 	QString value("(10,11,12)");
-	property.setNodeStringValue(&node,value.toStdString());
+	property.setNodeStringValue(&node,value);
 
 
 	_engine->addQObject(&property,QString::fromStdString("property"));
