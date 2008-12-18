@@ -1,13 +1,13 @@
-#ifndef SETPROPERTY_H_
-#define SETPROPERTY_H_
+#ifndef SETNODEVALUE_H_
+#define SETNODEVALUE_H_
 
 #include <cppunit/TestCase.h>
 #include <cppunit/extensions/HelperMacros.h>
 #include "TulipScriptEngine.h"
 
-class SetPropertyTest : public CppUnit::TestCase
+class SetNodeValueTest : public CppUnit::TestCase
 {
-  CPPUNIT_TEST_SUITE(SetPropertyTest);
+  CPPUNIT_TEST_SUITE(SetNodeValueTest);
       CPPUNIT_TEST(invokeTest);
   CPPUNIT_TEST_SUITE_END();
 private:

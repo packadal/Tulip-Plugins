@@ -1,26 +1,26 @@
-#include "SetPropertyTest.h"
+#include "SetNodeValueTest.h"
 #include <tulip/Graph.h>
 
 #include "QGraph.h"
 #include "QProperty.h"
 #include "QNode.h"
 
-CPPUNIT_TEST_SUITE_REGISTRATION(SetPropertyTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(SetNodeValueTest);
 
 
-void SetPropertyTest::setUp()
+void SetNodeValueTest::setUp()
 {
 	_engine = new TulipScriptEngine();
 
 
 }
 
-void SetPropertyTest::tearDown()
+void SetNodeValueTest::tearDown()
 {
 	delete _engine;
 }
 
-void SetPropertyTest::invokeTest()
+void SetNodeValueTest::invokeTest()
 {
 	tlp::Graph* graph = tlp::newGraph();
 	QGraph qgraph(_engine,graph);
