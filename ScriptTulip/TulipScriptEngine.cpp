@@ -23,7 +23,7 @@ void TulipScriptEngine::addScriptFunction(FunctionSignature function, QString fu
 	this->globalObject().setProperty(functionName, ctor);
 }
 
-void TulipScriptEngine::addQObject(QObject qobject, QString objectName){
-	QScriptValue value = _engine->newQObject(qobject);
-	_engine->globalObject().setProperty(objectName,value);
+void TulipScriptEngine::addQObject(QObject* qobject, QString objectName){
+	QScriptValue value = this->newQObject(qobject);
+	this->globalObject().setProperty(objectName,value);
 }
