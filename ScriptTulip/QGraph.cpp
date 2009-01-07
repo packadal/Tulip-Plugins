@@ -156,24 +156,63 @@ void QGraph::reverse(const QEdge* e)
 
 QNode* QGraph::getOneNode() const
 {
-	_graph->getOneNode();
+	return new QNode(_graph->getOneNode());
 }
 
 QNode* QGraph::getInNode(const QNode* n, unsigned int i)const
 {
-	_graph->getInNode(n->asNode(), i);
+	return new QNode(_graph->getInNode(n->asNode(), i));
 }
 
 QNode* QGraph::getOutNode(const QNode* n, unsigned int i) const
 {
-	_graph->getOutNode(n->asNode(), i);
+	return new QNode(_graph->getOutNode(n->asNode(), i));
 }
 
 QEdge* QGraph::getOneEdge() const
 {
-	_graph->getOneEdge();
+	return new QEdge(_graph->getOneEdge());
 }
 
+QIterator* QGraph::getNodes() const
+{
+	return new QIterator(_graph->getNodes());
+}
+
+QIterator* QGraph::getInNodes(const QNode* n) const
+{
+	return new QIterator(_graph->getInNodes(n->asNode()));
+}
+
+QIterator* QGraph::getOutNodes(const QNode* n) const
+{
+	return new QIterator(_graph->getOutNodes(n->asNode()));
+}
+
+QIterator* QGraph::getInOutNodes(const QNode* n) const
+{
+	return new QIterator(_graph->getInOutNodes(n->asNode()));
+}
+
+QIterator* QGraph::getEdges() const
+{
+	return new QIterator(_graph->getEdges());
+}
+
+QIterator* QGraph::getOutEdges(const QNode* n) const
+{
+	return new QIterator(_graph->getOutEdges(n->asNode()));
+}
+
+QIterator* QGraph::getInOutEdges(const QNode* n) const
+{
+	return new QIterator(_graph->getInOutEdges(n->asNode()));
+}
+
+QIterator* QGraph::getInEdges(const QNode* n) const
+{
+	return new QIterator(_graph->getInEdges(n->asNode()));
+}
 
 tlp::Graph* QGraph::asGraph()
 {

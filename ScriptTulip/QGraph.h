@@ -14,6 +14,7 @@
 #include "QEdge.h"
 #include "QNode.h"
 #include "QProperty.h"
+#include "QIterator.h"
 
 #include <QtCore/QObject>
 #include <QtScript/QScriptEngine>
@@ -61,17 +62,17 @@ public slots:
 	void reverse(const QEdge*);
 
 	virtual QNode* getOneNode() const;
-//	virtual Iterator<node>* getNodes() const =0;
+	virtual QIterator* getNodes() const;
 	virtual QNode* getInNode(const QNode*, unsigned int)const;
-//	virtual Iterator<node>* getInNodes(const node) const =0;
+	virtual QIterator* getInNodes(const QNode*) const;
 	virtual QNode* getOutNode(const QNode*, unsigned int) const;
-//	virtual Iterator<node>* getOutNodes(const node) const =0;
-//	virtual Iterator<node>* getInOutNodes(const node) const =0;
-//	virtual Iterator<edge>* getEdges() const =0;
+	virtual QIterator* getOutNodes(const QNode*) const;
+	virtual QIterator* getInOutNodes(const QNode*) const;
+	virtual QIterator* getEdges() const;
 	virtual QEdge* getOneEdge() const;
-//	virtual Iterator<edge>* getOutEdges(const node) const =0;
-//	virtual Iterator<edge>* getInOutEdges(const node) const =0;
-//	virtual Iterator<edge>* getInEdges(const node) const =0;
+	virtual QIterator* getOutEdges(const QNode*) const;
+	virtual QIterator* getInOutEdges(const QNode*) const;
+	virtual QIterator* getInEdges(const QNode*) const;
 
 	//================================================================================
 	// Graph, nodes and edges informations about the graph stucture
