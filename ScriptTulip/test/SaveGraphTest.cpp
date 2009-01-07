@@ -20,9 +20,6 @@ void SaveGraphTest::setUp()
 {
 	_engine = new TulipScriptEngine();
 
-	_engine->addScriptFunction(saveGraph, "saveGraph");
-	_engine->addScriptFunction(loadGraph, "loadGraph");
-
 	filename = "grapheTest.tlp";
 	filenameReference = "graphReference.tlp";
 }

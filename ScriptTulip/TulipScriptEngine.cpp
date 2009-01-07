@@ -28,7 +28,8 @@ TulipScriptEngine::TulipScriptEngine()
 	EXPORT_TYPE_TO_SCRIPT(QProperty);
 
 	addScriptFunction(QGraphFactory, "newGraph");
-	addScriptFunction(QEdgeFactory, "Edge");
+	addScriptFunction(saveGraph, "saveGraph");
+	addScriptFunction(loadGraph, "loadGraph");
 }
 
 TulipScriptEngine::~TulipScriptEngine() {

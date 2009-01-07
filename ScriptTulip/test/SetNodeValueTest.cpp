@@ -23,7 +23,7 @@ void SetNodeValueTest::tearDown()
 void SetNodeValueTest::invokeTest()
 {
 	tlp::Graph* graph = tlp::newGraph();
-	QGraph qgraph(_engine,graph);
+	QGraph qgraph(graph);
 	QNode node ;
 	qgraph.addNode(&node);
 	QProperty property(graph->getProperty("viewColor"));
