@@ -59,20 +59,19 @@ public slots:
 	void setEdgeOrder(const QNode*, const std::vector<QEdge*> & );
 	void swapEdgeOrder(const QNode*, const QEdge*, const QEdge*);
 	void reverse(const QEdge*);
-	/*
-	virtual node getOneNode() const =0;
-	virtual Iterator<node>* getNodes() const =0;
-	virtual node getInNode(const node,unsigned int )const =0;
-	virtual Iterator<node>* getInNodes(const node) const =0;
-	virtual node getOutNode(const node,unsigned int) const =0;
-	virtual Iterator<node>* getOutNodes(const node) const =0;
-	virtual Iterator<node>* getInOutNodes(const node) const =0;
-	virtual Iterator<edge>* getEdges() const =0;
-	virtual edge getOneEdge() const =0;
-	virtual Iterator<edge>* getOutEdges(const node) const =0;
-	virtual Iterator<edge>* getInOutEdges(const node) const =0;
-	virtual Iterator<edge>* getInEdges(const node) const =0;
-	*/
+
+	virtual QNode* getOneNode() const;
+//	virtual Iterator<node>* getNodes() const =0;
+	virtual QNode* getInNode(const QNode*, unsigned int)const;
+//	virtual Iterator<node>* getInNodes(const node) const =0;
+	virtual QNode* getOutNode(const QNode*, unsigned int) const;
+//	virtual Iterator<node>* getOutNodes(const node) const =0;
+//	virtual Iterator<node>* getInOutNodes(const node) const =0;
+//	virtual Iterator<edge>* getEdges() const =0;
+	virtual QEdge* getOneEdge() const;
+//	virtual Iterator<edge>* getOutEdges(const node) const =0;
+//	virtual Iterator<edge>* getInOutEdges(const node) const =0;
+//	virtual Iterator<edge>* getInEdges(const node) const =0;
 
 	//================================================================================
 	// Graph, nodes and edges informations about the graph stucture

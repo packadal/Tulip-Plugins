@@ -154,6 +154,27 @@ void QGraph::reverse(const QEdge* e)
 	_graph->reverse(e->asEdge());
 }
 
+QNode* QGraph::getOneNode() const
+{
+	_graph->getOneNode();
+}
+
+QNode* QGraph::getInNode(const QNode* n, unsigned int i)const
+{
+	_graph->getInNode(n->asNode(), i);
+}
+
+QNode* QGraph::getOutNode(const QNode* n, unsigned int i) const
+{
+	_graph->getOutNode(n->asNode(), i);
+}
+
+QEdge* QGraph::getOneEdge() const
+{
+	_graph->getOneEdge();
+}
+
+
 tlp::Graph* QGraph::asGraph()
 {
 	return _graph;
