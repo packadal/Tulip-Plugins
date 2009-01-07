@@ -17,7 +17,9 @@
 
 using namespace tlp;
 
-QGraph::QGraph() {
+QGraph::QGraph()
+:_graph(newGraph())
+{
 }
 
 QGraph::QGraph(tlp::Graph* g)
