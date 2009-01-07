@@ -18,24 +18,24 @@ void FetchPropertyTest::tearDown()
 
 void FetchPropertyTest::invokeTest()
 {
-	_engine->evaluate(QString::fromStdString("var g = newGraph();"));//saveGraph(g, \""+filename+"\");"));
+	_engine->evaluate(QString::fromStdString("var g = newGraph(); "));
+
+	if(_engine->hasUncaughtException())
+		cout << qPrintable(_engine->uncaughtException().toString()) << endl;
 
 	_engine->evaluate(QString::fromStdString("var prop = g.getProperty(\"viewColor\");"));
 
 	_engine->evaluate(QString::fromStdString("storeProperty(prop);"));
 
 	if(_engine->hasUncaughtException())
-	{
 		cout << qPrintable(_engine->uncaughtException().toString()) << endl;
-	}
 }
 
 QScriptValue storeProperty(QScriptContext *context, QScriptEngine *)
 {
 	_prop = (QProperty *)(context->argument(0).toQObject());
 	if (_prop != 0) {
-		cout << _prop->getNodeDefaultStringValue().toStdString() << endl;
+		//cout << _prop->getNodeDefaultStringValue().toStdString() << endl;
 	}
 	return QScriptValue();
-
 }
