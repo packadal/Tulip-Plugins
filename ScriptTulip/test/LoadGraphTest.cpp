@@ -21,7 +21,6 @@ void LoadGraphTest::setUp()
 {
 	_engine = new TulipScriptEngine();
 
-	_engine->addScriptFunction(graphFactory, "newGraph");
 	_engine->addScriptFunction(loadGraph, "loadGraph");
 	_engine->addScriptFunction(storeGraph, "storeGraph");
 

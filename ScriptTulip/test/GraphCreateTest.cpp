@@ -11,7 +11,6 @@ void GraphCreateTest::setUp()
 	_engine = new TulipScriptEngine();
 	_graph = 0;
 
-	_engine->addScriptFunction(graphFactory, "newGraph");
 	_engine->addScriptFunction(storeGraph, "storeGraph");
 }
 

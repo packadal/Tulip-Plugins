@@ -10,19 +10,20 @@
 
 #include <tulip/Graph.h>
 
+#include "Scriptmacros.h"
 #include "QEdge.h"
 #include "QNode.h"
+#include "QProperty.h"
 
 #include <QtCore/QObject>
+#include <QtScript/QScriptEngine>
 #include <QtScript/QScriptValue>
 #include <QtScript/QScriptContext>
-
-#include "QProperty.h"
 
 class QGraph : public QObject {
 	Q_OBJECT
 public:
-	QGraph(QScriptEngine* engine, tlp::Graph*);
+	QGraph(tlp::Graph*);
 	QGraph();
 	virtual ~QGraph();
 	tlp::Graph* asGraph();
@@ -31,27 +32,27 @@ public slots:
 //	QGraph *addSubGraph(BooleanProperty *selection=0);
 
 	//this should be remplaced by the upper method when the properties will work
-	QScriptValue addSubGraph();
+	QGraph* addSubGraph();
 	void delSubGraph(QGraph *);
 	void delAllSubGraphs(QGraph *);
-	QScriptValue getSuperGraph()const;
+	QGraph* getSuperGraph()const;
 
-	QScriptValue getFather()const {
+	QGraph* getFather()const {
 		std::cerr << __PRETTY_FUNCTION__ << " is deprecated, use getSuperGraph() instead." << std::endl;
 		return getSuperGraph();
 	  }
-	QScriptValue getRoot() const;
+	QGraph* getRoot() const;
 	void setSuperGraph(QGraph *);
 	void setFather(QGraph *sg) {
 		std::cerr << __PRETTY_FUNCTION__ << " is deprecated, use setSuperGraph() instead." << std::endl;
 		setFather(sg);
 	  }
 //	Iterator<Graph *> * getSubGraphs() const;
-	QScriptValue addNode();
+	QNode* addNode();
 	void addNode(const QNode*);
 	void delNode(const QNode*);
 	void delAllNode(const QNode*);
-	QScriptValue addEdge(const QNode*, const QNode*);
+	QEdge* addEdge(const QNode*, const QNode*);
 	void addEdge(const QEdge*);
 	void delEdge(const QEdge*);
 	void delAllEdge(const QEdge*);
@@ -76,18 +77,18 @@ public slots:
 	//================================================================================
 	// Graph, nodes and edges informations about the graph stucture
 	//================================================================================
-	int getId() const {return id;}
+	int getId() const {return _graph->getId();}
 	virtual unsigned int numberOfNodes()const;
 	virtual unsigned int numberOfEdges()const;
 	virtual unsigned int deg(const QNode*)const;
 	virtual unsigned int indeg(const QNode*)const;
 	virtual unsigned int outdeg(const QNode*)const;
-	virtual QScriptValue source(const QEdge*)const;
-	virtual QScriptValue target(const QEdge*)const;
-	virtual QScriptValue opposite(const QEdge*, const QNode*)const;
+	virtual QNode* source(const QEdge*)const;
+	virtual QNode* target(const QEdge*)const;
+	virtual QNode* opposite(const QEdge*, const QNode*)const;
 	virtual bool isElement(const QNode*) const;
 	virtual bool isElement(const QEdge*) const;
-	virtual QScriptValue existEdge(const QNode* , const QNode*) const;
+	virtual QEdge* existEdge(const QNode* , const QNode*) const;
 	//================================================================================
 	// Access to the graph attributes and to the node/edge property.
 	//================================================================================
@@ -105,7 +106,7 @@ public slots:
 				   PluginProgress *progress=0, DataSet *data=0);
 	template<typename Proxytype>
 	Proxytype* getProperty(const std::string &name);*/
-	QScriptValue getProperty(QString name);
+	QProperty* getProperty(QString name);
 	/*virtual  bool existProperty(const std::string& name)=0;
 	virtual  bool existLocalProperty(const std::string& name)=0;
 	virtual  void delLocalProperty(const std::string& name)=0;
@@ -114,13 +115,10 @@ public slots:
 	virtual Iterator<std::string>* getProperties()=0;
 	*/
 private:
-	QScriptValue getPrivateScriptValue(QObject*) const;
-	unsigned int id;
 	tlp::Graph* _graph;
 	QScriptEngine* _engine;
 };
 
-QScriptValue graphFactory(QScriptContext *context, QScriptEngine *engine);
 QScriptValue saveGraph(QScriptContext *context, QScriptEngine *engine);
 QScriptValue loadGraph(QScriptContext *context, QScriptEngine *engine);
 

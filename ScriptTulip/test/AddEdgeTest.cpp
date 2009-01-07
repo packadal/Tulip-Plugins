@@ -11,8 +11,6 @@ void AddEdgeTest::setUp()
 {
 	_engine = new TulipScriptEngine();
 
-	_engine->addScriptFunction(graphFactory, "newGraph");
-	_engine->addScriptFunction(edgeFactory, "Edge");
 	_engine->addScriptFunction(storeGraph, "storeGraph");
 	_engine->addScriptFunction(testEdge, "testEdge");
 }

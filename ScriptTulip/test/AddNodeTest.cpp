@@ -10,7 +10,6 @@ void AddNodeTest::setUp()
 {
 	_engine = new TulipScriptEngine();
 
-	_engine->addScriptFunction(graphFactory, "newGraph");
 	_engine->addScriptFunction(storeGraph, "storeGraph");
 	_engine->addScriptFunction(testNode, "testNode");
 }

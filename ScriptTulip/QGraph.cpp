@@ -20,24 +20,13 @@ using namespace tlp;
 QGraph::QGraph() {
 }
 
-QGraph::QGraph(QScriptEngine* engine, tlp::Graph* g)
-:_graph(g),_engine(engine)
+QGraph::QGraph(tlp::Graph* g)
+:_graph(g)
 {
 }
 
 QGraph::~QGraph() {
 
-}
-
-QScriptValue QGraph::getPrivateScriptValue(QObject* o) const
-{
-	return _engine->newQObject(o, QScriptEngine::ScriptOwnership);
-}
-
-QScriptValue graphFactory(QScriptContext*, QScriptEngine *engine)
-{
-    QObject *graph = new QGraph(engine, tlp::newGraph());
-    return engine->newQObject(graph);
 }
 
 QScriptValue saveGraph(QScriptContext* context, QScriptEngine *)
@@ -51,7 +40,7 @@ QScriptValue saveGraph(QScriptContext* context, QScriptEngine *)
 QScriptValue loadGraph(QScriptContext *context, QScriptEngine *engine){
 	QString filename= context->argument(0).toString();
 	tlp::Graph* graph = tlp::loadGraph(filename.toStdString());
-	QGraph *qgraph = new QGraph(engine,graph);
+	QGraph *qgraph = new QGraph(graph);
 	QScriptValue value = engine->newQObject(qgraph);
 	return value;
 }
@@ -68,10 +57,9 @@ QGraph *QGraph::addSubGraph(BooleanProperty *selection)
 }*/
 
 //this should be remplaced by the upper method when the properties will work
-QScriptValue QGraph::addSubGraph()
+QGraph* QGraph::addSubGraph()
 {
-	QGraph* g = new QGraph(_engine, _graph->addSubGraph());
-	return getPrivateScriptValue(g);
+	return new QGraph(_graph->addSubGraph());
 }
 
 void QGraph::delSubGraph(QGraph *g)
@@ -84,14 +72,14 @@ void QGraph::delAllSubGraphs(QGraph *g)
 	_graph->delAllSubGraphs(g->asGraph());
 }
 
-QScriptValue QGraph::getSuperGraph()const
+QGraph* QGraph::getSuperGraph()const
 {
-	return getPrivateScriptValue(new QGraph(_engine, _graph->getSuperGraph()));
+	return new QGraph(_graph->getSuperGraph());
 }
 
-QScriptValue QGraph::getRoot() const
+QGraph* QGraph::getRoot() const
 {
-	return getPrivateScriptValue(new QGraph(_engine, _graph->getRoot()));
+	return new QGraph(_graph->getRoot());
 }
 
 void QGraph::setSuperGraph(QGraph *g)
@@ -105,9 +93,9 @@ Iterator<Graph *> * QGraph::getSubGraphs() const
 }*/
 
 
-QScriptValue QGraph::addNode()
+QNode* QGraph::addNode()
 {
-	return getPrivateScriptValue(new QNode(_graph->addNode()));
+	return new QNode(_graph->addNode());
 }
 
 void QGraph::addNode(const QNode* n)
@@ -126,9 +114,9 @@ void QGraph::delAllNode(const QNode* n)
 }
 
 
-QScriptValue QGraph::addEdge(const QNode* n1, const QNode* n2)
+QEdge* QGraph::addEdge(const QNode* n1, const QNode* n2)
 {
-	return getPrivateScriptValue(new QEdge(_graph->addEdge(n1->asNode(), n2->asNode())));
+	return new QEdge(_graph->addEdge(n1->asNode(), n2->asNode()));
 }
 
 void QGraph::addEdge(const QEdge* e)
@@ -169,10 +157,10 @@ tlp::Graph* QGraph::asGraph()
 	return _graph;
 }
 
-QScriptValue QGraph::getProperty(QString name) {
+QProperty* QGraph::getProperty(QString name) {
 	if(_graph->existProperty(name.toStdString()))
-		return _engine->newQObject(new QProperty(_graph->getProperty(name.toStdString())));
-	else return QScriptValue();
+		return new QProperty(_graph->getProperty(name.toStdString()));
+	else return new QProperty();
 
 }
 
@@ -201,19 +189,19 @@ unsigned int QGraph::outdeg(const QNode* n)const
 	return _graph->outdeg(n->asNode());
 }
 
-QScriptValue QGraph::source(const QEdge* e)const
+QNode*  QGraph::source(const QEdge* e)const
 {
-	return getPrivateScriptValue(new QNode(_graph->source(e->asEdge())));
+	return new QNode(_graph->source(e->asEdge()));
 }
 
-QScriptValue QGraph::target(const QEdge* e)const
+QNode* QGraph::target(const QEdge* e)const
 {
-	return getPrivateScriptValue(new QNode(_graph->target(e->asEdge())));
+	return new QNode(_graph->target(e->asEdge()));
 }
 
-QScriptValue QGraph::opposite(const QEdge* e, const QNode* n)const
+QNode* QGraph::opposite(const QEdge* e, const QNode* n)const
 {
-	return getPrivateScriptValue(new QNode(_graph->opposite(e->asEdge(), n->asNode())));
+	return new QNode(_graph->opposite(e->asEdge(), n->asNode()));
 }
 
 bool QGraph::isElement(const QNode* n) const
@@ -226,7 +214,7 @@ bool QGraph::isElement(const QEdge* e) const
 	return _graph->isElement(e->asEdge());
 }
 
-QScriptValue QGraph::existEdge(const QNode* n1, const QNode* n2) const
+QEdge* QGraph::existEdge(const QNode* n1, const QNode* n2) const
 {
-	return getPrivateScriptValue(new QEdge(_graph->existEdge(n1->asNode(), n2->asNode())));
+	return new QEdge(_graph->existEdge(n1->asNode(), n2->asNode()));
 }
