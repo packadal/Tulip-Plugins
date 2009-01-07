@@ -20,7 +20,6 @@ void SaveGraphTest::setUp()
 {
 	_engine = new TulipScriptEngine();
 
-	_engine->addScriptFunction(graphFactory, "newGraph");
 	_engine->addScriptFunction(saveGraph, "saveGraph");
 	_engine->addScriptFunction(loadGraph, "loadGraph");
 
@@ -39,7 +38,7 @@ void SaveGraphTest::saveTest()
 
 	tlp::Graph* referenceGraph = tlp::loadGraph(filenameReference);
 	tlp::saveGraph(referenceGraph,filenameReference);
-	QGraph* qreferenceGraph = new QGraph(_engine,referenceGraph);
+	QGraph* qreferenceGraph = new QGraph(referenceGraph);
 	QScriptValue value = _engine->newQObject(qreferenceGraph);
 	_engine->globalObject().setProperty("refrenceGraph",value);
 
