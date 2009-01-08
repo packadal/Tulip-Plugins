@@ -5,7 +5,7 @@ var n3 = g.addNode();
 g.addEdge(n1, n2);
 g.addEdge(n2, n3);
 g.addEdge(n3, n1);
-saveGraph(g, "testTriangle.tlp";
+saveGraph(g, "testTriangle.tlp");
 
 var g = loadGraph("testTriangle.tlp");
 var it = g.getNodes();
