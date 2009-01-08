@@ -3,7 +3,6 @@
 
 #include <QObject>
 #include <QString>
-#include <QScriptValue>
 
 #include <tulip/AbstractProperty.h>
 #include <tulip/PropertyAlgorithm.h>
