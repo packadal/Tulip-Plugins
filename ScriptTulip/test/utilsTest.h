@@ -15,10 +15,25 @@
 
 static QGraph* _graph = 0;
 static QString _string = 0;
+static QNode* _testNode = 0;
+static QEdge* _testEdge = 0;
+
 
 static QScriptValue storeGraph(QScriptContext *context, QScriptEngine*)
 {
 	_graph = qobject_cast<QGraph*>(context->argument(0).toQObject());
+	return QScriptValue();
+}
+
+static QScriptValue storeNode(QScriptContext *context, QScriptEngine*)
+{
+	_testNode = qobject_cast<QNode*>(context->argument(0).toQObject());
+	return QScriptValue();
+}
+
+static QScriptValue storeEdge(QScriptContext *context, QScriptEngine*)
+{
+	_testEdge = qobject_cast<QEdge*>(context->argument(0).toQObject());
 	return QScriptValue();
 }
 
