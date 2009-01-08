@@ -28,11 +28,12 @@ public:
 	QGraph();
 	virtual ~QGraph();
 	tlp::Graph* asGraph();
+	QGraph* clone();
 public slots:
 	void clear();
 //	QGraph *addSubGraph(BooleanProperty *selection=0);
 
-	//this should be remplaced by the upper method when the properties will work
+	//this should be replaced by the upper method when the properties will work
 	QGraph* addSubGraph();
 	void delSubGraph(QGraph *);
 	void delAllSubGraphs(QGraph *);

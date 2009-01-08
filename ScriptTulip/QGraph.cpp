@@ -31,6 +31,10 @@ QGraph::~QGraph() {
 
 }
 
+QGraph* QGraph::clone(){
+	return new QGraph(tlp::newCloneSubGraph(asGraph()));
+}
+
 QScriptValue saveGraph(QScriptContext* context, QScriptEngine *)
 {
 	QString filename= context->argument(1).toString();
