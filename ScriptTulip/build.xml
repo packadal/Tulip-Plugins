@@ -1,0 +1,116 @@
+<project default="all" basedir=".">
+
+    <property environment="env"/>
+
+    <tstamp/>
+
+    <property name="sourceDir" value="." />
+    <property name="outputDir" value="." />
+    <property name="jambiDir" value="/net/cremi/chuet/liens/travail/qtjambi" />
+
+    <property name="jambiLib" value="${outputDir}/lib" />
+
+    <target name="help"
+            description="Provides detailed help.">
+    <echo>Generates an executable .jar file that runs tulip-plugins...</echo>
+    </target>
+
+    <target name="init">
+        <taskdef name="qmake"     classpath="${jambiDir}/ant-qtjambi.jar" classname="com.trolltech.tools.ant.QMakeTask"/>
+        <taskdef name="make"      classpath="${jambiDir}/ant-qtjambi.jar" classname="com.trolltech.tools.ant.MakeTask"/>
+        <taskdef name="generator" classpath="${jambiDir}/ant-qtjambi.jar" classname="com.trolltech.tools.ant.GeneratorTask"/>
+        <taskdef name="qtjambi-platform-jar" classpath="${jambiDir}/ant-qtjambi.jar" classname="com.trolltech.tools.ant.PlatformJarTask"/>
+        <taskdef name="qtjambi-initialize" classpath="${jambiDir}/ant-qtjambi.jar" classname="com.trolltech.tools.ant.InitializeTask"/>
+
+        <qtjambi-initialize verbose="true" configuration="${qtjambi.config}" />
+
+        <mkdir dir="${outputDir}/platform-output"/>
+    </target>
+
+    <target name="compile"
+        depends="init">
+
+        <generator dir="${outputDir}"
+           outputDirectory="${outputDir}"
+           typesystem="${sourceDir}/typeSystem.xml"
+           header="${sourceDir}/global.h"/>
+
+	<qmake config="${qtjambi.configuration}"
+	    dir="${outputDir}/cpp"
+	    pro="${sourceDir}/jambi-build.pro" />
+
+	<make dir="${outputDir}/cpp" />
+
+
+	<javac destdir="${outputDir}/platform-output"
+	    debug="true">
+		<src path="${outputDir}"/>
+		<src path="${sourceDir}"/>
+<!-- 		<src path="${jambiDir}"/> -->
+		<classpath path="${jambiDir}/qtjambi-4.4.3_01.jar"/>
+		<include name="com/tulip/java/*.java"/>
+<!-- 		<include name="com/trolltech/examples/GeneratorExample.java"/> -->
+	</javac>
+    </target>
+
+    <target name="package"
+        depends="init"
+        description="Creating .jar file with native libs...">
+
+        <qtjambi-platform-jar cacheKey="genex-${qtjambi.compiler}-${DSTAMP}-${TSTAMP}"
+                              outdir="${outputDir}/platform-output">
+
+            <!-- Qt Libraries... -->
+            <library name="QtCore"    type="qt" rootPath="${qtjambi.qtdir}" />
+            <library name="QtGui"     type="qt" rootPath="${qtjambi.qtdir}" />
+
+            <!-- Qt Plugins... -->
+            <library name="qjpeg" type="plugin" rootPath="${qtjambi.qtdir}" subdir="plugins/imageformats" load="never"/>
+        <plugin path="plugins" />
+
+            <!-- Qt Jambi Libraries -->
+            <library name="qtjambi"                  type="qtjambi" rootPath="${jambiDir}" />
+            <library name="com_trolltech_qt_core"    type="qtjambi" rootPath="${jambiDir}" />
+            <library name="com_trolltech_qt_gui"     type="qtjambi" rootPath="${jambiDir}" />
+
+	    <library name="com_tulip_java" type="qtjambi" rootPath="${outputDir}" />
+
+        <!-- The generator examplelibrary -->
+<!--             <library name="com_trolltech_examples_generator" type="qtjambi" rootPath="${outputDir}" /> -->
+
+        </qtjambi-platform-jar>
+
+        <jar destfile="${outputDir}/tulip-qtjambi-${qtjambi.osname}-${qtjambi.compiler}-${qtjambi.version}.jar">
+            <fileset dir="${outputDir}/platform-output" />
+<!--         <fileset dir="${sourceDir}" includes="com/trolltech/examples/generator/images/*"/> -->
+            <manifest>
+                <attribute name="Built-By" value="${user.name} - ${TODAY}"/>
+                <attribute name="Main-Class" value="com.tulip.java.QGraph"/>
+                <attribute name="Class-Path" value="qtjambi-${qtjambi.version}.jar" />
+            </manifest>
+
+        </jar>
+
+        <delete dir="${outputDir}/platform-output"/>
+
+    </target>
+
+    <target name="all"
+        depends="init, compile, package" />
+
+    <target name="clean"
+            description="Cleans everything.">
+        <delete dir="${outputDir}/cpp"/>
+	<delete dir="${outputDir}/bin"/>
+    	<delete dir="${outputDir}/com"/>
+	<delete dir="${outputDir}/lib"/>
+	<delete dir="${outputDir}/platform-output"/>
+	<delete>
+	    <fileset dir="${sourceDir}" includes="*mjb_*.log"/>
+	    <fileset dir="${sourceDir}" includes="**.o"/>
+	</delete>
+    </target>
+	
+    <target name="remake" description="cleans and runs" depends="clean, all" />
+	
+</project>
