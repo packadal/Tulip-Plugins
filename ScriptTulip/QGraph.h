@@ -30,6 +30,17 @@ public:
 	tlp::Graph* asGraph();
 	QGraph* clone();
 public slots:
+
+	static void saveGraph(const QString &filename)
+	{
+		tlp::saveGraph(this->asGraph(), filename.toStdString());
+	}
+
+	static QGraph* loadGraph(const QString &filename)
+	{
+		return new QGraph(tlp::loadGraph(filename.toStdString()));
+	}
+
 	void clear();
 //	QGraph *addSubGraph(BooleanProperty *selection=0);
 

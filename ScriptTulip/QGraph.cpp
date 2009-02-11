@@ -93,7 +93,7 @@ void QGraph::setSuperGraph(QGraph *g)
 	_graph->setSuperGraph(g->asGraph());
 }
 /*
-Iterator<Graph *> * QGraph::getSubGraphs() const
+QIterator<QGraph*> * QGraph::getSubGraphs() const
 {
 	_graph->getSubGraphs();
 }*/
