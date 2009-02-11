@@ -27,11 +27,11 @@ public:
 	QGraph(tlp::Graph*);
 	QGraph();
 	virtual ~QGraph();
-	tlp::Graph* asGraph();
+	tlp::Graph* asGraph() const;
 	QGraph* clone();
 public slots:
 
-	static void saveGraph(const QGraph* g, const QString &filename)
+	static void saveGraph(QGraph* g, const QString &filename)
 	{
 		tlp::saveGraph(g->asGraph(), filename.toStdString());
 	}

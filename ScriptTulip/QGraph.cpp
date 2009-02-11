@@ -218,7 +218,7 @@ QIterator* QGraph::getInEdges(const QNode* n) const
 	return new QIterator(_graph->getInEdges(n->asNode()));
 }
 
-tlp::Graph* QGraph::asGraph()
+tlp::Graph* QGraph::asGraph() const
 {
 	return _graph;
 }
