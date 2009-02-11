@@ -1,5 +1,6 @@
 #include "GetNodeValueTest.h"
 #include <tulip/Graph.h>
+#include <tulip/ColorProperty.h>
 
 #include "QGraph.h"
 #include "QProperty.h"
@@ -24,23 +25,24 @@ void GetNodeValueTest::tearDown()
 
 void GetNodeValueTest::invokeTest()
 {
-	tlp::Graph* graph = tlp::newGraph();
-	QGraph qgraph(graph);
-	QNode node ;
-	qgraph.addNode(&node);
-	QProperty property(graph->getProperty("viewColor"));
+	QGraph qgraph;
+	QNode* node = qgraph.addNode();
+	const std::string s = "viewColor";
+	QProperty property(qgraph.asGraph()->getProperty<tlp::ColorProperty>(s));
 	QString value("(10,11,12)");
-	property.setNodeStringValue(&node,value);
+	property.setNodeStringValue(node,value);
 
 
 	_engine->addQObject(&property,QString::fromStdString("property"));
-	_engine->addQObject(&node,QString::fromStdString("node"));
+	_engine->addQObject(node,QString::fromStdString("node"));
 
 	_engine->evaluate("var value = property.getNodeStringValue(node); storeString(value);");
 	if(_engine->hasUncaughtException())
 	{
 			CPPUNIT_FAIL(qPrintable(_engine->uncaughtException().toString()));
 	}
+
+	std::cout << qPrintable(value) << " " << qPrintable(_string) << std::endl;
 
 	CPPUNIT_ASSERT(value == _string);
 
