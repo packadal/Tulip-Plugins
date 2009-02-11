@@ -3,7 +3,7 @@
  *     |  _____  ___  ____   _  ___  ______        |
  *     |  | __/ / __/ |   \ | | |  \ |_  _|        |
  *     |  |__ | | |_  | ° / | | |° /   ||          |
- *     |  /___| \__ \ |_|_\ |_| |_|    || ULIP  |
+ *     |  /___| \__ \ |_|_\ |_| |_|    || ULIP     |
  *     |                                           |
  *     |         A XP Project by...                |
  * 	   +-------------------------------------------+
@@ -13,7 +13,7 @@
  *	   | Pink Ranger bis ------------ Loïc Burelou |
  *	   | Black Ranger -------------- Quentin Enard |
  *	   | Green Ranger -------------- Damien Mothes |
- *	   | Spermix Zero -------------- Maxxx Orbison |
+ *	   | S???mix Zero -------------- Maxxx Orbison |
  *     +-------------------------------------------+
  *     |   Copyright © XP Ranger Team 2008-2009    |
  *     |      May the soucoupe be with you !       |

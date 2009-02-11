@@ -32,7 +32,7 @@ public:
 	QGraph* clone();
 public slots:
 
-	static void saveGraph(QGraph* g, const QString &filename)
+	static void saveGraph(const QGraph* g, const QString &filename)
 	{
 		tlp::saveGraph(g->asGraph(), filename.toStdString());
 	}
