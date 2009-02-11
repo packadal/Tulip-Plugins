@@ -13,12 +13,13 @@
 #include "tulip/Iterator.h"
 #include "tulip/Node.h"
 #include "tulip/Edge.h"
+#include "tulip/Graph.h"
 
-#include "QNode.h"
-#include "QEdge.h"
+class QNode;
+class QEdge;
+//class QGraph;
 
-const bool node = true;
-const bool edge = false;
+enum type { node, edge, graph };
 
 class QIterator : public QObject {
 	Q_OBJECT
@@ -27,12 +28,14 @@ public:
 	QIterator();
 	QIterator(tlp::Iterator<tlp::node>*);
 	QIterator(tlp::Iterator<tlp::edge>*);
+//	QIterator(tlp::Iterator<tlp::Graph>*);
 public slots:
 	QObject* next();
 	bool hasNext();
 
 private:
-	bool _type;
+	type _type;
+//	tlp::Iterator<tlp::Graph>* _graphIterator;
 	tlp::Iterator<tlp::node>* _nodeIterator;
 	tlp::Iterator<tlp::edge>* _edgeIterator;
 };

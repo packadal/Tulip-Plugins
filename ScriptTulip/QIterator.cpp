@@ -7,6 +7,10 @@
 
 #include "QIterator.h"
 
+#include "QNode.h"
+#include "QEdge.h"
+#include "QGraph.h"
+
 QIterator::QIterator()
 :QObject()
 {
@@ -22,14 +26,30 @@ QIterator::QIterator(tlp::Iterator<tlp::edge>* i)
 {
 }
 
+//QIterator::QIterator(tlp::Iterator<tlp::Graph>* i)
+//:QObject(), _type(graph), _graphIterator(i)
+//{
+//}
+
 QObject* QIterator::next()
 {
-	return (_type == node ? (QObject*)new QNode(_nodeIterator->next()) : (QObject*)new QEdge(_edgeIterator->next()));
+	if(_type == node)
+		return (QObject*)new QNode(_nodeIterator->next());
+	else if (_type == edge)
+		return (QObject*)new QEdge(_edgeIterator->next());
+	//	else if(_type == graph)
+	//		return (QObject*) new QGraph(_graphIterator->next());
+
 }
 
 bool QIterator::hasNext()
 {
-	return (_type == node ? _nodeIterator->hasNext() : _edgeIterator->hasNext());
+	if(_type == node)
+		return _nodeIterator->hasNext();
+	else if (_type == edge)
+		return _edgeIterator->hasNext();
+//	else if(_type == graph)
+//		return _graphIterator->hasNext();
 }
 
 QIterator::~QIterator() {
