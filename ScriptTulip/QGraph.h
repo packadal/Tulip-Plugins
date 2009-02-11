@@ -31,9 +31,9 @@ public:
 	QGraph* clone();
 public slots:
 
-	static void saveGraph(const QString &filename)
+	static void saveGraph(const QGraph* g, const QString &filename)
 	{
-		tlp::saveGraph(this->asGraph(), filename.toStdString());
+		tlp::saveGraph(g->asGraph(), filename.toStdString());
 	}
 
 	static QGraph* loadGraph(const QString &filename)
