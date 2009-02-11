@@ -28,14 +28,14 @@ public:
 	QIterator();
 	QIterator(tlp::Iterator<tlp::node>*);
 	QIterator(tlp::Iterator<tlp::edge>*);
-//	QIterator(tlp::Iterator<tlp::Graph>*);
+	QIterator(tlp::Iterator<tlp::Graph *>*);
 public slots:
 	QObject* next();
 	bool hasNext();
 
 private:
 	type _type;
-//	tlp::Iterator<tlp::Graph>* _graphIterator;
+    tlp::Iterator<tlp::Graph *>* _graphIterator;
 	tlp::Iterator<tlp::node>* _nodeIterator;
 	tlp::Iterator<tlp::edge>* _edgeIterator;
 };

@@ -19,13 +19,11 @@ tlp::PropertyInterface* QProperty::asProperty() {
 }
 
 QString QProperty::getNodeStringValue(QNode *node) {
-	//return QString::fromStdString(_property->getNodeStringValue(node->asNode()));
-	return QString("");
+	return QString::fromStdString(_property->getNodeStringValue(node->asNode()));
 }
 
 bool QProperty::setNodeStringValue(QNode *node, QString value) {
-	//return _property->setNodeStringValue(node->asNode(), value.toStdString());
-	return true;
+	return _property->setNodeStringValue(node->asNode(), value.toStdString());
 }
 
 QString QProperty::getNodeDefaultStringValue() {

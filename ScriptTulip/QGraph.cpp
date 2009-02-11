@@ -1,9 +1,25 @@
-/*
- * QGraph.cpp
- *
- *  Created on: 10 déc. 2008
- *      Author: chuet
+/**
+ *     +-------------------------------------------+
+ *     |  _____  ___  ____   _  ___  ______        |
+ *     |  | __/ / __/ |   \ | | |  \ |_  _|        |
+ *     |  |__ | | |_  | ° / | | |° /   ||          |
+ *     |  /___| \__ \ |_|_\ |_| |_|    || ULIP  |
+ *     |                                           |
+ *     |         A XP Project by...                |
+ * 	   +-------------------------------------------+
+ *	   | Red Ranger ----------------- Romain Patau |
+ *	   | Blue Ranger ----------------- Rudy Nappée |
+ *	   | Pink Ranger <3 ------------- Charles Huet |
+ *	   | Pink Ranger bis ------------ Loïc Burelou |
+ *	   | Black Ranger -------------- Quentin Enard |
+ *	   | Green Ranger -------------- Damien Mothes |
+ *	   | Spermix Zero -------------- Maxxx Orbison |
+ *     +-------------------------------------------+
+ *     |   Copyright © XP Ranger Team 2008-2009    |
+ *     |      May the soucoupe be with you !       |
+ *	   +-------------------------------------------+
  */
+
 
 #include "QGraph.h"
 
@@ -56,16 +72,15 @@ void QGraph::clear()
 	_graph->clear();
 }
 
-/*
-QGraph *QGraph::addSubGraph(BooleanProperty *selection)
+
+QGraph* QGraph::addSubGraph(BooleanProperty *selection)
 {
 	return new QGraph(_graph->addSubGraph(selection));
-}*/
+}
 
-//this should be remplaced by the upper method when the properties will work
-QGraph* QGraph::addSubGraph()
+QIterator* QGraph::getSubGraphs() const
 {
-	return new QGraph(_graph->addSubGraph());
+	return new QIterator(_graph->getSubGraphs());
 }
 
 void QGraph::delSubGraph(QGraph *g)
@@ -92,11 +107,6 @@ void QGraph::setSuperGraph(QGraph *g)
 {
 	_graph->setSuperGraph(g->asGraph());
 }
-/*
-QIterator<QGraph*> * QGraph::getSubGraphs() const
-{
-	_graph->getSubGraphs();
-}*/
 
 
 QNode* QGraph::addNode()
@@ -224,9 +234,9 @@ tlp::Graph* QGraph::asGraph() const
 }
 
 QProperty* QGraph::getProperty(QString name) {
-	if(_graph->existProperty(name.toStdString()))
+	/*if(_graph->existProperty(name.toStdString()))
 		return new QProperty(_graph->getProperty(name.toStdString()));
-	else return new QProperty();
+	else*/ return new QProperty();
 
 }
 

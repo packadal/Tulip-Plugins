@@ -14,12 +14,15 @@ HEADERS += editor.h \
     scripthighlighter.h \
     tabsettings.h \
     textedit.h \
+    editor.h \
+    scriptedit.h \
+    scripthighlighter.h \
+    tabsettings.h \
+    textedit.h \
     scripthighlighter.h \
     textedit.h \
     tabsettings.h \
     scriptedit.h
-
-INCLUDEPATH += ../ 
+INCLUDEPATH += ../
 LIBS += -L../ \
-	-ltulip-script
-    
+    -lScriptTulip

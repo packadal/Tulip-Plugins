@@ -26,20 +26,19 @@ QIterator::QIterator(tlp::Iterator<tlp::edge>* i)
 {
 }
 
-//QIterator::QIterator(tlp::Iterator<tlp::Graph>* i)
-//:QObject(), _type(graph), _graphIterator(i)
-//{
-//}
+QIterator::QIterator(tlp::Iterator<tlp::Graph *>* i)
+:QObject(), _type(graph), _graphIterator(i)
+{
+}
 
 QObject* QIterator::next()
 {
 	if(_type == node)
-		return (QObject*)new QNode(_nodeIterator->next());
+		return (QObject*) new QNode(_nodeIterator->next());
 	else if (_type == edge)
-		return (QObject*)new QEdge(_edgeIterator->next());
-	//	else if(_type == graph)
-	//		return (QObject*) new QGraph(_graphIterator->next());
-
+		return (QObject*) new QEdge(_edgeIterator->next());
+	else if (_type == graph)
+		return (QObject*) new QGraph(_graphIterator->next());
 }
 
 bool QIterator::hasNext()
@@ -48,13 +47,15 @@ bool QIterator::hasNext()
 		return _nodeIterator->hasNext();
 	else if (_type == edge)
 		return _edgeIterator->hasNext();
-//	else if(_type == graph)
-//		return _graphIterator->hasNext();
+	else if(_type == graph)
+		return _graphIterator->hasNext();
 }
 
 QIterator::~QIterator() {
 	if(_type == node)
 		delete _nodeIterator;
-	else
+	else if (_type == edge)
 		delete _edgeIterator;
+	else if(_type == graph)
+		delete _graphIterator;
 }

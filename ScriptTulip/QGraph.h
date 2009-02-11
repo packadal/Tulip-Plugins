@@ -9,6 +9,7 @@
 #define QGRAPH_H_
 
 #include <tulip/Graph.h>
+#include <tulip/BooleanProperty.h>
 
 #include "Scriptmacros.h"
 #include "QEdge.h"
@@ -42,10 +43,8 @@ public slots:
 	}
 
 	void clear();
-//	QGraph *addSubGraph(BooleanProperty *selection=0);
+	QGraph* addSubGraph(tlp::BooleanProperty* selection=0);
 
-	//this should be replaced by the upper method when the properties will work
-	QGraph* addSubGraph();
 	void delSubGraph(QGraph *);
 	void delAllSubGraphs(QGraph *);
 	QGraph* getSuperGraph()const;
@@ -60,7 +59,7 @@ public slots:
 		std::cerr << __PRETTY_FUNCTION__ << " is deprecated, use setSuperGraph() instead." << std::endl;
 		setFather(sg);
 	  }
-//	Iterator<Graph *> * getSubGraphs() const;
+	QIterator* getSubGraphs() const;
 	QNode* addNode();
 	void addNode(const QNode*);
 	void delNode(const QNode*);

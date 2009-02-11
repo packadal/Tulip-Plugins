@@ -1,10 +1,3 @@
-/*
- * TulipScriptEngine.cpp
- *
- *  Created on: 17 déc. 2008
- *      Author: rnappee
- */
-
 #include "TulipScriptEngine.h"
 #include "Scriptmacros.h"
 
