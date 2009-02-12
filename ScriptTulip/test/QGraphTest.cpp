@@ -87,6 +87,7 @@ void QGraphTest::testIterators() {
   CPPUNIT_ASSERT_EQUAL(n1->asNode().id, ((QNode*)(it3->next()))->asNode().id);
   CPPUNIT_ASSERT_EQUAL(n1->asNode().id, ((QNode*)(it3->next()))->asNode().id);
   CPPUNIT_ASSERT_EQUAL(n2->asNode().id, ((QNode*)(it3->next()))->asNode().id);
+  CPPUNIT_ASSERT_EQUAL(n2->asNode().id, ((QNode*)(it3->next()))->asNode().id);
   CPPUNIT_ASSERT_EQUAL(n3->asNode().id, ((QNode*)(it3->next()))->asNode().id);
   CPPUNIT_ASSERT_EQUAL(false, it3->hasNext());
   delete it3;
@@ -330,51 +331,56 @@ void QGraphTest::testDeleteSubgraph() {
   graph->clear();
 }
 //==========================================================
-/*
+
 void QGraphTest::testSubgraphId() {
   graph->clear();
-  BooleanProperty sel(graph->asGraph());
-  QGraph *g1 = graph->addSubGraph(&sel);
+  BooleanProperty* sel = new BooleanProperty(graph->asGraph());
+  QGraph *g1 = graph->addSubGraph(sel);
   int id = g1->getId();
   for (unsigned int i = 1; i<1000; ++i) {
-    g1 = graph->addSubGraph(&sel);
-    CPPUNIT_ASSERT(g1->getId() == id + i);
+    g1 = graph->addSubGraph(sel);
+    CPPUNIT_ASSERT(g1->getId() == (int)(id + i));
   }
-  QGraph *g;
+
   unsigned int i = 0; //if the graph are not ordered that test can fail.
-  forEach(g, graph->getSubGraphs()) {
-    CPPUNIT_ASSERT(g->getId() == id + i);
-    ++i;
-  }
+
+  QIterator *it = graph->getSubGraphs();
+
+  while(it->hasNext()) {
+	  CPPUNIT_ASSERT(((QGraph*)it->next())->getId() == (int)(id + i));
+	     ++i;
+  }delete it;
+  delete sel;
 }
 //==========================================================
+
 void QGraphTest::testSubgraph() {
   graph->clear();
-  Graph *g1, *g2, *g3, *g4;
+  QGraph *g1, *g2, *g3, *g4;
   g1 = graph->addSubGraph();
   g2 = graph->addSubGraph();
   g3 = g2->addSubGraph();
   g4 = g2->addSubGraph();
 
-  CPPUNIT_ASSERT(graph->getSuperGraph()==graph);
-  CPPUNIT_ASSERT(g1->getSuperGraph()==graph);
-  CPPUNIT_ASSERT(g2->getSuperGraph()==graph);
-  CPPUNIT_ASSERT(g3->getSuperGraph()==g2);
-  CPPUNIT_ASSERT(g4->getSuperGraph()==g2);
+  CPPUNIT_ASSERT(graph->getSuperGraph()->getId()==graph->getId());
+  CPPUNIT_ASSERT(g1->getSuperGraph()->getId()==graph->getId());
+  CPPUNIT_ASSERT(g2->getSuperGraph()->getId()==graph->getId());
+  CPPUNIT_ASSERT(g3->getSuperGraph()->getId()==g2->getId());
+  CPPUNIT_ASSERT(g4->getSuperGraph()->getId()==g2->getId());
 
-  CPPUNIT_ASSERT(graph->getRoot()==graph);
-  CPPUNIT_ASSERT(g1->getRoot()==graph);
-  CPPUNIT_ASSERT(g2->getRoot()==graph);
-  CPPUNIT_ASSERT(g3->getRoot()==graph);
-  CPPUNIT_ASSERT(g4->getRoot()==graph);
+  CPPUNIT_ASSERT(graph->getRoot()->getId()==graph->getId());
+  CPPUNIT_ASSERT(g1->getRoot()->getId()==graph->getId());
+  CPPUNIT_ASSERT(g2->getRoot()->getId()==graph->getId());
+  CPPUNIT_ASSERT(g3->getRoot()->getId()==graph->getId());
+  CPPUNIT_ASSERT(g4->getRoot()->getId()==graph->getId());
 
-  Iterator<Graph *> *it= g2->getSubGraphs();
-  Graph *a,*b;
+  QIterator *it = g2->getSubGraphs();
+  QGraph *a,*b;
   CPPUNIT_ASSERT(it->hasNext());
-  a = it->next();
+  a = (QGraph*)(it->next());
   CPPUNIT_ASSERT(it->hasNext());
-  b = it->next();
-  CPPUNIT_ASSERT((a==g3 && b==g4) || (a==g4 && b==g3));
+  b = (QGraph*)(it->next());
+  CPPUNIT_ASSERT((a->getId()==g3->getId() && b->getId()==g4->getId()) || (a->getId()==g4->getId() && b->getId()==g3->getId()));
   CPPUNIT_ASSERT(!it->hasNext());
   delete it;
   g2->clear();
@@ -384,15 +390,15 @@ void QGraphTest::testSubgraph() {
 
   g3 = g2->addSubGraph();
   g4 = g2->addSubGraph();
-  node n1 = g3->addNode();
-  node n2 = g3->addNode();
+  QNode* n1 = g3->addNode();
+  QNode* n2 = g3->addNode();
   CPPUNIT_ASSERT(g3->isElement(n1) && g3->isElement(n2));
   CPPUNIT_ASSERT(g2->isElement(n1) && graph->isElement(n1));
   CPPUNIT_ASSERT(g2->isElement(n2) && graph->isElement(n2));
   CPPUNIT_ASSERT(!g4->isElement(n1) && !g1->isElement(n1));
   CPPUNIT_ASSERT(!g4->isElement(n2) && !g1->isElement(n2));
 
-  edge e = g2->addEdge(n1,n2);
+  QEdge *e = g2->addEdge(n1,n2);
   CPPUNIT_ASSERT(!g3->isElement(e) && !g4->isElement(e) && !g1->isElement(e));
   CPPUNIT_ASSERT(g2->isElement(e) && graph->isElement(e) && g2->isElement(n2));
   g2->delNode(n2);
@@ -415,7 +421,7 @@ void QGraphTest::testSubgraph() {
   testIterators();
   graph = g2;
   graph->clear();
-}*/
+}
 //==========================================================
 /*void QGraphTest::testInheritance() {
   graph->clear();
@@ -425,7 +431,7 @@ void QGraphTest::testSubgraph() {
   g2 = graph->addSubGraph();
   g3 = g2->addSubGraph();
   g4 = g2->addSubGraph();
-  DoubleProperty *m = graph->getProperty<DoubleProperty>("metric");
+  DoubleProperty *m = graph->asGraph()->getProperty<DoubleProperty>("metric");
   CPPUNIT_ASSERT(graph->existProperty("metric"));
   CPPUNIT_ASSERT(g1->existProperty("metric"));
   CPPUNIT_ASSERT(g2->existProperty("metric"));

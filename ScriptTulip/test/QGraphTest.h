@@ -21,7 +21,8 @@ class QGraphTest : public CppUnit::TestCase {
   CPPUNIT_TEST( testAddDel );
   CPPUNIT_TEST( testClear );
   CPPUNIT_TEST( testOrderEdgeAndSwap );
-  //CPPUNIT_TEST( testSubgraph);
+  CPPUNIT_TEST( testSubgraph);
+  CPPUNIT_TEST( testSubgraphId);
   CPPUNIT_TEST( testDeleteSubgraph);
   //CPPUNIT_TEST( testInheritance);
   //CPPUNIT_TEST( testPropertiesIteration);
@@ -38,8 +39,8 @@ public:
   void testAddDel();
   void testClear();
   void testOrderEdgeAndSwap();
-  //void testSubgraph();
-  //void testSubgraphId();
+  void testSubgraph();
+  void testSubgraphId();
   void testDeleteSubgraph();
   //void testInheritance();
   void testIterators();
