@@ -1,4 +1,4 @@
-#include "GetNodeValueTest.h"
+#include "QPropertyTest.h"
 #include <tulip/Graph.h>
 #include <tulip/ColorProperty.h>
 
@@ -7,23 +7,45 @@
 #include "QNode.h"
 #include "utilsTest.h"
 
-CPPUNIT_TEST_SUITE_REGISTRATION(GetNodeValueTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(QPropertyTest);
 
 
-void GetNodeValueTest::setUp()
+void QPropertyTest::setUp()
 {
 	_engine = new TulipScriptEngine();
 	_engine->addScriptFunction(storeString, "storeString");
 
-
 }
 
-void GetNodeValueTest::tearDown()
+void QPropertyTest::tearDown()
 {
 	delete _engine;
 }
 
-void GetNodeValueTest::invokeTest()
+void QPropertyTest::setNodeValueTest()
+{
+	QGraph qgraph;
+	QNode* node = qgraph.addNode();
+	const std::string s = "viewColor";
+	QProperty property(qgraph.asGraph()->getProperty<tlp::ColorProperty>(s));
+	property.setNodeStringValue(node,"(0,0,0,255)");
+	QString value("(10,11,12,255)");
+
+	_engine->addQObject(&property,QString::fromStdString("property"));
+	_engine->addQObject(node,QString::fromStdString("node"));
+
+	_engine->evaluate("property.setNodeStringValue(node, \""+ value +"\")");
+	if(_engine->hasUncaughtException())
+	{
+			CPPUNIT_FAIL(qPrintable(_engine->uncaughtException().toString()));
+	}
+	QString result = property.getNodeStringValue(node);
+
+	CPPUNIT_ASSERT(value == result);
+
+}
+
+void QPropertyTest::getNodeValueTest()
 {
 	QGraph qgraph;
 	QNode* node = qgraph.addNode();
@@ -41,8 +63,6 @@ void GetNodeValueTest::invokeTest()
 	{
 			CPPUNIT_FAIL(qPrintable(_engine->uncaughtException().toString()));
 	}
-
-	std::cout << qPrintable(value) << " " << qPrintable(_string) << std::endl;
 
 	CPPUNIT_ASSERT(value == _string);
 

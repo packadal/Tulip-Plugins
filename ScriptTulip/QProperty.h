@@ -8,6 +8,7 @@
 #include <tulip/PropertyAlgorithm.h>
 
 #include "QNode.h"
+#include "QEdge.h"
 
 class QProperty : public QObject {
 	Q_OBJECT
@@ -23,11 +24,11 @@ class QProperty : public QObject {
 		QString getNodeDefaultStringValue();
 		QString getEdgeDefaultStringValue();
 
-		/*virtual void erase(const node) =0;
-		virtual void erase(const edge) =0;
-		virtual void copy(const node, const node, PropertyInterface *) =0;
-		virtual void copy(const edge, const edge, PropertyInterface *) =0;
-		virtual PropertyInterface* clonePrototype(Graph *, std::string) =0;
+		void erase(const QNode*);
+		void erase(const QEdge*);
+		void copy(const QNode*, const QNode*, QProperty*);
+		void copy(const QEdge*, const QEdge*, QProperty*);
+		/*virtual PropertyInterface* clonePrototype(Graph *, std::string) =0;
 		virtual std::string getTypename() = 0;
 		static  std::string getTypename( PropertyInterface * );
 
