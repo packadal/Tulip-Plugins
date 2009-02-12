@@ -27,8 +27,8 @@ void SetNodeValueTest::invokeTest()
 	QNode* node = qgraph.addNode();
 	const std::string s = "viewColor";
 	QProperty property(qgraph.asGraph()->getProperty<tlp::ColorProperty>(s));
-	property.setNodeStringValue(node,"(0,0,0)");
-	QString value("(10,11,12)");
+	property.setNodeStringValue(node,"(0,0,0,255)");
+	QString value("(10,11,12,255)");
 
 	_engine->addQObject(&property,QString::fromStdString("property"));
 	_engine->addQObject(node,QString::fromStdString("node"));
