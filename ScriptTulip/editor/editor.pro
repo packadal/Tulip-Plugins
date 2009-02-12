@@ -1,10 +1,14 @@
-TEMPLATE = app
-TARGET = editor
+TEMPLATE = lib
+TARGET = editor-3.1.0
 QT += core \
     gui \
     script
+    
+CONFIG += dll
+DEPENDPATH += .
+    
 SOURCES += editor.cpp \
-    main.cpp \
+    #main.cpp \
     scriptedit.cpp \
     scripthighlighter.cpp \
     tabsettings.cpp \
@@ -23,6 +27,14 @@ HEADERS += editor.h \
     textedit.h \
     tabsettings.h \
     scriptedit.h
-INCLUDEPATH += ../
-LIBS += -L../ \
-    -lScriptTulip
+
+INCLUDEPATH += ../ \
+ /net/cremi/dmothes/tulipBin/include 
+  
+LIBS += -L.. \
+	-L/net/cremi/dmothes/tulipBin/lib \
+	-ltulip-script \
+	-ltulip \
+	-ltulip-ogl \
+	-ltulip-pluginsmanager \
+	-ltulip-qt4
