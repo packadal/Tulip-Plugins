@@ -290,7 +290,43 @@ bool QGraph::isElement(const QEdge* e) const
 	return _graph->isElement(e->asEdge());
 }
 
+bool QGraph::isMetaNode(const QNode* node) const
+{
+	return _graph->isMetaNode(node->asNode());
+}
+
+bool QGraph::isMetaEdge(const QEdge* edge) const
+{
+	return _graph->isMetaEdge(edge->asEdge());
+}
+
 QEdge* QGraph::existEdge(const QNode* n1, const QNode* n2) const
 {
 	return new QEdge(_graph->existEdge(n1->asNode(), n2->asNode()));
 }
+
+void QGraph::push()
+{
+	_graph->push();
+}
+
+void QGraph::pop()
+{
+	_graph->pop();
+}
+
+void QGraph::unpop()
+{
+	_graph->unpop();
+}
+
+bool QGraph::canPop()
+{
+	_graph->canPop();
+}
+
+bool QGraph::canUnpop()
+{
+	_graph->canUnpop();
+}
+

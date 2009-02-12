@@ -60,18 +60,27 @@ public slots:
 		setFather(sg);
 	  }
 	QIterator* getSubGraphs() const;
+
+	//==============================================================================
+	// Modification of the graph structure
+	//==============================================================================
 	QNode* addNode();
 	void addNode(const QNode*);
 	void delNode(const QNode*);
 	void delAllNode(const QNode*);
+
 	QEdge* addEdge(const QNode*, const QNode*);
 	void addEdge(const QEdge*);
 	void delEdge(const QEdge*);
 	void delAllEdge(const QEdge*);
+
 	void setEdgeOrder(const QNode*, const std::vector<QEdge*> & );
 	void swapEdgeOrder(const QNode*, const QEdge*, const QEdge*);
 	void reverse(const QEdge*);
 
+	//================================================================================
+	//Iterators on the graph structure.
+	//================================================================================
 	virtual QNode* getOneNode() const;
 	virtual QIterator* getNodes() const;
 	virtual QNode* getInNode(const QNode*, unsigned int)const;
@@ -99,6 +108,8 @@ public slots:
 	virtual QNode* opposite(const QEdge*, const QNode*)const;
 	virtual bool isElement(const QNode*) const;
 	virtual bool isElement(const QEdge*) const;
+	virtual bool isMetaNode(const QNode* ) const;
+	virtual bool isMetaEdge(const QEdge* ) const;
 	virtual QEdge* existEdge(const QNode* , const QNode*) const;
 	//================================================================================
 	// Access to the graph attributes and to the node/edge property.
@@ -125,6 +136,13 @@ public slots:
 	virtual Iterator<std::string>* getInheritedProperties()=0;
 	virtual Iterator<std::string>* getProperties()=0;
 	*/
+
+	//updates management
+	virtual void push();
+	virtual void pop();
+	virtual void unpop();
+	virtual bool canPop();
+	virtual bool canUnpop();
 private:
 	tlp::Graph* _graph;
 	QScriptEngine* _engine;
