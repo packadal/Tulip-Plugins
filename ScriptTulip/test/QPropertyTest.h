@@ -10,6 +10,8 @@ class QPropertyTest : public CppUnit::TestCase
   CPPUNIT_TEST_SUITE(QPropertyTest);
       CPPUNIT_TEST(getNodeValueTest);
       CPPUNIT_TEST(setNodeValueTest);
+      CPPUNIT_TEST(eraseNodeTest);
+      //CPPUNIT_TEST(eraseEdgeTest);
   CPPUNIT_TEST_SUITE_END();
 private:
 	TulipScriptEngine* _engine;
@@ -18,7 +20,9 @@ public:
     void tearDown();
 protected:
     void getNodeValueTest();
-    void setNodeValueTest();// Entry point
+    void setNodeValueTest();
+    void eraseNodeTest();
+    //void eraseEdgeTest();
 };
 
 #endif
