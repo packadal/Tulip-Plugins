@@ -26,12 +26,11 @@ void QPropertyTest::setNodeValueTest()
 {
 	QGraph qgraph;
 	QNode* node = qgraph.addNode();
-	const std::string s = "viewColor";
-	QProperty property(qgraph.asGraph()->getProperty<tlp::ColorProperty>(s));
-	property.setNodeStringValue(node,"(0,0,0,255)");
+	QProperty* property = qgraph.getColorProperty("viewColor");
+	property->setNodeStringValue(node,"(0,0,0,255)");
 	QString value("(10,11,12,255)");
 
-	_engine->addQObject(&property,QString::fromStdString("property"));
+	_engine->addQObject(property,QString::fromStdString("property"));
 	_engine->addQObject(node,QString::fromStdString("node"));
 
 	_engine->evaluate("property.setNodeStringValue(node, \""+ value +"\")");
@@ -39,7 +38,7 @@ void QPropertyTest::setNodeValueTest()
 	{
 			CPPUNIT_FAIL(qPrintable(_engine->uncaughtException().toString()));
 	}
-	QString result = property.getNodeStringValue(node);
+	QString result = property->getNodeStringValue(node);
 
 	CPPUNIT_ASSERT(value == result);
 
@@ -49,13 +48,12 @@ void QPropertyTest::getNodeValueTest()
 {
 	QGraph qgraph;
 	QNode* node = qgraph.addNode();
-	const std::string s = "viewColor";
-	QProperty property(qgraph.asGraph()->getProperty<tlp::ColorProperty>(s));
+	QProperty* property = qgraph.getColorProperty("viewColor");
 	QString value("(10,11,12,255)");
-	property.setNodeStringValue(node,value);
+	property->setNodeStringValue(node,value);
 
 
-	_engine->addQObject(&property,QString::fromStdString("property"));
+	_engine->addQObject(property,QString::fromStdString("property"));
 	_engine->addQObject(node,QString::fromStdString("node"));
 
 	_engine->evaluate("var value = property.getNodeStringValue(node); storeString(value);");
