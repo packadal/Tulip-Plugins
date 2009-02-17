@@ -233,11 +233,40 @@ tlp::Graph* QGraph::asGraph() const
 	return _graph;
 }
 
-QProperty* QGraph::getProperty(QString name) {
-	/*if(_graph->existProperty(name.toStdString()))
-		return new QProperty(_graph->getProperty(name.toStdString()));
-	else*/ return new QProperty();
+QProperty* QGraph::getGraphProperty(QString name) {
+	return new QProperty(_graph->getProperty<GraphProperty>(name.toStdString()));
+}
 
+QProperty* QGraph::getDoubleProperty(QString name){
+	return new QProperty(_graph->getProperty<DoubleProperty>(name.toStdString()));
+}
+
+QProperty* QGraph::getLayoutProperty(QString name){
+	return new QProperty(_graph->getProperty<LayoutProperty>(name.toStdString()));
+}
+
+QProperty* QGraph::getStringProperty(QString name){
+	return new QProperty(_graph->getProperty<StringProperty>(name.toStdString()));
+}
+
+QProperty* QGraph::getIntegerProperty(QString name){
+	return new QProperty(_graph->getProperty<IntegerProperty>(name.toStdString()));
+}
+
+QProperty* QGraph::getColorProperty(QString name){
+	return new QProperty(_graph->getProperty<ColorProperty>(name.toStdString()));
+}
+
+QProperty* QGraph::getSizeProperty(QString name){
+	return new QProperty(_graph->getProperty<SizeProperty>(name.toStdString()));
+}
+
+QProperty* QGraph::getBooleanProperty(QString name){
+	return new QProperty(_graph->getProperty<BooleanProperty>(name.toStdString()));
+}
+
+QProperty* QGraph::getProperty(QString name) {
+		return new QProperty(_graph->getProperty(name.toStdString()));
 }
 
 unsigned int QGraph::numberOfNodes()const

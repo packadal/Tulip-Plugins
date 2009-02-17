@@ -9,7 +9,16 @@
 #define QGRAPH_H_
 
 #include <tulip/Graph.h>
-#include <tulip/BooleanProperty.h>
+#include "tulip/AbstractProperty.h"
+#include "tulip/DoubleProperty.h"
+#include "tulip/StringProperty.h"
+#include "tulip/BooleanProperty.h"
+#include "tulip/LayoutProperty.h"
+#include "tulip/IntegerProperty.h"
+#include "tulip/ColorProperty.h"
+#include "tulip/SizeProperty.h"
+#include "tulip/GraphProperty.h"
+
 
 #include "Scriptmacros.h"
 #include "QEdge.h"
@@ -125,9 +134,18 @@ public slots:
 	Proxytype* getLocalProperty(const std::string &name);
 	template<typename Proxytype>
 	bool computeProperty(const std::string &algorithm, Proxytype result, std::string &msg,
-				   PluginProgress *progress=0, DataSet *data=0);
-	template<typename Proxytype>
-	Proxytype* getProperty(const std::string &name);*/
+				   PluginProgress *progress=0, DataSet *data=0);*/
+
+	//template<typename Proxytype>
+	//Proxytype* getProperty(const std::string &name);
+	QProperty* getGraphProperty(QString name);
+	QProperty* getDoubleProperty(QString name);
+	QProperty* getLayoutProperty(QString name);
+	QProperty* getStringProperty(QString name);
+	QProperty* getIntegerProperty(QString name);
+	QProperty* getColorProperty(QString name);
+	QProperty* getSizeProperty(QString name);
+	QProperty* getBooleanProperty(QString name);
 	QProperty* getProperty(QString name);
 	/*virtual  bool existProperty(const std::string& name)=0;
 	virtual  bool existLocalProperty(const std::string& name)=0;
