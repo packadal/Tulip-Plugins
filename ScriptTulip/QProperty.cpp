@@ -3,7 +3,6 @@
 using namespace tlp;
 
 QProperty::QProperty()
-:_property()
 {
 }
 
