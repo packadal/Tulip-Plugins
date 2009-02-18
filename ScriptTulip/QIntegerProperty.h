@@ -1,11 +1,14 @@
 #ifndef QINTEGERPROPERTY_H_
 #define QINTEGERPROPERTY_H_
 
+#include "QProperty.h"
+
 #include <QObject>
 
 #include <tulip/IntegerProperty.h>
 
-class QIntegerProperty: public QProperty {
+class QIntegerProperty: public QProperty
+{
 
 Q_OBJECT
 
@@ -37,5 +40,7 @@ public slots:
 private:
 
 	tlp::IntegerProperty* _property;
+
+};
 
 #endif /* QINTEGERPROPERTY_H_ */
