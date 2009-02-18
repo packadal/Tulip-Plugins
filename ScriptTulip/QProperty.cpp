@@ -17,12 +17,20 @@ tlp::PropertyInterface* QProperty::asProperty() {
 	return _property;
 }
 
-QString QProperty::getNodeStringValue(QNode *node) {
+QString QProperty::getNodeStringValue(const QNode *node) {
 	return QString::fromStdString(_property->getNodeStringValue(node->asNode()));
 }
 
-bool QProperty::setNodeStringValue(QNode *node, QString value) {
+QString QProperty::getEdgeStringValue(const QEdge *edge) {
+	return QString::fromStdString(_property->getEdgeStringValue(edge->asEdge()));
+}
+
+bool QProperty::setNodeStringValue(const QNode *node, const QString value) {
 	return _property->setNodeStringValue(node->asNode(), value.toStdString());
+}
+
+bool QProperty::setEdgeStringValue(const QEdge *edge, const QString value) {
+	return _property->setEdgeStringValue(edge->asEdge(), value.toStdString());
 }
 
 QString QProperty::getNodeDefaultStringValue() {
@@ -31,6 +39,14 @@ QString QProperty::getNodeDefaultStringValue() {
 
 QString QProperty::getEdgeDefaultStringValue() {
 	return QString::fromStdString(_property->getEdgeDefaultStringValue());
+}
+
+bool QProperty::setAllNodeStringValue(const QString value){
+	return _property->setAllNodeStringValue(value.toStdString());
+}
+
+bool QProperty::setAllEdgeStringValue(const QString value){
+	return _property->setAllEdgeStringValue(value.toStdString());
 }
 
 void QProperty::erase(const QNode* node) {
