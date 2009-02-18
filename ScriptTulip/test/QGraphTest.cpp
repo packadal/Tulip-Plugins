@@ -454,18 +454,18 @@ void QGraphTest::testInheritance() {
   CPPUNIT_ASSERT(g4->existProperty("metric"));
 
   m = graph->getDoubleProperty("metric");
-  CPPUNIT_ASSERT(graph->getProperty("metric") == m);
-  CPPUNIT_ASSERT(g1->getProperty("metric") == m);
-  CPPUNIT_ASSERT(g2->getProperty("metric") == m2);
-  CPPUNIT_ASSERT(g3->getProperty("metric") == m2);
-  CPPUNIT_ASSERT(g4->getProperty("metric") == m2);
+  CPPUNIT_ASSERT(graph->getProperty("metric")->asProperty() == m->asProperty());
+  CPPUNIT_ASSERT(g1->getProperty("metric")->asProperty() == m->asProperty());
+  CPPUNIT_ASSERT(g2->getProperty("metric")->asProperty() == m2->asProperty());
+  CPPUNIT_ASSERT(g3->getProperty("metric")->asProperty() == m2->asProperty());
+  CPPUNIT_ASSERT(g4->getProperty("metric")->asProperty() == m2->asProperty());
 
   g2->delLocalProperty("metric");
-  CPPUNIT_ASSERT(graph->getProperty("metric") == m);
-  CPPUNIT_ASSERT(g1->getProperty("metric") == m);
-  CPPUNIT_ASSERT(g2->getProperty("metric") == m);
-  CPPUNIT_ASSERT(g3->getProperty("metric") == m);
-  CPPUNIT_ASSERT(g4->getProperty("metric") == m);
+  CPPUNIT_ASSERT(graph->getProperty("metric")->asProperty() == m->asProperty());
+  CPPUNIT_ASSERT(g1->getProperty("metric")->asProperty() == m->asProperty());
+  CPPUNIT_ASSERT(g2->getProperty("metric")->asProperty() == m->asProperty());
+  CPPUNIT_ASSERT(g3->getProperty("metric")->asProperty() == m->asProperty());
+  CPPUNIT_ASSERT(g4->getProperty("metric")->asProperty() == m->asProperty());
 
   graph->clear();
 }
