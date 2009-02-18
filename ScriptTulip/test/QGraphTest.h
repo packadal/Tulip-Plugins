@@ -24,8 +24,8 @@ class QGraphTest : public CppUnit::TestCase {
   CPPUNIT_TEST( testSubgraph);
   CPPUNIT_TEST( testSubgraphId);
   CPPUNIT_TEST( testDeleteSubgraph);
-  //CPPUNIT_TEST( testInheritance);
-  //CPPUNIT_TEST( testPropertiesIteration);
+  CPPUNIT_TEST( testInheritance);
+  CPPUNIT_TEST( testPropertiesIteration);
   CPPUNIT_TEST( testDegree);
   CPPUNIT_TEST_SUITE_END();
 
@@ -42,9 +42,9 @@ public:
   void testSubgraph();
   void testSubgraphId();
   void testDeleteSubgraph();
-  //void testInheritance();
+  void testInheritance();
   void testIterators();
-  //void testPropertiesIteration();
+  void testPropertiesIteration();
   void testDegree();
 
  private:

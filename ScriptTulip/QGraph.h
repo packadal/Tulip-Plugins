@@ -147,13 +147,12 @@ public slots:
 	QProperty* getSizeProperty(QString name);
 	QProperty* getBooleanProperty(QString name);
 	QProperty* getProperty(QString name);
-	/*virtual  bool existProperty(const std::string& name)=0;
-	virtual  bool existLocalProperty(const std::string& name)=0;
-	virtual  void delLocalProperty(const std::string& name)=0;
-	virtual Iterator<std::string>* getLocalProperties()=0;
-	virtual Iterator<std::string>* getInheritedProperties()=0;
-	virtual Iterator<std::string>* getProperties()=0;
-	*/
+	bool existProperty(const QString name);
+	bool existLocalProperty(const QString name);
+	void delLocalProperty(const QString name);
+	QStringIterator* getLocalProperties();
+	QStringIterator* getInheritedProperties();
+	QStringIterator* getProperties();
 
 	//updates management
 	virtual void push();

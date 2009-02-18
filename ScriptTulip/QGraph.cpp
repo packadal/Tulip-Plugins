@@ -269,6 +269,30 @@ QProperty* QGraph::getProperty(QString name) {
 		return new QProperty(_graph->getProperty(name.toStdString()));
 }
 
+bool QGraph::existProperty(const QString name){
+	return _graph->existProperty(name.toStdString());
+}
+
+bool QGraph::existLocalProperty(const QString name){
+	return _graph->existLocalProperty(name.toStdString());
+}
+
+void QGraph::delLocalProperty(const QString name){
+	_graph->delLocalProperty(name.toStdString());
+}
+
+QStringIterator* QGraph::getLocalProperties(){
+	return new QStringIterator(_graph->getLocalProperties());
+}
+
+QStringIterator* QGraph::getInheritedProperties(){
+	return new QStringIterator(_graph->getInheritedProperties());
+}
+
+QStringIterator* QGraph::getProperties(){
+	return new QStringIterator(_graph->getProperties());
+}
+
 unsigned int QGraph::numberOfNodes()const
 {
 	return _graph->numberOfNodes();

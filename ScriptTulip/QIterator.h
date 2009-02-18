@@ -40,4 +40,18 @@ private:
 	tlp::Iterator<tlp::edge>* _edgeIterator;
 };
 
+class QStringIterator : public QObject {
+	Q_OBJECT
+public:
+	virtual ~QStringIterator();
+	QStringIterator();
+	QStringIterator(tlp::Iterator<std::string>*);
+public slots:
+	QString next();
+	bool hasNext();
+
+private:
+    tlp::Iterator<std::string>* _stringIterator;
+};
+
 #endif /* QITERATOR_H_ */

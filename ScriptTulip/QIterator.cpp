@@ -59,3 +59,27 @@ QIterator::~QIterator() {
 	else if(_type == graph)
 		delete _graphIterator;
 }
+
+QStringIterator::QStringIterator()
+:QObject()
+{
+}
+
+QStringIterator::QStringIterator(tlp::Iterator<std::string>* i)
+:QObject(), _stringIterator(i)
+{
+}
+
+QString QStringIterator::next()
+{
+	return QString::fromStdString(_stringIterator->next());
+}
+
+bool QStringIterator::hasNext()
+{
+	return _stringIterator->hasNext();
+}
+
+QStringIterator::~QStringIterator() {
+	delete _stringIterator;
+}

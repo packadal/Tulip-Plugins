@@ -423,7 +423,7 @@ void QGraphTest::testSubgraph() {
   graph->clear();
 }
 //==========================================================
-/*void QGraphTest::testInheritance() {
+void QGraphTest::testInheritance() {
   graph->clear();
   QGraph *g1, *g2, *g3, *g4;
 
@@ -431,7 +431,7 @@ void QGraphTest::testSubgraph() {
   g2 = graph->addSubGraph();
   g3 = g2->addSubGraph();
   g4 = g2->addSubGraph();
-  DoubleProperty *m = graph->asGraph()->getProperty<DoubleProperty>("metric");
+  QProperty *m = graph->getDoubleProperty("metric");
   CPPUNIT_ASSERT(graph->existProperty("metric"));
   CPPUNIT_ASSERT(g1->existProperty("metric"));
   CPPUNIT_ASSERT(g2->existProperty("metric"));
@@ -446,14 +446,14 @@ void QGraphTest::testSubgraph() {
   CPPUNIT_ASSERT(!g4->existProperty("metric"));
 
 
-  DoubleProperty *m2 = g2->getLocalProperty<DoubleProperty>("metric");
+  QProperty *m2 = g2->getDoubleProperty("metric");
   CPPUNIT_ASSERT(!graph->existProperty("metric"));
   CPPUNIT_ASSERT(!g1->existProperty("metric"));
   CPPUNIT_ASSERT(g2->existProperty("metric"));
   CPPUNIT_ASSERT(g3->existProperty("metric"));
   CPPUNIT_ASSERT(g4->existProperty("metric"));
 
-  m = graph->getProperty<DoubleProperty>("metric");
+  m = graph->getDoubleProperty("metric");
   CPPUNIT_ASSERT(graph->getProperty("metric") == m);
   CPPUNIT_ASSERT(g1->getProperty("metric") == m);
   CPPUNIT_ASSERT(g2->getProperty("metric") == m2);
@@ -468,13 +468,13 @@ void QGraphTest::testSubgraph() {
   CPPUNIT_ASSERT(g4->getProperty("metric") == m);
 
   graph->clear();
-}*/
+}
 //==========================================================
-/*void QGraphTest::testPropertiesIteration() {
+void QGraphTest::testPropertiesIteration() {
   graph->clear();
-  Graph *g1, *g2, *g3, *g4;
-  set<string> propList1;
-  set<string> propList2;
+  QGraph *g1, *g2, *g3, *g4;
+  set<QString> propList1;
+  set<QString> propList2;
   propList1.insert("m1");
   propList1.insert("m2");
   propList1.insert("m3");
@@ -486,12 +486,12 @@ void QGraphTest::testSubgraph() {
   g3 = g2->addSubGraph();
   g4 = g2->addSubGraph();
 
-  set<string>::const_iterator it;
+  set<QString>::const_iterator it;
   for (it=propList1.begin();it!=propList1.end();++it) {
-    graph->getProperty<IntegerProperty>(*it);
+	  graph->getIntegerProperty(*it);
     CPPUNIT_ASSERT(g4->existProperty(*it));
   }
-  Iterator<string> *itS = graph->getProperties();
+  QStringIterator *itS = graph->getProperties();
   while(itS->hasNext()) {
     CPPUNIT_ASSERT(propList1.find(itS->next())!=propList1.end());
   } delete itS;
@@ -513,35 +513,35 @@ void QGraphTest::testSubgraph() {
   } delete itS;
 
   for (it=propList2.begin();it!=propList2.end();++it) {
-    g2->getProperty<IntegerProperty>(*it);
+    g2->getIntegerProperty(*it);
     CPPUNIT_ASSERT(g4->existProperty(*it));
   }
 
   itS = graph->getProperties();
   while(itS->hasNext()) {
-    string str = itS->next();
+    QString str = itS->next();
     CPPUNIT_ASSERT(propList1.find(str)!=propList1.end()  && propList2.find(str)==propList2.end());
   } delete itS;
   itS = g1->getProperties();
   while(itS->hasNext()) {
-    string str = itS->next();
+    QString str = itS->next();
     CPPUNIT_ASSERT(propList1.find(str)!=propList1.end()  && propList2.find(str)==propList2.end());
   } delete itS;
   itS = g2->getProperties();
   while(itS->hasNext()) {
-    string str = itS->next();
+    QString str = itS->next();
     CPPUNIT_ASSERT(propList1.find(str)!=propList1.end()  || propList2.find(str)!=propList2.end());
   } delete itS;
   itS = g3->getProperties();
   while(itS->hasNext()) {
-    string str = itS->next();
+    QString str = itS->next();
     CPPUNIT_ASSERT(propList1.find(str)!=propList1.end()  || propList2.find(str)!=propList2.end());
   } delete itS;
   itS = g4->getProperties();
   while(itS->hasNext()) {
-    string str = itS->next();
+    QString str = itS->next();
     CPPUNIT_ASSERT(propList1.find(str)!=propList1.end()  || propList2.find(str)!=propList2.end());
   } delete itS;
   graph->clear();
-}*/
+}
 //==========================================================
