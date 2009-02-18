@@ -7,12 +7,13 @@
 #include <tulip/AbstractProperty.h>
 #include <tulip/PropertyAlgorithm.h>
 
-#include "QNode.h"
-#include "QEdge.h"
+class QNode;
+class QEdge;
+class QGraph;
 
 class QProperty: public QObject {
 
-	Q_OBJECT
+Q_OBJECT
 
 public:
 
@@ -27,9 +28,9 @@ public slots:
 	void erase(const QEdge*);
 	void copy(const QNode*, const QNode*, QProperty*);
 	void copy(const QEdge*, const QEdge*, QProperty*);
-	/*virtual PropertyInterface* clonePrototype(Graph *, std::string) =0;
-	virtual std::string getTypename() = 0;
-	static  std::string getTypename( PropertyInterface * ); */
+	QProperty* clonePrototype(QGraph*, QString);
+	QString getTypename();
+	static QString getTypename(QProperty*);
 
 	// Untyped accessors
 	QString getNodeDefaultStringValue();
@@ -40,6 +41,9 @@ public slots:
 	bool setEdgeStringValue(const QEdge *edge, const QString value);
 	bool setAllNodeStringValue(const QString value);
 	bool setAllEdgeStringValue(const QString value);
+
+	//TODO Check if we need to implements methods below
+
 	// the ones below are used by GraphUpdatesRecorder
 	/*Iterator<node>* getNonDefaultValuatedNodes()=0;
 	 Iterator<edge>* getNonDefaultValuatedEdges()=0;

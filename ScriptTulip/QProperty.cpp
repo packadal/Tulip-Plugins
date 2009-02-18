@@ -1,13 +1,15 @@
 #include "QProperty.h"
+#include "QEdge.h"
+#include "QNode.h"
+#include "QGraph.h"
 
 using namespace tlp;
 
-QProperty::QProperty()
-{
+QProperty::QProperty() {
 }
 
-QProperty::QProperty(tlp::PropertyInterface* property)
-:_property(property) {
+QProperty::QProperty(tlp::PropertyInterface* property) :
+	_property(property) {
 }
 
 QProperty::~QProperty() {
@@ -41,11 +43,11 @@ QString QProperty::getEdgeDefaultStringValue() {
 	return QString::fromStdString(_property->getEdgeDefaultStringValue());
 }
 
-bool QProperty::setAllNodeStringValue(const QString value){
+bool QProperty::setAllNodeStringValue(const QString value) {
 	return _property->setAllNodeStringValue(value.toStdString());
 }
 
-bool QProperty::setAllEdgeStringValue(const QString value){
+bool QProperty::setAllEdgeStringValue(const QString value) {
 	return _property->setAllEdgeStringValue(value.toStdString());
 }
 
@@ -63,5 +65,17 @@ void QProperty::copy(const QNode* node, const QNode* node2, QProperty* prop) {
 
 void QProperty::copy(const QEdge* edge, const QEdge* edge2, QProperty* prop) {
 	_property->copy(edge->asEdge(), edge2->asEdge(), prop->asProperty());
+}
+
+QProperty* QProperty::clonePrototype(QGraph *graph, QString s) {
+	return new QProperty(_property->clonePrototype(graph->asGraph(), s.toStdString()));
+}
+
+QString QProperty::getTypename() {
+	return QString::fromStdString(_property->getTypename());
+}
+
+QString QProperty::getTypename(QProperty *prop) {
+	return QString::fromStdString(PropertyInterface::getTypename(prop->asProperty()));
 }
 
