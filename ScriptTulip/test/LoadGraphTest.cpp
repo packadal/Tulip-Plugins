@@ -6,9 +6,11 @@
 #include <tulip/Graph.h>
 
 #include <QtScript/QScriptEngine>
-#include <QTextStream>
-#include <QFile>
-#include <QScriptValue>
+#include <QtScript/QScriptValue>
+#include <QtCore/QTextStream>
+#include <QtCore/QFile>
+
+#include "TulipScriptEngine.h"
 #include "QGraph.h"
 #include "utilsTest.h"
 
@@ -22,6 +24,9 @@ void LoadGraphTest::setUp()
 	_engine = new TulipScriptEngine();
 
 	_engine->addScriptFunction(storeGraph, "storeGraph");
+	_engine->addScriptFunction(storeEdge, "storeEdge");
+	_engine->addScriptFunction(storeNode, "storeNode");
+	_engine->addScriptFunction(storeString, "storeString");
 
 	filename = "grapheTest.tlp";
 	filenameReference = "graphReference.tlp";

@@ -10,10 +10,12 @@
 
 #include <tulip/Graph.h>
 #include <tulip/TlpTools.h>
+
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
 #include <cppunit/TestSuite.h>
-#include "QGraph.h"
+
+class QGraph;
 
 class QGraphTest : public CppUnit::TestCase {
 
@@ -30,7 +32,7 @@ class QGraphTest : public CppUnit::TestCase {
   CPPUNIT_TEST_SUITE_END();
 
 private:
-  QGraph *graph;
+  QGraph *_graph;
 
 public:
   void setUp();

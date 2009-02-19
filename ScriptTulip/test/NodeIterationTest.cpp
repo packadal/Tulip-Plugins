@@ -3,9 +3,11 @@
 CPPUNIT_TEST_SUITE_REGISTRATION(NodeIterationTest);
 
 #include <QtScript/QScriptEngine>
-#include <QTextStream>
-#include <QFile>
-#include <QScriptValue>
+#include <QtScript/QScriptValue>
+#include <QtCore/QTextStream>
+#include <QtCore/QFile>
+
+#include "TulipScriptEngine.h"
 #include "QGraph.h"
 #include "utilsTest.h"
 
@@ -15,6 +17,8 @@ void NodeIterationTest::setUp()
 
 	_engine->addScriptFunction(storeGraph, "storeGraph");
 	_engine->addScriptFunction(storeNode, "storeNode");
+	_engine->addScriptFunction(storeEdge, "storeEdge");
+	_engine->addScriptFunction(storeString, "storeString");
 
 	_engine->evaluate(QString::fromStdString("var g = newGraph(); storeGraph(g);"));
 
@@ -26,7 +30,7 @@ void NodeIterationTest::setUp()
 
 void NodeIterationTest::tearDown()
 {
-/* delete your stuff here */
+	delete _engine;
 }
 
 void NodeIterationTest::invokeTest()

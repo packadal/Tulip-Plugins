@@ -8,10 +8,10 @@
 
 #include <QObject>
 
-#include "QGraph.h"
-#include "QEdge.h"
-#include "QNode.h"
-#include "TulipScriptEngine.h"
+class QEdge;
+class Qgraph;
+class QNode;
+class TulipScriptEngine;
 
 #include "utilsTest.h"
 

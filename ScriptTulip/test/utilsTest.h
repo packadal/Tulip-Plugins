@@ -11,7 +11,10 @@
 #include <QtScript/QScriptValue>
 #include <QtScript/QScriptEngine>
 #include <QtScript/QScriptContext>
-#include "QGraph.h"
+
+class QGraph;
+class QNode;
+class QEdge;
 
 static QGraph* _graph = 0;
 static QString _string = 0;

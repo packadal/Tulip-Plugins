@@ -2,6 +2,7 @@
 #include <tulip/Graph.h>
 #include <tulip/ColorProperty.h>
 
+#include "TulipScriptEngine.h"
 #include "QGraph.h"
 #include "QProperty.h"
 #include "QNode.h"
@@ -13,6 +14,9 @@ CPPUNIT_TEST_SUITE_REGISTRATION(QPropertyTest);
 void QPropertyTest::setUp()
 {
 	_engine = new TulipScriptEngine();
+	_engine->addScriptFunction(storeGraph, "storeGraph");
+	_engine->addScriptFunction(storeNode, "storeNode");
+	_engine->addScriptFunction(storeEdge, "storeEdge");
 	_engine->addScriptFunction(storeString, "storeString");
 
 }

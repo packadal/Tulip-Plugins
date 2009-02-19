@@ -1,6 +1,12 @@
 #include "AddEdgeTest.h"
-#include "utilsTest.h"
+
 #include <iostream>
+
+#include "utilsTest.h"
+
+#include "QGraph.h"
+#include "QEdge.h"
+#include "TulipScriptEngine.h"
 
 using namespace std;
 using namespace tlp;
@@ -12,6 +18,9 @@ void AddEdgeTest::setUp()
 	_engine = new TulipScriptEngine();
 
 	_engine->addScriptFunction(storeGraph, "storeGraph");
+	_engine->addScriptFunction(storeEdge, "storeEdge");
+	_engine->addScriptFunction(storeNode, "storeNode");
+	_engine->addScriptFunction(storeString, "storeString");
 	_engine->addScriptFunction(testEdge, "testEdge");
 }
 

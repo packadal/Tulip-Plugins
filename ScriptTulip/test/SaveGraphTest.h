@@ -6,7 +6,7 @@
 
 #include <tulip/Graph.h>
 
-#include "TulipScriptEngine.h"
+class TulipScriptEngine;
 
 class SaveGraphTest : public CppUnit::TestCase
 {

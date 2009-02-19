@@ -4,7 +4,7 @@
 #include <cppunit/TestCase.h>
 #include <cppunit/extensions/HelperMacros.h>
 
-#include "TulipScriptEngine.h"
+class TulipScriptEngine;
 
 class EdgeIterationTest : public CppUnit::TestCase
 {

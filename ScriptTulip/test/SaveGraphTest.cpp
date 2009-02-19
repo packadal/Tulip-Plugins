@@ -6,9 +6,11 @@
 #include <tulip/Graph.h>
 
 #include <QtScript/QScriptEngine>
-#include <QTextStream>
-#include <QFile>
-#include <QScriptValue>
+#include <QtScript/QScriptValue>
+#include <QtCore/QTextStream>
+#include <QtCore/QFile>
+
+#include "TulipScriptEngine.h"
 #include "QGraph.h"
 
 

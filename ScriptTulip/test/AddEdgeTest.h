@@ -8,10 +8,12 @@
 
 #include <QObject>
 
-#include "QGraph.h"
-#include "QEdge.h"
-#include "QNode.h"
-#include "TulipScriptEngine.h"
+class QScriptValue;
+class QScriptContext;
+class QScriptEngine;
+
+class QEdge;
+class TulipScriptEngine;
 
 class AddEdgeTest: public QObject, public CppUnit::TestCase {
 	CPPUNIT_TEST_SUITE( AddEdgeTest);

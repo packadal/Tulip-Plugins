@@ -8,11 +8,12 @@
 
 #include <QObject>
 
-#include "QGraph.h"
-#include "QNode.h"
-#include "TulipScriptEngine.h"
+class QScriptValue;
+class QScriptContext;
+class QScriptEngine;
 
-#include "utilsTest.h"
+class QNode;
+class TulipScriptEngine;
 
 class AddNodeTest : public QObject, public CppUnit::TestCase {
 	CPPUNIT_TEST_SUITE(AddNodeTest);

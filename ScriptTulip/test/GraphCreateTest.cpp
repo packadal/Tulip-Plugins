@@ -1,6 +1,11 @@
 #include "GraphCreateTest.h"
 #include <iostream>
 
+#include "QGraph.h"
+#include "QNode.h"
+#include "QEdge.h"
+#include "TulipScriptEngine.h"
+
 using namespace std;
 using namespace tlp;
 
@@ -12,6 +17,9 @@ void GraphCreateTest::setUp()
 	_graph = 0;
 
 	_engine->addScriptFunction(storeGraph, "storeGraph");
+	_engine->addScriptFunction(storeEdge, "storeEdge");
+	_engine->addScriptFunction(storeNode, "storeNode");
+	_engine->addScriptFunction(storeString, "storeString");
 }
 
 void GraphCreateTest::tearDown()

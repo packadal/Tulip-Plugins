@@ -3,11 +3,16 @@
 CPPUNIT_TEST_SUITE_REGISTRATION(EdgeIterationTest);
 
 #include <QtScript/QScriptEngine>
-#include <QTextStream>
-#include <QFile>
-#include <QScriptValue>
-#include "QGraph.h"
+#include <QtScript/QScriptValue>
+
+#include <QtCore/QTextStream>
+#include <QtCore/QFile>
+
 #include "utilsTest.h"
+
+#include "TulipScriptEngine.h"
+#include "QGraph.h"
+
 
 void EdgeIterationTest::setUp()
 {
@@ -16,6 +21,7 @@ void EdgeIterationTest::setUp()
 	_engine->addScriptFunction(storeGraph, "storeGraph");
 	_engine->addScriptFunction(storeEdge, "storeEdge");
 	_engine->addScriptFunction(storeNode, "storeNode");
+	_engine->addScriptFunction(storeString, "storeString");
 
 	_engine->evaluate(QString::fromStdString("var g = newGraph(); storeGraph(g);"));
 
@@ -27,7 +33,7 @@ void EdgeIterationTest::setUp()
 
 void EdgeIterationTest::tearDown()
 {
-/* delete your stuff here */
+	delete _engine;
 }
 
 void EdgeIterationTest::invokeTest()
