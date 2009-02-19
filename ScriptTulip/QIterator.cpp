@@ -37,7 +37,7 @@ QObject* QIterator::next()
 		return (QObject*) new QNode(_nodeIterator->next());
 	else if (_type == edge)
 		return (QObject*) new QEdge(_edgeIterator->next());
-	else if (_type == graph)
+	else //if (_type == graph)
 		return (QObject*) new QGraph(_graphIterator->next());
 }
 
@@ -47,7 +47,7 @@ bool QIterator::hasNext()
 		return _nodeIterator->hasNext();
 	else if (_type == edge)
 		return _edgeIterator->hasNext();
-	else if(_type == graph)
+	else //if(_type == graph)
 		return _graphIterator->hasNext();
 }
 
