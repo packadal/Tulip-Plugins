@@ -1,7 +1,7 @@
 #ifndef QNODE_H_
 #define QNODE_H_
 
-#include <QObject>
+#include <QtCore/QObject>
 
 #include <tulip/Node.h>
 

@@ -1,8 +1,8 @@
 #ifndef QPROPERTY_H_
 #define QPROPERTY_H_
 
-#include <QObject>
-#include <QString>
+#include <QtCore/QObject>
+#include <QtCore/QString>
 
 #include <tulip/AbstractProperty.h>
 #include <tulip/PropertyAlgorithm.h>

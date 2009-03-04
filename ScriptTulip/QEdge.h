@@ -1,7 +1,7 @@
 #ifndef QEDGE_H_
 #define QEDGE_H_
 
-#include <QObject>
+#include <QtCore/QObject>
 
 #include "tulip/tulipconf.h"
 #include <tulip/Edge.h>

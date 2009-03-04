@@ -1,6 +1,8 @@
 #ifndef QTEMPLATEPROPERTY_H
 #define QTEMPLATEPROPERTY_H
 
+#include <QtCore/QObject>
+
 #define GENERATE_GET_MIN_MAX(NAME, EDGE_TYPE, NODE_TYPE) \
 NODE_TYPE getNodeMin() { return _property->getNodeMin(); }\
 NODE_TYPE getNodeMax() { return _property->getNodeMax(); }\

@@ -8,7 +8,7 @@
 #ifndef QITERATOR_H_
 #define QITERATOR_H_
 
-#include <QObject>
+#include <QtCore/QObject>
 
 #include "tulip/Iterator.h"
 #include "tulip/Node.h"
