@@ -79,3 +79,8 @@ QString QProperty::getTypename(QProperty *prop) {
 	return QString::fromStdString(PropertyInterface::getTypename(prop->asProperty()));
 }
 
+
+QProperty::~QProperty()
+{
+	delete _property;
+}
