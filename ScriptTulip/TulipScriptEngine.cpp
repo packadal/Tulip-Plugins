@@ -1,4 +1,9 @@
 #include "TulipScriptEngine.h"
+
+#include <QtPlugin>
+
+#include <tulip/QtProgress.h>
+
 #include "Scriptmacros.h"
 
 #include "QNode.h"
@@ -8,20 +13,20 @@
 #include "QIterator.h"
 
 DECLARE_TYPE_TO_SCRIPT(QGraph)
-DECLARE_TYPE_TO_SCRIPT(QProperty)
-DECLARE_TYPE_TO_SCRIPT(QNode)
-DECLARE_TYPE_TO_SCRIPT(QEdge)
-DECLARE_TYPE_TO_SCRIPT(QIterator)
 
+//Q_IMPORT_PLUGIN(qtscript_tulip_script)
 
 TulipScriptEngine::TulipScriptEngine()
 :QScriptEngine()
 {
-	EXPORT_TYPE_TO_SCRIPT(QNode);
-	EXPORT_TYPE_TO_SCRIPT(QEdge);
-	EXPORT_TYPE_TO_SCRIPT(QGraph);
-	EXPORT_TYPE_TO_SCRIPT(QProperty);
-	EXPORT_TYPE_TO_SCRIPT(QIterator);
+	QCoreApplication::addLibraryPath("/net/cremi/chuet/liens/travail/cppProjects/lib");
+
+	importExtension("tulip.script");
+	if(hasUncaughtException())
+		std::cout << "an error occured when trying to load the module" << qPrintable(uncaughtException().toString()) << std::endl;
+
+
+	addScriptFunction(applyAlgorithm, "applyAlgorithm");
 
 	addScriptFunction(QGraphFactory, "newGraph");
 	addScriptFunction(saveGraph, "saveGraph");
@@ -32,12 +37,12 @@ TulipScriptEngine::~TulipScriptEngine() {
 
 }
 
-void TulipScriptEngine::addScriptFunction(FunctionSignature function, QString functionName) {
+void TulipScriptEngine::addScriptFunction(const FunctionSignature &function, const QString &functionName) {
 	QScriptValue ctor = this->newFunction(function);
 	this->globalObject().setProperty(functionName, ctor);
 }
 
-void TulipScriptEngine::addQObject(QObject* qobject, QString objectName){
+void TulipScriptEngine::addQObject(QObject* qobject, const QString &objectName){
 	QScriptValue value = this->newQObject(qobject);
 	this->globalObject().setProperty(objectName,value);
 }

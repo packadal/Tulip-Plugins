@@ -8,8 +8,8 @@ class TulipScriptEngine : public QScriptEngine {
 public:
 	TulipScriptEngine();
 	virtual ~TulipScriptEngine();
-	void addScriptFunction(FunctionSignature function, QString functionName);
-	void addQObject(QObject* qobject, QString objectName);
+	void addScriptFunction(const FunctionSignature &function, const QString &functionName);
+	void addQObject(QObject* qobject, const QString &objectName);
 };
 
 #endif /* TULIPSCRIPTENGINE_H_ */
