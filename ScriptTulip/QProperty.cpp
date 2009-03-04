@@ -13,6 +13,7 @@ QProperty::QProperty(tlp::PropertyInterface* property) :
 }
 
 QProperty::~QProperty() {
+	delete _property;
 }
 
 tlp::PropertyInterface* QProperty::asProperty() {
@@ -77,10 +78,4 @@ QString QProperty::getTypename() {
 
 QString QProperty::getTypename(QProperty *prop) {
 	return QString::fromStdString(PropertyInterface::getTypename(prop->asProperty()));
-}
-
-
-QProperty::~QProperty()
-{
-	delete _property;
 }
