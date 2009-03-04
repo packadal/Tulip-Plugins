@@ -105,7 +105,6 @@ GENERATE_SIMPLE_PROPERTY(Layout, QSize3DVector*, QSize3D*)
 #define AS_RETURN_NODE(RET) new QGraph(RET)
 #undef AS_RETURN_EDGE
 #define AS_RETURN_EDGE(RET) new QEdgeSet(RET)
-//doh, how to use a std::set<edge> ? QSet<QEdge> ? will probably need a class with implicit conversion to work
 QSTDSET(Edge, tlp::edge);
 GENERATE_SIMPLE_PROPERTY(Graph, QEdgeSet*, QGraph*)
 #undef AS_RETURN_NODE
