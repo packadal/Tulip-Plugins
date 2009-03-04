@@ -24,9 +24,12 @@
 #include "QGraph.h"
 
 #include <QtScript/QScriptEngine>
+#include <QtScript/QScriptValueIterator>
 
 #include <tulip/Node.h>
 #include <tulip/Edge.h>
+#include "tulip/Algorithm.h"
+
 
 #include "QEdge.h"
 #include "QNode.h"
@@ -67,11 +70,40 @@ QScriptValue loadGraph(QScriptContext *context, QScriptEngine *engine){
 	return value;
 }
 
+QScriptValue applyAlgorithm(QScriptContext *context, QScriptEngine*) {
+
+	QGraph* graph = qobject_cast<QGraph*>(context->argument(0).toQObject());
+	std::string errorMsg = context->argument(1).toString().toStdString();
+	QScriptValue dataSet = context->argument(2);
+	std::string alg = context->argument(3).toString().toStdString();
+	QScriptValue plugProgress = context->argument(4);
+
+	tlp::DataSet* set = new tlp::DataSet();
+
+
+	if(dataSet.isObject())
+	{
+		QScriptValueIterator it(dataSet);
+		while(it.hasNext()) {
+			it.next();
+			if(it.value().isBoolean())
+				set->set<bool>(it.name().toStdString(), it.value().toBoolean());
+			if(it.value().isString())
+				set->set<std::string>(it.name().toStdString(), it.value().toString().toStdString());
+			if(it.value().isNumber())
+				set->set<int>(it.name().toStdString(), it.value().toInt32());
+//			std::cout << "dataSet[" << it.name().toStdString() << "] : " << qPrintable(it.value().toString()) << std::endl;
+		}
+	}
+
+	tlp::applyAlgorithm(graph->asGraph(), errorMsg, set, alg/*, plugProgress*/);
+	return QScriptValue();
+}
+
 void QGraph::clear()
 {
 	_graph->clear();
 }
-
 
 QGraph* QGraph::addSubGraph(BooleanProperty *selection)
 {
@@ -375,11 +407,11 @@ void QGraph::unpop()
 
 bool QGraph::canPop()
 {
-	_graph->canPop();
+	return _graph->canPop();
 }
 
 bool QGraph::canUnpop()
 {
-	_graph->canUnpop();
+	return _graph->canUnpop();
 }
 

@@ -31,6 +31,10 @@
 #include <QtScript/QScriptValue>
 #include <QtScript/QScriptContext>
 
+
+class tlp::DataSet;
+class tlp::PluginProgress;
+
 class QGraph : public QObject {
 	Q_OBJECT
 public:
@@ -41,6 +45,25 @@ public:
 	QGraph* clone();
 public slots:
 
+	static bool applyAlgorithm(QGraph *graph, const QString &errorMsg, tlp::DataSet *dataSet =0, const QString &alg="hierarchical", tlp::PluginProgress *plugProgress=0)
+	{
+		std::string stdErrorMsg = errorMsg.toStdString();
+		std::string stdAlg = alg.toStdString();
+		return tlp::applyAlgorithm(graph->asGraph(), stdErrorMsg, dataSet, stdAlg, plugProgress);
+	}
+
+	//remplacer le ostream par un nom de fichier dans le script
+	static void exportGraph(QGraph* graph, std::ostream &os, const QString &alg, tlp::DataSet &dataset, tlp::PluginProgress* plugProgress=0)
+	{
+		tlp::exportGraph(graph->asGraph(), os, alg.toStdString(), dataset, plugProgress);
+	}
+
+	static void importGraph(const QString& alg, tlp::DataSet &dataSet, tlp::PluginProgress *plugProgress=0, QGraph* newGraph=0)
+	{
+		tlp::Graph* graph = (newGraph == 0 ? 0 : newGraph->asGraph());
+		tlp::importGraph(alg.toStdString(), dataSet, plugProgress, graph);
+	}
+
 	static void saveGraph(const QGraph* g, const QString &filename)
 	{
 		tlp::saveGraph(g->asGraph(), filename.toStdString());
@@ -50,6 +73,8 @@ public slots:
 	{
 		return new QGraph(tlp::loadGraph(filename.toStdString()));
 	}
+
+	static void delimiter() { }
 
 	void clear();
 	QGraph* addSubGraph(tlp::BooleanProperty* selection=0);
@@ -167,5 +192,6 @@ private:
 
 QScriptValue saveGraph(QScriptContext *context, QScriptEngine *engine);
 QScriptValue loadGraph(QScriptContext *context, QScriptEngine *engine);
+QScriptValue applyAlgorithm(QScriptContext *context, QScriptEngine *engine);
 
 #endif /* QGRAPH_H_ */
