@@ -1,72 +1,3 @@
-#define GENERATE_GET_MIN_MAX(NAME, EDGE_TYPE, NODE_TYPE) \
-NODE_TYPE getNodeMin() { return _property->getNodeMin(); }\
-NODE_TYPE getNodeMax() { return _property->getNodeMax(); }\
-EDGE_TYPE getEdgeMin() { return _property->getEdgeMin(); }\
-EDGE_TYPE getEdgeMax() { return _property->getEdgeMax(); }\
-
-#define GENERATE_CLASS(NAME) \
-class Q##NAME##Property: public QProperty\
-{\
-\
-Q_OBJECT \
-\
-public:\
-\
-	Q##NAME##Property(QGraph *g) {_property = new tlp::NAME##Property(g->asGraph()); }\
-	Q##NAME##Property(tlp::NAME##Property* p):_property(p) {} \
-	virtual ~Q##NAME##Property() { delete _property; }\
-	tlp::NAME##Property* asProperty() { return _property; }\
-\
-public slots:\
-
-
-#define GENERATE_CLASS_TAIL(NAME) \
-private:\
-\
-	tlp::NAME##Property* _property;\
-\
-};
-
-#define GENERATE_GET_SET_NODE(NAME, TYPE) \
-TYPE getNodeDefaultValue() { return AS_RETURN_NODE(_property->getNodeDefaultValue()); }\
-TYPE getNodeValue(const QNode* n) { return AS_RETURN_NODE(_property->getNodeValue(n->asNode())); }\
-void setNodeValue(const QNode* n, TYPE v) { _property->setNodeValue(n->asNode(), AS_ARG(v)); }\
-void setAllNodeValue(TYPE v) { _property->setAllNodeValue(AS_ARG(v)); }\
-
-#define GENERATE_GET_SET_EDGE(NAME, TYPE) \
-TYPE getEdgeDefaultValue() { return AS_RETURN_EDGE(_property->getEdgeDefaultValue()); }\
-TYPE getEdgeValue(const QEdge* e) { return AS_RETURN_EDGE(_property->getEdgeValue(e->asEdge())); }\
-void setEdgeValue(const QEdge* e, TYPE v) { _property->setEdgeValue(e->asEdge(), AS_ARG(v)); }\
-void setAllEdgeValue(TYPE v) { _property->setAllEdgeValue(AS_ARG(v)); }\
-
-#define GENERATE_PROPERTY(NAME, EDGE_TYPE, NODE_TYPE) \
-\
-GENERATE_CLASS(NAME) \
-GENERATE_GET_SET_NODE(NAME, NODE_TYPE) \
-GENERATE_GET_SET_EDGE(NAME, EDGE_TYPE) \
-\
-GENERATE_GET_MIN_MAX(NAME, EDGE_TYPE, NODE_TYPE) \
-\
-GENERATE_CLASS_TAIL(NAME)
-
-#define GENERATE_SIMPLE_PROPERTY(NAME, EDGE_TYPE, NODE_TYPE) \
-\
-GENERATE_CLASS(NAME) \
-GENERATE_GET_SET_NODE(NAME, NODE_TYPE) \
-GENERATE_GET_SET_EDGE(NAME, EDGE_TYPE) \
-\
-GENERATE_CLASS_TAIL(NAME)
-
-#define GENERATE_OBJECT_PROPERTY(NAME, EDGE_TYPE, NODE_TYPE) \
-\
-GENERATE_CLASS(NAME) \
-GENERATE_GET_SET_NODE(NAME, NODE_TYPE) \
-GENERATE_GET_SET_EDGE(NAME, EDGE_TYPE) \
-GENERATE_GET_MIN_MAX(NAME, EDGE_TYPE, NODE_TYPE) \
-\
-GENERATE_CLASS_TAIL(NAME)
-
-#include "QProperty.h"
 #include "QGraph.h"
 #include "QNode.h"
 #include "QEdge.h"
@@ -82,13 +13,42 @@ GENERATE_CLASS_TAIL(NAME)
 #include <QtCore/QSet>
 
 #define AS_ARG(ARG) ARG
+#define AS_ARG_EDGE(ARG) AS_ARG(ARG)
+#define AS_ARG_NODE(ARG) AS_ARG(ARG)
+
 #define AS_RETURN(RET) RET
 #define AS_RETURN_EDGE(RET) AS_RETURN(RET)
 #define AS_RETURN_NODE(RET) AS_RETURN(RET)
 
-GENERATE_PROPERTY(Integer, int, int)
-GENERATE_PROPERTY(Double, double, double)
-GENERATE_SIMPLE_PROPERTY(Boolean, bool, bool)
+#define PROPERTY_NAME CLASS_NAME##Property
+#define QPROPERTY_NAME Q##PROPERTY_NAME
+
+#define CLASS_NAME Integer
+#define EDGE_TYPE int
+#define NODE_TYPE int
+#include "QTemplateProperties.def"
+#undef CLASS_NAME
+#undef EDGE_TYPE
+#undef NODE_TYPE
+
+#define CLASS_NAME Double
+#define EDGE_TYPE double
+#define NODE_TYPE double
+#include "QTemplateProperties.def"
+#undef CLASS_NAME
+#undef EDGE_TYPE
+#undef NODE_TYPE
+
+//do not generate get{Node/Edge}{Min/Max} from now on
+#define SIMPLE
+
+#define CLASS_NAME Boolean
+#define EDGE_TYPE bool
+#define NODE_TYPE bool
+#include "QTemplateProperties.def"
+#undef CLASS_NAME
+#undef EDGE_TYPE
+#undef NODE_TYPE
 
 #undef AS_ARG
 #define AS_ARG(ARG) ARG->asSize3D()
@@ -97,35 +57,77 @@ GENERATE_SIMPLE_PROPERTY(Boolean, bool, bool)
 #undef AS_RETURN_EDGE
 #define AS_RETURN_EDGE(RET) new QSize3DVector(RET)
 QSTDVECTOR(Size3D, tlp::Coord);
-GENERATE_SIMPLE_PROPERTY(Layout, QSize3DVector*, QSize3D*)
 
-#undef AS_ARG
-#define AS_ARG(ARG) ARG->asGraph()
-#undef AS_RETURN_NODE
-#define AS_RETURN_NODE(RET) new QGraph(RET)
+#define CLASS_NAME Layout
+#define EDGE_TYPE QSize3DVector*
+#define NODE_TYPE QSize3D*
+#include "QTemplateProperties.def"
+#undef CLASS_NAME
+#undef EDGE_TYPE
+#undef NODE_TYPE
 #undef AS_RETURN_EDGE
-#define AS_RETURN_EDGE(RET) new QEdgeSet(RET)
+#undef AS_RETURN_NODE
+#undef AS_ARG
+
 QSTDSET(Edge, tlp::edge);
-GENERATE_SIMPLE_PROPERTY(Graph, QEdgeSet*, QGraph*)
-#undef AS_RETURN_NODE
-#define AS_RETURN_NODE(RET) AS_RETURN(RET)
+#define AS_ARG(ARG) ARG->asGraph()
+#define AS_RETURN_NODE(RET) new QGraph(RET)
+#define AS_RETURN_EDGE(RET) new QEdgeSet(RET)
+#define CLASS_NAME Graph
+#define EDGE_TYPE QEdgeSet*
+#define NODE_TYPE QGraph*
+#include "QTemplateProperties.def"
+#undef CLASS_NAME
+#undef EDGE_TYPE
+#undef NODE_TYPE
 #undef AS_RETURN_EDGE
+#undef AS_RETURN_NODE
+#undef AS_ARG
+#undef AS_RETURN
+
+#define AS_RETURN_NODE(RET) AS_RETURN(RET)
 #define AS_RETURN_EDGE(RET) AS_RETURN(RET)
-
-#undef AS_ARG
 #define AS_ARG(ARG) ARG.toStdString()
-#undef AS_RETURN
 #define AS_RETURN(RET) QString::fromStdString(RET)
-GENERATE_SIMPLE_PROPERTY(String, QString, QString)
-
+#define CLASS_NAME String
+#define EDGE_TYPE QString
+#define NODE_TYPE QString
+#include "QTemplateProperties.def"
+#undef CLASS_NAME
+#undef EDGE_TYPE
+#undef NODE_TYPE
+#undef AS_RETURN_EDGE
+#undef AS_RETURN_NODE
+#undef AS_RETURN
 #undef AS_ARG
+
+
 #define AS_ARG(ARG) tlp::Color(ARG.red(), ARG.green(), ARG.blue(), ARG.alpha())
-#undef AS_RETURN
 #define AS_RETURN(RET) QColor(RET.getR(), RET.getG(), RET.getB(), RET.getA())
-GENERATE_SIMPLE_PROPERTY(Color, QColor, QColor)
-
+#define CLASS_NAME Color
+#define EDGE_TYPE QColor
+#define NODE_TYPE QColor
+#include "QTemplateProperties.def"
+#undef CLASS_NAME
+#undef EDGE_TYPE
+#undef NODE_TYPE
 #undef AS_ARG
-#define AS_ARG(ARG) tlp::Size(ARG.getW(), ARG.getH(), ARG.getD())
 #undef AS_RETURN
+
+#define AS_ARG(ARG) tlp::Size(ARG.getW(), ARG.getH(), ARG.getD())
 #define AS_RETURN(RET) QSize3D(RET)
-GENERATE_SIMPLE_PROPERTY(Size, QSize3D, QSize3D)
+#define CLASS_NAME Size
+#define EDGE_TYPE QSize3D
+#define NODE_TYPE QSize3D
+#include "QTemplateProperties.def"
+#undef CLASS_NAME
+#undef EDGE_TYPE
+#undef NODE_TYPE
+#undef AS_ARG
+#undef AS_RETURN
+#undef AS_ARG_EDGE
+#undef AS_ARG_NODE
+#undef AS_RETURN_EDGE
+#undef AS_RETURN_NODE
+#undef PROPERTY_NAME
+#undef QPROPERTY_NAME

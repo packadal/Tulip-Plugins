@@ -1,8 +1,8 @@
 #ifndef TULIPSCRIPTENGINE_H_
 #define TULIPSCRIPTENGINE_H_
 
-#include <QScriptEngine>
-#include <QObject>
+#include <QtScript/QScriptEngine>
+#include <QtCore/QObject>
 
 class TulipScriptEngine : public QScriptEngine {
 public:

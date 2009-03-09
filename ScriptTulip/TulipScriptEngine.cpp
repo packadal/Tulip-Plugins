@@ -5,6 +5,7 @@
 #include <tulip/QtProgress.h>
 
 #include "Scriptmacros.h"
+#include "ScriptFunctions.h"
 
 #include "QNode.h"
 #include "QEdge.h"
@@ -14,23 +15,39 @@
 
 DECLARE_TYPE_TO_SCRIPT(QGraph)
 
-//Q_IMPORT_PLUGIN(qtscript_tulip_script)
+ScriptFunctions* ScriptFunctions::_instance = 0;
+
+//Q_IMPORT_PLUGIN(qtscript_tulip_script);
 
 TulipScriptEngine::TulipScriptEngine()
 :QScriptEngine()
 {
 	QCoreApplication::addLibraryPath("/net/cremi/chuet/liens/travail/cppProjects/lib");
+/*
+	QStringList list = availableExtensions();
+	foreach(QString s, list)
+		std::cout << s.toStdString() << std::endl;*/
 
 	importExtension("tulip.script");
 	if(hasUncaughtException())
-		std::cout << "an error occured when trying to load the module" << qPrintable(uncaughtException().toString()) << std::endl;
+		std::cout << qPrintable(uncaughtException().toString()) << std::endl;
 
+	QMap<QString, QScriptEngine::FunctionSignature> functions = ScriptFunctions::getInstance()->getFunctions();
 
-	addScriptFunction(applyAlgorithm, "applyAlgorithm");
+	QMap<QString, QScriptEngine::FunctionSignature>::const_iterator it = functions.begin();
+	while(it != functions.end())
+	{
+//		std::cout << it.key().toStdString() << "; " << it.value() << std::endl;
+		addScriptFunction(it.value(), it.key());
+		++it;
+	}
+
+	ScriptFunctions::kill();
+//	addScriptFunction(applyAlgorithm, "applyAlgorithm");
 
 	addScriptFunction(QGraphFactory, "newGraph");
-	addScriptFunction(saveGraph, "saveGraph");
-	addScriptFunction(loadGraph, "loadGraph");
+//	addScriptFunction(saveGraph, "saveGraph");
+//	addScriptFunction(loadGraph, "loadGraph");
 }
 
 TulipScriptEngine::~TulipScriptEngine() {

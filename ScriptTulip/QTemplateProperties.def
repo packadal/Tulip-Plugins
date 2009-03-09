@@ -1,0 +1,46 @@
+#ifndef QPROPERTY_NAME
+#define QPROPERTY_NAME
+
+#include "QProperty.h"
+
+#include <QtCore/QObject>
+
+class QPROPERTY_NAME: public QProperty
+{
+
+Q_OBJECT 
+
+public:
+
+	QPROPERTY_NAME(QGraph *g):QProperty(new tlp::PROPERTY_NAME(g->asGraph())) { }
+	QPROPERTY_NAME(tlp::PROPERTY_NAME* p):_property(p) {} 
+	virtual ~QPROPERTY_NAME() { delete _property; }
+	tlp::PROPERTY_NAME* asProperty() { return _property; }
+
+public slots:
+
+NODE_TYPE getNodeDefaultValue() { return AS_RETURN_NODE(_property->getNodeDefaultValue()); }\
+NODE_TYPE getNodeValue(const QNode* n) { return AS_RETURN_NODE(_property->getNodeValue(n->asNode())); }\
+void setNodeValue(const QNode* n, NODE_TYPE v) { _property->setNodeValue(n->asNode(), AS_ARG_NODE(v)); }\
+void setAllNodeValue(NODE_TYPE v) { _property->setAllNodeValue(AS_ARG_NODE(v)); }\
+
+#define GENERATE_GET_SET_EDGE(NAME, TYPE) \
+EDGE_TYPE getEdgeDefaultValue() { return AS_RETURN_EDGE(_property->getEdgeDefaultValue()); }\
+EDGE_TYPE getEdgeValue(const QEdge* e) { return AS_RETURN_EDGE(_property->getEdgeValue(e->asEdge())); }\
+void setEdgeValue(const QEdge* e, EDGE_TYPE v) { _property->setEdgeValue(e->asEdge(), AS_ARG_EDGE(v)); }\
+void setAllEdgeValue(EDGE_TYPE v) { _property->setAllEdgeValue(AS_ARG_EDGE(v)); }\
+
+#ifndef SIMPLE
+NODE_TYPE getNodeMin() { return _property->getNodeMin(); }
+NODE_TYPE getNodeMax() { return _property->getNodeMax(); }
+EDGE_TYPE getEdgeMin() { return _property->getEdgeMin(); }
+EDGE_TYPE getEdgeMax() { return _property->getEdgeMax(); }
+#endif
+
+private:
+
+	tlp::CLASS_NAMEProperty* _property;
+
+};
+
+#endif //QPROPERTY_NAME
