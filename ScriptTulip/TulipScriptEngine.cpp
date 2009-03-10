@@ -32,20 +32,29 @@ TulipScriptEngine::TulipScriptEngine()
 	if(hasUncaughtException())
 		std::cout << qPrintable(uncaughtException().toString()) << std::endl;
 
+	std::cout << "coucou1" << std::endl;
 	QMap<QString, QScriptEngine::FunctionSignature> functions = ScriptFunctions::getInstance()->getFunctions();
+	std::cout << "coucou2" << std::endl;
 
 	QMap<QString, QScriptEngine::FunctionSignature>::const_iterator it = functions.begin();
 	while(it != functions.end()) {
 		addScriptFunction(it.value(), it.key());
 		++it;
 	}
-	ScriptFunctions::kill();
+	std::cout << "coucou3" << std::endl;
+
+	std::cout << "coucou4" << std::endl;
+
+
+//	addScriptFunction(loadGraph, "loadGraph");
+//	addScriptFunction(saveGraph, "saveGraph");
+//	addScriptFunction(applyAlgorithm, "applyAlgorithm");
 
 	addScriptFunction(QGraphFactory, "newGraph");
 }
 
 TulipScriptEngine::~TulipScriptEngine() {
-
+	ScriptFunctions::kill();
 }
 
 void TulipScriptEngine::addScriptFunction(const FunctionSignature &function, const QString &functionName) {
