@@ -35,19 +35,13 @@ TulipScriptEngine::TulipScriptEngine()
 	QMap<QString, QScriptEngine::FunctionSignature> functions = ScriptFunctions::getInstance()->getFunctions();
 
 	QMap<QString, QScriptEngine::FunctionSignature>::const_iterator it = functions.begin();
-	while(it != functions.end())
-	{
-//		std::cout << it.key().toStdString() << "; " << it.value() << std::endl;
+	while(it != functions.end()) {
 		addScriptFunction(it.value(), it.key());
 		++it;
 	}
-
 	ScriptFunctions::kill();
-//	addScriptFunction(applyAlgorithm, "applyAlgorithm");
 
 	addScriptFunction(QGraphFactory, "newGraph");
-//	addScriptFunction(saveGraph, "saveGraph");
-//	addScriptFunction(loadGraph, "loadGraph");
 }
 
 TulipScriptEngine::~TulipScriptEngine() {

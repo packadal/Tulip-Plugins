@@ -10,7 +10,7 @@
  *	   | Red Ranger ----------------- Romain Patau |
  *	   | Blue Ranger ----------------- Rudy Nappée |
  *	   | Pink Ranger <3 ------------- Charles Huet |
- *	   | Pink Ranger bis ------------ Loïc Burelou |
+ *	   | Pink Ranger bis ----------- Loïc Bureloux |
  *	   | Black Ranger -------------- Quentin Enard |
  *	   | Green Ranger -------------- Damien Mothes |
  *	   | S???mix Zero -------------- Maxxx Orbison |
@@ -30,14 +30,12 @@
 #include <tulip/Edge.h>
 #include "tulip/Algorithm.h"
 
-
+#include "ScriptFunctions.h"
 #include "QEdge.h"
 #include "QNode.h"
 
-using namespace tlp;
-
 QGraph::QGraph()
-:_graph(newGraph())
+:_graph(tlp::newGraph())
 {
 }
 
@@ -47,14 +45,13 @@ QGraph::QGraph(tlp::Graph* g)
 }
 
 QGraph::~QGraph() {
-
 }
 
 QGraph* QGraph::clone(){
 	return new QGraph(tlp::newCloneSubGraph(asGraph()));
 }
 
-QScriptValue saveGraph(QScriptContext* context, QScriptEngine *)
+ADD_FUNCTION(saveGraph) (QScriptContext* context, QScriptEngine *)
 {
 	QString filename= context->argument(1).toString();
 	QGraph *graph = (QGraph *)(context->argument(0).toQObject());
@@ -62,7 +59,7 @@ QScriptValue saveGraph(QScriptContext* context, QScriptEngine *)
 	return QScriptValue();
 }
 
-QScriptValue loadGraph(QScriptContext *context, QScriptEngine *engine){
+ADD_FUNCTION(loadGraph) (QScriptContext *context, QScriptEngine *engine){
 	QString filename= context->argument(0).toString();
 	tlp::Graph* graph = tlp::loadGraph(filename.toStdString());
 	QGraph *qgraph = new QGraph(graph);
@@ -70,7 +67,13 @@ QScriptValue loadGraph(QScriptContext *context, QScriptEngine *engine){
 	return value;
 }
 
-QScriptValue applyAlgorithm(QScriptContext *context, QScriptEngine*) {
+ADD_FUNCTION(newGraph) (QScriptContext*, QScriptEngine *engine){
+	QGraph *qgraph = new QGraph(tlp::newGraph());
+	QScriptValue value = engine->newQObject(qgraph);
+	return value;
+}
+
+QScript applyAlgorithm(QScriptContext *context, QScriptEngine*) {
 
 	QGraph* graph = qobject_cast<QGraph*>(context->argument(0).toQObject());
 	std::string errorMsg = context->argument(1).toString().toStdString();
@@ -80,9 +83,9 @@ QScriptValue applyAlgorithm(QScriptContext *context, QScriptEngine*) {
 
 	tlp::DataSet* set = new tlp::DataSet();
 
-
 	if(dataSet.isObject())
 	{
+		//TODO use properties from now on
 		QScriptValueIterator it(dataSet);
 		while(it.hasNext()) {
 			it.next();
@@ -99,6 +102,8 @@ QScriptValue applyAlgorithm(QScriptContext *context, QScriptEngine*) {
 	tlp::applyAlgorithm(graph->asGraph(), errorMsg, set, alg/*, plugProgress*/);
 	return QScriptValue();
 }
+
+using namespace tlp;
 
 void QGraph::clear()
 {
@@ -140,7 +145,6 @@ void QGraph::setSuperGraph(QGraph *g)
 	_graph->setSuperGraph(g->asGraph());
 }
 
-
 QNode* QGraph::addNode()
 {
 	return new QNode(_graph->addNode());
@@ -160,7 +164,6 @@ void QGraph::delAllNode(const QNode* n)
 {
 	_graph->delAllNode(n->asNode());
 }
-
 
 QEdge* QGraph::addEdge(const QNode* n1, const QNode* n2)
 {
@@ -414,4 +417,3 @@ bool QGraph::canUnpop()
 {
 	return _graph->canUnpop();
 }
-

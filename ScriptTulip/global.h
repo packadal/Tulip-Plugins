@@ -6,4 +6,7 @@
 #include "Scriptmacros.h"
 #include "TulipScriptEngine.h"
 
+#include "QProperty.h"
+#include "QTemplateProperty.h"
+
 #include <QtCore/QChildEvent>
