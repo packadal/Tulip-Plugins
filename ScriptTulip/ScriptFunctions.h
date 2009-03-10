@@ -28,7 +28,7 @@ private:
 	static ScriptFunctions* _instance;
 };
 
-#define ADD_FUNCTION(FUN) addFunction scriptFunction_##FUN(#FUN, FUN); QScriptValue FUN
+#define ADD_FUNCTION(FUN) addFunction scriptFunction_##FUN(#FUN, FUN)
 
 class addFunction {
 public:
