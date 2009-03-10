@@ -34,6 +34,8 @@
 #include "QEdge.h"
 #include "QNode.h"
 
+using namespace tlp;
+
 QGraph::QGraph()
 :_graph(tlp::newGraph())
 {
@@ -51,29 +53,32 @@ QGraph* QGraph::clone(){
 	return new QGraph(tlp::newCloneSubGraph(asGraph()));
 }
 
-ADD_FUNCTION(saveGraph) (QScriptContext* context, QScriptEngine *)
+QScriptValue saveGraph(QScriptContext* context, QScriptEngine *)
 {
 	QString filename= context->argument(1).toString();
 	QGraph *graph = (QGraph *)(context->argument(0).toQObject());
 	tlp::saveGraph(graph->asGraph(), filename.toStdString());
 	return QScriptValue();
 }
+ADD_FUNCTION(saveGraph);
 
-ADD_FUNCTION(loadGraph) (QScriptContext *context, QScriptEngine *engine){
+QScriptValue loadGraph(QScriptContext *context, QScriptEngine *engine){
 	QString filename= context->argument(0).toString();
 	tlp::Graph* graph = tlp::loadGraph(filename.toStdString());
 	QGraph *qgraph = new QGraph(graph);
 	QScriptValue value = engine->newQObject(qgraph);
 	return value;
 }
+ADD_FUNCTION(loadGraph);
 
-ADD_FUNCTION(newGraph) (QScriptContext*, QScriptEngine *engine){
+QScriptValue newGraph(QScriptContext*, QScriptEngine *engine){
 	QGraph *qgraph = new QGraph(tlp::newGraph());
 	QScriptValue value = engine->newQObject(qgraph);
 	return value;
 }
+ADD_FUNCTION(newGraph);
 
-QScript applyAlgorithm(QScriptContext *context, QScriptEngine*) {
+QScriptValue applyAlgorithm(QScriptContext *context, QScriptEngine*) {
 
 	QGraph* graph = qobject_cast<QGraph*>(context->argument(0).toQObject());
 	std::string errorMsg = context->argument(1).toString().toStdString();
@@ -102,8 +107,7 @@ QScript applyAlgorithm(QScriptContext *context, QScriptEngine*) {
 	tlp::applyAlgorithm(graph->asGraph(), errorMsg, set, alg/*, plugProgress*/);
 	return QScriptValue();
 }
-
-using namespace tlp;
+ADD_FUNCTION(applyAlgorithm);
 
 void QGraph::clear()
 {
