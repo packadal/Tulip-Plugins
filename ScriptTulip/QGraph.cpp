@@ -421,3 +421,8 @@ bool QGraph::canUnpop()
 {
 	return _graph->canUnpop();
 }
+
+/*bool QGraph::computeProperty(const QString &algorithm, Proxytype result, QString &msg,
+				   QPluginProgress *progress=0, tlp::DataSet *data=0)
+{
+}*/
