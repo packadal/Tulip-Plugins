@@ -5,9 +5,6 @@
 
 using namespace tlp;
 
-QProperty::QProperty() {
-}
-
 QProperty::QProperty(tlp::PropertyInterface* property) :
 	_property(property) {
 }
