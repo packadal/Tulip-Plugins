@@ -1,10 +1,3 @@
-/*
- * QIterator.cpp
- *
- *  Created on: 7 janv. 2009
- *      Author: chuet
- */
-
 #include "QIterator.h"
 
 #include "QNode.h"
@@ -12,7 +5,7 @@
 #include "QGraph.h"
 
 QIterator::QIterator()
-:QObject()
+:QObject(), _type(invalid)
 {
 }
 
@@ -29,6 +22,11 @@ QIterator::QIterator(tlp::Iterator<tlp::edge>* i)
 QIterator::QIterator(tlp::Iterator<tlp::Graph *>* i)
 :QObject(), _type(graph), _graphIterator(i)
 {
+}
+
+type QIterator::getType()
+{
+	return _type;
 }
 
 QObject* QIterator::next()

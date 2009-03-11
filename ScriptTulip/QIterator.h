@@ -19,7 +19,7 @@ class QNode;
 class QEdge;
 //class QGraph;
 
-enum type { node, edge, graph };
+enum type { invalid, node, edge, graph };
 
 class QIterator : public QObject {
 	Q_OBJECT
@@ -29,6 +29,7 @@ public:
 	QIterator(tlp::Iterator<tlp::node>*);
 	QIterator(tlp::Iterator<tlp::edge>*);
 	QIterator(tlp::Iterator<tlp::Graph *>*);
+	type getType();
 public slots:
 	QObject* next();
 	bool hasNext();
