@@ -23,12 +23,15 @@ TulipScriptEngine::TulipScriptEngine()
 :QScriptEngine()
 {
 	QCoreApplication::addLibraryPath("/net/cremi/chuet/liens/travail/cppProjects/lib");
-/*
+	QCoreApplication::addLibraryPath("/net/cremi/chuet/liens/travail/qtscriptgenerator/plugins");
+
+	/*
 	QStringList list = availableExtensions();
 	foreach(QString s, list)
 		std::cout << s.toStdString() << std::endl;*/
 
 	importExtension("tulip.script");
+	importExtension("qt.gui");
 	if(hasUncaughtException())
 		std::cout << qPrintable(uncaughtException().toString()) << std::endl;
 
