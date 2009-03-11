@@ -1,5 +1,3 @@
-#ifndef QPROPERTY_NAME
-#define QPROPERTY_NAME
 
 #include "QProperty.h"
 
@@ -19,16 +17,15 @@ public:
 
 public slots:
 
-NODE_TYPE getNodeDefaultValue() { return AS_RETURN_NODE(_property->getNodeDefaultValue()); }\
-NODE_TYPE getNodeValue(const QNode* n) { return AS_RETURN_NODE(_property->getNodeValue(n->asNode())); }\
-void setNodeValue(const QNode* n, NODE_TYPE v) { _property->setNodeValue(n->asNode(), AS_ARG_NODE(v)); }\
-void setAllNodeValue(NODE_TYPE v) { _property->setAllNodeValue(AS_ARG_NODE(v)); }\
+NODE_TYPE getNodeDefaultValue() { return AS_RETURN_NODE(_property->getNodeDefaultValue()); }
+NODE_TYPE getNodeValue(const QNode* n) { return AS_RETURN_NODE(_property->getNodeValue(n->asNode())); }
+void setNodeValue(const QNode* n, NODE_TYPE v) { _property->setNodeValue(n->asNode(), AS_ARG_NODE(v)); }
+void setAllNodeValue(NODE_TYPE v) { _property->setAllNodeValue(AS_ARG_NODE(v)); }
 
-#define GENERATE_GET_SET_EDGE(NAME, TYPE) \
-EDGE_TYPE getEdgeDefaultValue() { return AS_RETURN_EDGE(_property->getEdgeDefaultValue()); }\
-EDGE_TYPE getEdgeValue(const QEdge* e) { return AS_RETURN_EDGE(_property->getEdgeValue(e->asEdge())); }\
-void setEdgeValue(const QEdge* e, EDGE_TYPE v) { _property->setEdgeValue(e->asEdge(), AS_ARG_EDGE(v)); }\
-void setAllEdgeValue(EDGE_TYPE v) { _property->setAllEdgeValue(AS_ARG_EDGE(v)); }\
+EDGE_TYPE getEdgeDefaultValue() { return AS_RETURN_EDGE(_property->getEdgeDefaultValue()); }
+EDGE_TYPE getEdgeValue(const QEdge* e) { return AS_RETURN_EDGE(_property->getEdgeValue(e->asEdge())); }
+void setEdgeValue(const QEdge* e, EDGE_TYPE v) { _property->setEdgeValue(e->asEdge(), AS_ARG_EDGE(v)); }
+void setAllEdgeValue(EDGE_TYPE v) { _property->setAllEdgeValue(AS_ARG_EDGE(v)); }
 
 #ifndef SIMPLE
 NODE_TYPE getNodeMin() { return _property->getNodeMin(); }
@@ -39,8 +36,7 @@ EDGE_TYPE getEdgeMax() { return _property->getEdgeMax(); }
 
 private:
 
-	tlp::CLASS_NAMEProperty* _property;
+	tlp::PROPERTY_NAME* _property;
 
 };
 
-#endif //QPROPERTY_NAME
