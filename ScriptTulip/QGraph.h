@@ -8,6 +8,8 @@
 #ifndef QGRAPH_H_
 #define QGRAPH_H_
 
+#include <fstream>
+
 #include <tulip/Graph.h>
 #include "tulip/AbstractProperty.h"
 #include "tulip/DoubleProperty.h"
@@ -52,10 +54,15 @@ public slots:
 		return tlp::applyAlgorithm(graph->asGraph(), stdErrorMsg, dataSet, stdAlg, plugProgress);
 	}
 
-	//remplacer le ostream par un nom de fichier dans le script
-	static void exportGraph(QGraph* graph, std::ostream &os, const QString &alg, tlp::DataSet &dataset, tlp::PluginProgress* plugProgress=0)
+	static void exportGraph(QGraph* graph, const QString &fileName, const QString &alg, tlp::DataSet &dataset, tlp::PluginProgress* plugProgress=0)
 	{
+		std::ofstream os(fileName.toStdString().c_str());
 		tlp::exportGraph(graph->asGraph(), os, alg.toStdString(), dataset, plugProgress);
+	}
+
+	static QGraph* newGraph()
+	{
+		return new QGraph(tlp::newGraph());
 	}
 
 	static void importGraph(const QString& alg, tlp::DataSet &dataSet, tlp::PluginProgress *plugProgress=0, QGraph* newGraph=0)
@@ -79,8 +86,8 @@ public slots:
 	void clear();
 	QGraph* addSubGraph(tlp::BooleanProperty* selection=0);
 
-	void delSubGraph(QGraph *);
-	void delAllSubGraphs(QGraph *);
+	void delSubGraph(const QGraph *);
+	void delAllSubGraphs(const QGraph *);
 	QGraph* getSuperGraph()const;
 
 	QGraph* getFather()const {
@@ -88,8 +95,8 @@ public slots:
 		return getSuperGraph();
 	  }
 	QGraph* getRoot() const;
-	void setSuperGraph(QGraph *);
-	void setFather(QGraph *sg) {
+	void setSuperGraph(const QGraph *);
+	void setFather(const QGraph *sg) {
 		std::cerr << __PRETTY_FUNCTION__ << " is deprecated, use setSuperGraph() instead." << std::endl;
 		setFather(sg);
 	  }
@@ -142,9 +149,9 @@ public slots:
 	virtual QNode* opposite(const QEdge*, const QNode*)const;
 	virtual bool isElement(const QNode*) const;
 	virtual bool isElement(const QEdge*) const;
-	virtual bool isMetaNode(const QNode* ) const;
-	virtual bool isMetaEdge(const QEdge* ) const;
-	virtual QEdge* existEdge(const QNode* , const QNode*) const;
+	virtual bool isMetaNode(const QNode*) const;
+	virtual bool isMetaEdge(const QEdge*) const;
+	virtual QEdge* existEdge(const QNode*, const QNode*) const;
 	//================================================================================
 	// Access to the graph attributes and to the node/edge property.
 	//================================================================================
@@ -155,11 +162,11 @@ public slots:
 	template<typename ATTRIBUTETYPE>
 	void setAttribute(const std::string &name,const ATTRIBUTETYPE &value);
 	virtual  void addLocalProperty(const std::string &name, PropertyInterface *prop)=0;
-	template<typename Proxytype>
-	Proxytype* getLocalProperty(const std::string &name);
-	template<typename Proxytype>
-	bool computeProperty(const std::string &algorithm, Proxytype result, std::string &msg,
-				   PluginProgress *progress=0, DataSet *data=0);*/
+	*/
+
+//	QProperty getLocalProperty(const QString &name);
+
+	bool computeProperty(const QString &algorithm, const QProperty* property, const QString &message);
 
 	//template<typename Proxytype>
 	//Proxytype* getProperty(const std::string &name);

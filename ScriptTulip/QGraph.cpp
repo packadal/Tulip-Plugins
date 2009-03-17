@@ -34,6 +34,8 @@
 #include "QEdge.h"
 #include "QNode.h"
 
+#include "QTemplateProperties.h"
+
 using namespace tlp;
 
 QGraph::QGraph()
@@ -109,6 +111,44 @@ QScriptValue applyAlgorithm(QScriptContext *context, QScriptEngine*) {
 }
 ADD_FUNCTION(applyAlgorithm);
 
+bool QGraph::computeProperty(const QString &algo, const QProperty* property, const QString &msg)
+{
+	std::string algorithm = algo.toStdString();
+	std::string message = msg.toStdString();
+	if(property == 0)
+	{
+		std::cout << "property est null :(" << std::endl;
+		return false;
+	}
+
+	const std::string Typename = property->asProperty()->getTypename();
+	bool res = false;
+	//TODO undefined reference... WTF ?
+	/*if(Typename == "graph")
+		res = asGraph()->computeProperty(algorithm, dynamic_cast<GraphProperty*>(property->asProperty()), message);
+	else */if (Typename == "double")
+		res = asGraph()->computeProperty(algorithm, dynamic_cast<DoubleProperty*>(property->asProperty()), message);
+	else if (Typename == "layout")
+		res = asGraph()->computeProperty(algorithm, dynamic_cast<LayoutProperty*>(property->asProperty()), message);
+	else if (Typename == "string")
+		res = asGraph()->computeProperty(algorithm, dynamic_cast<StringProperty*>(property->asProperty()), message);
+	else if (Typename == "int")
+		res = asGraph()->computeProperty(algorithm, dynamic_cast<IntegerProperty*>(property->asProperty()), message);
+	else if (Typename == "color")
+		res = asGraph()->computeProperty(algorithm, dynamic_cast<ColorProperty*>(property->asProperty()), message);
+	else if (Typename == "size")
+		res = asGraph()->computeProperty(algorithm, dynamic_cast<SizeProperty*>(property->asProperty()), message);
+	else if (Typename == "bool")
+		res = asGraph()->computeProperty(algorithm, dynamic_cast<BooleanProperty*>(property->asProperty()), message);
+
+	return res;
+}
+
+QProperty QGraph::getLocalProperty(const QString &name)
+{
+	return new QProperty(new tlp::StringProperty(_graph->getLocalProperty<tlp::StringProperty>(name.toStdString())));
+}
+
 void QGraph::clear()
 {
 	_graph->clear();
@@ -124,12 +164,12 @@ QIterator* QGraph::getSubGraphs() const
 	return new QIterator(_graph->getSubGraphs());
 }
 
-void QGraph::delSubGraph(QGraph *g)
+void QGraph::delSubGraph(const QGraph *g)
 {
 	_graph->delSubGraph(g->asGraph());
 }
 
-void QGraph::delAllSubGraphs(QGraph *g)
+void QGraph::delAllSubGraphs(const QGraph *g)
 {
 	_graph->delAllSubGraphs(g->asGraph());
 }
@@ -144,7 +184,7 @@ QGraph* QGraph::getRoot() const
 	return new QGraph(_graph->getRoot());
 }
 
-void QGraph::setSuperGraph(QGraph *g)
+void QGraph::setSuperGraph(const QGraph *g)
 {
 	_graph->setSuperGraph(g->asGraph());
 }
@@ -421,8 +461,3 @@ bool QGraph::canUnpop()
 {
 	return _graph->canUnpop();
 }
-
-/*bool QGraph::computeProperty(const QString &algorithm, Proxytype result, QString &msg,
-				   QPluginProgress *progress=0, tlp::DataSet *data=0)
-{
-}*/
