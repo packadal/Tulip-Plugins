@@ -8,6 +8,8 @@
 #ifndef QEDGESET_H_
 #define QEDGESET_H_
 
+#include <QSet>
+
 #define QSTDSET(Type, tlpType) QSTDCONTAINER(Set, std::set, insert, Type, tlpType)
 
 #define QSTDVECTOR(Type, tlpType) QSTDCONTAINER(Vector, std::vector, push_back, Type, tlpType)

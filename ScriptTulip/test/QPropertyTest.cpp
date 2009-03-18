@@ -30,7 +30,7 @@ void QPropertyTest::setNodeValueTest()
 {
 	QGraph qgraph;
 	QNode* node = qgraph.addNode();
-	QProperty* property0 = qgraph.getColorProperty("viewColor");
+	QColorProperty* property0 = qgraph.getColorProperty("viewColor");
 	QProperty* property1 = qgraph.getGraphProperty("viewGraph");
 	QProperty* property2 = qgraph.getDoubleProperty("viewDouble");
 	QProperty* property3 = qgraph.getLayoutProperty("viewLayout");
@@ -52,73 +52,53 @@ void QPropertyTest::setNodeValueTest()
 
 	QString value("(10,11,12,255)");
 	_engine->evaluate("property0.setNodeStringValue(node, \""+ value +"\")");
-	if(_engine->hasUncaughtException())
-	{
-			CPPUNIT_FAIL(qPrintable(_engine->uncaughtException().toString()));
-	}
+	handleError();
 	QString result = property0->getNodeStringValue(node);
+	CPPUNIT_ASSERT(value == result);
+	_engine->evaluate("var realValue = new QColor(11, 12, 13, 0); property0.setNodeValue(node, realValue)");
+	handleError();
+	QColor realResult = property0->getNodeValue(node);
 	CPPUNIT_ASSERT(value == result);
 
 	value="";
 	_engine->evaluate("property1.setNodeStringValue(node, \""+ value +"\")");
-	if(_engine->hasUncaughtException())
-	{
-			CPPUNIT_FAIL(qPrintable(_engine->uncaughtException().toString()));
-	}
+	handleError();
 	result = property1->getNodeStringValue(node);
 	CPPUNIT_ASSERT(value == result);
 
 	value="2.1";
 	_engine->evaluate("property2.setNodeStringValue(node, \""+ value +"\")");
-	if(_engine->hasUncaughtException())
-	{
-			CPPUNIT_FAIL(qPrintable(_engine->uncaughtException().toString()));
-	}
+	handleError();
 	result = property2->getNodeStringValue(node);
 	CPPUNIT_ASSERT(value == result);
 
 	value="(100,10,1000)";
 	_engine->evaluate("property3.setNodeStringValue(node, \""+ value +"\")");
-	if(_engine->hasUncaughtException())
-	{
-			CPPUNIT_FAIL(qPrintable(_engine->uncaughtException().toString()));
-	}
+	handleError();
 	result = property3->getNodeStringValue(node);
 	CPPUNIT_ASSERT(value == result);
 
 	value="a standard test for stringzz";
 	_engine->evaluate("property4.setNodeStringValue(node, \""+ value +"\")");
-	if(_engine->hasUncaughtException())
-	{
-			CPPUNIT_FAIL(qPrintable(_engine->uncaughtException().toString()));
-	}
+	handleError();
 	result = property4->getNodeStringValue(node);
 	CPPUNIT_ASSERT(value == result);
 
 	value="10";
 	_engine->evaluate("property5.setNodeStringValue(node, \""+ value +"\")");
-	if(_engine->hasUncaughtException())
-	{
-			CPPUNIT_FAIL(qPrintable(_engine->uncaughtException().toString()));
-	}
+	handleError();
 	result = property5->getNodeStringValue(node);
 	CPPUNIT_ASSERT(value == result);
 
 	value="(100,10,1000)";
 	_engine->evaluate("property6.setNodeStringValue(node, \""+ value +"\")");
-	if(_engine->hasUncaughtException())
-	{
-			CPPUNIT_FAIL(qPrintable(_engine->uncaughtException().toString()));
-	}
+	handleError();
 	result = property6->getNodeStringValue(node);
 	CPPUNIT_ASSERT(value == result);
 
 	value="false";
 	_engine->evaluate("property7.setNodeStringValue(node, \""+ value +"\")");
-	if(_engine->hasUncaughtException())
-	{
-			CPPUNIT_FAIL(qPrintable(_engine->uncaughtException().toString()));
-	}
+	handleError();
 	result = property7->getNodeStringValue(node);
 	CPPUNIT_ASSERT(value == result);
 
@@ -167,4 +147,12 @@ void QPropertyTest::eraseNodeTest()
 	}
 	CPPUNIT_ASSERT(value != _string);
 
+}
+
+
+void QPropertyTest::handleError() {
+	if(_engine->hasUncaughtException())
+	{
+			CPPUNIT_FAIL(qPrintable(_engine->uncaughtException().toString()));
+	}
 }

@@ -24,6 +24,7 @@ protected:
     void setNodeValueTest();
     void eraseNodeTest();
     //void eraseEdgeTest();
+    void handleError();
 };
 
 #endif
