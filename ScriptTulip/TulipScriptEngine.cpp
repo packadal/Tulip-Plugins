@@ -1,6 +1,6 @@
 #include "TulipScriptEngine.h"
 
-#include <QtPlugin>
+//#include <QtPlugin>
 
 #include <tulip/QtProgress.h>
 

@@ -34,9 +34,9 @@
 #include "QEdge.h"
 #include "QNode.h"
 
+//using namespace tlp;
 #include "QTemplateProperties.h"
 
-using namespace tlp;
 
 QGraph::QGraph()
 :_graph(tlp::newGraph())
@@ -55,26 +55,37 @@ QGraph* QGraph::clone(){
 	return new QGraph(tlp::newCloneSubGraph(asGraph()));
 }
 
+void saveGraph(const QGraph* graph, QString filename)
+{
+	tlp::saveGraph(graph->asGraph(), filename.toStdString());
+}
 QScriptValue saveGraph(QScriptContext* context, QScriptEngine *)
 {
 	QString filename= context->argument(1).toString();
 	QGraph *graph = (QGraph *)(context->argument(0).toQObject());
-	tlp::saveGraph(graph->asGraph(), filename.toStdString());
+	saveGraph(graph, filename);
 	return QScriptValue();
 }
 ADD_FUNCTION(saveGraph);
 
-QScriptValue loadGraph(QScriptContext *context, QScriptEngine *engine){
-	QString filename= context->argument(0).toString();
+QGraph* loadGraph(QString filename){
 	tlp::Graph* graph = tlp::loadGraph(filename.toStdString());
 	QGraph *qgraph = new QGraph(graph);
+	return qgraph;
+}
+QScriptValue loadGraph(QScriptContext *context, QScriptEngine *engine){
+	QString filename= context->argument(0).toString();
+	QGraph *qgraph = loadGraph(filename);
 	QScriptValue value = engine->newQObject(qgraph);
 	return value;
 }
 ADD_FUNCTION(loadGraph);
 
+QGraph* newGraph() {
+	return new QGraph(tlp::newGraph());
+}
 QScriptValue newGraph(QScriptContext*, QScriptEngine *engine){
-	QGraph *qgraph = new QGraph(tlp::newGraph());
+	QGraph *qgraph = newGraph();
 	QScriptValue value = engine->newQObject(qgraph);
 	return value;
 }
@@ -111,50 +122,12 @@ QScriptValue applyAlgorithm(QScriptContext *context, QScriptEngine*) {
 }
 ADD_FUNCTION(applyAlgorithm);
 
-bool QGraph::computeProperty(const QString &algo, const QProperty* property, const QString &msg)
-{
-	std::string algorithm = algo.toStdString();
-	std::string message = msg.toStdString();
-	if(property == 0)
-	{
-		std::cout << "property est null :(" << std::endl;
-		return false;
-	}
-
-	const std::string Typename = property->asProperty()->getTypename();
-	bool res = false;
-	//TODO undefined reference... WTF ?
-	/*if(Typename == "graph")
-		res = asGraph()->computeProperty(algorithm, dynamic_cast<GraphProperty*>(property->asProperty()), message);
-	else */if (Typename == "double")
-		res = asGraph()->computeProperty(algorithm, dynamic_cast<DoubleProperty*>(property->asProperty()), message);
-	else if (Typename == "layout")
-		res = asGraph()->computeProperty(algorithm, dynamic_cast<LayoutProperty*>(property->asProperty()), message);
-	else if (Typename == "string")
-		res = asGraph()->computeProperty(algorithm, dynamic_cast<StringProperty*>(property->asProperty()), message);
-	else if (Typename == "int")
-		res = asGraph()->computeProperty(algorithm, dynamic_cast<IntegerProperty*>(property->asProperty()), message);
-	else if (Typename == "color")
-		res = asGraph()->computeProperty(algorithm, dynamic_cast<ColorProperty*>(property->asProperty()), message);
-	else if (Typename == "size")
-		res = asGraph()->computeProperty(algorithm, dynamic_cast<SizeProperty*>(property->asProperty()), message);
-	else if (Typename == "bool")
-		res = asGraph()->computeProperty(algorithm, dynamic_cast<BooleanProperty*>(property->asProperty()), message);
-
-	return res;
-}
-
-QProperty QGraph::getLocalProperty(const QString &name)
-{
-	return new QProperty(new tlp::StringProperty(_graph->getLocalProperty<tlp::StringProperty>(name.toStdString())));
-}
-
 void QGraph::clear()
 {
 	_graph->clear();
 }
 
-QGraph* QGraph::addSubGraph(BooleanProperty *selection)
+QGraph* QGraph::addSubGraph(tlp::BooleanProperty *selection)
 {
 	return new QGraph(_graph->addSubGraph(selection));
 }
@@ -313,35 +286,35 @@ tlp::Graph* QGraph::asGraph() const
 }
 
 QProperty* QGraph::getGraphProperty(QString name) {
-	return new QProperty(_graph->getProperty<GraphProperty>(name.toStdString()));
+	return new QProperty(_graph->getProperty<tlp::GraphProperty>(name.toStdString()));
 }
 
 QProperty* QGraph::getDoubleProperty(QString name){
-	return new QProperty(_graph->getProperty<DoubleProperty>(name.toStdString()));
+	return new QProperty(_graph->getProperty<tlp::DoubleProperty>(name.toStdString()));
 }
 
 QProperty* QGraph::getLayoutProperty(QString name){
-	return new QProperty(_graph->getProperty<LayoutProperty>(name.toStdString()));
+	return new QProperty(_graph->getProperty<tlp::LayoutProperty>(name.toStdString()));
 }
 
 QProperty* QGraph::getStringProperty(QString name){
-	return new QProperty(_graph->getProperty<StringProperty>(name.toStdString()));
+	return new QProperty(_graph->getProperty<tlp::StringProperty>(name.toStdString()));
 }
 
 QProperty* QGraph::getIntegerProperty(QString name){
-	return new QProperty(_graph->getProperty<IntegerProperty>(name.toStdString()));
+	return new QProperty(_graph->getProperty<tlp::IntegerProperty>(name.toStdString()));
 }
 
 QProperty* QGraph::getColorProperty(QString name){
-	return new QProperty(_graph->getProperty<ColorProperty>(name.toStdString()));
+	return new QProperty(_graph->getProperty<tlp::ColorProperty>(name.toStdString()));
 }
 
 QProperty* QGraph::getSizeProperty(QString name){
-	return new QProperty(_graph->getProperty<SizeProperty>(name.toStdString()));
+	return new QProperty(_graph->getProperty<tlp::SizeProperty>(name.toStdString()));
 }
 
 QProperty* QGraph::getBooleanProperty(QString name){
-	return new QProperty(_graph->getProperty<BooleanProperty>(name.toStdString()));
+	return new QProperty(_graph->getProperty<tlp::BooleanProperty>(name.toStdString()));
 }
 
 QProperty* QGraph::getProperty(QString name) {
@@ -461,3 +434,8 @@ bool QGraph::canUnpop()
 {
 	return _graph->canUnpop();
 }
+
+/*bool QGraph::computeProperty(const QString &algorithm, Proxytype result, QString &msg,
+				   QPluginProgress *progress=0, tlp::DataSet *data=0)
+{
+}*/

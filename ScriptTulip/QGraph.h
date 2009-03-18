@@ -197,6 +197,9 @@ private:
 	QScriptEngine* _engine;
 };
 
+void saveGraph(const QGraph* graph, QString filename);
+QGraph* loadGraph(QString filename);
+QGraph* newGraph();
 QScriptValue saveGraph(QScriptContext *context, QScriptEngine *engine);
 QScriptValue loadGraph(QScriptContext *context, QScriptEngine *engine);
 QScriptValue applyAlgorithm(QScriptContext *context, QScriptEngine *engine);

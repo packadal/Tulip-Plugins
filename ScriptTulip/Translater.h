@@ -3,6 +3,7 @@
 
 #include <QFile>
 #include <QMap>
+#include <QPair>
 #include <QString>
 #include <QRegExp>
 #include <QMetaMethod>
@@ -22,12 +23,14 @@ public:
 	void parseTypes(QObject* obj);
 	void viewMap();
 private:
-	void addLine(QString line);
+	QString addLine(QString line);
 	QString fetchType(QString line);
+	QString checkQuotedText(QString line);
+	QString fetchReturnType(QString line);
 	QFile* fileStream;
 	QFile* outputFile;
 	TulipScriptEngine* scriptEngine;
-	QMap<QString, QString> functionToType;
+	QMap<QPair<QString,int>, QString> functionToType;
 	QMap<QString, QString> varToType;
 };
 
