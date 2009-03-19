@@ -4,6 +4,10 @@ QT += script
 include(../variables.pri)
 QMAKE_CXXFLAGS += -Wno-deprecated
 
+INCLUDEPATH += $$QTSCRIPT_GENERATOR_PATH/qtbindings/qtscript_core
+
+CONFIG += static
+
 CONFIG(tests) { 
     TEMPLATE = app
     message("DEBUG MOOOODE !!!")
@@ -51,12 +55,15 @@ CONFIG(tests) {
         test/TestSkeleton.h
 
     LIBS += -L$$CPPUNIT_PATH \
-        -lcppunit
+        -lcppunit \
+        -L$$TULIP_PATH/lib \
+        -ltulip \
+        -L$$SCRIPT_PATH \
+        -lqtscript_tulip_script \
+        -L$$QTSCRIPT_GENERATOR_PATH/plugins/static \
+        -lqtscript_gui \
+        -lqtscript_core
 
     INCLUDEPATH += $$CPPUNIT_PATH/include
 
 }
-LIBS += -L$$TULIP_PATH/lib \
-    -ltulip
-    
-LIBS += -L./script

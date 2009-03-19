@@ -31,5 +31,11 @@ LIBS += -L$$ENGINE_PATH \
     -ltulip \
     -ltulip-pluginsmanager \
     -ltulip-qt4 \
-    -ltulip-ogl
-    
+    -ltulip-ogl \
+    -L$$TULIP_PATH/lib \
+    -ltulip \
+    -L$$SCRIPT_PATH \
+    -lqtscript_tulip_script \
+    -L$$QTSCRIPT_GENERATOR_PATH/plugins/static \
+    -lqtscript_gui \
+    -lqtscript_core

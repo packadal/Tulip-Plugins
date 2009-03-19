@@ -3,7 +3,7 @@ TEMPLATE = lib
 QT += script
 
 TARGET = qtscript_tulip_script
-#CONFIG += plugin static
+CONFIG += static
 #DEFINES += QT_STATICPLUGIN
 
 include(../variables.pri)
@@ -23,10 +23,10 @@ SOURCES += $$ENGINE_PATH/TulipScriptEngine.cpp \
     $$ENGINE_PATH/QGraph.cpp \
     $$ENGINE_PATH/QNode.cpp \
     $$ENGINE_PATH/QEdge.cpp \
-    generated_cpp/tulip_script/main.cpp 
+    generated_cpp/tulip_script/plugin.cpp 
     
-    LIBS += -L$$TULIP_PATH/lib \
-    -ltulip
+#LIBS += -L$$TULIP_PATH/lib \
+#    -ltulip
 
 INCLUDEPATH += $$TULIP_PATH/library/tulip/include \
 	$$ENGINE_PATH
