@@ -19,7 +19,7 @@ public:
 
 	QProperty(tlp::PropertyInterface*);
 	virtual ~QProperty();
-	tlp::PropertyInterface* asProperty();
+	tlp::PropertyInterface* asProperty() const;
 
 public slots:
 

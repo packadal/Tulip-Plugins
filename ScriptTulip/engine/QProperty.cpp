@@ -13,7 +13,7 @@ QProperty::~QProperty() {
 	delete _property;
 }
 
-tlp::PropertyInterface* QProperty::asProperty() {
+tlp::PropertyInterface* QProperty::asProperty() const {
 	return _property;
 }
 
