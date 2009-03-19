@@ -7,34 +7,8 @@
 
 #include "editor.h"
 
-Editor::Editor()
-:QWidget()
-{
-	_editor = new ScriptEdit();
-	QPushButton* button = new QPushButton("Evaluate");
-	_label = new QLabel();
-	QVBoxLayout* layout = new QVBoxLayout();
+using namespace std;
+using namespace tlp;
 
-	layout->addWidget(_editor);
-	layout->addWidget(_label);
-	layout->addWidget(button);
-
-	setLayout(layout);
-
-	connect(button, SIGNAL(clicked()), this, SLOT(evaluate()));
-
-	_engine = new TulipScriptEngine();
-}
-
-Editor::~Editor() {
-	// TODO Auto-generated destructor stub
-}
-
-void Editor::evaluate()
-{
-	_engine->evaluate(_editor->document()->toPlainText());
-	if(_engine->hasUncaughtException())
-		_label->setText(_engine->uncaughtException().toString());
-	else
-		_label->setText(QString::null);
-}
+VIEWPLUGIN(Editor, "Script Editor", "Tulip Plugins Team", "11/02/2009",
+                "This is a script editor that allows for interaction with tulip", "1.0")
