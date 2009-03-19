@@ -22,16 +22,23 @@ ScriptFunctions* ScriptFunctions::_instance = 0;
 TulipScriptEngine::TulipScriptEngine()
 :QScriptEngine()
 {
-	QCoreApplication::addLibraryPath("/net/cremi/chuet/liens/travail/cppProjects/lib");
-	QCoreApplication::addLibraryPath("/net/cremi/chuet/liens/travail/qtscriptgenerator/plugins");
+//	QCoreApplication::addLibraryPath("/net/cremi/chuet/liens/travail/cppProjects/lib");
+//	QCoreApplication::addLibraryPath("/net/cremi/chuet/liens/travail/qtscriptgenerator/plugins");
 
 	/*
 	QStringList list = availableExtensions();
 	foreach(QString s, list)
 		std::cout << s.toStdString() << std::endl;*/
 
-	importExtension("tulip.script");
-	importExtension("qt.gui");
+	QScriptValue v = globalObject();
+
+	qtscript_initialize_com_trolltech_qt_gui_bindings(v);
+	qtscript_initialize_com_trolltech_qt_core_bindings(v);
+	qtscript_initialize_tulip_script_bindings(v);
+
+
+//	importExtension("tulip.script");
+//	importExtension("qt.gui");
 	if(hasUncaughtException())
 		std::cout << qPrintable(uncaughtException().toString()) << std::endl;
 
