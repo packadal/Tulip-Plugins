@@ -11,6 +11,6 @@ CONFIG += ordered
 }
 
 SUBDIRS = engine \
+      script \
 	  editor \
-	  script \
 	  jambi
