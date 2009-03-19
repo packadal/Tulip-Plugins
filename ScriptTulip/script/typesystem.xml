@@ -1,0 +1,31 @@
+<typesystem package="tulip.script"
+            default-superclass="com.trolltech.qt.core.QObject">
+
+    <load-typesystem name=":/trolltech/generator/typesystem_core.txt"
+                     generate="no" />
+    <!--<load-typesystem name=":/trolltech/generator/typesystem_gui.txt"
+                     generate="no" />-->
+		     
+        <object-type name="QGraph" />
+        <object-type name="QNode" />
+        <object-type name="QEdge" />
+
+	<object-type name="QIterator" />
+
+        <!-- Properties  -->
+        <object-type name="QProperty" />
+        
+        <object-type name="QIntegerProperty" />
+        <object-type name="QDoubleProperty" />
+        <object-type name="QBooleanProperty" />
+        <object-type name="QLayoutProperty" />
+        <object-type name="QGraphProperty" />
+        <object-type name="QStringProperty" />
+        <object-type name="QColorProperty" />
+        <object-type name="QSizeProperty" />
+
+	<!-- ne marche aps car le generateur ne trouve pas l'include  -->
+        <object-type name="QtProgress" />
+
+
+</typesystem>

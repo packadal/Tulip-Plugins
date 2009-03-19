@@ -1,0 +1,80 @@
+<project default="all" basedir=".">
+
+    <property environment="env"/>
+
+    <tstamp/>
+
+    <property name="sourceDir" value="." />
+    <property name="outputDir" value="." />
+    <property name="jambiDir" value="/var/lib/QT4/qtjambi-4.4.3/" />
+    <property name="tulipPluginsDir" value="/home/packadal/temp/tulip-plugins-read-only/ScriptTulip/" />
+    <property name="tulipJambiDir" value="${tulipPluginsDir}/jambi/" />
+    
+    <fileset id="jambi.jar" dir="${jambiDir}" includes="qtjambi-*.jar" />
+    <property name="jambiJarFile" refid="jambi.jar" />
+    <property name="jambiJar" value="${jambiDir}/${jambiJarFile}" />
+    
+    <fileset id="tulip.jar" dir="${tulipJambiDir}" includes="tulip-qtjambi-*.jar" />
+    <property name="tulipJarFile" refid="tulip.jar" />
+    <property name="tulipJar" value="${tulipJambiDir}/${tulipJarFile}" />
+    
+<!--     <property name="tulipJar" value="${tulipJambiDir}/tulip-qtjambi-linux32-gcc-4.4.3_01.jar" /> -->
+        
+    <property name="jambiLib" value="${outputDir}/lib" />
+
+    <target name="help"
+            description="Provides detailed help.">
+    <echo>Generates a tulip plug-in by compiling a C++ plugin that calls the Java class</echo>
+    </target>
+
+    <target name="init">
+        <taskdef name="qmake"     classpath="${jambiDir}/ant-qtjambi.jar" classname="com.trolltech.tools.ant.QMakeTask"/>
+        <taskdef name="make"      classpath="${jambiDir}/ant-qtjambi.jar" classname="com.trolltech.tools.ant.MakeTask"/>
+        <taskdef name="generator" classpath="${jambiDir}/ant-qtjambi.jar" classname="com.trolltech.tools.ant.GeneratorTask"/>
+        <taskdef name="qtjambi-platform-jar" classpath="${jambiDir}/ant-qtjambi.jar" classname="com.trolltech.tools.ant.PlatformJarTask"/>
+        <taskdef name="qtjambi-initialize" classpath="${jambiDir}/ant-qtjambi.jar" classname="com.trolltech.tools.ant.InitializeTask"/>
+
+        <qtjambi-initialize verbose="true" configuration="${qtjambi.config}" />
+
+    </target>
+
+    <target name="compile"
+        depends="init">
+	
+	<fileset id="javaFile" dir="${sourceDir}" includes="*.java"/>
+	<property name="javaClass" refid="javaFile" />
+	<echo message="${javaClass}" />
+	<qmake config="${qtjambi.configuration} ${javaClass} ${tulipPluginsDir} ${jambiDir}"
+	    dir="${outputDir}"
+	    pro="${sourceDir}/jambi_plugin.pro" />
+
+	<make dir="${outputDir}" />
+
+
+	<javac destdir="${outputDir}"
+	    debug="true">
+		<src path="${sourceDir}"/>
+<!-- 		<src path="${jambiDir}"/> -->
+		<classpath path="${jambiJar}:${tulipJar}"/>
+		<include name="${javaClass}"/>
+<!-- 		<include name="com/trolltech/examples/GeneratorExample.java"/> -->
+	</javac>
+    </target>
+
+    <target name="all"
+        depends="init, compile" />
+
+    <target name="clean"
+            description="Cleans everything.">
+	<delete>
+	    <fileset dir="${sourceDir}" includes="*.log"/>
+	    <fileset dir="${sourceDir}" includes="*.o"/>
+	    <fileset dir="${sourceDir}" includes="*.class"/>
+	</delete>
+	<delete file="JambiPlugin"/>
+	<delete file="Makefile"/>
+    </target>
+	
+    <target name="remake" description="cleans and runs" depends="clean, all" />
+	
+</project>
