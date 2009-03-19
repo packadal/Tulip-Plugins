@@ -34,7 +34,7 @@
 #include "QEdge.h"
 #include "QNode.h"
 
-//using namespace tlp;
+using namespace tlp;
 
 QGraph::QGraph()
 :_graph(tlp::newGraph())
@@ -83,7 +83,7 @@ QGraph* newGraph() {
 	return new QGraph(tlp::newGraph());
 }
 QScriptValue newGraph(QScriptContext*, QScriptEngine *engine){
-	QGraph *qgraph = newGraph();
+	QGraph *qgraph = new QGraph(tlp::newGraph());
 	QScriptValue value = engine->newQObject(qgraph);
 	return value;
 }
@@ -119,6 +119,53 @@ QScriptValue applyAlgorithm(QScriptContext *context, QScriptEngine*) {
 	return QScriptValue();
 }
 ADD_FUNCTION(applyAlgorithm);
+
+bool QGraph::computeProperty(const QString &algo, const QProperty* property, const QString &msg, const QObject* dataSet)
+{
+        std::string algorithm = algo.toStdString();
+        std::string message = msg.toStdString();
+
+        tlp::DataSet* set = new tlp::DataSet();
+
+        QList<QByteArray> properties = dataSet->dynamicPropertyNames();
+        foreach(QByteArray b, properties) {
+                QString name(b);
+                QVariant value = dataSet->property(name.toStdString().c_str());
+
+                switch(value.type())
+                {
+                        case QVariant::Bool:
+                                set->set<bool>(name.toStdString(), value.toBool());
+                                break;
+                        case QVariant::String:
+                                set->set<std::string>(name.toStdString(), value.toString().toStdString());
+                                break;
+                        case QVariant::Int:
+                                set->set<int>(name.toStdString(), value.toInt());
+                                break;
+                        default:
+                                break;
+                }
+        }
+        const std::string Typename = property->asProperty()->getTypename();
+		   bool res = false;
+		   if (Typename == "double")
+				   res = asGraph()->computeProperty(algorithm, dynamic_cast<DoubleProperty*>(property->asProperty()), message);
+		   else if (Typename == "layout")
+				   res = asGraph()->computeProperty(algorithm, dynamic_cast<LayoutProperty*>(property->asProperty()), message);
+		   else if (Typename == "string")
+				   res = asGraph()->computeProperty(algorithm, dynamic_cast<StringProperty*>(property->asProperty()), message);
+		   else if (Typename == "int")
+				   res = asGraph()->computeProperty(algorithm, dynamic_cast<IntegerProperty*>(property->asProperty()), message);
+		   else if (Typename == "color")
+				   res = asGraph()->computeProperty(algorithm, dynamic_cast<ColorProperty*>(property->asProperty()), message);
+		   else if (Typename == "size")
+				   res = asGraph()->computeProperty(algorithm, dynamic_cast<SizeProperty*>(property->asProperty()), message);
+		   else if (Typename == "bool")
+				   res = asGraph()->computeProperty(algorithm, dynamic_cast<BooleanProperty*>(property->asProperty()), message);
+
+		   return res;
+   }
 
 void QGraph::clear()
 {

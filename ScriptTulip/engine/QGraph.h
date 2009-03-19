@@ -34,9 +34,6 @@
 #include <QtScript/QScriptContext>
 
 
-class tlp::DataSet;
-class tlp::PluginProgress;
-
 class QGraph : public QObject {
 	Q_OBJECT
 public:
@@ -166,7 +163,7 @@ public slots:
 
 //	QProperty getLocalProperty(const QString &name);
 
-	bool computeProperty(const QString &algorithm, const QProperty* property, const QString &message);
+	bool computeProperty(const QString &algorithm, const QProperty* property, const QString &message, const QObject* dataSet);
 
 	//template<typename Proxytype>
 	//Proxytype* getProperty(const std::string &name);
