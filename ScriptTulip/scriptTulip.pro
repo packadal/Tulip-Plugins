@@ -6,7 +6,7 @@ include(variables.pri)
 
 CONFIG += ordered
 
-!system(QTDIR=$$QTDIR_VAR $$GENERATOR/generator $$SCRIPT_PATH/global.h $$SCRIPT_PATH/typesystem.xml --output-directory=script) {
+!system(QTDIR=$$QTDIR_VAR $$QTSCRIPT_GENERATOR $$SCRIPT_PATH/global.h $$SCRIPT_PATH/typesystem.xml --output-directory=script) {
     error(unable to run the qtScript Generator !)
 }
 
