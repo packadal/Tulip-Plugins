@@ -5,6 +5,7 @@ EDITOR_PATH = $$PWD/editor
 
 TULIP_PATH=/home/packadal/temp/auber
 GENERATOR=/var/lib/QT4/qtscriptgenerator/generator/generator
+JAMBI_GENERATOR_PATH=/var/lib/QT4/qtjambi-4.4.3/generator
 QTDIR_VAR=/var/lib/QT4/qt-4.4.3
 
 INCLUDEPATH += $$TULIP_PATH/library/tulip/include

@@ -13,4 +13,4 @@ CONFIG += ordered
 SUBDIRS = engine \
 	  editor \
 	  script \
-	  #$$JAMBI_PATH \
+	  jambi

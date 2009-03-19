@@ -38,7 +38,7 @@
 
 	<qmake config="${qtjambi.configuration}"
 	    dir="${outputDir}/cpp"
-	    pro="${sourceDir}/jambi.pro" />
+	    pro="${sourceDir}/jambi_build.pro" />
 
 	<make dir="${outputDir}/cpp" />
 
@@ -87,7 +87,6 @@
         <jar destfile="${outputDir}/tulip-qtjambi-${qtjambi.osname}-${qtjambi.compiler}-${qtjambi.version}.jar">
             <fileset dir="${outputDir}/platform-output" />
 	    <fileset dir="${outputDir}" includes="com/"/>
-	    <fileset dir="${outputDir}/interfaces" />
 <!--         <fileset dir="${sourceDir}" includes="com/trolltech/examples/generator/images/*"/> -->
             <manifest>
                 <attribute name="Built-By" value="${user.name} - ${TODAY}"/>
