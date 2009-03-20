@@ -11,7 +11,7 @@ using namespace tlp;
 /*@{*/
 
 
-class JambiAlgorithm:public ColorAlgorithm {
+class JambiAlgorithm:public Algorithm {
 public:
 
   // The constructor below has to be defined,
@@ -20,7 +20,7 @@ public:
   // addParameter<DoubleProperty>("metric", paramHelp[0], 0, false);
   // and declare the algorithm dependencies too.
   // addDependency<Algorithm>("Quotient Clustering", "1.0");
-  JambiAlgorithm(PropertyContext context):ColorAlgorithm(context) {
+  JambiAlgorithm(AlgorithmContext context):Algorithm(context) {
   }
 
   // Define the destructor only if needed
@@ -58,7 +58,7 @@ int main(int, char**)
 
 // This line is very important because it's the only way to register your algorithm in tulip.
 // It automatically builds the plugin object that will embed the algorithm.
-COLORPLUGIN(JambiAlgorithm, "QtJambi Algorithms", "Packadal", "18/03/09", "Comments", "1.0")
+ALGORITHMPLUGIN(JambiAlgorithm, "QtJambi Algorithms", "Packadal", "18/03/09", "Comments", "1.0")
 // If you want to present your algorithm in a dedicated submenu of the Tulip GUI,
 // use the declaration below where the last parameter specified the name of submenu.
 // COLORPLUGINOFGROUP(MyColorAlgorithm, "My Color Algorithm", "Authors", "07/07/07", "Comments", "1.0", "My algorithms");

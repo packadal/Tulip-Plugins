@@ -4,6 +4,8 @@
 #include <jni.h>
 
 #include <tulip/Graph.h>
+#include <tulip/TlpTools.h>
+
 #include "QGraph.h"
 
 #include <iostream>
@@ -19,9 +21,18 @@ JNIEnv* create_vm() {
 // 	 There is a new JNI_VERSION_1_4, but it doesn't add anything for the purposes of our example.
 	args.version = JNI_VERSION_1_2;
 	args.nOptions = 1;
-	//TODO use tulip's tools to get tulip's path and use it
-//	options[0].optionString = "-Djava.class.path=/home/packadal/Skuld/workspace/ScriptTulip/jambi:/home/packadal/Skuld/workspace/ScriptTulip/jambi/tulip-qtjambi-linux32-gcc-4.5.0_01.jar:/var/lib/QT4/qtjambi/qtjambi-4.5.0_01.jar:";
-	options[0].optionString = "-Djava.class.path=/home/packadal/Skuld/workspace/ScriptTulip/jambi/tulip-qtjambi-linux32-gcc-4.5.0_01.jar:/var/lib/QT4/qtjambi/qtjambi-4.5.0_01.jar:";
+//	options[0].optionString = "-Djava.class.path=/home/packadal/Skuld/workspace/ScriptTulip/jambi/jambiPlugin:/home/packadal/Skuld/workspace/ScriptTulip/jambi/tulip-qtjambi-linux32-gcc-4.5.0_01.jar:/var/lib/QT4/qtjambi/qtjambi-4.5.0_01.jar:";
+
+	std::stringstream classPath;
+	classPath << "-Djava.class.path=";
+//	classPath << tlp::TulipPluginsPath;
+	classPath << ":" << tlp::TulipPluginsPath << "/jambi";
+	classPath << ":" << tlp::TulipPluginsPath << "/jambi/tulip-qtjambi.jar";
+	classPath << ":" << tlp::TulipPluginsPath << "/jambi/qtjambi.jar";
+	char ClassPath[classPath.str().length()];
+	strcpy(ClassPath, classPath.str().c_str());
+	options[0].optionString = ClassPath;
+
 	args.options = options;
 	args.ignoreUnrecognized = JNI_FALSE;
 
@@ -37,29 +48,43 @@ JNIEnv* create_vm() {
 #define CLASS_NAME CLASS_NAME_(JAVA_FILE)
 
 void invoke_class(JNIEnv* env, QGraph* graph) {
-	jclass jambiPluginClass = env->FindClass(CLASS_NAME);
 
+	resolveClass(env, CLASS_NAME, "");
+	//find our plugin's class
+	jclass jambiPluginClass = env->FindClass(CLASS_NAME);
 	if (jambiPluginClass == 0) {
 	    qWarning("Failed to find class: ");
 
-//	    qtjambi_exception_check(env);
+	    qtjambi_exception_check(env);
 	    env->ExceptionDescribe();
 	    return ;
 	}
 
-	jmethodID runMethod = (env)->GetStaticMethodID(jambiPluginClass, "run", "(Lcom/tulip/jambi/QGraph;)V");
+	//call it's main method (must initialize QtJambi : QApplication.initialize(String[]);
+	/*
+	jmethodID mainMethod = env->GetStaticMethodID(jambiPluginClass, "main", "([Ljava/lang/String;)V");
+	jobjectArray applicationArgs = env->NewObjectArray(1, env->FindClass("java/lang/String"), NULL);
+	jstring applicationArg0 = env->NewStringUTF("coucou");
+	env->SetObjectArrayElement(applicationArgs, 0, applicationArg0);
+	env->CallStaticVoidMethod(jambiPluginClass, mainMethod, applicationArgs);
 	env->ExceptionDescribe();
+	*/
 
+	//now we get the run(QGraph) method, which should be the actual algorithm
+	jmethodID runMethod = env->GetStaticMethodID(jambiPluginClass, "run", "(Lcom/tulip/jambi/QGraph;)V");
+	env->ExceptionDescribe();
 	jobject QGraphJambi = qtjambi_from_object(env, graph, "QGraph", "com/tulip/jambi/", true);
+	env->ExceptionDescribe();
 	if (QGraphJambi == 0) {
 	    qWarning("Failed to find class");
-
-//	    qtjambi_exception_check(env);
 	    env->ExceptionDescribe();
+	    qtjambi_exception_check(env);
+
 	    return ;
 	}
-
+	//and then we call it
 	env->CallStaticVoidMethod(jambiPluginClass, runMethod, QGraphJambi);
+
 }
 
 
