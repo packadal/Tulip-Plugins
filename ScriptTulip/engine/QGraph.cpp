@@ -23,6 +23,8 @@
 
 #include "QGraph.h"
 
+#include <QtGui/QColor>
+
 #include <QtScript/QScriptEngine>
 #include <QtScript/QScriptValueIterator>
 
@@ -138,8 +140,11 @@ bool QGraph::computeProperty(const QString &algo, const QProperty* property, con
                 QString name(b);
                 QVariant value = dataSet->property(name.toStdString().c_str());
 
+                QColor c;
+                tlp::Color* col;
                 switch(value.type())
                 {
+
                         case QVariant::Bool:
                                 set->set<bool>(name.toStdString(), value.toBool());
                                 break;
@@ -149,6 +154,11 @@ bool QGraph::computeProperty(const QString &algo, const QProperty* property, con
                         case QVariant::Int:
                                 set->set<int>(name.toStdString(), value.toInt());
                                 break;
+                        case QVariant::Color:
+								c = value.value<QColor>();
+								col = new Color(c.red(), c.green(), c.blue(), c.alpha());
+								set->set<tlp::Color*>(name.toStdString(), col);
+								break;
                         default:
                                 break;
                 }
@@ -156,19 +166,19 @@ bool QGraph::computeProperty(const QString &algo, const QProperty* property, con
         const std::string Typename = property->asProperty()->getTypename();
 		   bool res = false;
 		   if (Typename == "double")
-				   res = asGraph()->computeProperty(algorithm, dynamic_cast<DoubleProperty*>(property->asProperty()), message);
+				   res = asGraph()->computeProperty(algorithm, dynamic_cast<DoubleProperty*>(property->asProperty()), message, 0, set);
 		   else if (Typename == "layout")
-				   res = asGraph()->computeProperty(algorithm, dynamic_cast<LayoutProperty*>(property->asProperty()), message);
+				   res = asGraph()->computeProperty(algorithm, dynamic_cast<LayoutProperty*>(property->asProperty()), message, 0, set);
 		   else if (Typename == "string")
-				   res = asGraph()->computeProperty(algorithm, dynamic_cast<StringProperty*>(property->asProperty()), message);
+				   res = asGraph()->computeProperty(algorithm, dynamic_cast<StringProperty*>(property->asProperty()), message, 0, set);
 		   else if (Typename == "int")
-				   res = asGraph()->computeProperty(algorithm, dynamic_cast<IntegerProperty*>(property->asProperty()), message);
+				   res = asGraph()->computeProperty(algorithm, dynamic_cast<IntegerProperty*>(property->asProperty()), message, 0, set);
 		   else if (Typename == "color")
-				   res = asGraph()->computeProperty(algorithm, dynamic_cast<ColorProperty*>(property->asProperty()), message);
+				   res = asGraph()->computeProperty(algorithm, dynamic_cast<ColorProperty*>(property->asProperty()), message, 0, set);
 		   else if (Typename == "size")
-				   res = asGraph()->computeProperty(algorithm, dynamic_cast<SizeProperty*>(property->asProperty()), message);
+				   res = asGraph()->computeProperty(algorithm, dynamic_cast<SizeProperty*>(property->asProperty()), message, 0, set);
 		   else if (Typename == "bool")
-				   res = asGraph()->computeProperty(algorithm, dynamic_cast<BooleanProperty*>(property->asProperty()), message);
+				   res = asGraph()->computeProperty(algorithm, dynamic_cast<BooleanProperty*>(property->asProperty()), message, 0, set);
 
 		   return res;
    }
