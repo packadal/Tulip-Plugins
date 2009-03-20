@@ -1,10 +1,10 @@
 #include "QPropertyTest.h"
 #include <tulip/Graph.h>
-#include <tulip/ColorProperty.h>
 
 #include "TulipScriptEngine.h"
 #include "QGraph.h"
 #include "QProperty.h"
+#include "QColorProperty.h"
 #include "QNode.h"
 #include "utilsTest.h"
 
@@ -31,13 +31,13 @@ void QPropertyTest::setNodeValueTest()
 	QGraph qgraph;
 	QNode* node = qgraph.addNode();
 	QColorProperty* property0 = qgraph.getColorProperty("viewColor");
-	QProperty* property1 = qgraph.getGraphProperty("viewGraph");
-	QProperty* property2 = qgraph.getDoubleProperty("viewDouble");
-	QProperty* property3 = qgraph.getLayoutProperty("viewLayout");
-	QProperty* property4 = qgraph.getStringProperty("viewString");
-	QProperty* property5 = qgraph.getIntegerProperty("viewInteger");
-	QProperty* property6 = qgraph.getSizeProperty("viewSize");
-	QProperty* property7 = qgraph.getBooleanProperty("viewBoolean");
+	QGraphProperty* property1 = qgraph.getGraphProperty("viewGraph");
+	QDoubleProperty* property2 = qgraph.getDoubleProperty("viewDouble");
+	QLayoutProperty* property3 = qgraph.getLayoutProperty("viewLayout");
+	QStringProperty* property4 = qgraph.getStringProperty("viewString");
+	QIntegerProperty* property5 = qgraph.getIntegerProperty("viewInteger");
+	QSizeProperty* property6 = qgraph.getSizeProperty("viewSize");
+	QBooleanProperty* property7 = qgraph.getBooleanProperty("viewBoolean");
 
 	_engine->addQObject(property0,QString::fromStdString("property0"));
 	_engine->addQObject(property1,QString::fromStdString("property1"));
@@ -55,22 +55,32 @@ void QPropertyTest::setNodeValueTest()
 	handleError();
 	QString result = property0->getNodeStringValue(node);
 	CPPUNIT_ASSERT(value == result);
+	QColor* realValue0 = new QColor(11, 12, 13, 0);
 	_engine->evaluate("var realValue = new QColor(11, 12, 13, 0); property0.setNodeValue(node, realValue)");
 	handleError();
-	QColor realResult = property0->getNodeValue(node);
-	CPPUNIT_ASSERT(value == result);
+	QColor* realResult0 = property0->getNodeValue(node);
+	CPPUNIT_ASSERT(realValue0 == realResult0);
 
 	value="";
 	_engine->evaluate("property1.setNodeStringValue(node, \""+ value +"\")");
 	handleError();
 	result = property1->getNodeStringValue(node);
 	CPPUNIT_ASSERT(value == result);
+	_engine->evaluate("var realValue1 = new QGraph(); realValue1.addNode(); property1.setNodeValue(node, realValue)");
+	handleError();
+	QGraph* realResult1 = property1->getNodeValue(node);
+	CPPUNIT_ASSERT(realResult1->numberOfNodes() == 1);
 
 	value="2.1";
 	_engine->evaluate("property2.setNodeStringValue(node, \""+ value +"\")");
 	handleError();
 	result = property2->getNodeStringValue(node);
 	CPPUNIT_ASSERT(value == result);
+	double realValue2 = 2.5;
+	_engine->evaluate("property2.setNodeValue(node, 2.5)");
+	handleError();
+	double realResult2 = property2->getNodeValue(node);
+	CPPUNIT_ASSERT(realValue2 == realResult2);
 
 	value="(100,10,1000)";
 	_engine->evaluate("property3.setNodeStringValue(node, \""+ value +"\")");

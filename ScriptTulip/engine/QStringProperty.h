@@ -22,18 +22,14 @@ public:
 public slots:
 
 	// Bindings from AbstractProperty
-	QString* getNodeDefaultValue();
-	QString* getEdgeDefaultValue();
-	QString* getNodeValue(const QNode* n);
-	QString* getEdgeValue(const QEdge* e);
+	const QString& getNodeDefaultValue();
+	const QString& getEdgeDefaultValue();
+	const QString& getNodeValue(const QNode* n);
+	const QString& getEdgeValue(const QEdge* e);
 	void setNodeValue(const QNode* n, const QString* v);
 	void setEdgeValue(const QEdge* e, const QString* v);
 	void setAllNodeValue(const QString* v);
 	void setAllEdgeValue(const QString* v);
-
-private:
-
-	tlp::StringProperty* _property;
 
 };
 

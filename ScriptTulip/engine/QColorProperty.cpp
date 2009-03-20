@@ -1,8 +1,8 @@
 #include "QColorProperty.h"
 #include "QGraph.h"
 
-QColorProperty::QColorProperty(const QGraph* g) {
-	_property = new tlp::ColorProperty(g->asGraph());
+QColorProperty::QColorProperty(const QGraph* g) :
+	_property(new tlp::ColorProperty(g->asGraph())) {
 }
 
 QColorProperty::QColorProperty(tlp::ColorProperty* p) :

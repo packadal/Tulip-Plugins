@@ -14,10 +14,10 @@ Q_OBJECT
 
 public:
 
-	QDoubleProperty(const QGraph *);
+	QDoubleProperty(const QGraph * g);
 	QDoubleProperty(tlp::DoubleProperty*);
 	virtual ~QDoubleProperty();
-	tlp::IntegerProperty* asProperty();
+	tlp::DoubleProperty* asProperty();
 
 public slots:
 
@@ -37,10 +37,6 @@ public slots:
 	double getEdgeMin(const QGraph *sg = 0);
 	double getEdgeMax(const QGraph *sg = 0);
 	void uniformQuantification(unsigned int);
-
-private:
-
-	tlp::DoubleProperty* _property;
 
 };
 

@@ -346,36 +346,36 @@ tlp::Graph* QGraph::asGraph() const
 	return _graph;
 }
 
-QProperty* QGraph::getGraphProperty(QString name) {
-	return new QProperty(_graph->getProperty<tlp::GraphProperty>(name.toStdString()));
+QGraphProperty* QGraph::getGraphProperty(QString name) {
+	return new QGraphProperty(_graph->getProperty<tlp::GraphProperty>(name.toStdString()));
 }
 
-QProperty* QGraph::getDoubleProperty(QString name){
-	return new QProperty(_graph->getProperty<tlp::DoubleProperty>(name.toStdString()));
+QDoubleProperty* QGraph::getDoubleProperty(QString name){
+	return new QDoubleProperty(_graph->getProperty<tlp::DoubleProperty>(name.toStdString()));
 }
 
-QProperty* QGraph::getLayoutProperty(QString name){
-	return new QProperty(_graph->getProperty<tlp::LayoutProperty>(name.toStdString()));
+QLayoutProperty* QGraph::getLayoutProperty(QString name){
+	return new QLayoutProperty(_graph->getProperty<tlp::LayoutProperty>(name.toStdString()));
 }
 
-QProperty* QGraph::getStringProperty(QString name){
-	return new QProperty(_graph->getProperty<tlp::StringProperty>(name.toStdString()));
+QStringProperty* QGraph::getStringProperty(QString name){
+	return new QStringProperty(_graph->getProperty<tlp::StringProperty>(name.toStdString()));
 }
 
-QProperty* QGraph::getIntegerProperty(QString name){
-	return new QProperty(_graph->getProperty<tlp::IntegerProperty>(name.toStdString()));
+QIntegerProperty* QGraph::getIntegerProperty(QString name){
+	return new QIntegerProperty(_graph->getProperty<tlp::IntegerProperty>(name.toStdString()));
 }
 
-QProperty* QGraph::getColorProperty(QString name){
-	return new QProperty(_graph->getProperty<tlp::ColorProperty>(name.toStdString()));
+QColorProperty* QGraph::getColorProperty(QString name){
+	return new QColorProperty(_graph->getProperty<tlp::ColorProperty>(name.toStdString()));
 }
 
-QProperty* QGraph::getSizeProperty(QString name){
-	return new QProperty(_graph->getProperty<tlp::SizeProperty>(name.toStdString()));
+QSizeProperty* QGraph::getSizeProperty(QString name){
+	return new QSizeProperty(_graph->getProperty<tlp::SizeProperty>(name.toStdString()));
 }
 
-QProperty* QGraph::getBooleanProperty(QString name){
-	return new QProperty(_graph->getProperty<tlp::BooleanProperty>(name.toStdString()));
+QBooleanProperty* QGraph::getBooleanProperty(QString name){
+	return new QBooleanProperty(_graph->getProperty<tlp::BooleanProperty>(name.toStdString()));
 }
 
 QProperty* QGraph::getProperty(QString name) {

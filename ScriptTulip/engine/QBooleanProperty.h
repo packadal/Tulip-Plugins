@@ -17,7 +17,7 @@ Q_OBJECT
 public:
 
         QBooleanProperty(const QGraph *);
-        QBooleanProperty(tlp::BooleanProperty*);
+        QBooleanProperty(tlp::BooleanProperty* p);
         virtual ~QBooleanProperty();
         tlp::BooleanProperty* asProperty();
 
@@ -38,10 +38,6 @@ public slots:
         void reverseEdgeDirection();
         QIterator* getNodesEqualTo(const bool val, QGraph * = 0);
         QIterator* getEdgesEqualTo(const bool val, QGraph * = 0);
-
-private:
-
-        tlp::BooleanProperty* _property;
 };
 
 #endif /* QBOOLEANPROPERTY_H_ */

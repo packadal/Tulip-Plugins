@@ -3,6 +3,7 @@
 
 #include "QProperty.h"
 #include "QStdSet.h"
+#include "QEdge.h"
 
 #include <QObject>
 
@@ -40,10 +41,6 @@ public slots:
 	bool setAllNodeStringValue(const QString* v);
 	bool setEdgeStringValue( const QEdge* e, const QString* v);
 	bool setAllEdgeStringValue(const QString* v);
-
-private:
-
-	tlp::GraphProperty* _property;
 
 };
 

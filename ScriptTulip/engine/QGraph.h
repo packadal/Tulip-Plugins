@@ -26,6 +26,14 @@
 #include "QEdge.h"
 #include "QNode.h"
 #include "QProperty.h"
+#include "QDoubleProperty.h"
+#include "QStringProperty.h"
+#include "QBooleanProperty.h"
+#include "QLayoutProperty.h"
+#include "QIntegerProperty.h"
+#include "QColorProperty.h"
+#include "QSizeProperty.h"
+#include "QGraphProperty.h"
 #include "QIterator.h"
 
 #include <QtCore/QObject>
@@ -167,14 +175,14 @@ public slots:
 
 	//template<typename Proxytype>
 	//Proxytype* getProperty(const std::string &name);
-	QProperty* getGraphProperty(QString name);
-	QProperty* getDoubleProperty(QString name);
-	QProperty* getLayoutProperty(QString name);
-	QProperty* getStringProperty(QString name);
-	QProperty* getIntegerProperty(QString name);
-	QProperty* getColorProperty(QString name);
-	QProperty* getSizeProperty(QString name);
-	QProperty* getBooleanProperty(QString name);
+	QGraphProperty* getGraphProperty(QString name);
+	QDoubleProperty* getDoubleProperty(QString name);
+	QLayoutProperty* getLayoutProperty(QString name);
+	QStringProperty* getStringProperty(QString name);
+	QIntegerProperty* getIntegerProperty(QString name);
+	QColorProperty* getColorProperty(QString name);
+	QSizeProperty* getSizeProperty(QString name);
+	QBooleanProperty* getBooleanProperty(QString name);
 	QProperty* getProperty(QString name);
 	bool existProperty(const QString name);
 	bool existLocalProperty(const QString name);

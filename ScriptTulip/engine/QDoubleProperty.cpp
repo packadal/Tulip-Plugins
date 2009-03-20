@@ -1,70 +1,72 @@
 #include "QDoubleProperty.h"
 #include "QGraph.h"
 
-QDoubleProperty::QDoubleProperty(const QGraph* g) {
-        _property = new tlp::DoubleProperty(g->asGraph());
+QDoubleProperty::QDoubleProperty(const QGraph* g) :
+	QProperty(new tlp::DoubleProperty(g->asGraph())) {
 }
 
 QDoubleProperty::QDoubleProperty(tlp::DoubleProperty* p) :
-        _property(p) {
+	QProperty(p) {
 }
 
 QDoubleProperty::~QDoubleProperty() {
-        delete _property;
+	delete _property;
 }
 
 tlp::DoubleProperty* QDoubleProperty::asProperty() {
-        return _property;
+	return dynamic_cast<tlp::DoubleProperty*> (_property);
 }
 
 double QDoubleProperty::getNodeDefaultValue() {
-        return _property->getNodeDefaultValue();
+	return dynamic_cast<tlp::DoubleProperty*> (_property)->getNodeDefaultValue();
 }
 
 double QDoubleProperty::getEdgeDefaultValue() {
-        return _property->getEdgeDefaultValue();
+	return dynamic_cast<tlp::DoubleProperty*> (_property)->getEdgeDefaultValue();
 }
 
-double QIntegerProperty::getNodeValue(const QNode* n) {
-        return _property->getNodeValue(n->asNode());
+double QDoubleProperty::getNodeValue(const QNode* n) {
+	return dynamic_cast<tlp::DoubleProperty*> (_property)->getNodeValue(
+			n->asNode());
 }
 
 double QDoubleProperty::getEdgeValue(const QEdge* e) {
-        return _property->getEdgeValue(e->asEdge());
+	return dynamic_cast<tlp::DoubleProperty*> (_property)->getEdgeValue(
+			e->asEdge());
 }
 
 void QDoubleProperty::setNodeValue(const QNode* n, double v) {
-        _property->setNodeValue(n->asNode(), v);
+	dynamic_cast<tlp::DoubleProperty*> (_property)->setNodeValue(n->asNode(), v);
 }
 
 void QDoubleProperty::setEdgeValue(const QEdge* e, double v) {
-        _property->setEdgeValue(e->asEdge(), v);
+	dynamic_cast<tlp::DoubleProperty*> (_property)->setEdgeValue(e->asEdge(), v);
 }
 
-void QIntegerProperty::setAllNodeValue(double v) {
-        _property->setAllNodeValue(v);
+void QDoubleProperty::setAllNodeValue(double v) {
+	dynamic_cast<tlp::DoubleProperty*> (_property)->setAllNodeValue(v);
 }
 
 void QDoubleProperty::setAllEdgeValue(double v) {
-        _property->setAllEdgeValue(v);
+	dynamic_cast<tlp::DoubleProperty*> (_property)->setAllEdgeValue(v);
 }
 
 double QDoubleProperty::getNodeMin(const QGraph *sg) {
-        return _property->getNodeMin(sg);
+	return dynamic_cast<tlp::DoubleProperty*> (_property)->getNodeMin(sg->asGraph());
 }
 
 double QDoubleProperty::getNodeMax(const QGraph *sg) {
-        return _property->getNodeMax(sg);
+	return dynamic_cast<tlp::DoubleProperty*> (_property)->getNodeMax(sg->asGraph());
 }
 
 double QDoubleProperty::getEdgeMin(const QGraph *sg) {
-        return _property->getEdgeMin(sg);
+	return dynamic_cast<tlp::DoubleProperty*> (_property)->getEdgeMin(sg->asGraph());
 }
 
 double QDoubleProperty::getEdgeMax(const QGraph *sg) {
-        return _property->getEdgeMax(sg);
+	return dynamic_cast<tlp::DoubleProperty*> (_property)->getEdgeMax(sg->asGraph());
 }
 
 void QDoubleProperty::uniformQuantification(unsigned int i) {
-	_property->uniformQuantification(i);
+	dynamic_cast<tlp::DoubleProperty*> (_property)->uniformQuantification(i);
 }

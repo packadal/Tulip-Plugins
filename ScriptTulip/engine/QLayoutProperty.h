@@ -57,10 +57,6 @@ public slots:
 	std::vector<double> angularResolutions(const node n, Graph *graph = 0);
 	unsigned int crossingNumber();*/
 
-private:
-
-	tlp::LayoutProperty* _property;
-
 };
 
 #endif /* QLAYOUTPROPERTY_H_ */

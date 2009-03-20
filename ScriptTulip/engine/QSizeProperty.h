@@ -42,12 +42,6 @@ public slots:
 	//TODO
 	//void scale( const tlp::Vector<float,3>&, Graph *sg=0 );
 	//void scale( const tlp::Vector<float,3>&, Iterator<node> *, Iterator<edge> *);
-
-
-private:
-
-	tlp::SizeProperty* _property;
-
 };
 
 #endif /* QSIZEPROPERTY_H_ */

@@ -37,10 +37,6 @@ public slots:
         int getEdgeMin();
         int getEdgeMax();
 
-private:
-
-        tlp::IntegerProperty* _property;
-
 };
 
 #endif /* QINTEGERPROPERTY_H_ */

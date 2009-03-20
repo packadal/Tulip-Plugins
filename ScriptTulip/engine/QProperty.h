@@ -57,7 +57,7 @@ public slots:
 	 void setAllNodeDataMemValue(const DataMem* v) = 0;
 	 void setAllEdgeDataMemValue(const DataMem* v) = 0;*/
 
-private:
+protected:
 
 	tlp::PropertyInterface* _property;
 

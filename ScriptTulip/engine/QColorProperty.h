@@ -32,9 +32,6 @@ public slots:
         void setAllNodeValue(const QColor* v);
         void setAllEdgeValue(const QColor* v);
 
-private:
-
-        tlp::ColorProperty* _property;
 };
 
 #endif /* QCOLORPROPERTY_H_ */
