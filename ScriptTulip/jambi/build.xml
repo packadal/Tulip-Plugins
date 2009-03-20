@@ -6,10 +6,14 @@
 
     <property name="sourceDir" value="." />
     <property name="outputDir" value="." />
-    <property name="jambiDir" value="/var/lib/QT4/qtjambi-4.4.3/" />
+    <property name="jambiDir" value="/var/lib/QT4/qtjambi/" />
     <property name="tulipDir" value="/home/packadal/temp/auber" />
 
     <property name="jambiLib" value="${outputDir}/lib" />
+	
+	<fileset id="jambi.jar" dir="${jambiDir}" includes="qtjambi-*.jar" />
+    <property name="jambiJarFile" refid="jambi.jar" />
+    <property name="jambiJar" value="${jambiDir}/${jambiJarFile}" />
 
     <target name="help"
             description="Provides detailed help.">
@@ -47,10 +51,8 @@
 	    debug="true">
 		<src path="${outputDir}"/>
 		<src path="${sourceDir}"/>
-<!-- 		<src path="${jambiDir}"/> -->
-		<classpath path="${jambiDir}/qtjambi-4.4.3_01.jar"/>
+		<classpath path="${jambiJar}"/>
 		<include name="com/tulip/jambi/*.java"/>
-<!-- 		<include name="com/trolltech/examples/GeneratorExample.java"/> -->
 	</javac>
     </target>
 

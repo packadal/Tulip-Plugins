@@ -29,4 +29,5 @@ SOURCES += $$ENGINE_PATH/TulipScriptEngine.cpp \
 #    -ltulip
 
 INCLUDEPATH += $$TULIP_PATH/library/tulip/include \
+    $$TULIP_PATH/include \
 	$$ENGINE_PATH

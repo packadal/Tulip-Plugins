@@ -6,8 +6,8 @@
 
     <property name="sourceDir" value="." />
     <property name="outputDir" value="." />
-    <property name="jambiDir" value="/var/lib/QT4/qtjambi-4.4.3/" />
-    <property name="tulipPluginsDir" value="/home/packadal/temp/tulip-plugins-read-only/ScriptTulip/" />
+    <property name="jambiDir" value="/var/lib/QT4/qtjambi/" />
+    <property name="tulipPluginsDir" value="/home/packadal/Skuld/workspace/ScriptTulip/" />
     <property name="tulipJambiDir" value="${tulipPluginsDir}/jambi/" />
     
     <fileset id="jambi.jar" dir="${jambiDir}" includes="qtjambi-*.jar" />

@@ -30,7 +30,6 @@
 #include <tulip/Edge.h>
 #include "tulip/Algorithm.h"
 
-#include "ScriptFunctions.h"
 #include "QEdge.h"
 #include "QNode.h"
 
@@ -57,6 +56,11 @@ void saveGraph(const QGraph* graph, QString filename)
 {
 	tlp::saveGraph(graph->asGraph(), filename.toStdString());
 }
+
+#ifndef JAMBI_BUILD
+
+#include "ScriptFunctions.h"
+
 QScriptValue saveGraph(QScriptContext* context, QScriptEngine *)
 {
 	QString filename= context->argument(1).toString();
@@ -119,6 +123,8 @@ QScriptValue applyAlgorithm(QScriptContext *context, QScriptEngine*) {
 	return QScriptValue();
 }
 ADD_FUNCTION(applyAlgorithm);
+
+#endif //JAMBI_BUILD
 
 bool QGraph::computeProperty(const QString &algo, const QProperty* property, const QString &msg, const QObject* dataSet)
 {

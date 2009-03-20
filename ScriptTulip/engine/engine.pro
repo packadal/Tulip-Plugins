@@ -8,6 +8,17 @@ INCLUDEPATH += $$QTSCRIPT_GENERATOR_PATH/qtbindings/qtscript_core
 
 CONFIG += static
 
+CONFIG(jambi) {
+    DEFINES += JAMBI_BUILD
+    DESTDIR=$$ROOT_DIR/jambiLib
+}
+else {
+    HEADERS += TulipScriptEngine.h \
+    
+    SOURCES += TulipScriptEngine.cpp \
+    
+}
+
 CONFIG(tests) { 
     TEMPLATE = app
     message("DEBUG MOOOODE !!!")
@@ -21,13 +32,11 @@ HEADERS += QStdSet.h \
     QSize3D.h \    
     QIterator.h \    
     QProperty.h \
-    TulipScriptEngine.h \
     QGraph.h \
     QNode.h \
     QEdge.h
 SOURCES += QIterator.cpp \
     QProperty.cpp \
-    TulipScriptEngine.cpp \
     QGraph.cpp \
     QNode.cpp \
     QEdge.cpp
