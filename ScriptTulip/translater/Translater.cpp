@@ -41,9 +41,9 @@ void Translater::initMap() {
 	obj = new QIterator();
 	parseTypes(obj);
 	delete obj;
-	/*obj = new QProperty();
+	obj = new QProperty();
 	parseTypes(obj);
-	delete obj;*/
+	delete obj;
 }
 
 void Translater::parse()
@@ -83,17 +83,6 @@ void Translater::parse()
 	outputFile->close();
 }
 
-QString Translater::parseLine(QString)
-{
-	/*QString toAppend;
-	QRegExp regExp("var +[a-zA-Z_-0-9]+ *= *");
-	if (line.contains(regExp))
-	{
-		//cout << line.toStdString();
-	}*/
-	return QString();
-}
-
 void Translater::parseTypes(QObject* obj)
 {
 	const QMetaObject* metaObj = obj->metaObject();//QGraph::staticMetaObject();
@@ -108,7 +97,6 @@ void Translater::parseTypes(QObject* obj)
 			}
 			functionToType.insert(methodPair, QString(qmm.typeName()));}
 	}
-
 }
 
 void Translater::viewMap()
@@ -119,8 +107,8 @@ void Translater::viewMap()
 	{
 		std::cout << it.key().first.toStdString() <<", "<< it.key().second << " : " << it.value().toStdString() << std::endl;
 	}
-	for (QMap<QString, QString>::const_iterator it = varToType.begin();
-		it != varToType.end();
+	for (QMap<QString, QString>::const_iterator it =itToType.begin();
+		it != itToType.end();
 		it++)
 	{
 		std::cout << it.key().toStdString() << " : " << it.value().toStdString() << std::endl;
@@ -134,26 +122,28 @@ QString Translater::convert() {
 }
 
 QString Translater::addLine(QString line) {
-	QRegExp regExp("var[ ]?[a-zA-Z0-9_-]+[ ]?=[ ]?(.+\\S*)[ ]?[;]");
+	QRegExp regExp("var[ ]?([a-zA-Z0-9_-]+)[ ]?=[ ]?(.+\\S*)[ ]?[;]");
 	if (line.simplified().contains(regExp)) {
 
 		cout << "catché : " << line.toStdString() << endl;
 
-		QString rightMember = regExp.cap(1).replace(" ", "");
+		QString rightMember = regExp.cap(2).replace(" ", "");
 		cout << "apres le egal : " << rightMember.toStdString() << endl;
 
-		QString type = fetchType(rightMember);
+		QString type = fetchType(rightMember, regExp.cap(1));
+		//line.replace
 
-		QRegExp replaceExp("var([ ]?[a-zA-Z0-9_-]+[ ]?=)");
-		line.replace(replaceExp, type + "\\1");
+		//QRegExp replaceExp("var([ ]?[a-zA-Z0-9_-]+[ ]?=)");
+		//line.replace(replaceExp, type + "\\1");
+		line.replace(regExp, type + " \\1 =" + (toCast ? ("(" + type + ")(") : "") + "\\2" + (toCast ? ")" : "") + ";");
 		cout << "remplacé par : " << line.toStdString() << endl;
 	}
 	return checkQuotedText(line);
 }
 
-QString Translater::fetchType(QString line) {
+QString Translater::fetchType(QString line, QString varName) {
 	cout << "line : " << line.toStdString() << endl;
-
+	toCast = false;
 	QScriptValue retVal = scriptEngine->evaluate(line);
 	//cout << retVal.toString().toStdString()<<endl();
 	QString type;
@@ -164,7 +154,7 @@ QString Translater::fetchType(QString line) {
 	else if (retVal.isString())
 		type = "QString";
 	else if (retVal.isQObject()) {
-		type = fetchReturnType(line);
+		type = fetchReturnType(line, varName);
 		if (type == "")
 			type = QString(retVal.toQObject()->metaObject()->className()).append('*');
 	}
@@ -196,12 +186,13 @@ QString Translater::checkQuotedText(QString line) {
 	}
 }
 
-QString Translater::fetchReturnType(QString line) {
+QString Translater::fetchReturnType(QString line, QString varName) {
 	int parenthesisLevel = -1;
 	QString reverseFunctionName;
 	int parameterNumber = 0;
+	int i;
 
-	for (int i = line.size() - 1; i >= 0; --i) {
+	for (i = line.size() - 1; i >= 0; --i) {
 		if (line.at(i) == ')') {
 			if (parenthesisLevel==-1)
 				parenthesisLevel = 0;
@@ -217,18 +208,62 @@ QString Translater::fetchReturnType(QString line) {
 			parameterNumber++;
 		else if (parenthesisLevel == 1 && line.at(i) == ',')
 			parameterNumber++;
-
-
 	}
 
 	QString functionName;
 	for (int i = reverseFunctionName.size() - 1; i >= 0; i--)
 		functionName.append(reverseFunctionName.at(i));
-	cout << "fonction : " << functionName.toStdString() << ", nb param : " << parameterNumber << endl;
-	cout << "type de retour : " << functionToType.value(QPair<QString, int>(functionName, parameterNumber)).toStdString() << endl;
-	return functionToType.value(QPair<QString, int>(functionName, parameterNumber));
+
+	QString itType = parseIteratorType(functionName);
+	if (itType != "")
+		itToType.insert(varName, itType);
+
+	// Default case
+	if (functionName != "next") {
+		cout << "fonction : " << functionName.toStdString() << ", nb param : " << parameterNumber << endl;
+		cout << "type de retour : " << functionToType.value(QPair<QString, int>(functionName, parameterNumber)).toStdString() << endl;
+		return functionToType.value(QPair<QString, int>(functionName, parameterNumber));
+	}
+
+	// Iterator Case (need to know the return type of the iterator)
+	toCast = true;
+	QString reverseItName;
+	while (i >= 0) {
+		if (line.at(i).isLetterOrNumber() || line.at(i) == '_')
+			reverseItName.append(line.at(i));
+		else break;
+	}
+	QString itName;
+	for (int i = reverseItName.size() - 1; i >= 0; i--)
+		itName.append(reverseItName.at(i));
+	return itToType.value(itName);
+
 }
 
+
+QString Translater::parseIteratorType(QString functionName)
+{
+	if (functionName == "getNodes")
+		return "QNode*";
+	else if (functionName == "getInNodes")
+		return "QNode*";
+	else if (functionName == "getOutNodes")
+		return "QNode*";
+	else if (functionName == "getInOutNodes")
+		return "QNode*";
+	else if (functionName == "getEdges")
+		return "QEdge*";
+	else if (functionName == "getOutEdges")
+		return "QEdge*";
+	else if (functionName == "getInOutEdges")
+		return "QEdge*";
+	else if (functionName == "getInEdges")
+		return "QEdge*";
+	else if (functionName == "getSubGraphs")
+		return "QGraph*";
+	else
+		return "";
+}
 
 int main(int argc, char** argv) {
 	QApplication app(argc, argv);

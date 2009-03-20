@@ -16,7 +16,7 @@ class QProperty: public QObject {
 Q_OBJECT
 
 public:
-
+	QProperty();
 	QProperty(tlp::PropertyInterface*);
 	virtual ~QProperty();
 	tlp::PropertyInterface* asProperty() const;
