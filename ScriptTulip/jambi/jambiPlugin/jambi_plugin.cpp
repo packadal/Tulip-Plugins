@@ -50,15 +50,9 @@ public:
 };
 /*@}*/
 
-/*
-int main(int, char**)
-{
-    initialize_jambi_plugin(tlp::newGraph());
-}*/
-
 // This line is very important because it's the only way to register your algorithm in tulip.
 // It automatically builds the plugin object that will embed the algorithm.
-ALGORITHMPLUGIN(JambiAlgorithm, "QtJambi Algorithms", "Packadal", "18/03/09", "Comments", "1.0")
+ALGORITHMPLUGIN(JambiAlgorithm, CLASS_NAME, "Packadal", "18/03/09", "Comments", "1.0")
 // If you want to present your algorithm in a dedicated submenu of the Tulip GUI,
 // use the declaration below where the last parameter specified the name of submenu.
 // COLORPLUGINOFGROUP(MyColorAlgorithm, "My Color Algorithm", "Authors", "07/07/07", "Comments", "1.0", "My algorithms");
