@@ -28,16 +28,16 @@ void QPropertyTest::tearDown()
 
 void QPropertyTest::setNodeValueTest()
 {
-	QGraph qgraph;
-	QNode* node = qgraph.addNode();
-	QColorProperty* property0 = qgraph.getColorProperty("viewColor");
-	QGraphProperty* property1 = qgraph.getGraphProperty("viewGraph");
-	QDoubleProperty* property2 = qgraph.getDoubleProperty("viewDouble");
-	QLayoutProperty* property3 = qgraph.getLayoutProperty("viewLayout");
-	QStringProperty* property4 = qgraph.getStringProperty("viewString");
-	QIntegerProperty* property5 = qgraph.getIntegerProperty("viewInteger");
-	QSizeProperty* property6 = qgraph.getSizeProperty("viewSize");
-	QBooleanProperty* property7 = qgraph.getBooleanProperty("viewBoolean");
+	_engine->evaluate(QString::fromStdString("var g = newGraph(); storeGraph(g);"));
+	_engine->evaluate("var node = g.addNode(); storeNode(node);");
+	QColorProperty* property0 = _graph->getColorProperty("viewColor");
+	QGraphProperty* property1 = _graph->getGraphProperty("viewGraph");
+	QDoubleProperty* property2 = _graph->getDoubleProperty("viewDouble");
+	QLayoutProperty* property3 = _graph->getLayoutProperty("viewLayout");
+	QStringProperty* property4 = _graph->getStringProperty("viewString");
+	QIntegerProperty* property5 = _graph->getIntegerProperty("viewInteger");
+	QSizeProperty* property6 = _graph->getSizeProperty("viewSize");
+	QBooleanProperty* property7 = _graph->getBooleanProperty("viewBoolean");
 
 	_engine->addQObject(property0,QString::fromStdString("property0"));
 	_engine->addQObject(property1,QString::fromStdString("property1"));
@@ -48,69 +48,66 @@ void QPropertyTest::setNodeValueTest()
 	_engine->addQObject(property6,QString::fromStdString("property6"));
 	_engine->addQObject(property7,QString::fromStdString("property7"));
 
-//	_engine->addQObject(node,QString::fromStdString("node"));
-	_engine->evaluate("var node = graph.addNode();");
-
 	QString value("(10,11,12,255)");
 	_engine->evaluate("property0.setNodeStringValue(node, \""+ value +"\")");
 	handleError();
-	QString result = property0->getNodeStringValue(node);
+	QString result = property0->getNodeStringValue(_testNode);
 	CPPUNIT_ASSERT(value == result);
 	QColor* realValue0 = new QColor(11, 12, 13, 0);
 	_engine->evaluate("var realValue = new QColor(11, 12, 13, 0); property0.setNodeValue(node, realValue)");
 	handleError();
-	QColor* realResult0 = property0->getNodeValue(node);
+	QColor* realResult0 = property0->getNodeValue(_testNode);
 	CPPUNIT_ASSERT(realValue0 == realResult0);
 
 	value="";
 	_engine->evaluate("property1.setNodeStringValue(node, \""+ value +"\")");
 	handleError();
-	result = property1->getNodeStringValue(node);
+	result = property1->getNodeStringValue(_testNode);
 	CPPUNIT_ASSERT(value == result);
 	_engine->evaluate("var realValue1 = new QGraph(); realValue1.addNode(); property1.setNodeValue(node, realValue)");
 	handleError();
-	QGraph* realResult1 = property1->getNodeValue(node);
+	QGraph* realResult1 = property1->getNodeValue(_testNode);
 	CPPUNIT_ASSERT(realResult1->numberOfNodes() == 1);
 
 	value="2.1";
 	_engine->evaluate("property2.setNodeStringValue(node, \""+ value +"\")");
 	handleError();
-	result = property2->getNodeStringValue(node);
+	result = property2->getNodeStringValue(_testNode);
 	CPPUNIT_ASSERT(value == result);
 	double realValue2 = 2.5;
 	_engine->evaluate("property2.setNodeValue(node, 2.5)");
 	handleError();
-	double realResult2 = property2->getNodeValue(node);
+	double realResult2 = property2->getNodeValue(_testNode);
 	CPPUNIT_ASSERT(realValue2 == realResult2);
 
 	value="(100,10,1000)";
 	_engine->evaluate("property3.setNodeStringValue(node, \""+ value +"\")");
 	handleError();
-	result = property3->getNodeStringValue(node);
+	result = property3->getNodeStringValue(_testNode);
 	CPPUNIT_ASSERT(value == result);
 
 	value="a standard test for stringzz";
 	_engine->evaluate("property4.setNodeStringValue(node, \""+ value +"\")");
 	handleError();
-	result = property4->getNodeStringValue(node);
+	result = property4->getNodeStringValue(_testNode);
 	CPPUNIT_ASSERT(value == result);
 
 	value="10";
 	_engine->evaluate("property5.setNodeStringValue(node, \""+ value +"\")");
 	handleError();
-	result = property5->getNodeStringValue(node);
+	result = property5->getNodeStringValue(_testNode);
 	CPPUNIT_ASSERT(value == result);
 
 	value="(100,10,1000)";
 	_engine->evaluate("property6.setNodeStringValue(node, \""+ value +"\")");
 	handleError();
-	result = property6->getNodeStringValue(node);
+	result = property6->getNodeStringValue(_testNode);
 	CPPUNIT_ASSERT(value == result);
 
 	value="false";
 	_engine->evaluate("property7.setNodeStringValue(node, \""+ value +"\")");
 	handleError();
-	result = property7->getNodeStringValue(node);
+	result = property7->getNodeStringValue(_testNode);
 	CPPUNIT_ASSERT(value == result);
 
 
