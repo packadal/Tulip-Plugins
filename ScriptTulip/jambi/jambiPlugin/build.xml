@@ -6,20 +6,18 @@
 
     <property name="sourceDir" value="." />
     <property name="outputDir" value="." />
-    <property name="jambiDir" value="/var/lib/QT4/qtjambi/" />
-    <property name="tulipPluginsDir" value="/home/packadal/Skuld/workspace/ScriptTulip/" />
+    <property name="jambiDir" value="/net/cremi/chuet/liens/travail/qtjambi" />
+    <property name="tulipPluginsDir" value="/net/cremi/chuet/liens/travail/tulip-script/ScriptTulip/" />
     <property name="tulipJambiDir" value="${tulipPluginsDir}/jambi/" />
     
-    <fileset id="jambi.jar" dir="${jambiDir}" includes="qtjambi-*.jar" />
+    <fileset id="jambi.jar" dir="${jambiDir}" includes="qtjambi-4.*.jar" />
     <property name="jambiJarFile" refid="jambi.jar" />
     <property name="jambiJar" value="${jambiDir}/${jambiJarFile}" />
     
     <fileset id="tulip.jar" dir="${tulipJambiDir}" includes="tulip-qtjambi-*.jar" />
     <property name="tulipJarFile" refid="tulip.jar" />
     <property name="tulipJar" value="${tulipJambiDir}/${tulipJarFile}" />
-    
-<!--     <property name="tulipJar" value="${tulipJambiDir}/tulip-qtjambi-linux32-gcc-4.4.3_01.jar" /> -->
-        
+            
     <property name="jambiLib" value="${outputDir}/lib" />
 
     <target name="help"
@@ -50,14 +48,13 @@
 
 	<make dir="${outputDir}" />
 
-
+	<echo message="${jambiJar}:${tulipJar}"/>
 	<javac destdir="${outputDir}"
 	    debug="true">
 		<src path="${sourceDir}"/>
-<!-- 		<src path="${jambiDir}"/> -->
 		<classpath path="${jambiJar}:${tulipJar}"/>
 		<include name="${javaClass}"/>
-<!-- 		<include name="com/trolltech/examples/GeneratorExample.java"/> -->
+
 	</javac>
     </target>
 
