@@ -40,19 +40,21 @@ QSize3D* QSizeProperty::getEdgeValue(const QEdge* e) {
 }
 
 void QSizeProperty::setNodeValue(const QNode* n, const QSize3D* v) {
-	_property->setNodeValue(n->asNode(), v->asSize3D());
+	dynamic_cast<tlp::SizeProperty*> (_property)->setNodeValue(n->asNode(),
+			v->asSize3D());
 }
 
 void QSizeProperty::setEdgeValue(const QEdge* e, const QSize3D* v) {
-	_property->setEdgeValue(e->asEdge(), v->asSize3D());
+	dynamic_cast<tlp::SizeProperty*> (_property)->setEdgeValue(e->asEdge(),
+			v->asSize3D());
 }
 
 void QSizeProperty::setAllNodeValue(const QSize3D* v) {
-	_property->setAllNodeValue(v->asSize3D());
+	dynamic_cast<tlp::SizeProperty*> (_property)->setAllNodeValue(v->asSize3D());
 }
 
 void QSizeProperty::setAllEdgeValue(const QSize3D* v) {
-	_property->setAllEdgeValue(v->asSize3D());
+	dynamic_cast<tlp::SizeProperty*> (_property)->setAllEdgeValue(v->asSize3D());
 }
 
 QSize3D* QSizeProperty::getMax(const QGraph *sg) {

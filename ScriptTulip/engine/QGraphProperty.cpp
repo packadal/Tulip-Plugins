@@ -23,7 +23,7 @@ QGraph* QGraphProperty::getNodeDefaultValue() {
 }
 
 QEdgeSet* QGraphProperty::getEdgeDefaultValue() {
-	return new QEdgeSet*(
+	return new QEdgeSet(
 			dynamic_cast<tlp::GraphProperty*> (_property)->getEdgeDefaultValue());
 }
 
@@ -34,7 +34,7 @@ QGraph* QGraphProperty::getNodeValue(const QNode* n) {
 }
 
 QEdgeSet* QGraphProperty::getEdgeValue(const QEdge* e) {
-	return new QEdgeSet*(
+	return new QEdgeSet(
 			dynamic_cast<tlp::GraphProperty*> (_property)->getEdgeValue(
 					e->asEdge()));
 }

@@ -49,7 +49,7 @@ void QLayoutProperty::setEdgeValue(const QEdge* e, const QSize3DVector* v) {
 			v->asGraph());
 }
 
-void QLayoutProperty::setAllNodeValue(QSize3D* v) {
+void QLayoutProperty::setAllNodeValue(const QSize3D* v) {
 	dynamic_cast<tlp::LayoutProperty*> (_property)->setAllNodeValue(
 			v->asCoord());
 }

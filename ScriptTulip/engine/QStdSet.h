@@ -24,15 +24,15 @@ public:\
 			insert(new Q##Type(*it));\
 		}\
 \
-	CONTAINER_TYPE<tlpType> as##Type() {\
+	CONTAINER_TYPE<tlpType> as##Type() const {\
 		CONTAINER_TYPE<tlpType> ret;\
-		QSet<Q##Type*>::iterator it = this->begin();\
+		QSet<Q##Type*>::const_iterator it = this->begin();\
 		while(it != this->end())\
 			ret.INSERT_FUNCTION((*it)->as##Type());\
 		return ret;\
 	}\
 \
-	CONTAINER_TYPE<tlpType> asGraph() {\
+	CONTAINER_TYPE<tlpType> asGraph() const {\
 		return as##Type();\
 	}\
 }
