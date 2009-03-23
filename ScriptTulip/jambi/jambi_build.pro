@@ -27,4 +27,4 @@ INCLUDEPATH += $$TULIP_PATH/library/tulip/include \
     $$ENGINE_PATH
 
 include (cpp/com_tulip_jambi/com_tulip_jambi.pri)
-include (/var/lib/QT4/qtjambi/qtjambi/qtjambi_include.pri)
+include ($$JAMBI_GENERATOR_PATH/qtjambi/qtjambi_include.pri)

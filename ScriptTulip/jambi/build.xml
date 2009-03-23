@@ -6,8 +6,6 @@
 
     <property name="sourceDir" value="." />
     <property name="outputDir" value="." />
-    <property name="jambiDir" value="/var/lib/QT4/qtjambi/" />
-    <property name="tulipDir" value="/home/packadal/temp/auber" />
 
     <property name="jambiLib" value="${outputDir}/lib" />
 	
