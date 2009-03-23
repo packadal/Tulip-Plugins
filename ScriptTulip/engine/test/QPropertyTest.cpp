@@ -48,7 +48,8 @@ void QPropertyTest::setNodeValueTest()
 	_engine->addQObject(property6,QString::fromStdString("property6"));
 	_engine->addQObject(property7,QString::fromStdString("property7"));
 
-	_engine->addQObject(node,QString::fromStdString("node"));
+//	_engine->addQObject(node,QString::fromStdString("node"));
+	_engine->evaluate("var node = graph.addNode();");
 
 	QString value("(10,11,12,255)");
 	_engine->evaluate("property0.setNodeStringValue(node, \""+ value +"\")");
