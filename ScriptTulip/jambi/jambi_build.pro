@@ -20,7 +20,7 @@ SOURCES += $$ENGINE_PATH/QIterator.cpp \
     $$ENGINE_PATH/QEdge.cpp \
     #   $$ENGINE_PATH/QTemplateProperty.cpp 
     
-    LIBS += -L$$TULIP_PATH/lib \
+LIBS += -L$$TULIP_PATH/lib \
     -ltulip
 
 INCLUDEPATH += $$TULIP_PATH/library/tulip/include \
