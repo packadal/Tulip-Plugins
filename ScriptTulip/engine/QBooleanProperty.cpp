@@ -25,22 +25,22 @@ bool QBooleanProperty::getEdgeDefaultValue() {
 	return dynamic_cast<tlp::BooleanProperty*> (_property)->getEdgeDefaultValue();
 }
 
-bool QBooleanProperty::getNodeValue(const QNode* n) {
+bool QBooleanProperty::getNodeValue(QNode* n) {
 	return dynamic_cast<tlp::BooleanProperty*> (_property)->getNodeValue(
 			n->asNode());
 }
 
-bool QBooleanProperty::getEdgeValue(const QEdge* e) {
+bool QBooleanProperty::getEdgeValue(QEdge* e) {
 	return dynamic_cast<tlp::BooleanProperty*> (_property)->getEdgeValue(
 			e->asEdge());
 }
 
-void QBooleanProperty::setNodeValue(const QNode* n, bool v) {
+void QBooleanProperty::setNodeValue(QNode* n, bool v) {
 	dynamic_cast<tlp::BooleanProperty*> (_property)->setNodeValue(n->asNode(),
 			v);
 }
 
-void QBooleanProperty::setEdgeValue(const QEdge* e, bool v) {
+void QBooleanProperty::setEdgeValue(QEdge* e, bool v) {
 	dynamic_cast<tlp::BooleanProperty*> (_property)->setEdgeValue(e->asEdge(),
 			v);
 }
@@ -61,13 +61,13 @@ void QBooleanProperty::reverseEdgeDirection() {
 	dynamic_cast<tlp::BooleanProperty*> (_property)->reverseEdgeDirection();
 }
 
-QIterator* QBooleanProperty::getNodesEqualTo(const bool val, QGraph * g) {
+QIterator* QBooleanProperty::getNodesEqualTo(bool val, QGraph * g) {
 	return new QIterator(
 			dynamic_cast<tlp::BooleanProperty*> (_property)->getNodesEqualTo(
 					val, g->asGraph()));
 }
 
-QIterator* QBooleanProperty::getEdgesEqualTo(const bool val, QGraph * g) {
+QIterator* QBooleanProperty::getEdgesEqualTo(bool val, QGraph * g) {
 	return new QIterator(
 			dynamic_cast<tlp::BooleanProperty*> (_property)->getEdgesEqualTo(
 					val, g->asGraph()));

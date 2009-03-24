@@ -27,33 +27,33 @@ QSize3D* QSizeProperty::getEdgeDefaultValue() {
 			dynamic_cast<tlp::SizeProperty*> (_property)->getEdgeDefaultValue());
 }
 
-QSize3D* QSizeProperty::getNodeValue(const QNode* n) {
+QSize3D* QSizeProperty::getNodeValue(QNode* n) {
 	return new QSize3D(
 			dynamic_cast<tlp::SizeProperty*> (_property)->getNodeValue(
 					n->asNode()));
 }
 
-QSize3D* QSizeProperty::getEdgeValue(const QEdge* e) {
+QSize3D* QSizeProperty::getEdgeValue(QEdge* e) {
 	return new QSize3D(
 			dynamic_cast<tlp::SizeProperty*> (_property)->getEdgeValue(
 					e->asEdge()));
 }
 
-void QSizeProperty::setNodeValue(const QNode* n, const QSize3D* v) {
+void QSizeProperty::setNodeValue(QNode* n, QSize3D* v) {
 	dynamic_cast<tlp::SizeProperty*> (_property)->setNodeValue(n->asNode(),
 			v->asSize3D());
 }
 
-void QSizeProperty::setEdgeValue(const QEdge* e, const QSize3D* v) {
+void QSizeProperty::setEdgeValue(QEdge* e, QSize3D* v) {
 	dynamic_cast<tlp::SizeProperty*> (_property)->setEdgeValue(e->asEdge(),
 			v->asSize3D());
 }
 
-void QSizeProperty::setAllNodeValue(const QSize3D* v) {
+void QSizeProperty::setAllNodeValue(QSize3D* v) {
 	dynamic_cast<tlp::SizeProperty*> (_property)->setAllNodeValue(v->asSize3D());
 }
 
-void QSizeProperty::setAllEdgeValue(const QSize3D* v) {
+void QSizeProperty::setAllEdgeValue(QSize3D* v) {
 	dynamic_cast<tlp::SizeProperty*> (_property)->setAllEdgeValue(v->asSize3D());
 }
 

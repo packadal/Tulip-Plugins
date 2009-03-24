@@ -28,12 +28,12 @@ public slots:
 	// Bindings from AbstractProperty
 	QSize3D* getNodeDefaultValue();
 	QSize3D* getEdgeDefaultValue();
-	QSize3D* getNodeValue(const QNode* n);
-	QSize3D* getEdgeValue(const QEdge* e);
-	void setNodeValue(const QNode* n, const QSize3D* v);
-	void setEdgeValue(const QEdge* e, const QSize3D* v);
-	void setAllNodeValue(const QSize3D* v);
-	void setAllEdgeValue(const QSize3D* v);
+	QSize3D* getNodeValue(QNode* n);
+	QSize3D* getEdgeValue(QEdge* e);
+	void setNodeValue(QNode* n, QSize3D* v);
+	void setEdgeValue(QEdge* e, QSize3D* v);
+	void setAllNodeValue(QSize3D* v);
+	void setAllEdgeValue(QSize3D* v);
 
 	// Specific methods
 	QSize3D* getMax(const QGraph *sg = 0);

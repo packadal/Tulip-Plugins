@@ -28,12 +28,12 @@ public slots:
 	// Bindings from AbstractProperty
 	QSize3D* getNodeDefaultValue();
 	QSize3DVector* getEdgeDefaultValue();
-	QSize3D* getNodeValue(const QNode* n);
-	QSize3DVector* getEdgeValue(const QEdge* e);
-	void setNodeValue(const QNode* n, const QSize3D* v);
-	void setEdgeValue(const QEdge* e, const QSize3DVector* v);
-	void setAllNodeValue(const QSize3D* v);
-	void setAllEdgeValue(const QSize3DVector* v);
+	QSize3D* getNodeValue(QNode* n);
+	QSize3DVector* getEdgeValue(QEdge* e);
+	void setNodeValue(QNode* n, QSize3D* v);
+	void setEdgeValue(QEdge* e, QSize3DVector* v);
+	void setAllNodeValue(QSize3D* v);
+	void setAllEdgeValue(QSize3DVector* v);
 
 	//TODO
 	// Specific methods

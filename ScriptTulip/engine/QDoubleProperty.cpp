@@ -25,21 +25,21 @@ double QDoubleProperty::getEdgeDefaultValue() {
 	return dynamic_cast<tlp::DoubleProperty*> (_property)->getEdgeDefaultValue();
 }
 
-double QDoubleProperty::getNodeValue(const QNode* n) {
+double QDoubleProperty::getNodeValue(QNode* n) {
 	return dynamic_cast<tlp::DoubleProperty*> (_property)->getNodeValue(
 			n->asNode());
 }
 
-double QDoubleProperty::getEdgeValue(const QEdge* e) {
+double QDoubleProperty::getEdgeValue(QEdge* e) {
 	return dynamic_cast<tlp::DoubleProperty*> (_property)->getEdgeValue(
 			e->asEdge());
 }
 
-void QDoubleProperty::setNodeValue(const QNode* n, double v) {
+void QDoubleProperty::setNodeValue(QNode* n, double v) {
 	dynamic_cast<tlp::DoubleProperty*> (_property)->setNodeValue(n->asNode(), v);
 }
 
-void QDoubleProperty::setEdgeValue(const QEdge* e, double v) {
+void QDoubleProperty::setEdgeValue(QEdge* e, double v) {
 	dynamic_cast<tlp::DoubleProperty*> (_property)->setEdgeValue(e->asEdge(), v);
 }
 

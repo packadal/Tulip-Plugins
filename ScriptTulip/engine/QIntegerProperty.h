@@ -24,10 +24,10 @@ public slots:
         // Bindings from AbstractProperty
         int getNodeDefaultValue();
         int getEdgeDefaultValue();
-        int getNodeValue(const QNode* n);
-        int getEdgeValue(const QEdge* e);
-        void setNodeValue(const QNode* n, int v);
-        void setEdgeValue(const QEdge* e, int v);
+        int getNodeValue(QNode* n);
+        int getEdgeValue(QEdge* e);
+        void setNodeValue(QNode* n, int v);
+        void setEdgeValue(QEdge* e, int v);
         void setAllNodeValue(int v);
         void setAllEdgeValue(int v);
 

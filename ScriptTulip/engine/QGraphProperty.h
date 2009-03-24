@@ -28,19 +28,19 @@ public slots:
 	// Bindings from AbstractProperty
 	QGraph* getNodeDefaultValue();
 	QEdgeSet* getEdgeDefaultValue();
-	QGraph* getNodeValue(const QNode* n);
-	QEdgeSet* getEdgeValue(const QEdge* e);
-	void setNodeValue(const QNode* n, const QGraph* v);
-	void setEdgeValue(const QEdge* e, const QEdgeSet* v);
-	void setAllNodeValue(const QGraph* v);
-	void setAllEdgeValue(const QEdgeSet* v);
+	QGraph* getNodeValue(QNode* n);
+	QEdgeSet* getEdgeValue(QEdge* e);
+	void setNodeValue(QNode* n, QGraph* v);
+	void setEdgeValue(QEdge* e, QEdgeSet* v);
+	void setAllNodeValue(QGraph* v);
+	void setAllEdgeValue(QEdgeSet* v);
 
 	// Specific methods
-	void destroy(const QGraph *);
-	bool setNodeStringValue(const QNode* n, const QString* v);
-	bool setAllNodeStringValue(const QString* v);
-	bool setEdgeStringValue( const QEdge* e, const QString* v);
-	bool setAllEdgeStringValue(const QString* v);
+	void destroy(QGraph *);
+	bool setNodeStringValue(QNode* n, QString* v);
+	bool setAllNodeStringValue(QString* v);
+	bool setEdgeStringValue(QEdge* e, QString* v);
+	bool setAllEdgeStringValue(QString* v);
 
 };
 

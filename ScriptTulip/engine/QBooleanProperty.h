@@ -26,18 +26,18 @@ public slots:
         // Bindings from AbstractProperty
         bool getNodeDefaultValue();
         bool getEdgeDefaultValue();
-        bool getNodeValue(const QNode* n);
-        bool getEdgeValue(const QEdge* e);
-        void setNodeValue(const QNode* n, bool v);
-        void setEdgeValue(const QEdge* e, bool v);
+        bool getNodeValue(QNode* n);
+        bool getEdgeValue(QEdge* e);
+        void setNodeValue(QNode* n, bool v);
+        void setEdgeValue(QEdge* e, bool v);
         void setAllNodeValue(bool v);
         void setAllEdgeValue(bool v);
 
         // Specific methods
         void reverse();
         void reverseEdgeDirection();
-        QIterator* getNodesEqualTo(const bool val, QGraph * = 0);
-        QIterator* getEdgesEqualTo(const bool val, QGraph * = 0);
+        QIterator* getNodesEqualTo(bool val, QGraph * = 0);
+        QIterator* getEdgesEqualTo(bool val, QGraph * = 0);
 };
 
 #endif /* QBOOLEANPROPERTY_H_ */

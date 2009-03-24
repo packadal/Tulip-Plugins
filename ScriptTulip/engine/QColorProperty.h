@@ -25,12 +25,12 @@ public slots:
         // Bindings from AbstractProperty
         QColor* getNodeDefaultValue();
         QColor* getEdgeDefaultValue();
-        QColor* getNodeValue(const QNode* n);
-        QColor* getEdgeValue(const QEdge* e);
-        void setNodeValue(const QNode* n, const QColor* v);
-        void setEdgeValue(const QEdge* e, const QColor* v);
-        void setAllNodeValue(const QColor* v);
-        void setAllEdgeValue(const QColor* v);
+        QColor* getNodeValue(QNode* n);
+        QColor* getEdgeValue(QEdge* e);
+        void setNodeValue(QNode* n, QColor* v);
+        void setEdgeValue(QEdge* e, QColor* v);
+        void setAllNodeValue(QColor* v);
+        void setAllEdgeValue(QColor* v);
 
 };
 

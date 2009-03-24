@@ -31,40 +31,40 @@ QColor* QColorProperty::getEdgeDefaultValue() {
 	return new QColor(c.getR(), c.getG(), c.getB(), c.getA());
 }
 
-QColor* QColorProperty::getNodeValue(const QNode* n) {
+QColor* QColorProperty::getNodeValue(QNode* n) {
 	tlp::Color c = dynamic_cast<tlp::ColorProperty*> (_property)->getNodeValue(
 			n->asNode());
 	return new QColor(c.getR(), c.getG(), c.getB(), c.getA());
 }
 
-QColor* QColorProperty::getEdgeValue(const QEdge* e) {
+QColor* QColorProperty::getEdgeValue(QEdge* e) {
 	tlp::Color c = dynamic_cast<tlp::ColorProperty*> (_property)->getEdgeValue(
 			e->asEdge());
 	return new QColor(c.getR(), c.getG(), c.getB(), c.getA());
 }
 
-void QColorProperty::setNodeValue(const QNode* n, const QColor* v) {
+void QColorProperty::setNodeValue(QNode* n, QColor* v) {
 	tlp::Color* c = new tlp::Color((unsigned char) v->red(),
 			(unsigned char) v->green(), (unsigned char) v->blue(),
 			(unsigned char) v->alpha());
 	dynamic_cast<tlp::ColorProperty*> (_property)->setNodeValue(n->asNode(), *c);
 }
 
-void QColorProperty::setEdgeValue(const QEdge* e, const QColor* v) {
+void QColorProperty::setEdgeValue(QEdge* e, QColor* v) {
 	tlp::Color* c = new tlp::Color((unsigned char) v->red(),
 			(unsigned char) v->green(), (unsigned char) v->blue(),
 			(unsigned char) v->alpha());
 	dynamic_cast<tlp::ColorProperty*> (_property)->setEdgeValue(e->asEdge(), *c);
 }
 
-void QColorProperty::setAllNodeValue(const QColor* v) {
+void QColorProperty::setAllNodeValue(QColor* v) {
 	tlp::Color* c = new tlp::Color((unsigned char) v->red(),
 			(unsigned char) v->green(), (unsigned char) v->blue(),
 			(unsigned char) v->alpha());
 	dynamic_cast<tlp::ColorProperty*> (_property)->setAllNodeValue(*c);
 }
 
-void QColorProperty::setAllEdgeValue(const QColor* v) {
+void QColorProperty::setAllEdgeValue(QColor* v) {
 	tlp::Color* c = new tlp::Color((unsigned char) v->red(),
 			(unsigned char) v->green(), (unsigned char) v->blue(),
 			(unsigned char) v->alpha());

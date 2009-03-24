@@ -25,22 +25,22 @@ int QIntegerProperty::getEdgeDefaultValue() {
 	return dynamic_cast<tlp::IntegerProperty*> (_property)->getEdgeDefaultValue();
 }
 
-int QIntegerProperty::getNodeValue(const QNode* n) {
+int QIntegerProperty::getNodeValue(QNode* n) {
 	return dynamic_cast<tlp::IntegerProperty*> (_property)->getNodeValue(
 			n->asNode());
 }
 
-int QIntegerProperty::getEdgeValue(const QEdge* e) {
+int QIntegerProperty::getEdgeValue(QEdge* e) {
 	return dynamic_cast<tlp::IntegerProperty*> (_property)->getEdgeValue(
 			e->asEdge());
 }
 
-void QIntegerProperty::setNodeValue(const QNode* n, int v) {
+void QIntegerProperty::setNodeValue(QNode* n, int v) {
 	dynamic_cast<tlp::IntegerProperty*> (_property)->setNodeValue(n->asNode(),
 			v);
 }
 
-void QIntegerProperty::setEdgeValue(const QEdge* e, int v) {
+void QIntegerProperty::setEdgeValue(QEdge* e, int v) {
 	dynamic_cast<tlp::IntegerProperty*> (_property)->setEdgeValue(e->asEdge(),
 			v);
 }
