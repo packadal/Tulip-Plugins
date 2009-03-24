@@ -20,10 +20,8 @@ public:
     void setUp();
     void tearDown();
 protected:
-    void getNodeValueTest();
     void setNodeValueTest();
     void eraseNodeTest();
-    //void eraseEdgeTest();
     void handleError();
 };
 
