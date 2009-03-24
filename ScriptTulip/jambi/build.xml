@@ -13,6 +13,8 @@
     <property name="jambiJarFile" refid="jambi.jar" />
     <property name="jambiJar" value="${jambiDir}/${jambiJarFile}" />
 
+    <echo message="${jambiDir}" />
+    
     <target name="help"
             description="Provides detailed help.">
     <echo>Generates an executable .jar file that runs tulip-plugins...</echo>
