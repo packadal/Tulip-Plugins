@@ -57,14 +57,17 @@ void QPropertyTest::setNodeValueTest()
 	_engine->evaluate("var realValue = new QColor(11, 12, 13, 0); property0.setNodeValue(node, realValue)");
 	handleError();
 	QColor* realResult0 = property0->getNodeValue(_testNode);
-	CPPUNIT_ASSERT(realValue0 == realResult0);
+	CPPUNIT_ASSERT(realValue0->red()==realResult0->red());
+	CPPUNIT_ASSERT(realValue0->green()==realResult0->green());
+	CPPUNIT_ASSERT(realValue0->blue()==realResult0->blue());
+	CPPUNIT_ASSERT(realValue0->alpha()==realResult0->alpha());
 
 	value="";
 	_engine->evaluate("property1.setNodeStringValue(node, \""+ value +"\")");
 	handleError();
 	result = property1->getNodeStringValue(_testNode);
 	CPPUNIT_ASSERT(value == result);
-	_engine->evaluate("var realValue1 = new QGraph(); realValue1.addNode(); property1.setNodeValue(node, realValue)");
+	_engine->evaluate("var realValue1 = new QGraph(); realValue1.addNode(); property1.setNodeValue(node, realValue1)");
 	handleError();
 	QGraph* realResult1 = property1->getNodeValue(_testNode);
 	CPPUNIT_ASSERT(realResult1->numberOfNodes() == 1);
@@ -80,35 +83,66 @@ void QPropertyTest::setNodeValueTest()
 	double realResult2 = property2->getNodeValue(_testNode);
 	CPPUNIT_ASSERT(realValue2 == realResult2);
 
+
 	value="(100,10,1000)";
 	_engine->evaluate("property3.setNodeStringValue(node, \""+ value +"\")");
 	handleError();
 	result = property3->getNodeStringValue(_testNode);
 	CPPUNIT_ASSERT(value == result);
+	QSize3D* realValue3 = new QSize3D(1,2,3);
+	_engine->evaluate("property3.setNodeValue(node, new QSize3D(1,2,3))");
+	handleError();
+	QSize3D* realResult3 = property3->getNodeValue(_testNode);
+	CPPUNIT_ASSERT(realValue3->getW() == realResult3->getW());
+	CPPUNIT_ASSERT(realValue3->getH() == realResult3->getH());
+	CPPUNIT_ASSERT(realValue3->getD() == realResult3->getD());
 
 	value="a standard test for stringzz";
 	_engine->evaluate("property4.setNodeStringValue(node, \""+ value +"\")");
 	handleError();
 	result = property4->getNodeStringValue(_testNode);
 	CPPUNIT_ASSERT(value == result);
+	QString realValue4("an other string to test");
+	_engine->evaluate("property4.setNodeValue(node, \"an other string to test\");");
+	handleError();
+	QString realResult4 = property4->getNodeValue(_testNode);
+	CPPUNIT_ASSERT(realValue4 == realResult4);
+
 
 	value="10";
 	_engine->evaluate("property5.setNodeStringValue(node, \""+ value +"\")");
 	handleError();
 	result = property5->getNodeStringValue(_testNode);
 	CPPUNIT_ASSERT(value == result);
+	int realValue5 = 10000000;
+	_engine->evaluate("property5.setNodeValue(node, 10000000)");
+	handleError();
+	int realResult5 = property5->getNodeValue(_testNode);
+	CPPUNIT_ASSERT(realValue5 == realResult5);
 
 	value="(100,10,1000)";
 	_engine->evaluate("property6.setNodeStringValue(node, \""+ value +"\")");
 	handleError();
 	result = property6->getNodeStringValue(_testNode);
 	CPPUNIT_ASSERT(value == result);
+	QSize3D* realValue6 = new QSize3D(1,2,3);
+	_engine->evaluate("property6.setNodeValue(node, new QSize3D(1,2,3))");
+	handleError();
+	QSize3D* realResult6 = property6->getNodeValue(_testNode);
+	CPPUNIT_ASSERT(realValue6->getW() == realResult6->getW());
+	CPPUNIT_ASSERT(realValue6->getH() == realResult6->getH());
+	CPPUNIT_ASSERT(realValue6->getD() == realResult6->getD());
 
 	value="false";
 	_engine->evaluate("property7.setNodeStringValue(node, \""+ value +"\")");
 	handleError();
 	result = property7->getNodeStringValue(_testNode);
 	CPPUNIT_ASSERT(value == result);
+	bool realValue7 = true;
+	_engine->evaluate("property7.setNodeValue(node, true)");
+	handleError();
+	int realResult7 = property7->getNodeValue(_testNode);
+	CPPUNIT_ASSERT(realValue7 == realResult7);
 
 
 }
