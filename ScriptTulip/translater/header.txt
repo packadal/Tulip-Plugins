@@ -1,0 +1,24 @@
+#include <tulip/TulipPlugin.h>
+#include <string>
+
+#include "QGraph.h"
+#include "QNode.h"
+#include "QEdge.h"
+#include "QIterator.h"
+#include "QProperty.h"
+
+using namespace std;
+using namespace tlp;
+
+class GeneratedPlugin : public Algorithm { 
+public:
+
+  GeneratedPlugin(AlgorithmContext& context) : Algorithm(context) {
+  }
+
+  // Define the destructor only if needed 
+  // ~GeneratedPlugin() {
+  // }
+
+  bool run() {
+    QGraph* graph = new QGraph(this->graph);

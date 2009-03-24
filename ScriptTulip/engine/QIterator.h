@@ -19,13 +19,12 @@ class QNode;
 class QEdge;
 //class QGraph;
 
-enum type { invalid, node, edge, graph };
+enum type { node, edge, graph };
 
 class QIterator : public QObject {
 	Q_OBJECT
 public:
 	virtual ~QIterator();
-	QIterator();
 	QIterator(tlp::Iterator<tlp::node>*);
 	QIterator(tlp::Iterator<tlp::edge>*);
 	QIterator(tlp::Iterator<tlp::Graph *>*);

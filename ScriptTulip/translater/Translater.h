@@ -14,12 +14,13 @@
 class Translater {
 public:
 	Translater();
+	Translater(TulipScriptEngine* engine);
 	Translater(QFile*);
 	virtual ~Translater();
 	QString convert();
 	void initMap();
 	QString parse(const QString &script);
-	void parseTypes(QObject* obj);
+	template <class T> void parseTypes();
 	void viewMap();
 private:
 	bool toCast;
@@ -28,6 +29,7 @@ private:
 	QString fetchType(QString line, QString varName = "");
 	QString checkQuotedText(QString line);
 	QString fetchReturnType(QString line, QString varName = "");
+	template <class T> void initQObject();
 
 	TulipScriptEngine* scriptEngine;
 	QFile* fileStream;

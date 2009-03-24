@@ -5,18 +5,35 @@
 #include "QEdge.h"
 #include "QNode.h"
 #include "QProperty.h"
+#include "QBooleanProperty.h"
+#include "QColorProperty.h"
+#include "QDoubleProperty.h"
+#include "QGraphProperty.h"
+#include "QIntegerProperty.h"
+#include "QLayoutProperty.h"
+#include "QSizeProperty.h"
+#include "QStringProperty.h"
 
 #include <iostream>
 #include <algorithm>
 
 #include <QApplication>
 #include <QStringList>
+#include <QtGlobal>
 
 using namespace std;
+
+Translater::Translater(TulipScriptEngine* engine)
+:scriptEngine(engine)
+{
+
+}
 
 Translater::Translater()
 :scriptEngine(new TulipScriptEngine())
 {
+	QScriptValue value = scriptEngine->newQObject(newGraph());
+	scriptEngine->globalObject().setProperty("graph", value);
 	initMap();
 }
 
@@ -32,92 +49,70 @@ Translater::~Translater() {
 }
 
 void Translater::initMap() {
-	QObject * obj = new QGraph();
-	parseTypes(obj);
-	delete obj;
-	obj = new QNode();
-	parseTypes(obj);
-	delete obj;
-	obj = new QEdge();
-	parseTypes(obj);
-	delete obj;
-	obj = new QIterator();
-	parseTypes(obj);
-	delete obj;
-	obj = new QProperty();
-	parseTypes(obj);
-	delete obj;
 
+	parseTypes<QGraph>();
+	parseTypes<QNode>();
+	parseTypes<QEdge>();
+	parseTypes<QIterator>();
+	parseTypes<QProperty>();
+	/*parseTypes<QBooleanProperty>();
+	parseTypes<QColorProperty>();
+	parseTypes<QDoubleProperty>();
+	parseTypes<QGraphProperty>();
+	parseTypes<QLayoutProperty>();
+	parseTypes<QLayoutProperty>();
+	parseTypes<QStringProperty>();*/
 }
 
 QString Translater::parse(const QString& script)
 {
+	cout << script.toStdString() << endl;
 	QString result;
 
-	// Execute the full script first
-//	fileStream->open(QIODevice::ReadOnly);
 
-	QScriptValue value = scriptEngine->newQObject(new QGraph());
-	scriptEngine->globalObject().setProperty("graph", value);
 
 	scriptEngine->evaluate(script);
-//	fileStream->close();
 
 	if (scriptEngine->hasUncaughtException())
 		cerr << scriptEngine->uncaughtException().toString().toStdString() << endl;
 
-	// Open the output file
-//	outputFile->open(QIODevice::WriteOnly);
-
 	// Header
 	QFile header("header.txt");
 	header.open(QIODevice::ReadOnly);
-	//QByteArray header("#include \"QGraph.h\"\n#include \"QNode.h\"\n#include \"QEdge.h\"\n#include \"QProperty.h\"\n#include \"QIterator.h\"\n\nint main() {\n");
-//	outputFile->write(header.readAll());
 	result += header.readAll();
 
 	// Then parse it
-//	fileStream->open(QIODevice::ReadOnly);
 	QString line;
 	foreach(QChar c, script)
-//	while (!fileStream->atEnd())
 	{
-//		QByteArray carac = fileStream->read(1);
-//		line.append(carac);
 		line.append(c);
-		//QRegExp regExp(";}")
 		if (c == '}' || c == '{' || c == ';' ) {
-			//if (scriptEngine->canEvaluate(line)) {
-//				outputFile->write(addLine(line).toAscii());
-				result += addLine(line).toAscii();
-				line.clear();
-			//}
+			result += addLine(line).toAscii();
+			line.clear();
 		}
 	}
 
 	// Footer
 	QFile footer("footer.txt");
 	footer.open(QIODevice::ReadOnly);
-	//QByteArray footer("\nreturn 0;\n}\n");
 	result += footer.readAll();
-//	outputFile->write(footer.readAll());
-//	outputFile->flush();
-//	outputFile->close();
 
 	return result;
 }
 
-void Translater::parseTypes(QObject* obj)
+template <class T>
+void Translater::parseTypes()
 {
-	const QMetaObject* metaObj = obj->metaObject(); //QGraph::staticMetaObject();
-	for (int i = 0; i < metaObj->methodCount(); ++i) {
-		QMetaMethod qmm = metaObj->method(i);
+	const QMetaObject metaObj = T::staticMetaObject;//obj->metaObject();
+	for (int i = 0; i < metaObj.methodCount(); ++i) {
+		QMetaMethod qmm = metaObj.method(i);
 		QRegExp regExp("([a-zA-Z0-9_-]+)[ ]*\\([a-zA-Z0-9,_- ]*\\)");
 		if (regExp.exactMatch(qmm.signature())){
 			QPair<QString,int> methodPair(regExp.cap(1), qmm.parameterNames().size());
 			if (functionToType.contains(methodPair)){
-				if(functionToType.value(methodPair).compare(QString(qmm.typeName()))!=0)
-					cout << "pas bon du tout ! " << methodPair.first.toStdString() << " " << methodPair.second<<endl;
+				if(functionToType.value(methodPair).compare(QString(qmm.typeName())) != 0)
+					cout << "Warning: Ambiguous Method \"" << methodPair.first.toStdString()
+						<< "\" with " << methodPair.second << " parameters." << endl;
 			}
 			functionToType.insert(methodPair, QString(qmm.typeName()));}
 	}
@@ -129,7 +124,7 @@ void Translater::viewMap()
 		it != functionToType.end();
 		it++)
 	{
-		std::cout << it.key().first.toStdString() <<", "<< it.key().second << " : " << it.value().toStdString() << std::endl;
+		std::cout << it.key().first.toStdString() << ", "<< it.key().second << " : " << it.value().toStdString() << std::endl;
 	}
 	for (QMap<QString, QString>::const_iterator it =itToType.begin();
 		it != itToType.end();
@@ -141,35 +136,26 @@ void Translater::viewMap()
 
 QString Translater::convert() {
 	QFile* outputFile = new QFile(fileStream->fileName() + ".cpp");
-
 	return outputFile->fileName();
 }
 
 QString Translater::addLine(QString line) {
 	QRegExp regExp("var[ ]?([a-zA-Z0-9_-]+)[ ]?=[ ]?(.+\\S*)[ ]?[;]");
 	if (line.simplified().contains(regExp)) {
-
-		cout << "catché : " << line.toStdString() << endl;
-
 		QString rightMember = regExp.cap(2).replace(" ", "");
-		cout << "apres le egal : " << rightMember.toStdString() << endl;
-
 		QString type = fetchType(rightMember, regExp.cap(1));
-		//line.replace
 
-		//QRegExp replaceExp("var([ ]?[a-zA-Z0-9_-]+[ ]?=)");
-		//line.replace(replaceExp, type + "\\1");
-		line.replace(regExp, type + " \\1 =" + (toCast ? ("(" + type + ")(") : "") + "\\2" + (toCast ? ")" : "") + ";");
-		cout << "remplacé par : " << line.toStdString() << endl;
+		line.replace(regExp, type + " \\1 =\\2;");
 	}
+	QRegExp regExpIterator("(\\w+)(\\s*\\.[\\s]*next[\\s]*\\([\\s]*\\))");
+	if (line.contains(regExpIterator))
+		line.replace(regExpIterator, "(" + itToType.value(regExpIterator.cap(1)) + ")(\\1\\2)");
 	return checkQuotedText(line);
 }
 
 QString Translater::fetchType(QString line, QString varName) {
-	cout << "line : " << line.toStdString() << endl;
 	toCast = false;
 	QScriptValue retVal = scriptEngine->evaluate(line);
-	//cout << retVal.toString().toStdString()<<endl();
 	QString type;
 	if (retVal.isBoolean())
 		type = "bool";
@@ -244,8 +230,6 @@ QString Translater::fetchReturnType(QString line, QString varName) {
 
 	// Default case
 	if (functionName != "next") {
-		cout << "fonction : " << functionName.toStdString() << ", nb param : " << parameterNumber << endl;
-		cout << "type de retour : " << functionToType.value(QPair<QString, int>(functionName, parameterNumber)).toStdString() << endl;
 		return functionToType.value(QPair<QString, int>(functionName, parameterNumber));
 	}
 
@@ -292,14 +276,16 @@ QString Translater::parseIteratorType(QString functionName)
 int main(int argc, char** argv) {
 	QApplication app(argc, argv);
 
-	if(argc < 2)
-		std::cout << "must have a file name" << std::endl;
-	else
-	{
+	if (argc < 2) {
+		cout << "Error: Must have a filename" << endl;
+	} else {
 		Translater t;
 		QFile f(app.arguments().at(1));
-		t.parse(f.readAll());
+		f.open(QIODevice::ReadOnly);
+		QFile fOut("Plugin.cpp");
+		fOut.open(QIODevice::WriteOnly);
+		fOut.write(t.parse(f.readAll()).toAscii());
+		t.viewMap();
 	}
-//	t.viewMap();
 	return 0;
 }

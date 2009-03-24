@@ -9,6 +9,7 @@
 #define EDITOR_H_
 
 #include <QApplication>
+#include <QAction>
 #include <QtGui/QPushButton>
 #include <QtGui/QLabel>
 #include <QtGui/QVBoxLayout>
@@ -16,11 +17,12 @@
 #include "scriptedit.h"
 #include "TulipScriptEngine.h"
 #include "QGraph.h"
+#include "Translater.h"
 
 #include <tulip/View.h>
 
 class Editor : public tlp::View {
-        Q_OBJECT
+        Q_OBJECT;
 public:
         /* tulip view plugin API */
         QWidget* construct(QWidget* parent) {
@@ -40,6 +42,13 @@ public:
                 widget->connect(button, SIGNAL(clicked()), this, SLOT(evaluate()));
 
                 _engine = new TulipScriptEngine();
+
+                _interactors = new std::list<QAction*>();
+                QAction* compile = new QAction("Compile", this);
+                _interactors->push_back(compile);
+
+                connect (compile, SIGNAL(triggered()), this, SLOT(compile()));
+
                 return widget;
         }
 
@@ -54,13 +63,20 @@ public:
         tlp::Graph *getGraph() {return _graph->asGraph();}
 
         std::list<QAction *> *getInteractorsActionList() {
-                return new std::list<QAction*>;
+                return  _interactors;
         }
 
         void installInteractor(QAction*) {}
 
 
 public slots:
+
+		void compile() {
+			Translater t(_engine);
+			QString res = t.parse(_editor->document()->toPlainText());
+			std::cout << res.toStdString() << std::endl;
+		}
+
         void evaluate() {
                 _engine->evaluate(_editor->document()->toPlainText());
                 if(_engine->hasUncaughtException())
@@ -80,6 +96,8 @@ private:
                 _engine->addQObject(_graph, "graph");
         }
 
+
+        std::list<QAction*>* _interactors;
         QGraph* _graph;
         TulipScriptEngine* _engine;
         QLabel* _label;

@@ -1,10 +1,9 @@
+include(../variables.pri)
 TEMPLATE = lib
-TARGET = Editor-3.1.2
+TARGET = Editor-$$TULIP_VERSION
 QT += core \
     gui \
     script
-
-include(../variables.pri)
 
 #CONFIG += dll
 #DEPENDPATH += .
@@ -23,9 +22,11 @@ SOURCES += editor.cpp \
 
 INCLUDEPATH += $$ENGINE_PATH \
     $$TULIP_PATH/library/tulip/include \
-    $$TULIP_PATH/include 
+    $$TULIP_PATH/include \
+    $$TRANSLATER_PATH
   
 LIBS += -L$$ENGINE_PATH \
+		-L$$TRANSLATER_PATH \
     -ltulip-script \
     -L$$TULIP_PATH/lib \
     -ltulip \
@@ -38,4 +39,5 @@ LIBS += -L$$ENGINE_PATH \
     -lqtscript_tulip_script \
     -L$$QTSCRIPT_GENERATOR_PATH/plugins/static \
     -lqtscript_gui \
-    -lqtscript_core
+    -lqtscript_core \
+    -ltranslater
