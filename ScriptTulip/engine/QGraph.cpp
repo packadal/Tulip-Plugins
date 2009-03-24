@@ -141,7 +141,7 @@ bool QGraph::computeProperty(const QString &algo, const QProperty* property, con
                 QVariant value = dataSet->property(name.toStdString().c_str());
 
                 QColor c;
-                tlp::Color* col;
+                tlp::Color col;
                 switch(value.type())
                 {
 
@@ -156,8 +156,8 @@ bool QGraph::computeProperty(const QString &algo, const QProperty* property, con
                                 break;
                         case QVariant::Color:
 								c = value.value<QColor>();
-								col = new Color(c.red(), c.green(), c.blue(), c.alpha());
-								set->set<tlp::Color*>(name.toStdString(), col);
+								col = Color(c.red(), c.green(), c.blue(), c.alpha());
+								set->set<tlp::Color>(name.toStdString(), col);
 								break;
                         default:
                                 break;
@@ -180,6 +180,8 @@ bool QGraph::computeProperty(const QString &algo, const QProperty* property, con
 		   else if (Typename == "bool")
 				   res = asGraph()->computeProperty(algorithm, dynamic_cast<BooleanProperty*>(property->asProperty()), message, 0, set);
 
+
+		   delete set;
 		   return res;
    }
 
