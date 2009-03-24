@@ -9,6 +9,7 @@
         <object-type name="QGraph" />
         <object-type name="QNode" />
         <object-type name="QEdge" />
+        <object-type name="QSize3D" />
 
 	<object-type name="QIterator" />
 
