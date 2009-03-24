@@ -10,7 +10,7 @@ CONFIG += static
 
 CONFIG(jambi) {
     DEFINES += JAMBI_BUILD
-    DESTDIR=$$ROOT_DIR/jambiLib
+    DESTDIR=$$ROOT_DIR/libJambi
 }
 else {
     HEADERS += TulipScriptEngine.h \
