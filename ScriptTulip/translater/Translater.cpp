@@ -14,18 +14,21 @@
 
 using namespace std;
 
-Translater::Translater(QString urlFile) {
-	scriptEngine = new TulipScriptEngine();
-
-	fileStream = new QFile(urlFile);
-	outputFile = new QFile(fileStream->fileName() + ".cpp");
+Translater::Translater()
+:scriptEngine(new TulipScriptEngine())
+{
 	initMap();
-	parse();
+}
+
+Translater::Translater(QFile *file)
+:scriptEngine(new TulipScriptEngine()), fileStream(file), outputFile(new QFile("Plugin.cpp"))
+{
+	initMap();
+	parse(fileStream->readAll());
 }
 
 Translater::~Translater() {
-	fileStream->close();
-	delete fileStream;
+	delete scriptEngine;
 }
 
 void Translater::initMap() {
@@ -44,48 +47,69 @@ void Translater::initMap() {
 	obj = new QProperty();
 	parseTypes(obj);
 	delete obj;
+
 }
 
-void Translater::parse()
+QString Translater::parse(const QString& script)
 {
+	QString result;
+
 	// Execute the full script first
-	fileStream->open(QIODevice::ReadOnly);
-	scriptEngine->evaluate(QString(fileStream->readAll()));
-	fileStream->close();
+//	fileStream->open(QIODevice::ReadOnly);
+
+	QScriptValue value = scriptEngine->newQObject(new QGraph());
+	scriptEngine->globalObject().setProperty("graph", value);
+
+	scriptEngine->evaluate(script);
+//	fileStream->close();
 
 	if (scriptEngine->hasUncaughtException())
 		cerr << scriptEngine->uncaughtException().toString().toStdString() << endl;
 
 	// Open the output file
-	outputFile->open(QIODevice::WriteOnly);
-	// Skeleton
-	QByteArray header("#include \"QGraph.h\"\n#include \"QNode.h\"\n#include \"QEdge.h\"\n#include \"QProperty.h\"\n#include \"QIterator.h\"\n\nint main() {\n");
-	outputFile->write(header);
+//	outputFile->open(QIODevice::WriteOnly);
+
+	// Header
+	QFile header("header.txt");
+	header.open(QIODevice::ReadOnly);
+	//QByteArray header("#include \"QGraph.h\"\n#include \"QNode.h\"\n#include \"QEdge.h\"\n#include \"QProperty.h\"\n#include \"QIterator.h\"\n\nint main() {\n");
+//	outputFile->write(header.readAll());
+	result += header.readAll();
 
 	// Then parse it
-	fileStream->open(QIODevice::ReadOnly);
+//	fileStream->open(QIODevice::ReadOnly);
 	QString line;
-	while (!fileStream->atEnd())
+	foreach(QChar c, script)
+//	while (!fileStream->atEnd())
 	{
-		QByteArray carac = fileStream->read(1);
-		line.append(carac);
+//		QByteArray carac = fileStream->read(1);
+//		line.append(carac);
+		line.append(c);
 		//QRegExp regExp(";}")
-		if (carac.at(0) == '}' || carac.at(0) == '{' || carac.at(0) == ';' || fileStream->atEnd()) {
+		if (c == '}' || c == '{' || c == ';' ) {
 			//if (scriptEngine->canEvaluate(line)) {
-				outputFile->write(addLine(line).toAscii());
+//				outputFile->write(addLine(line).toAscii());
+				result += addLine(line).toAscii();
 				line.clear();
 			//}
 		}
 	}
-	QByteArray footer("\nreturn 0;\n}\n");
-	outputFile->write(footer);
-	outputFile->flush();
-	outputFile->close();
+
+	// Footer
+	QFile footer("footer.txt");
+	footer.open(QIODevice::ReadOnly);
+	//QByteArray footer("\nreturn 0;\n}\n");
+	result += footer.readAll();
+//	outputFile->write(footer.readAll());
+//	outputFile->flush();
+//	outputFile->close();
+
+	return result;
 }
 
 void Translater::parseTypes(QObject* obj)
 {
-	const QMetaObject* metaObj = obj->metaObject();//QGraph::staticMetaObject();
+	const QMetaObject* metaObj = obj->metaObject(); //QGraph::staticMetaObject();
 	for (int i = 0; i < metaObj->methodCount(); ++i) {
 		QMetaMethod qmm = metaObj->method(i);
 		QRegExp regExp("([a-zA-Z0-9_-]+)[ ]*\\([a-zA-Z0-9,_- ]*\\)");
@@ -267,8 +291,15 @@ QString Translater::parseIteratorType(QString functionName)
 
 int main(int argc, char** argv) {
 	QApplication app(argc, argv);
-	Translater t(argv[1]);
 
-	t.viewMap();
+	if(argc < 2)
+		std::cout << "must have a file name" << std::endl;
+	else
+	{
+		Translater t;
+		QFile f(app.arguments().at(1));
+		t.parse(f.readAll());
+	}
+//	t.viewMap();
 	return 0;
 }

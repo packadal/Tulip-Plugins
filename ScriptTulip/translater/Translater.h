@@ -14,11 +14,11 @@
 class Translater {
 public:
 	Translater();
-	Translater(QString);
+	Translater(QFile*);
 	virtual ~Translater();
 	QString convert();
 	void initMap();
-	void parse();
+	QString parse(const QString &script);
 	void parseTypes(QObject* obj);
 	void viewMap();
 private:
@@ -28,9 +28,10 @@ private:
 	QString fetchType(QString line, QString varName = "");
 	QString checkQuotedText(QString line);
 	QString fetchReturnType(QString line, QString varName = "");
+
+	TulipScriptEngine* scriptEngine;
 	QFile* fileStream;
 	QFile* outputFile;
-	TulipScriptEngine* scriptEngine;
 	QMap<QPair<QString,int>, QString> functionToType;
 	QMap<QString, QString> itToType;
 };
