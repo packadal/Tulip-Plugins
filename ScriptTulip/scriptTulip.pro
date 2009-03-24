@@ -8,17 +8,13 @@ CONFIG += ordered
 
 SUBDIRS = engine 
 
-CONFIG(jambi) {
-    message(Jambi build !)
-    SUBDIRS += jambi
+!system(QTDIR=$$QTDIR_VAR $$QTSCRIPT_GENERATOR $$SCRIPT_PATH/global.h $$SCRIPT_PATH/typesystem.xml --output-directory=script) {
+    error(unable to run the qtScript Generator !)
 }
-else {
-    !system(QTDIR=$$QTDIR_VAR $$QTSCRIPT_GENERATOR $$SCRIPT_PATH/global.h $$SCRIPT_PATH/typesystem.xml --output-directory=script) {
-        error(unable to run the qtScript Generator !)
-    }
-    message(script build !)
-    SUBDIRS += script \
-        editor
-}
+message(script build !)
+SUBDIRS += script \
+    editor \
+    engine-jambi \
+    jambi \
 
 

@@ -17,7 +17,7 @@ SOURCES += jambi_plugin.cpp
 DEFINES += JAVA_FILE=$$JAVA_FILE
 
 LIBS += -L$$TULIP_PATH/lib \
-    -L$$TULIP_PLUGINS_PATH/libJambi \
+    -L$$TULIP_PLUGINS_PATH/engine-jambi \
     -L$$QTJAMBI_PATH/lib \
     -L$(JAVA_HOME)/jre/lib/i386/client/ \
     -L$$ENGINE_PATH \
