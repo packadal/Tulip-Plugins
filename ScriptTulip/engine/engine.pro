@@ -34,12 +34,28 @@ HEADERS += QStdSet.h \
     QProperty.h \
     QGraph.h \
     QNode.h \
-    QEdge.h
+    QEdge.h \
+    QDoubleProperty.h \
+	QStringProperty.h \
+	QBooleanProperty.h \
+	QLayoutProperty.h \
+	QIntegerProperty.h \
+	QColorProperty.h \
+	QSizeProperty.h \
+	QGraphProperty.h
 SOURCES += QIterator.cpp \
     QProperty.cpp \
     QGraph.cpp \
     QNode.cpp \
-    QEdge.cpp
+    QEdge.cpp \
+    QDoubleProperty.cpp \
+	QStringProperty.cpp \
+	QBooleanProperty.cpp \
+	QLayoutProperty.cpp \
+	QIntegerProperty.cpp \
+	QColorProperty.cpp \
+	QSizeProperty.cpp \
+	QGraphProperty.cpp
 
 CONFIG(tests) { 
   
