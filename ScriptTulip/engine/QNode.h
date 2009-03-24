@@ -22,6 +22,4 @@ private:
 	const tlp::node _node;
 };
 
-QScriptValue nodeFactory(QScriptContext *context, QScriptEngine *engine);
-
 #endif /* QNODE_H_ */

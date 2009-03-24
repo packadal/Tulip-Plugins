@@ -23,9 +23,3 @@ QNode::QNode(tlp::node n)
 
 QNode::~QNode() {
 }
-
-QScriptValue nodeFactory(QScriptContext*, QScriptEngine *engine)
-{
-    QObject *node = new QNode();
-    return engine->newQObject(node, QScriptEngine::ScriptOwnership);
-}

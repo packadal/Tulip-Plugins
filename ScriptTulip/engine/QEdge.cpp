@@ -23,9 +23,3 @@ QEdge::QEdge(tlp::edge e)
 
 QEdge::~QEdge() {
 }
-
-QScriptValue edgeFactory(QScriptContext*, QScriptEngine *engine)
-{
-    QObject *edge = new QEdge();
-    return engine->newQObject(edge);
-}
