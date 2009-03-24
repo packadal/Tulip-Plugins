@@ -9,10 +9,8 @@ class TulipScriptEngine;
 class QPropertyTest : public CppUnit::TestCase
 {
   CPPUNIT_TEST_SUITE(QPropertyTest);
-      CPPUNIT_TEST(getNodeValueTest);
       CPPUNIT_TEST(setNodeValueTest);
       CPPUNIT_TEST(eraseNodeTest);
-      //CPPUNIT_TEST(eraseEdgeTest);
   CPPUNIT_TEST_SUITE_END();
 private:
 	TulipScriptEngine* _engine;
