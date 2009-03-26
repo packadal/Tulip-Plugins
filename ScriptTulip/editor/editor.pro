@@ -40,4 +40,5 @@ LIBS += -L$$ENGINE_PATH \
     -L$$QTSCRIPT_GENERATOR_PATH/plugins/static \
     -lqtscript_gui \
     -lqtscript_core \
+    -L$$TRANSLATER_PATH \
     -ltranslater

@@ -10,6 +10,7 @@ include(variables.pri)
 CONFIG += ordered
 SUBDIRS += engine \
     script \
+    translater \
     editor \
     engine-jambi \
     jambi \

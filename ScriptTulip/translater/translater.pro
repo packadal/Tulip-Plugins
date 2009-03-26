@@ -1,6 +1,6 @@
 TEMPLATE = lib
 
-#CONFIG += static
+CONFIG += static
 include(../variables.pri)
 TARGET = translater
 QT += core \

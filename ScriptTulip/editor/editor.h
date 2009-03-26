@@ -8,8 +8,9 @@
 #ifndef EDITOR_H_
 #define EDITOR_H_
 
-#include <QApplication>
-#include <QAction>
+#include <QtGui/QApplication>
+#include <QtGui/QAction>
+#include <QtGui/QShortcut>
 #include <QtGui/QPushButton>
 #include <QtGui/QLabel>
 #include <QtGui/QVBoxLayout>
@@ -49,6 +50,10 @@ public:
 
                 connect (compile, SIGNAL(triggered()), this, SLOT(compile()));
 
+                QShortcut *evaluateMe = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Return), widget);
+                QObject::connect(evaluateMe, SIGNAL(activated()), this, SLOT(evaluate()));
+
+                
                 return widget;
         }
 
