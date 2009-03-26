@@ -9,7 +9,9 @@ ROOT_DIR=$$PWD
 TULIP_PATH=/net/cremi/dmothes/tulipBin/
 QTSCRIPT_GENERATOR_PATH=/net/travail/uti/chuet/qtscriptgenerator/
 QTSCRIPT_GENERATOR=$$QTSCRIPT_GENERATOR_PATH/generator/generator
-JAMBI_GENERATOR_PATH=/net/travail/uti/chuet/qtjambi/generator
+
+JAMBI_PATH=/net/travail/uti/chuet/qtjambi/
+JAMBI_GENERATOR_PATH=$$JAMBI_PATH/generator
 QTDIR_VAR=/net/travail/uti/chuet/QT-4.5.0/
 
 INCLUDEPATH += $$TULIP_PATH/library/tulip/include
