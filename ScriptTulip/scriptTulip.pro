@@ -12,7 +12,7 @@ SUBDIRS += engine \
     script \
     translater \
     editor \
-    test \
+    unit_test \
     engine-jambi \
     jambi \
 

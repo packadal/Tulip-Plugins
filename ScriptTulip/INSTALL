@@ -1,0 +1,63 @@
+In order to compile the QScriptTulip plugins, one needs to have :
+
+* QT 4.5
+* QtJambi
+* QtScriptGenerator
+
+The easier way is to :
+download and compile Qt 4.5 (using ./configure -prefix=$PWD)
+
+Then generate the qtscript bindings, with a slight modification, that is 
+passing the "-config static" to the qtbindings qmake, e.g. "cd 
+qtbindings && qmake -config static && make"
+This allows for easier installation of the scriptTulip plug-in, as it 
+will not need the qtscriptgenerator libs in the LD_LIBRARY_PATH.
+
+Then generate QtJambi from source (note that for your recently installed 
+version of Qt to be used, you will need to have it's bin directory in 
+your path _before_ any other Qt install. Specifying the qmake is not 
+enough because ant calls qmake on it's own.
+
+Finally, get in the ScriptTulip folder.
+Modifying the variables.pri to tell him where Qt is installed and where 
+is the qtscriptgenerator, as well as QtJambi.
+
+Then, running qmake && make should build the TulipScript plug-in, that
+will be located in the editor directory.
+
+Note that Qt 4.5 _must_ be in your LD_LIBRARY_PATH because scriptTulip
+NEEDS Qt 4.5.
+
+The tulip-qtjambi jar will also be generated, but be aware the you need 
+the 'chrpath' tool in your PATH for the jar to be of any use.
+Not having this tools generates a valid jar, but the system libraries 
+will be used prior to the libraries inside the jar file. If these are 
+not of the exact same version, the jvm will crash.
+
+
+Then, for anyone willing to develop a java plug-in, the following things 
+are needed : 
+ * the qtjambi jar
+ * the tulip jambi jar
+ * the qtjambi lib (platform-specific, located in jambidir/lib)
+ * tulip's libs
+ * scriptTulip's engine/ lib
+ * java & javac :)
+
+Compiling a java plug-in is done using the provided ant file (which 
+calls qmake, so it needs to be installed).
+Tulip's and QtJambi's pathes are to be defined in this ant file.
+
+
+In order for tulip to sucessfully execute the jambi plug-ins, the libjvm 
+is needed somewhere in the LD_LIBRARY_PATH.
+The libjambi also needs to be in the LD_LIBRARY_PATH. As this one is 
+included in the tulip-jambi.jar file, it may be extracted from here
+to be used by tulip.
+
+
+NOTE : as of now, it is not possible to instanciate more than one jvm using
+the JNI, even after having deleted the jvm, it is not possible to create
+another one. There is a	singleton class in jambi/jambiPlugins that needs to 
+be integrated into tulip in order to have multiple java plug-ins.
+
