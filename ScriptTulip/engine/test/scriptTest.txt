@@ -1,0 +1,16 @@
+var g = newGraph();
+var n1 = g.addNode();
+var n2 = g.addNode();
+var n3 = g.addNode();
+g.addEdge(n1, n2);
+g.addEdge(n2, n3);
+g.addEdge(n3, n1);
+saveGraph(g, "testTriangle.tlp");
+
+var g = loadGraph("testTriangle.tlp");
+var it = g.getNodes();
+it.next();it.next(); // Skip first two nodes
+var n3 = it.next();
+var n4 = g.addNode();
+g.addEdge(n3, n4); // Add to the saved graph a new edge
+saveGraph(g, "testTriangle2.tlp"); // save the new graph
