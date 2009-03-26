@@ -11,7 +11,8 @@ TARGET=$$JAVA_FILE-3.1.2
 #we include the variables defined in the variables.pri located in the tulipPluginsDir
 include($$TULIP_PLUGINS_PATH/variables.pri)
 
-SOURCES += jambi_plugin.cpp
+SOURCES += jambi_plugin.cpp \
+    myjvm.cpp
 
 #we add the java file name to the defines
 DEFINES += JAVA_FILE=$$JAVA_FILE

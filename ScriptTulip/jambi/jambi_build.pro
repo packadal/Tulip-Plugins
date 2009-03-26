@@ -6,19 +6,9 @@ include(../variables.pri)
 
 DEFINES += JAMBI_BUILD
 
-HEADERS += $$ENGINE_PATH/QIterator.h \
-    $$ENGINE_PATH/QProperty.h \
-    $$ENGINE_PATH/QGraph.h \
-    $$ENGINE_PATH/QNode.h \
-    $$ENGINE_PATH/QEdge.h \
-    #    $$ENGINE_PATH/QTemplateProperty.cpp \
+HEADERS += $$ENGINE_HEADERS
 
-SOURCES += $$ENGINE_PATH/QIterator.cpp \
-    $$ENGINE_PATH/QProperty.cpp \
-    $$ENGINE_PATH/QGraph.cpp \
-    $$ENGINE_PATH/QNode.cpp \
-    $$ENGINE_PATH/QEdge.cpp \
-    #   $$ENGINE_PATH/QTemplateProperty.cpp 
+SOURCES += $$ENGINE_SOURCES
     
 LIBS += -L$$TULIP_PATH/lib \
     -ltulip

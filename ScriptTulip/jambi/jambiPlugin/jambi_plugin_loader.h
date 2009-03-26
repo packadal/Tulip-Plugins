@@ -3,6 +3,8 @@
 #include "qtjambi_core.h"
 #include <jni.h>
 
+#include "myjvm.h"
+
 #include <tulip/Graph.h>
 #include <tulip/TlpTools.h>
 
@@ -87,8 +89,6 @@ private:
 	JNIEnv* _env;
 	static myJVM* _myJVM;
 };
-
-myJVM* myJVM::_myJVM = 0;
 
 void initialize_jambi_plugin(tlp::Graph* graph) {
 

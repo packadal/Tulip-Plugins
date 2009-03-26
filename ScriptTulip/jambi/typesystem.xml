@@ -16,14 +16,14 @@
         <!-- Properties  -->
         <object-type name="QProperty" />
         
-<!--        <object-type name="QIntegerProperty" />
+        <object-type name="QIntegerProperty" />
         <object-type name="QDoubleProperty" />
         <object-type name="QBooleanProperty" />
         <object-type name="QLayoutProperty" />
         <object-type name="QGraphProperty" />
         <object-type name="QStringProperty" />
         <object-type name="QColorProperty" />
-        <object-type name="QSizeProperty" />-->
+        <object-type name="QSizeProperty" />
 
 	<!-- ne marche aps car le generateur ne trouve pas l'include  -->
 <!--         <object-type name="QtProgress" /> -->

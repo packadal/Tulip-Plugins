@@ -4,14 +4,8 @@ include(../variables.pri)
 QMAKE_CXXFLAGS += -Wno-deprecated
 INCLUDEPATH += $$QTSCRIPT_GENERATOR_PATH/qtbindings/qtscript_core
 CONFIG += static
-CONFIG(jambi) { 
-    DEFINES += JAMBI_BUILD
-    DESTDIR = $$ROOT_DIR/libJambi
-}
-else { 
-    HEADERS += TulipScriptEngine.h
-    SOURCES += TulipScriptEngine.cpp
-}
+
+
 CONFIG(tests) { 
     TEMPLATE = app
     message("DEBUG MOOOODE !!!")
@@ -20,35 +14,12 @@ else {
     TEMPLATE = lib
     message("RELEASE MODE :)")
 }
+
 HEADERS += QStdSet.h \
-    QSize3D.h \
-    QIterator.h \
-    QProperty.h \
-    QGraph.h \
-    QNode.h \
-    QEdge.h \
-    QDoubleProperty.h \
-    QStringProperty.h \
-    QBooleanProperty.h \
-    QLayoutProperty.h \
-    QIntegerProperty.h \
-    QColorProperty.h \
-    QSizeProperty.h \
-    QGraphProperty.h
-SOURCES += QIterator.cpp \
-	QSize3D.cpp \    
-    QProperty.cpp \
-    QGraph.cpp \
-    QNode.cpp \
-    QEdge.cpp \
-    QDoubleProperty.cpp \
-    QStringProperty.cpp \
-    QBooleanProperty.cpp \
-    QLayoutProperty.cpp \
-    QIntegerProperty.cpp \
-    QColorProperty.cpp \
-    QSizeProperty.cpp \
-    QGraphProperty.cpp
+    $$ENGINE_HEADERS
+    
+SOURCES += $$ENGINE_SOURCES
+
 CONFIG(tests) { 
     CPPUNIT_PATH = /net/cremi/chuet/liens/cppunit/lib
     SOURCES += test/GraphCreateTest.cpp \
