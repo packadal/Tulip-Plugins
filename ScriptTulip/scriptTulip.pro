@@ -16,4 +16,4 @@ SUBDIRS += engine \
     engine-jambi \
     #jambi \
 
-
+OTHER_FILES += CMakeLists.txt
