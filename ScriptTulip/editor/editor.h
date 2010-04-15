@@ -82,6 +82,14 @@ public:
         void installInteractor(QAction*) {}
 
 
+        /* tulip view plugin API */
+        //TODO implement ?
+        virtual QWidget* getWidget() {}
+        virtual void setInteractors(const std::list<tlp::Interactor *> &interactors) {}
+        virtual std::list<tlp::Interactor *> getInteractors() {}
+        virtual void setActiveInteractor(tlp::Interactor *interactor) {}
+        virtual void createPicture(const std::string &pictureName,int width=0, int height=0) {}
+
 public slots:
 
 		void generate() {

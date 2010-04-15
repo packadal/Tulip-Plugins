@@ -10,7 +10,7 @@
 #include "QDoubleProperty.h"
 #include "QGraphProperty.h"
 #include "QIntegerProperty.h"
-#include "QLayoutProperty.h"
+//#include "QLayoutProperty.h"
 #include "QSizeProperty.h"
 #include "QStringProperty.h"
 

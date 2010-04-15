@@ -26,18 +26,19 @@ INCLUDEPATH += $$ENGINE_PATH \
     $$TRANSLATER_PATH
   
 LIBS += -L$$ENGINE_PATH \
-		-L$$TRANSLATER_PATH \
+    -L$$TRANSLATER_PATH \
+    -L$$TULIP_PATH/lib \
+    -L$$TULIP_PATH/lib \
     -ltulip-script \
+    -ltulip-3.4 \
+    -ltulip-pluginsmanager-3.4 \
+    -ltulip-qt4-3.4 \
+    -ltulip-ogl-3.4 \
     -L$$TULIP_PATH/lib \
-    -ltulip \
-    -ltulip-pluginsmanager \
-    -ltulip-qt4 \
-    -ltulip-ogl \
-    -L$$TULIP_PATH/lib \
-    -ltulip \
     -L$$SCRIPT_PATH \
     -lqtscript_tulip_script \
-    -L$$QTSCRIPT_GENERATOR_PATH/plugins/static \
+    -L$$QTSCRIPT_GENERATOR_PATH/plugins/script \
+    #-L$$QTSCRIPT_GENERATOR_PATH/plugins/static \
     -lqtscript_gui \
     -lqtscript_core \
     -L$$TRANSLATER_PATH \

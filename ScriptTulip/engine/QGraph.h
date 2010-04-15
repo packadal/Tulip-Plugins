@@ -29,7 +29,7 @@
 #include "QDoubleProperty.h"
 #include "QStringProperty.h"
 #include "QBooleanProperty.h"
-#include "QLayoutProperty.h"
+//#include "QLayoutProperty.h"
 #include "QIntegerProperty.h"
 #include "QColorProperty.h"
 #include "QSizeProperty.h"
@@ -177,7 +177,7 @@ public slots:
 	//Proxytype* getProperty(const std::string &name);
 	QGraphProperty* getGraphProperty(QString name);
 	QDoubleProperty* getDoubleProperty(QString name);
-	QLayoutProperty* getLayoutProperty(QString name);
+//	QLayoutProperty* getLayoutProperty(QString name);
 	QStringProperty* getStringProperty(QString name);
 	QIntegerProperty* getIntegerProperty(QString name);
 	QColorProperty* getColorProperty(QString name);

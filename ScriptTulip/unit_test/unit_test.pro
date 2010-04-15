@@ -30,9 +30,10 @@ HEADERS += utilsTest.h \
 LIBS += -L$$CPPUNIT_PATH/lib \
     -lcppunit \
     -L$$TULIP_PATH/lib \
-    -ltulip \
+    -ltulip-3.4 \
     -L$$SCRIPT_PATH \
     -lqtscript_tulip_script \
-    -L$$QTSCRIPT_GENERATOR_PATH/plugins/static \
+    -L$$QTSCRIPT_GENERATOR_PATH/plugins/script \
+    #-L$$QTSCRIPT_GENERATOR_PATH/plugins/static \
     -lqtscript_gui \
     -lqtscript_core

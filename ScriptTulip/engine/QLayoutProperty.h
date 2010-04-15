@@ -10,7 +10,31 @@
 #include <tulip/LayoutProperty.h>
 
 QSTDVECTOR(Size3D, tlp::Coord);
-
+/*
+class QSize3DVector: QSet<QSize3D*>
+{
+    public: QSize3DVector(std::vector<tlp::Coord> s) 
+    {
+	std::vector<tlp::Coord>::iterator it = s.begin(); 
+	while(it != s.end()) 
+	    insert(new QSize3D(*it)); 
+    }
+    
+    std::vector<tlp::Coord> asSize3D() const 
+    {
+	std::vector<tlp::Coord> ret; 
+	QSet<QSize3D*>::const_iterator it = this->begin(); 
+	while(it != this->end()) 
+	    ret.push_back((*it)->asSize3D()); 
+	return ret; 
+    }
+    
+    std::vector<tlp::Coord> asGraph() const 
+    {
+	return asSize3D(); 
+    }
+};
+*/
 class QLayoutProperty: public QProperty
 {
 
@@ -22,7 +46,7 @@ public:
 	QLayoutProperty(tlp::LayoutProperty*);
 	virtual ~QLayoutProperty();
 	tlp::LayoutProperty* asProperty();
-
+	
 public slots:
 
 	// Bindings from AbstractProperty

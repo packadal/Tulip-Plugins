@@ -19,7 +19,7 @@
         <object-type name="QIntegerProperty" />
         <object-type name="QDoubleProperty" />
         <object-type name="QBooleanProperty" />
-        <object-type name="QLayoutProperty" />
+        <!-- <object-type name="QLayoutProperty" /> -->
         <object-type name="QGraphProperty" />
         <object-type name="QStringProperty" />
         <object-type name="QColorProperty" />

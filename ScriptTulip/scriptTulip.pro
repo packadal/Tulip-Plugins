@@ -14,6 +14,6 @@ SUBDIRS += engine \
     editor \
     unit_test \
     engine-jambi \
-    jambi \
+    #jambi \
 
 

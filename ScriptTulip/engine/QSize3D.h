@@ -35,7 +35,7 @@ public slots:
 	float getZ() const;
 
 	tlp::Size asSize3D() const;
-	tlp::Size asCoord() const;
+	//tlp::Size asCoord() const;
 
 private:
 	float _width;

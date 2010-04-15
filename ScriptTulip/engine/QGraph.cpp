@@ -356,9 +356,9 @@ QDoubleProperty* QGraph::getDoubleProperty(QString name){
 	return new QDoubleProperty(_graph->getProperty<tlp::DoubleProperty>(name.toStdString()));
 }
 
-QLayoutProperty* QGraph::getLayoutProperty(QString name){
+/*QLayoutProperty* QGraph::getLayoutProperty(QString name){
 	return new QLayoutProperty(_graph->getProperty<tlp::LayoutProperty>(name.toStdString()));
-}
+}*/
 
 QStringProperty* QGraph::getStringProperty(QString name){
 	return new QStringProperty(_graph->getProperty<tlp::StringProperty>(name.toStdString()));

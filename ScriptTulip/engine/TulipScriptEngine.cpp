@@ -2,7 +2,7 @@
 
 //#include <QtPlugin>
 
-#include <tulip/QtProgress.h>
+//#include <tulip/QtProgress.h>
 
 #include "Scriptmacros.h"
 #include "ScriptFunctions.h"
