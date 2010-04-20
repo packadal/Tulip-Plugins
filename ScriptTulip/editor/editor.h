@@ -29,7 +29,7 @@ public:
         /* tulip view plugin API */
         QWidget* construct(QWidget* parent) {
 
-                QWidget* widget = new QWidget(parent);
+                this->_widget = new QWidget(parent);
                 _editor = new ScriptEdit();
                 QPushButton* button = new QPushButton("Evaluate");
                 _label = new QLabel();
@@ -39,9 +39,9 @@ public:
                 layout->addWidget(_label);
                 layout->addWidget(button);
 
-                widget->setLayout(layout);
+                this->_widget->setLayout(layout);
 
-                widget->connect(button, SIGNAL(clicked()), this, SLOT(evaluate()));
+                this->_widget->connect(button, SIGNAL(clicked()), this, SLOT(evaluate()));
 
                 _engine = new TulipScriptEngine();
 
@@ -58,11 +58,11 @@ public:
 				_interactors->push_back(load);
 				connect (load, SIGNAL(triggered()), this, SLOT(loadScript()));
 
-                QShortcut *evaluateMe = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Return), widget);
+                QShortcut *evaluateMe = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Return), this->_widget);
                 QObject::connect(evaluateMe, SIGNAL(activated()), this, SLOT(evaluate()));
 
 
-                return widget;
+                return this->_widget;
         }
 
         void setData(tlp::Graph *graph,tlp::DataSet) {
@@ -84,9 +84,19 @@ public:
 
         /* tulip view plugin API */
         //TODO implement ?
-        virtual QWidget* getWidget() {}
+        virtual QWidget* getWidget() 
+        {
+	  return this->_widget;
+	}
+	
         virtual void setInteractors(const std::list<tlp::Interactor *> &interactors) {}
-        virtual std::list<tlp::Interactor *> getInteractors() {}
+        
+        virtual std::list<tlp::Interactor *> getInteractors() 
+        {
+	  std::list<tlp::Interactor *> interactors;
+	  return interactors;
+	}
+	
         virtual void setActiveInteractor(tlp::Interactor *interactor) {}
         virtual void createPicture(const std::string &pictureName,int width=0, int height=0) {}
 
@@ -159,6 +169,7 @@ private:
         }
 
 
+	QWidget* _widget;
         std::list<QAction*>* _interactors;
         QGraph* _graph;
         TulipScriptEngine* _engine;
