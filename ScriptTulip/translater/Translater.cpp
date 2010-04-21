@@ -275,19 +275,19 @@ QString Translater::parseIteratorType(QString functionName)
 		return "";
 }
 
-int main(int argc, char** argv) {
-	QApplication app(argc, argv);
-
-	if (argc < 2) {
-		cout << "Error: Must have a filename" << endl;
-	} else {
-		Translater t;
-		QFile f(app.arguments().at(1));
-		f.open(QIODevice::ReadOnly);
-		QFile fOut("Plugin.cpp");
-		fOut.open(QIODevice::WriteOnly);
-		fOut.write(t.parse(f.readAll()).toAscii());
-		t.viewMap();
-	}
-	return 0;
-}
+// int main(int argc, char** argv) {
+// 	QApplication app(argc, argv);
+// 
+// 	if (argc < 2) {
+// 		cout << "Error: Must have a filename" << endl;
+// 	} else {
+// 		Translater t;
+// 		QFile f(app.arguments().at(1));
+// 		f.open(QIODevice::ReadOnly);
+// 		QFile fOut("Plugin.cpp");
+// 		fOut.open(QIODevice::WriteOnly);
+// 		fOut.write(t.parse(f.readAll()).toAscii());
+// 		t.viewMap();
+// 	}
+// 	return 0;
+// }
