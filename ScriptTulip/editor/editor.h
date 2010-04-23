@@ -45,25 +45,29 @@ public:
 
                 _engine = new TulipScriptEngine();
 
-                _interactors = new std::list<QAction*>();
-                QAction* compile = new QAction("Generate C++", this);
-                _interactors->push_back(compile);
-                connect (compile, SIGNAL(triggered()), this, SLOT(generate()));
+//                 _interactors = new std::list<tlp::Interactor*>();
+//                 QAction* compile = new QAction("Generate C++", this);
+//                 _interactors->push_back(compile);
+//                 connect (compile, SIGNAL(triggered()), this, SLOT(generate()));
 
-                QAction* save = new QAction("Save Script", this);
-				_interactors->push_back(save);
-				connect (save, SIGNAL(triggered()), this, SLOT(saveScript()));
+//                 QAction* save = new QAction("Save Script", this);
+// 				_interactors->push_back(save);
+// 				connect (save, SIGNAL(triggered()), this, SLOT(saveScript()));
 
-                QAction* load = new QAction("Load Script", this);
-				_interactors->push_back(load);
-				connect (load, SIGNAL(triggered()), this, SLOT(loadScript()));
+//                 QAction* load = new QAction("Load Script", this);
+// 				_interactors->push_back(load);
+// 				connect (load, SIGNAL(triggered()), this, SLOT(loadScript()));
 
                 QShortcut *evaluateMe = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Return), this->_widget);
                 QObject::connect(evaluateMe, SIGNAL(activated()), this, SLOT(evaluate()));
 
-
                 return this->_widget;
         }
+
+	QWidget* getWidget() 
+        {
+	  return this->_widget;
+	}
 
         void setData(tlp::Graph *graph,tlp::DataSet) {
                 modifyGraph(graph);
@@ -73,30 +77,30 @@ public:
                 *graph = _graph->asGraph();
         }
 
-        tlp::Graph *getGraph() {return _graph->asGraph();}
-
-        std::list<QAction *> *getInteractorsActionList() {
-                return  _interactors;
-        }
-
-        void installInteractor(QAction*) {}
-
+        tlp::Graph *getGraph() 
+        {
+	  return _graph->asGraph();
+	}
 
         /* tulip view plugin API */
-        //TODO implement ?
-        virtual QWidget* getWidget() 
+        //TODO check this makes any sense
+        virtual void setInteractors(const std::list<tlp::Interactor *> &interactors) 
         {
-	  return this->_widget;
+	  this->_interactors->clear();
+	  std::list<tlp::Interactor *>::const_iterator it = interactors.begin();
+	  while(it != interactors.end())
+	  {
+	    this->_interactors->push_back(*it);
+	    ++it;
+	  }
 	}
-	
-        virtual void setInteractors(const std::list<tlp::Interactor *> &interactors) {}
         
         virtual std::list<tlp::Interactor *> getInteractors() 
         {
-	  std::list<tlp::Interactor *> interactors;
-	  return interactors;
+	  return *_interactors;
 	}
 	
+	//TODO implement
         virtual void setActiveInteractor(tlp::Interactor *interactor) {}
         virtual void createPicture(const std::string &pictureName,int width=0, int height=0) {}
 
@@ -151,10 +155,8 @@ public slots:
 
         void evaluate() {
 			_engine->evaluate(_editor->document()->toPlainText());
-			if(_engine->hasUncaughtException())
-				_label->setText(_engine->uncaughtException().toString());
-			else
-				_label->setText(QString::null);
+			
+			_label->setText(_engine->hasUncaughtException() ? _engine->uncaughtException().toString() : QString::null);
         }
 
         /* tulip view plugin API */
@@ -168,9 +170,8 @@ private:
                 _engine->addQObject(_graph, "graph");
         }
 
-
 	QWidget* _widget;
-        std::list<QAction*>* _interactors;
+        std::list<tlp::Interactor *>* _interactors;
         QGraph* _graph;
         TulipScriptEngine* _engine;
         QLabel* _label;
