@@ -26,22 +26,35 @@ type QIterator::getType()
 
 QObject* QIterator::next()
 {
-	if(_type == node)
-		return (QObject*) new QNode(_nodeIterator->next());
-	else if (_type == edge)
-		return (QObject*) new QEdge(_edgeIterator->next());
-	else if (_type == graph)
-		return (QObject*) new QGraph(_graphIterator->next());
+	switch(_type)
+	{
+	  case node:
+	    return (QObject*) new QNode(_nodeIterator->next());
+	    break;
+	  case edge:
+	    return (QObject*) new QEdge(_edgeIterator->next());
+	  case graph: 
+	    return (QObject*) new QGraph(_graphIterator->next());
+	  default:
+	    //TODO use a proper exception
+	    throw new std::exception();
+	}
 }
 
 bool QIterator::hasNext()
 {
-	if(_type == node)
-		return _nodeIterator->hasNext();
-	else if (_type == edge)
-		return _edgeIterator->hasNext();
-	else if(_type == graph)
-		return _graphIterator->hasNext();
+	switch(_type)
+	{
+	  case node:
+	    return _nodeIterator->hasNext();
+	    break;
+	  case edge:
+	    return _edgeIterator->hasNext();
+	  case graph: 
+	    return _graphIterator->hasNext();
+	  default:
+	    return false;
+	}
 }
 
 QIterator::~QIterator() {
