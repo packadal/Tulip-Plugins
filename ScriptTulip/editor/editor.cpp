@@ -12,7 +12,3 @@ using namespace tlp;
 
 VIEWPLUGIN(Editor, "Script Editor", "Tulip Plugins Team", "11/02/2009",
                 "This is a script editor that allows for interaction with tulip", "1.0")
-void Editor::init() {}
-void Editor::init() {}
-void Editor::init() {}
-void Editor::init() {}

@@ -14,7 +14,7 @@ set(ENGINE_PATH ${CMAKE_SOURCE_DIR}/engine)
 set(EDITOR_PATH ${CMAKE_SOURCE_DIR}/editor)
 set(TRANSLATER_PATH ${CMAKE_SOURCE_DIR}/translater)
 
-set(TULIP_PATH /home/packadal/src/tulip)
+set(TULIP_PATH /home/packadal/tulip)
 set(TULIP /home/packadal/tulip/lib/libtulip-3.4.so 
 	  /home/packadal/tulip/lib/libtulip-qt4-3.4.so 
 	  /home/packadal/tulip/lib/libtulip-ogl-3.4.so 
@@ -26,9 +26,6 @@ set(QTSCRIPTLIBS /home/packadal/src/qtscriptgenerator/plugins/script/libqtscript
 include_directories(${QT_INCLUDES}
 		${ENGINE_PATH}
 		${TRANSLATER_PATH}
-		${TULIP_PATH}/library/tulip/include
-		${TULIP_PATH}/library/tulip-qt/include
-		${TULIP_PATH}/build/library/tulip/include
 		${TULIP_PATH}/include )
 set(TULIP_VERSION 3.4)
 
