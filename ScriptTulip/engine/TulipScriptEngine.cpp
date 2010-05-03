@@ -32,14 +32,13 @@ TulipScriptEngine::TulipScriptEngine()
 
 	QScriptValue v = globalObject();
 
-	qtscript_initialize_com_trolltech_qt_gui_bindings(v);
 	qtscript_initialize_com_trolltech_qt_core_bindings(v);
+	qtscript_initialize_com_trolltech_qt_gui_bindings(v);
 	qtscript_initialize_tulip_script_bindings(v);
-
 
 //	importExtension("tulip.script");
 //	importExtension("qt.gui");
-	if(hasUncaughtException())
+	if(this->hasUncaughtException())
 		std::cout << qPrintable(uncaughtException().toString()) << std::endl;
 
 	QMap<QString, QScriptEngine::FunctionSignature> functions = ScriptFunctions::getInstance()->getFunctions();

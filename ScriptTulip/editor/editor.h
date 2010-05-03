@@ -26,6 +26,13 @@
 class Editor : public tlp::View {
         Q_OBJECT;
 public:
+  
+	Editor()
+	  : _engine(new TulipScriptEngine()), _interactors(new std::list<tlp::Interactor*>())
+	{
+	  
+	}
+	
         /* tulip view plugin API */
         QWidget* construct(QWidget* parent) {
 
@@ -43,9 +50,6 @@ public:
 
                 this->_widget->connect(button, SIGNAL(clicked()), this, SLOT(evaluate()));
 
-                _engine = new TulipScriptEngine();
-
-//                 _interactors = new std::list<tlp::Interactor*>();
 //                 QAction* compile = new QAction("Generate C++", this);
 //                 _interactors->push_back(compile);
 //                 connect (compile, SIGNAL(triggered()), this, SLOT(generate()));
@@ -106,58 +110,58 @@ public:
 
 public slots:
 
-		void generate() {
+	void generate() {
 
-			Translater t(_engine);
-			QString res = t.parse(_editor->document()->toPlainText());
-			QFileDialog dialog;
-						dialog.setDirectory(QDir::homePath());
-						dialog.setAcceptMode(QFileDialog::AcceptSave);
-						dialog.setFileMode(QFileDialog::AnyFile);
-						if (dialog.exec())
-						{
-							QFile file(dialog.selectedFiles().at(0));
-							file.open(QIODevice::WriteOnly);
-							file.write(res.toAscii());
-							file.close();
-						}
+		Translater t(_engine);
+		QString res = t.parse(_editor->document()->toPlainText());
+		QFileDialog dialog;
+					dialog.setDirectory(QDir::homePath());
+					dialog.setAcceptMode(QFileDialog::AcceptSave);
+					dialog.setFileMode(QFileDialog::AnyFile);
+					if (dialog.exec())
+					{
+						QFile file(dialog.selectedFiles().at(0));
+						file.open(QIODevice::WriteOnly);
+						file.write(res.toAscii());
+						file.close();
+					}
+	}
+
+	void saveScript(){
+		QFileDialog dialog;
+		dialog.setDirectory(QDir::homePath());
+		dialog.setAcceptMode(QFileDialog::AcceptSave);
+		dialog.setFileMode(QFileDialog::AnyFile);
+		if (dialog.exec())
+		{
+			QFile file(dialog.selectedFiles().at(0));
+			file.open(QIODevice::WriteOnly);
+			file.write(_editor->document()->toPlainText().toAscii());
+			file.close();
 		}
 
-		void saveScript(){
-			QFileDialog dialog;
-			dialog.setDirectory(QDir::homePath());
-			dialog.setAcceptMode(QFileDialog::AcceptSave);
-			dialog.setFileMode(QFileDialog::AnyFile);
-			if (dialog.exec())
-			{
-				QFile file(dialog.selectedFiles().at(0));
-				file.open(QIODevice::WriteOnly);
-				file.write(_editor->document()->toPlainText().toAscii());
-				file.close();
-			}
+	}
 
+	void loadScript(){
+		QFileDialog dialog;
+		dialog.setDirectory(QDir::homePath());
+		dialog.setAcceptMode(QFileDialog::AcceptOpen);
+		dialog.setFileMode(QFileDialog::ExistingFile);
+		if (dialog.exec())
+		{
+			QFile file(dialog.selectedFiles().at(0));
+			file.open(QIODevice::ReadOnly);
+			_editor->document()->setPlainText(QString(file.readAll()));
+			file.close();
 		}
 
-		void loadScript(){
-			QFileDialog dialog;
-			dialog.setDirectory(QDir::homePath());
-			dialog.setAcceptMode(QFileDialog::AcceptOpen);
-			dialog.setFileMode(QFileDialog::ExistingFile);
-			if (dialog.exec())
-			{
-				QFile file(dialog.selectedFiles().at(0));
-				file.open(QIODevice::ReadOnly);
-				_editor->document()->setPlainText(QString(file.readAll()));
-				file.close();
-			}
+	}
 
-		}
-
-        void evaluate() {
+	void evaluate() {
 			_engine->evaluate(_editor->document()->toPlainText());
 			
 			_label->setText(_engine->hasUncaughtException() ? _engine->uncaughtException().toString() : QString::null);
-        }
+		}
 
         /* tulip view plugin API */
         void draw() {}
