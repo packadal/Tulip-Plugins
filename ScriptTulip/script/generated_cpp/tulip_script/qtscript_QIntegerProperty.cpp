@@ -11,6 +11,10 @@
 #include <QNode.h>
 #include <QProperty.h>
 #include <QVariant>
+#include <qbytearray.h>
+#include <qcoreevent.h>
+#include <qlist.h>
+#include <qobject.h>
 
 #include "qtscriptshell_QIntegerProperty.h"
 
@@ -103,7 +107,7 @@ static QScriptValue qtscript_QIntegerProperty_static_call(QScriptContext *contex
     if (context->argumentCount() == 1) {
         QGraph* _q_arg0 = qscriptvalue_cast<QGraph*>(context->argument(0));
         QtScriptShell_QIntegerProperty* _q_cpp_result = new QtScriptShell_QIntegerProperty(_q_arg0);
-        QScriptValue _q_result = context->engine()->newVariant(context->thisObject(), qVariantFromValue((QIntegerProperty*)_q_cpp_result));
+        QScriptValue _q_result = context->engine()->newQObject(context->thisObject(), (QIntegerProperty*)_q_cpp_result, QScriptEngine::AutoOwnership);
         _q_cpp_result->__qtscript_self = _q_result;
         return _q_result;
     }
@@ -117,13 +121,24 @@ static QScriptValue qtscript_QIntegerProperty_static_call(QScriptContext *contex
         qtscript_QIntegerProperty_function_signatures[_id]);
 }
 
+static QScriptValue qtscript_QIntegerProperty_toScriptValue(QScriptEngine *engine, QIntegerProperty* const &in)
+{
+    return engine->newQObject(in, QScriptEngine::QtOwnership, QScriptEngine::PreferExistingWrapperObject);
+}
+
+static void qtscript_QIntegerProperty_fromScriptValue(const QScriptValue &value, QIntegerProperty* &out)
+{
+    out = qobject_cast<QIntegerProperty*>(value.toQObject());
+}
+
 QScriptValue qtscript_create_QIntegerProperty_class(QScriptEngine *engine)
 {
     engine->setDefaultPrototype(qMetaTypeId<QIntegerProperty*>(), QScriptValue());
     QScriptValue proto = engine->newVariant(qVariantFromValue((QIntegerProperty*)0));
     proto.setPrototype(engine->defaultPrototype(qMetaTypeId<QProperty*>()));
 
-    engine->setDefaultPrototype(qMetaTypeId<QIntegerProperty*>(), proto);
+    qScriptRegisterMetaType<QIntegerProperty*>(engine, qtscript_QIntegerProperty_toScriptValue, 
+        qtscript_QIntegerProperty_fromScriptValue, proto);
 
     QScriptValue ctor = engine->newFunction(qtscript_QIntegerProperty_static_call, proto, qtscript_QIntegerProperty_function_lengths[0]);
     ctor.setData(QScriptValue(engine, uint(0xBABE0000 + 0)));

@@ -22,9 +22,4 @@ QScriptValue CONCAT(type, Factory)(QScriptContext *, QScriptEngine *engine) { \
     return engine->newQObject(object, QScriptEngine::QtOwnership); \
 }
 
-#define EXPORT_TYPE_TO_SCRIPT(type) qScriptRegisterMetaType(this, CONCAT(type, ToScriptValue), CONCAT(type, FromScriptValue)); \
-QScriptValue CONCAT(type, Ctor) = newFunction(CONCAT(type, Factory)); \
-QScriptValue CONCAT(type, MetaObject) = newQMetaObject(&QObject::staticMetaObject, CONCAT(type, Ctor)); \
-globalObject().setProperty(#type, CONCAT(type, MetaObject))
-
 #endif /* SCRIPTMACROS_H_ */

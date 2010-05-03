@@ -12,6 +12,10 @@
 #include <QProperty.h>
 #include <QSize3D.h>
 #include <QVariant>
+#include <qbytearray.h>
+#include <qcoreevent.h>
+#include <qlist.h>
+#include <qobject.h>
 
 #include "qtscriptshell_QSizeProperty.h"
 
@@ -104,7 +108,7 @@ static QScriptValue qtscript_QSizeProperty_static_call(QScriptContext *context, 
     if (context->argumentCount() == 1) {
         QGraph* _q_arg0 = qscriptvalue_cast<QGraph*>(context->argument(0));
         QtScriptShell_QSizeProperty* _q_cpp_result = new QtScriptShell_QSizeProperty(_q_arg0);
-        QScriptValue _q_result = context->engine()->newVariant(context->thisObject(), qVariantFromValue((QSizeProperty*)_q_cpp_result));
+        QScriptValue _q_result = context->engine()->newQObject(context->thisObject(), (QSizeProperty*)_q_cpp_result, QScriptEngine::AutoOwnership);
         _q_cpp_result->__qtscript_self = _q_result;
         return _q_result;
     }
@@ -118,13 +122,24 @@ static QScriptValue qtscript_QSizeProperty_static_call(QScriptContext *context, 
         qtscript_QSizeProperty_function_signatures[_id]);
 }
 
+static QScriptValue qtscript_QSizeProperty_toScriptValue(QScriptEngine *engine, QSizeProperty* const &in)
+{
+    return engine->newQObject(in, QScriptEngine::QtOwnership, QScriptEngine::PreferExistingWrapperObject);
+}
+
+static void qtscript_QSizeProperty_fromScriptValue(const QScriptValue &value, QSizeProperty* &out)
+{
+    out = qobject_cast<QSizeProperty*>(value.toQObject());
+}
+
 QScriptValue qtscript_create_QSizeProperty_class(QScriptEngine *engine)
 {
     engine->setDefaultPrototype(qMetaTypeId<QSizeProperty*>(), QScriptValue());
     QScriptValue proto = engine->newVariant(qVariantFromValue((QSizeProperty*)0));
     proto.setPrototype(engine->defaultPrototype(qMetaTypeId<QProperty*>()));
 
-    engine->setDefaultPrototype(qMetaTypeId<QSizeProperty*>(), proto);
+    qScriptRegisterMetaType<QSizeProperty*>(engine, qtscript_QSizeProperty_toScriptValue, 
+        qtscript_QSizeProperty_fromScriptValue, proto);
 
     QScriptValue ctor = engine->newFunction(qtscript_QSizeProperty_static_call, proto, qtscript_QSizeProperty_function_lengths[0]);
     ctor.setData(QScriptValue(engine, uint(0xBABE0000 + 0)));

@@ -8,6 +8,10 @@
 #include <QNode.h>
 #include <QNode.h>
 #include <QVariant>
+#include <qbytearray.h>
+#include <qcoreevent.h>
+#include <qlist.h>
+#include <qobject.h>
 
 #include "qtscriptshell_QNode.h"
 
@@ -97,7 +101,7 @@ static QScriptValue qtscript_QNode_static_call(QScriptContext *context, QScriptE
     }
     if (context->argumentCount() == 0) {
         QtScriptShell_QNode* _q_cpp_result = new QtScriptShell_QNode();
-        QScriptValue _q_result = context->engine()->newVariant(context->thisObject(), qVariantFromValue((QNode*)_q_cpp_result));
+        QScriptValue _q_result = context->engine()->newQObject(context->thisObject(), (QNode*)_q_cpp_result, QScriptEngine::AutoOwnership);
         _q_cpp_result->__qtscript_self = _q_result;
         return _q_result;
     }
@@ -111,12 +115,24 @@ static QScriptValue qtscript_QNode_static_call(QScriptContext *context, QScriptE
         qtscript_QNode_function_signatures[_id]);
 }
 
+static QScriptValue qtscript_QNode_toScriptValue(QScriptEngine *engine, QNode* const &in)
+{
+    return engine->newQObject(in, QScriptEngine::QtOwnership, QScriptEngine::PreferExistingWrapperObject);
+}
+
+static void qtscript_QNode_fromScriptValue(const QScriptValue &value, QNode* &out)
+{
+    out = qobject_cast<QNode*>(value.toQObject());
+}
+
 QScriptValue qtscript_create_QNode_class(QScriptEngine *engine)
 {
     engine->setDefaultPrototype(qMetaTypeId<QNode*>(), QScriptValue());
     QScriptValue proto = engine->newVariant(qVariantFromValue((QNode*)0));
+    proto.setPrototype(engine->defaultPrototype(qMetaTypeId<QObject*>()));
 
-    engine->setDefaultPrototype(qMetaTypeId<QNode*>(), proto);
+    qScriptRegisterMetaType<QNode*>(engine, qtscript_QNode_toScriptValue, 
+        qtscript_QNode_fromScriptValue, proto);
 
     QScriptValue ctor = engine->newFunction(qtscript_QNode_static_call, proto, qtscript_QNode_function_lengths[0]);
     ctor.setData(QScriptValue(engine, uint(0xBABE0000 + 0)));

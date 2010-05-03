@@ -7,6 +7,12 @@
 
 #include <QSize3D.h>
 #include <QVariant>
+#include <qbytearray.h>
+#include <qcoreevent.h>
+#include <qlist.h>
+#include <qobject.h>
+
+#include "qtscriptshell_QSize3D.h"
 
 static const char * const qtscript_QSize3D_function_names[] = {
     "QSize3D"
@@ -41,6 +47,7 @@ static QScriptValue qtscript_QSize3D_throw_ambiguity_error_helper(
 }
 
 Q_DECLARE_METATYPE(QSize3D*)
+Q_DECLARE_METATYPE(QtScriptShell_QSize3D*)
 
 //
 // QSize3D
@@ -92,15 +99,17 @@ static QScriptValue qtscript_QSize3D_static_call(QScriptContext *context, QScrip
         return context->throwError(QString::fromLatin1("QSize3D(): Did you forget to construct with 'new'?"));
     }
     if (context->argumentCount() == 0) {
-        QSize3D* _q_cpp_result = new QSize3D();
-        QScriptValue _q_result = context->engine()->newVariant(context->thisObject(), qVariantFromValue(_q_cpp_result));
+        QtScriptShell_QSize3D* _q_cpp_result = new QtScriptShell_QSize3D();
+        QScriptValue _q_result = context->engine()->newQObject(context->thisObject(), (QSize3D*)_q_cpp_result, QScriptEngine::AutoOwnership);
+        _q_cpp_result->__qtscript_self = _q_result;
         return _q_result;
     } else if (context->argumentCount() == 3) {
         float _q_arg0 = qscriptvalue_cast<float>(context->argument(0));
         float _q_arg1 = qscriptvalue_cast<float>(context->argument(1));
         float _q_arg2 = qscriptvalue_cast<float>(context->argument(2));
-        QSize3D* _q_cpp_result = new QSize3D(_q_arg0, _q_arg1, _q_arg2);
-        QScriptValue _q_result = context->engine()->newVariant(context->thisObject(), qVariantFromValue(_q_cpp_result));
+        QtScriptShell_QSize3D* _q_cpp_result = new QtScriptShell_QSize3D(_q_arg0, _q_arg1, _q_arg2);
+        QScriptValue _q_result = context->engine()->newQObject(context->thisObject(), (QSize3D*)_q_cpp_result, QScriptEngine::AutoOwnership);
+        _q_cpp_result->__qtscript_self = _q_result;
         return _q_result;
     }
     break;
@@ -113,12 +122,24 @@ static QScriptValue qtscript_QSize3D_static_call(QScriptContext *context, QScrip
         qtscript_QSize3D_function_signatures[_id]);
 }
 
+static QScriptValue qtscript_QSize3D_toScriptValue(QScriptEngine *engine, QSize3D* const &in)
+{
+    return engine->newQObject(in, QScriptEngine::QtOwnership, QScriptEngine::PreferExistingWrapperObject);
+}
+
+static void qtscript_QSize3D_fromScriptValue(const QScriptValue &value, QSize3D* &out)
+{
+    out = qobject_cast<QSize3D*>(value.toQObject());
+}
+
 QScriptValue qtscript_create_QSize3D_class(QScriptEngine *engine)
 {
     engine->setDefaultPrototype(qMetaTypeId<QSize3D*>(), QScriptValue());
     QScriptValue proto = engine->newVariant(qVariantFromValue((QSize3D*)0));
+    proto.setPrototype(engine->defaultPrototype(qMetaTypeId<QObject*>()));
 
-    engine->setDefaultPrototype(qMetaTypeId<QSize3D*>(), proto);
+    qScriptRegisterMetaType<QSize3D*>(engine, qtscript_QSize3D_toScriptValue, 
+        qtscript_QSize3D_fromScriptValue, proto);
 
     QScriptValue ctor = engine->newFunction(qtscript_QSize3D_static_call, proto, qtscript_QSize3D_function_lengths[0]);
     ctor.setData(QScriptValue(engine, uint(0xBABE0000 + 0)));

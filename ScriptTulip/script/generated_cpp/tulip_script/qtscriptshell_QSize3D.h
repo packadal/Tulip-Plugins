@@ -1,15 +1,16 @@
-#ifndef QTSCRIPTSHELL_QDOUBLEPROPERTY_H
-#define QTSCRIPTSHELL_QDOUBLEPROPERTY_H
+#ifndef QTSCRIPTSHELL_QSIZE3D_H
+#define QTSCRIPTSHELL_QSIZE3D_H
 
-#include <QDoubleProperty.h>
+#include <QSize3D.h>
 
 #include <QtScript/qscriptvalue.h>
 
-class QtScriptShell_QDoubleProperty : public QDoubleProperty
+class QtScriptShell_QSize3D : public QSize3D
 {
 public:
-    QtScriptShell_QDoubleProperty(const QGraph*  g);
-    ~QtScriptShell_QDoubleProperty();
+    QtScriptShell_QSize3D();
+    QtScriptShell_QSize3D(float  w, float  h, float  d);
+    ~QtScriptShell_QSize3D();
 
     void childEvent(QChildEvent*  arg__1);
     void customEvent(QEvent*  arg__1);
@@ -20,4 +21,4 @@ public:
     QScriptValue __qtscript_self;
 };
 
-#endif // QTSCRIPTSHELL_QDOUBLEPROPERTY_H
+#endif // QTSCRIPTSHELL_QSIZE3D_H

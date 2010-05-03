@@ -6,7 +6,12 @@
 #include <qmetaobject.h>
 
 #include <QEdge.h>
+#include <QEdge.h>
 #include <QVariant>
+#include <qbytearray.h>
+#include <qcoreevent.h>
+#include <qlist.h>
+#include <qobject.h>
 
 #include "qtscriptshell_QEdge.h"
 
@@ -96,7 +101,7 @@ static QScriptValue qtscript_QEdge_static_call(QScriptContext *context, QScriptE
     }
     if (context->argumentCount() == 0) {
         QtScriptShell_QEdge* _q_cpp_result = new QtScriptShell_QEdge();
-        QScriptValue _q_result = context->engine()->newVariant(context->thisObject(), qVariantFromValue((QEdge*)_q_cpp_result));
+        QScriptValue _q_result = context->engine()->newQObject(context->thisObject(), (QEdge*)_q_cpp_result, QScriptEngine::AutoOwnership);
         _q_cpp_result->__qtscript_self = _q_result;
         return _q_result;
     }
@@ -110,12 +115,24 @@ static QScriptValue qtscript_QEdge_static_call(QScriptContext *context, QScriptE
         qtscript_QEdge_function_signatures[_id]);
 }
 
+static QScriptValue qtscript_QEdge_toScriptValue(QScriptEngine *engine, QEdge* const &in)
+{
+    return engine->newQObject(in, QScriptEngine::QtOwnership, QScriptEngine::PreferExistingWrapperObject);
+}
+
+static void qtscript_QEdge_fromScriptValue(const QScriptValue &value, QEdge* &out)
+{
+    out = qobject_cast<QEdge*>(value.toQObject());
+}
+
 QScriptValue qtscript_create_QEdge_class(QScriptEngine *engine)
 {
     engine->setDefaultPrototype(qMetaTypeId<QEdge*>(), QScriptValue());
     QScriptValue proto = engine->newVariant(qVariantFromValue((QEdge*)0));
+    proto.setPrototype(engine->defaultPrototype(qMetaTypeId<QObject*>()));
 
-    engine->setDefaultPrototype(qMetaTypeId<QEdge*>(), proto);
+    qScriptRegisterMetaType<QEdge*>(engine, qtscript_QEdge_toScriptValue, 
+        qtscript_QEdge_fromScriptValue, proto);
 
     QScriptValue ctor = engine->newFunction(qtscript_QEdge_static_call, proto, qtscript_QEdge_function_lengths[0]);
     ctor.setData(QScriptValue(engine, uint(0xBABE0000 + 0)));

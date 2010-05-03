@@ -13,7 +13,11 @@ public:
 
     bool  canPop();
     bool  canUnpop();
+    void childEvent(QChildEvent*  arg__1);
+    void customEvent(QEvent*  arg__1);
     unsigned int  deg(const QNode*  arg__1) const;
+    bool  event(QEvent*  arg__1);
+    bool  eventFilter(QObject*  arg__1, QEvent*  arg__2);
     QEdge*  existEdge(const QNode*  arg__1, const QNode*  arg__2) const;
     QIterator*  getEdges() const;
     QIterator*  getInEdges(const QNode*  arg__1) const;
@@ -40,6 +44,7 @@ public:
     void push();
     QNode*  source(const QEdge*  arg__1) const;
     QNode*  target(const QEdge*  arg__1) const;
+    void timerEvent(QTimerEvent*  arg__1);
     void unpop();
 
     QScriptValue __qtscript_self;

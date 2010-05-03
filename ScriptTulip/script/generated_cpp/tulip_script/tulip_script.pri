@@ -9,6 +9,7 @@ HEADERS += \
            $$PWD/qtscriptshell_QIterator.h \
            $$PWD/qtscriptshell_QNode.h \
            $$PWD/qtscriptshell_QProperty.h \
+           $$PWD/qtscriptshell_QSize3D.h \
            $$PWD/qtscriptshell_QSizeProperty.h \
            $$PWD/qtscriptshell_QStringProperty.h \
 
@@ -36,6 +37,7 @@ SOURCES += \
            $$PWD/qtscriptshell_QIterator.cpp \
            $$PWD/qtscriptshell_QNode.cpp \
            $$PWD/qtscriptshell_QProperty.cpp \
+           $$PWD/qtscriptshell_QSize3D.cpp \
            $$PWD/qtscriptshell_QSizeProperty.cpp \
            $$PWD/qtscriptshell_QStringProperty.cpp \
            $$PWD/tulip_script_init.cpp

@@ -89,7 +89,7 @@ public slots:
 	static void delimiter() { }
 
 	void clear();
-	QGraph* addSubGraph(tlp::BooleanProperty* selection=0);
+	QGraph* addSubGraph(QBooleanProperty* selection=0);
 
 	void delSubGraph(const QGraph *);
 	void delAllSubGraphs(const QGraph *);

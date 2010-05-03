@@ -11,6 +11,10 @@
 #include <QNode.h>
 #include <QProperty.h>
 #include <QVariant>
+#include <qbytearray.h>
+#include <qcoreevent.h>
+#include <qlist.h>
+#include <qobject.h>
 
 #include "qtscriptshell_QStringProperty.h"
 
@@ -103,7 +107,7 @@ static QScriptValue qtscript_QStringProperty_static_call(QScriptContext *context
     if (context->argumentCount() == 1) {
         QGraph* _q_arg0 = qscriptvalue_cast<QGraph*>(context->argument(0));
         QtScriptShell_QStringProperty* _q_cpp_result = new QtScriptShell_QStringProperty(_q_arg0);
-        QScriptValue _q_result = context->engine()->newVariant(context->thisObject(), qVariantFromValue((QStringProperty*)_q_cpp_result));
+        QScriptValue _q_result = context->engine()->newQObject(context->thisObject(), (QStringProperty*)_q_cpp_result, QScriptEngine::AutoOwnership);
         _q_cpp_result->__qtscript_self = _q_result;
         return _q_result;
     }
@@ -117,13 +121,24 @@ static QScriptValue qtscript_QStringProperty_static_call(QScriptContext *context
         qtscript_QStringProperty_function_signatures[_id]);
 }
 
+static QScriptValue qtscript_QStringProperty_toScriptValue(QScriptEngine *engine, QStringProperty* const &in)
+{
+    return engine->newQObject(in, QScriptEngine::QtOwnership, QScriptEngine::PreferExistingWrapperObject);
+}
+
+static void qtscript_QStringProperty_fromScriptValue(const QScriptValue &value, QStringProperty* &out)
+{
+    out = qobject_cast<QStringProperty*>(value.toQObject());
+}
+
 QScriptValue qtscript_create_QStringProperty_class(QScriptEngine *engine)
 {
     engine->setDefaultPrototype(qMetaTypeId<QStringProperty*>(), QScriptValue());
     QScriptValue proto = engine->newVariant(qVariantFromValue((QStringProperty*)0));
     proto.setPrototype(engine->defaultPrototype(qMetaTypeId<QProperty*>()));
 
-    engine->setDefaultPrototype(qMetaTypeId<QStringProperty*>(), proto);
+    qScriptRegisterMetaType<QStringProperty*>(engine, qtscript_QStringProperty_toScriptValue, 
+        qtscript_QStringProperty_fromScriptValue, proto);
 
     QScriptValue ctor = engine->newFunction(qtscript_QStringProperty_static_call, proto, qtscript_QStringProperty_function_lengths[0]);
     ctor.setData(QScriptValue(engine, uint(0xBABE0000 + 0)));

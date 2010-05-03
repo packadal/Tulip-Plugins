@@ -36,6 +36,7 @@ set (SCRIPT_SOURCES
 	script/generated_cpp/tulip_script/qtscriptshell_QIntegerProperty.cpp 
 	script/generated_cpp/tulip_script/qtscriptshell_QIterator.cpp 
 	script/generated_cpp/tulip_script/qtscriptshell_QNode.cpp 
+	script/generated_cpp/tulip_script/qtscriptshell_QSize3D.cpp
 	script/generated_cpp/tulip_script/qtscriptshell_QProperty.cpp 
 	script/generated_cpp/tulip_script/qtscriptshell_QSizeProperty.cpp 
 	script/generated_cpp/tulip_script/qtscriptshell_QStringProperty.cpp 

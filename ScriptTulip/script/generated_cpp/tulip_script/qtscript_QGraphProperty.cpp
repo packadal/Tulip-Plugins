@@ -11,6 +11,10 @@
 #include <QNode.h>
 #include <QProperty.h>
 #include <QVariant>
+#include <qbytearray.h>
+#include <qcoreevent.h>
+#include <qlist.h>
+#include <qobject.h>
 
 #include "qtscriptshell_QGraphProperty.h"
 
@@ -103,7 +107,7 @@ static QScriptValue qtscript_QGraphProperty_static_call(QScriptContext *context,
     if (context->argumentCount() == 1) {
         QGraph* _q_arg0 = qscriptvalue_cast<QGraph*>(context->argument(0));
         QtScriptShell_QGraphProperty* _q_cpp_result = new QtScriptShell_QGraphProperty(_q_arg0);
-        QScriptValue _q_result = context->engine()->newVariant(context->thisObject(), qVariantFromValue((QGraphProperty*)_q_cpp_result));
+        QScriptValue _q_result = context->engine()->newQObject(context->thisObject(), (QGraphProperty*)_q_cpp_result, QScriptEngine::AutoOwnership);
         _q_cpp_result->__qtscript_self = _q_result;
         return _q_result;
     }
@@ -117,13 +121,24 @@ static QScriptValue qtscript_QGraphProperty_static_call(QScriptContext *context,
         qtscript_QGraphProperty_function_signatures[_id]);
 }
 
+static QScriptValue qtscript_QGraphProperty_toScriptValue(QScriptEngine *engine, QGraphProperty* const &in)
+{
+    return engine->newQObject(in, QScriptEngine::QtOwnership, QScriptEngine::PreferExistingWrapperObject);
+}
+
+static void qtscript_QGraphProperty_fromScriptValue(const QScriptValue &value, QGraphProperty* &out)
+{
+    out = qobject_cast<QGraphProperty*>(value.toQObject());
+}
+
 QScriptValue qtscript_create_QGraphProperty_class(QScriptEngine *engine)
 {
     engine->setDefaultPrototype(qMetaTypeId<QGraphProperty*>(), QScriptValue());
     QScriptValue proto = engine->newVariant(qVariantFromValue((QGraphProperty*)0));
     proto.setPrototype(engine->defaultPrototype(qMetaTypeId<QProperty*>()));
 
-    engine->setDefaultPrototype(qMetaTypeId<QGraphProperty*>(), proto);
+    qScriptRegisterMetaType<QGraphProperty*>(engine, qtscript_QGraphProperty_toScriptValue, 
+        qtscript_QGraphProperty_fromScriptValue, proto);
 
     QScriptValue ctor = engine->newFunction(qtscript_QGraphProperty_static_call, proto, qtscript_QGraphProperty_function_lengths[0]);
     ctor.setData(QScriptValue(engine, uint(0xBABE0000 + 0)));

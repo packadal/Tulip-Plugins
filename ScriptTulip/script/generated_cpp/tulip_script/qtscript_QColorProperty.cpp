@@ -11,6 +11,10 @@
 #include <QNode.h>
 #include <QProperty.h>
 #include <QVariant>
+#include <qbytearray.h>
+#include <qcoreevent.h>
+#include <qlist.h>
+#include <qobject.h>
 
 #include "qtscriptshell_QColorProperty.h"
 
@@ -103,7 +107,7 @@ static QScriptValue qtscript_QColorProperty_static_call(QScriptContext *context,
     if (context->argumentCount() == 1) {
         QGraph* _q_arg0 = qscriptvalue_cast<QGraph*>(context->argument(0));
         QtScriptShell_QColorProperty* _q_cpp_result = new QtScriptShell_QColorProperty(_q_arg0);
-        QScriptValue _q_result = context->engine()->newVariant(context->thisObject(), qVariantFromValue((QColorProperty*)_q_cpp_result));
+        QScriptValue _q_result = context->engine()->newQObject(context->thisObject(), (QColorProperty*)_q_cpp_result, QScriptEngine::AutoOwnership);
         _q_cpp_result->__qtscript_self = _q_result;
         return _q_result;
     }
@@ -117,13 +121,24 @@ static QScriptValue qtscript_QColorProperty_static_call(QScriptContext *context,
         qtscript_QColorProperty_function_signatures[_id]);
 }
 
+static QScriptValue qtscript_QColorProperty_toScriptValue(QScriptEngine *engine, QColorProperty* const &in)
+{
+    return engine->newQObject(in, QScriptEngine::QtOwnership, QScriptEngine::PreferExistingWrapperObject);
+}
+
+static void qtscript_QColorProperty_fromScriptValue(const QScriptValue &value, QColorProperty* &out)
+{
+    out = qobject_cast<QColorProperty*>(value.toQObject());
+}
+
 QScriptValue qtscript_create_QColorProperty_class(QScriptEngine *engine)
 {
     engine->setDefaultPrototype(qMetaTypeId<QColorProperty*>(), QScriptValue());
     QScriptValue proto = engine->newVariant(qVariantFromValue((QColorProperty*)0));
     proto.setPrototype(engine->defaultPrototype(qMetaTypeId<QProperty*>()));
 
-    engine->setDefaultPrototype(qMetaTypeId<QColorProperty*>(), proto);
+    qScriptRegisterMetaType<QColorProperty*>(engine, qtscript_QColorProperty_toScriptValue, 
+        qtscript_QColorProperty_fromScriptValue, proto);
 
     QScriptValue ctor = engine->newFunction(qtscript_QColorProperty_static_call, proto, qtscript_QColorProperty_function_lengths[0]);
     ctor.setData(QScriptValue(engine, uint(0xBABE0000 + 0)));

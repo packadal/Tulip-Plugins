@@ -190,9 +190,9 @@ void QGraph::clear()
 	_graph->clear();
 }
 
-QGraph* QGraph::addSubGraph(tlp::BooleanProperty *selection)
+QGraph* QGraph::addSubGraph(QBooleanProperty *selection)
 {
-	return new QGraph(_graph->addSubGraph(selection));
+	return new QGraph(_graph->addSubGraph(selection->asProperty()));
 }
 
 QIterator* QGraph::getSubGraphs() const

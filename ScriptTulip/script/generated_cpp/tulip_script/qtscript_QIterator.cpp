@@ -7,6 +7,10 @@
 
 #include <QIterator.h>
 #include <QVariant>
+#include <qbytearray.h>
+#include <qcoreevent.h>
+#include <qlist.h>
+#include <qobject.h>
 
 #include "qtscriptshell_QIterator.h"
 
@@ -103,12 +107,24 @@ static QScriptValue qtscript_QIterator_static_call(QScriptContext *context, QScr
         qtscript_QIterator_function_signatures[_id]);
 }
 
+static QScriptValue qtscript_QIterator_toScriptValue(QScriptEngine *engine, QIterator* const &in)
+{
+    return engine->newQObject(in, QScriptEngine::QtOwnership, QScriptEngine::PreferExistingWrapperObject);
+}
+
+static void qtscript_QIterator_fromScriptValue(const QScriptValue &value, QIterator* &out)
+{
+    out = qobject_cast<QIterator*>(value.toQObject());
+}
+
 QScriptValue qtscript_create_QIterator_class(QScriptEngine *engine)
 {
     engine->setDefaultPrototype(qMetaTypeId<QIterator*>(), QScriptValue());
     QScriptValue proto = engine->newVariant(qVariantFromValue((QIterator*)0));
+    proto.setPrototype(engine->defaultPrototype(qMetaTypeId<QObject*>()));
 
-    engine->setDefaultPrototype(qMetaTypeId<QIterator*>(), proto);
+    qScriptRegisterMetaType<QIterator*>(engine, qtscript_QIterator_toScriptValue, 
+        qtscript_QIterator_fromScriptValue, proto);
 
     QScriptValue ctor = engine->newFunction(qtscript_QIterator_static_call, proto, qtscript_QIterator_function_lengths[0]);
     ctor.setData(QScriptValue(engine, uint(0xBABE0000 + 0)));
