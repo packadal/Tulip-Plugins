@@ -66,7 +66,6 @@ tlp::Size QSize3D::asSize3D() const {
 	return tlp::Size(_width, _height, _depth);
 }
 
-/*
-tlp::Size QSize3D::asCoord() const {
+tlp::Coord QSize3D::asCoord() const {
 	return tlp::Coord(_width, _height, _depth);
-}*/
+}

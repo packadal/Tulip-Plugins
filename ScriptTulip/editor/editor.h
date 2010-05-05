@@ -22,49 +22,59 @@
 #include "Translater.h"
 
 #include <tulip/View.h>
+#include "ScriptInteractor.h"
+
+#include "profiler.h"
 
 class Editor : public tlp::View {
         Q_OBJECT;
 public:
   
 	Editor()
-	  : _engine(new TulipScriptEngine()), _interactors(new std::list<tlp::Interactor*>())
+	  : _engine(new TulipScriptEngine()), _interactors(new std::list<tlp::Interactor*>()){
+	}
+	
+	~Editor()
 	{
-	  
 	}
 	
         /* tulip view plugin API */
         QWidget* construct(QWidget* parent) {
 
                 this->_widget = new QWidget(parent);
+		this->_widget->setMinimumSize(QSize(500, 300));
                 _editor = new ScriptEdit();
-                QPushButton* button = new QPushButton("Evaluate");
+                _button = new QPushButton("Evaluate");
                 _label = new QLabel();
                 QVBoxLayout* layout = new QVBoxLayout();
 
                 layout->addWidget(_editor);
                 layout->addWidget(_label);
-                layout->addWidget(button);
+                layout->addWidget(_button);
 
                 this->_widget->setLayout(layout);
 
-                this->_widget->connect(button, SIGNAL(clicked()), this, SLOT(evaluate()));
+		this->_widget->connect(_editor, SIGNAL(textChanged()), this, SLOT(checkEvaluationPossible()));
+                this->_widget->connect(_button, SIGNAL(clicked()), this, SLOT(evaluate()));
+// 		
+		ScriptInteractor* interactor = new ScriptInteractor("Generate C++");
+		this->_interactors->push_back(interactor);
+		connect (interactor->getAction(), SIGNAL(triggered()), this, SLOT(generate()));
+		
+		interactor = new ScriptInteractor("Save Script");
+		this->_interactors->push_back(interactor);
+		connect (interactor->getAction(), SIGNAL(triggered()), this, SLOT(saveScript()));
+		
+		interactor = new ScriptInteractor("Load Script");
+		this->_interactors->push_back(interactor);
+		connect (interactor->getAction(), SIGNAL(triggered()), this, SLOT(loadScript()));
 
-//                 QAction* compile = new QAction("Generate C++", this);
-//                 _interactors->push_back(compile);
-//                 connect (compile, SIGNAL(triggered()), this, SLOT(generate()));
-
-//                 QAction* save = new QAction("Save Script", this);
-// 				_interactors->push_back(save);
-// 				connect (save, SIGNAL(triggered()), this, SLOT(saveScript()));
-
-//                 QAction* load = new QAction("Load Script", this);
-// 				_interactors->push_back(load);
-// 				connect (load, SIGNAL(triggered()), this, SLOT(loadScript()));
-
-                QShortcut *evaluateMe = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Return), this->_widget);
-                QObject::connect(evaluateMe, SIGNAL(activated()), this, SLOT(evaluate()));
-
+		QShortcut *undo = new QShortcut(QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_Z), this->_widget);
+                QObject::connect(undo, SIGNAL(activated()), this, SLOT(undo()));
+		
+		QShortcut *evaluateMe = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Return), this->_widget);
+		QObject::connect(evaluateMe, SIGNAL(activated()), this, SLOT(evaluate())); 
+	  
                 return this->_widget;
         }
 
@@ -83,7 +93,7 @@ public:
 
         tlp::Graph *getGraph() 
         {
-	  return _graph->asGraph();
+	  return _engine->getGraph()->asGraph();
 	}
 
         /* tulip view plugin API */
@@ -111,20 +121,19 @@ public:
 public slots:
 
 	void generate() {
-
 		Translater t(_engine);
 		QString res = t.parse(_editor->document()->toPlainText());
 		QFileDialog dialog;
-					dialog.setDirectory(QDir::homePath());
-					dialog.setAcceptMode(QFileDialog::AcceptSave);
-					dialog.setFileMode(QFileDialog::AnyFile);
-					if (dialog.exec())
-					{
-						QFile file(dialog.selectedFiles().at(0));
-						file.open(QIODevice::WriteOnly);
-						file.write(res.toAscii());
-						file.close();
-					}
+		dialog.setDirectory(QDir::homePath());
+		dialog.setAcceptMode(QFileDialog::AcceptSave);
+		dialog.setFileMode(QFileDialog::AnyFile);
+		if (dialog.exec())
+		{
+			QFile file(dialog.selectedFiles().at(0));
+			file.open(QIODevice::WriteOnly);
+			file.write(res.toAscii());
+			file.close();
+		}
 	}
 
 	void saveScript(){
@@ -158,20 +167,47 @@ public slots:
 	}
 
 	void evaluate() {
-			_engine->evaluate(_editor->document()->toPlainText());
-			
-			_label->setText(_engine->hasUncaughtException() ? _engine->uncaughtException().toString() : QString::null);
+	  if(this->_engine->canEvaluate(_editor->document()->toPlainText()))
+	  {
+		long totalTime = getTimeOfDay();
+		_engine->evaluate(_editor->document()->toPlainText());
+		totalTime = getTimeOfDay() - totalTime;
+		std::cout << "totalTime: " << totalTime << std::endl; 
+		
+		_label->setText(_engine->hasUncaughtException() ? _engine->uncaughtException().toString() : QString::null);
+		QString backtrace = QString();
+		foreach(const QString element, _engine->uncaughtExceptionBacktrace()) {
+		  backtrace += element + "\n";
 		}
+		_label->setToolTip(backtrace);
+	  }
+	}
+
+	void undo() {
+	  if(_graph->canPop())
+	  {
+	    _graph->pop();
+	  }
+	}
+
+	void checkEvaluationPossible() {
+// 	  std::cout << "checking if possible (" << this->_engine->canEvaluate(_editor->document()->toPlainText()) << ")" << std::endl; 
+	  bool canEvaluate = this->_engine->canEvaluate(_editor->document()->toPlainText());
+	  
+	  this->_button->setEnabled(canEvaluate);
+	}
 
         /* tulip view plugin API */
         void draw() {}
         void refresh() {}
         void init() {}
-        void setGraph(tlp::Graph *graph) {modifyGraph(graph);}
+        void setGraph(tlp::Graph *graph) {
+	  modifyGraph(graph);
+	}
 private:
         void modifyGraph(tlp::Graph *graph) {
-                _graph = new QGraph(graph);
-                _engine->addQObject(_graph, "graph");
+		_engine->setGraph(graph);
+		_graph = _engine->getGraph();
         }
 
 	QWidget* _widget;
@@ -180,6 +216,7 @@ private:
         TulipScriptEngine* _engine;
         QLabel* _label;
         ScriptEdit* _editor;
+	QPushButton* _button;
 };
 
 #endif /* EDITOR_H_ */

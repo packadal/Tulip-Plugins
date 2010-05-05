@@ -8,7 +8,7 @@
 #include "../engine/QBooleanProperty.h"
 #include "../engine/QDoubleProperty.h"
 #include "../engine/QGraphProperty.h"
-//#include "../engine/QLayoutProperty.h"
+#include "../engine/QLayoutProperty.h"
 #include "../engine/QSizeProperty.h"
 #include "../engine/QStringProperty.h"
 #include "../engine/QIntegerProperty.h"

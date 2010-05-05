@@ -7,6 +7,7 @@ HEADERS += \
            $$PWD/qtscriptshell_QGraphProperty.h \
            $$PWD/qtscriptshell_QIntegerProperty.h \
            $$PWD/qtscriptshell_QIterator.h \
+           $$PWD/qtscriptshell_QLayoutProperty.h \
            $$PWD/qtscriptshell_QNode.h \
            $$PWD/qtscriptshell_QProperty.h \
            $$PWD/qtscriptshell_QSize3D.h \
@@ -22,6 +23,7 @@ SOURCES += \
            $$PWD/qtscript_QGraphProperty.cpp \
            $$PWD/qtscript_QIntegerProperty.cpp \
            $$PWD/qtscript_QIterator.cpp \
+           $$PWD/qtscript_QLayoutProperty.cpp \
            $$PWD/qtscript_QNode.cpp \
            $$PWD/qtscript_QProperty.cpp \
            $$PWD/qtscript_QSize3D.cpp \
@@ -35,6 +37,7 @@ SOURCES += \
            $$PWD/qtscriptshell_QGraphProperty.cpp \
            $$PWD/qtscriptshell_QIntegerProperty.cpp \
            $$PWD/qtscriptshell_QIterator.cpp \
+           $$PWD/qtscriptshell_QLayoutProperty.cpp \
            $$PWD/qtscriptshell_QNode.cpp \
            $$PWD/qtscriptshell_QProperty.cpp \
            $$PWD/qtscriptshell_QSize3D.cpp \

@@ -7,11 +7,12 @@
 #include "QGraph.h"
 #include "QEdge.h"
 #include "TulipScriptEngine.h"
+#include <QApplication>
 
 using namespace std;
 using namespace tlp;
 
-CPPUNIT_TEST_SUITE_REGISTRATION(AddEdgeTest);
+// CPPUNIT_TEST_SUITE_REGISTRATION(AddEdgeTest);
 
 void AddEdgeTest::setUp()
 {

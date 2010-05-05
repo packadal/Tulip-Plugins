@@ -8,6 +8,7 @@
 class QtScriptShell_QProperty : public QProperty
 {
 public:
+    QtScriptShell_QProperty();
     ~QtScriptShell_QProperty();
 
     void childEvent(QChildEvent*  arg__1);

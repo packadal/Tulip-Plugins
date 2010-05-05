@@ -17,6 +17,9 @@ Q_DECLARE_METATYPE(QChildEvent*)
 Q_DECLARE_METATYPE(QEvent*)
 Q_DECLARE_METATYPE(QTimerEvent*)
 
+QtScriptShell_QProperty::QtScriptShell_QProperty()
+    : QProperty() {}
+
 QtScriptShell_QProperty::~QtScriptShell_QProperty() {}
 
 void QtScriptShell_QProperty::childEvent(QChildEvent*  arg__1)

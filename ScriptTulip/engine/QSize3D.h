@@ -15,6 +15,8 @@ public:
 	QSize3D(float w, float h, float d);
 //	QSize3D(const QSize3D& s);
 
+	tlp::Size asSize3D() const;
+	tlp::Coord asCoord() const;
 public slots:
 	void set(float w, float h, float d);
 
@@ -33,10 +35,6 @@ public slots:
 	float getX() const;
 	float getY() const;
 	float getZ() const;
-
-	tlp::Size asSize3D() const;
-	//tlp::Size asCoord() const;
-
 private:
 	float _width;
 	float _height;

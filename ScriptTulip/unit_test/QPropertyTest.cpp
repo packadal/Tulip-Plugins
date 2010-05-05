@@ -4,6 +4,7 @@
 #include "QGraph.h"
 #include "QProperty.h"
 #include "QColorProperty.h"
+#include "QLayoutProperty.h"
 #include "QNode.h"
 #include "utilsTest.h"
 CPPUNIT_TEST_SUITE_REGISTRATION(QPropertyTest);
@@ -30,7 +31,7 @@ void QPropertyTest::setNodeValueTest() {
 	QColorProperty* property0 = _graph->getColorProperty("viewColor");
 	QGraphProperty* property1 = _graph->getGraphProperty("viewGraph");
 	QDoubleProperty* property2 = _graph->getDoubleProperty("viewDouble");
-        //QLayoutProperty* property3 = _graph->getLayoutProperty("viewLayout");
+        QLayoutProperty* property3 = _graph->getLayoutProperty("viewLayout");
 	QStringProperty* property4 = _graph->getStringProperty("viewString");
 	QIntegerProperty* property5 = _graph->getIntegerProperty("viewInteger");
 	QSizeProperty* property6 = _graph->getSizeProperty("viewSize");
@@ -39,7 +40,7 @@ void QPropertyTest::setNodeValueTest() {
 	_engine->addQObject(property0, QString::fromStdString("property0"));
 	_engine->addQObject(property1, QString::fromStdString("property1"));
 	_engine->addQObject(property2, QString::fromStdString("property2"));
-        //_engine->addQObject(property3, QString::fromStdString("property3"));
+        _engine->addQObject(property3, QString::fromStdString("property3"));
 	_engine->addQObject(property4, QString::fromStdString("property4"));
 	_engine->addQObject(property5, QString::fromStdString("property5"));
 	_engine->addQObject(property6, QString::fromStdString("property6"));
@@ -89,15 +90,15 @@ void QPropertyTest::setNodeValueTest() {
 	value = "(100,10,1000)";
 	_engine->evaluate("property3.setNodeStringValue(node, \"" + value + "\")");
 	handleError();
-        //result = property3->getNodeStringValue(_testNode);
+        result = property3->getNodeStringValue(_testNode);
 	CPPUNIT_ASSERT(value == result);
 	QSize3D* realValue3 = new QSize3D(1, 2, 3);
 	_engine->evaluate("property3.setNodeValue(node, new QSize3D(1,2,3))");
 	handleError();
-        //QSize3D* realResult3 = property3->getNodeValue(_testNode);
-        //CPPUNIT_ASSERT(realValue3->getW() == realResult3->getW());
-        //CPPUNIT_ASSERT(realValue3->getH() == realResult3->getH());
-        //CPPUNIT_ASSERT(realValue3->getD() == realResult3->getD());
+        QSize3D* realResult3 = property3->getNodeValue(_testNode);
+        CPPUNIT_ASSERT(realValue3->getW() == realResult3->getW());
+        CPPUNIT_ASSERT(realValue3->getH() == realResult3->getH());
+        CPPUNIT_ASSERT(realValue3->getD() == realResult3->getD());
 
 	// String Property
 	value = "a standard test for stringzz";

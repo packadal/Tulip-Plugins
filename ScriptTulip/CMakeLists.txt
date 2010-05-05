@@ -24,6 +24,7 @@ set (SCRIPT_SOURCES
 	script/generated_cpp/tulip_script/qtscript_QIterator.cpp 
 	script/generated_cpp/tulip_script/qtscript_QNode.cpp 
 	script/generated_cpp/tulip_script/qtscript_QProperty.cpp 
+	script/generated_cpp/tulip_script/qtscript_QLayoutProperty.cpp 
 	script/generated_cpp/tulip_script/qtscript_QSize3D.cpp 
 	script/generated_cpp/tulip_script/qtscript_QSizeProperty.cpp 
 	script/generated_cpp/tulip_script/qtscript_QStringProperty.cpp 
@@ -38,6 +39,7 @@ set (SCRIPT_SOURCES
 	script/generated_cpp/tulip_script/qtscriptshell_QNode.cpp 
 	script/generated_cpp/tulip_script/qtscriptshell_QSize3D.cpp
 	script/generated_cpp/tulip_script/qtscriptshell_QProperty.cpp 
+	script/generated_cpp/tulip_script/qtscriptshell_QLayoutProperty.cpp 
 	script/generated_cpp/tulip_script/qtscriptshell_QSizeProperty.cpp 
 	script/generated_cpp/tulip_script/qtscriptshell_QStringProperty.cpp 
 	script/generated_cpp/tulip_script/tulip_script_init.cpp
@@ -50,7 +52,7 @@ set(ENGINE_SOURCES engine/QIterator.cpp
     engine/QDoubleProperty.cpp 
     engine/QStringProperty.cpp 
     engine/QBooleanProperty.cpp 
-    #engine/QLayoutProperty.cpp 
+    engine/QLayoutProperty.cpp
     engine/QIntegerProperty.cpp 
     engine/QColorProperty.cpp 
     engine/QSizeProperty.cpp 
@@ -58,13 +60,17 @@ set(ENGINE_SOURCES engine/QIterator.cpp
     engine/QGraph.cpp 
     engine/QNode.cpp 
     engine/QEdge.cpp 
-    engine/QSize3D.cpp)
+    engine/QSize3D.cpp
+    engine/TulipScriptEngine.cpp
+#     engine/TulipScriptEngineAgent.cpp
+)
 
 set(ENGINE_HEADERS engine/QIterator.h 
     engine/QProperty.h 
     engine/QDoubleProperty.h 
     engine/QStringProperty.h 
     engine/QBooleanProperty.h 
+    engine/QLayoutProperty.h
     engine/QIntegerProperty.h 
     engine/QColorProperty.h 
     engine/QSizeProperty.h 
@@ -73,13 +79,15 @@ set(ENGINE_HEADERS engine/QIterator.h
     engine/QNode.h 
     engine/QEdge.h 
     engine/QSize3D.h
-    engine/TulipScriptEngine.h)
+#    engine/TulipScriptEngine.h
+)
 
 QT4_WRAP_CPP(ENGINE_SOURCES_MOC ${ENGINE_HEADERS})
 set(ENGINE_SOURCES ${ENGINE_SOURCES} ${ENGINE_SOURCES_MOC})
 
 ##----------------------------------------------------------------------------------------------------------------------------
-set(EDITOR_SOURCES editor/scriptedit.cpp
+set(EDITOR_SOURCES editor/ScriptInteractor.cpp 
+    editor/scriptedit.cpp
     editor/scripthighlighter.cpp
     editor/tabsettings.cpp
     editor/textedit.cpp)
@@ -96,12 +104,28 @@ set(EDITOR_SOURCES ${EDITOR_SOURCES} ${EDITOR_SOURCES_MOC})
 set(TRANSLATER_SOURCES translater/Translater.cpp)
 
 ##----------------------------------------------------------------------------------------------------------------------------
-add_library(script_plugin-${TulipVersion} SHARED editor/editor.cpp ${EDITOR_SOURCES} ${TRANSLATER_SOURCES} ${SCRIPT_SOURCES} ${ENGINE_SOURCES} engine/TulipScriptEngine.cpp)
+add_library(script_plugin-${TulipVersion} SHARED editor/editor.cpp ${EDITOR_SOURCES} ${TRANSLATER_SOURCES} ${SCRIPT_SOURCES} ${ENGINE_SOURCES})
 
 set(QTSCRIPTLIBS /home/packadal/src/qtscriptgenerator/plugins/script/libqtscript_core.a
 		 /home/packadal/src/qtscriptgenerator/plugins/script/libqtscript_gui.a)
-target_link_libraries(script_plugin-${TulipVersion} ${QT_QTGUI_LIBRARY} ${QT_QTCORE_LIBRARY} ${QT_QTSCRIPT_LIBRARY} ${TULIP} ${QTSCRIPTLIBS})
+set(QTLIBS /home/packadal/qt4.7/lib/libQtGui.so /home/packadal/qt4.7/lib/libQtCore.so /home/packadal/qt4.7/lib/libQtScript.so)
+target_link_libraries(script_plugin-${TulipVersion} ${TULIP} ${QTSCRIPTLIBS} ${QTLIBS})
+#target_link_libraries(script_plugin-${TulipVersion} ${TULIP} ${QTSCRIPTLIBS} ${QT_QTGUI_LIBRARY} ${QT_QTCORE_LIBRARY} ${QT_QTSCRIPT_LIBRARY})
 
+##----------------------------------------------------------------------------------------------------------------------------
+SET(TESTS_SOURCES 
+  unit_test/AddEdgeTest.cpp
+  unit_test/AddNodeTest.cpp
+  unit_test/EdgeIterationTest.cpp
+  unit_test/NodeIterationTest.cpp
+  unit_test/QGraphTest.cpp
+  unit_test/QPropertyTest.cpp
+  unit_test/SaveGraphTest.cpp
+  unit_test/GraphCreateTest.cpp
+  unit_test/testRunner.cpp)
+
+# add_executable(unitTests ${TESTS_SOURCES})
+# target_link_libraries(unitTests script_plugin-${TulipVersion} cppunit ${LibTulipName} ${LibTulipQtName} ${QTSCRIPTLIBS})
 # add_executable(editor_test editor/main.cpp)
 # target_link_libraries(editor_test script_editor ${QT_QTGUI_LIBRARY} ${QT_QTCORE_LIBRARY} ${QT_QTSCRIPT_LIBRARY} ${TULIP} ${QTSCRIPTLIBS})
 

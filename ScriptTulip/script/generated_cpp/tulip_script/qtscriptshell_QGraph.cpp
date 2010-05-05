@@ -9,6 +9,7 @@
 #include <QGraphProperty.h>
 #include <QIntegerProperty.h>
 #include <QIterator.h>
+#include <QLayoutProperty.h>
 #include <QNode.h>
 #include <QProperty.h>
 #include <QSizeProperty.h>

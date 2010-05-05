@@ -5,12 +5,16 @@
 
 using namespace tlp;
 
+QProperty::QProperty() :
+	_property(0) {
+}
+
 QProperty::QProperty(tlp::PropertyInterface* property) :
 	_property(property) {
 }
 
 QProperty::~QProperty() {
-	delete _property;
+//	delete _property;
 }
 
 tlp::PropertyInterface* QProperty::asProperty() const {

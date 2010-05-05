@@ -16,6 +16,7 @@ class QProperty: public QObject {
 Q_OBJECT
 
 public:
+	QProperty();
 	QProperty(tlp::PropertyInterface*);
 	virtual ~QProperty();
 	tlp::PropertyInterface* asProperty() const;
@@ -59,7 +60,8 @@ public slots:
 protected:
 
 	tlp::PropertyInterface* _property;
-
+private:
+    Q_DISABLE_COPY(QProperty);
 };
 
 #endif /* QPROPERTY_H_ */

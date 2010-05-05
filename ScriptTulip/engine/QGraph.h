@@ -29,7 +29,7 @@
 #include "QDoubleProperty.h"
 #include "QStringProperty.h"
 #include "QBooleanProperty.h"
-//#include "QLayoutProperty.h"
+#include "QLayoutProperty.h"
 #include "QIntegerProperty.h"
 #include "QColorProperty.h"
 #include "QSizeProperty.h"
@@ -170,14 +170,14 @@ public slots:
 	*/
 
 //	QProperty getLocalProperty(const QString &name);
-
-	bool computeProperty(const QString &algorithm, const QProperty* property, const QString &message, const QObject* dataSet);
+	
+ 	bool computeProperty(const QString& algo, const QProperty* qproperty, const QString& msg, const QScriptValue& data);
 
 	//template<typename Proxytype>
 	//Proxytype* getProperty(const std::string &name);
 	QGraphProperty* getGraphProperty(QString name);
 	QDoubleProperty* getDoubleProperty(QString name);
-//	QLayoutProperty* getLayoutProperty(QString name);
+	QLayoutProperty* getLayoutProperty(QString name);
 	QStringProperty* getStringProperty(QString name);
 	QIntegerProperty* getIntegerProperty(QString name);
 	QColorProperty* getColorProperty(QString name);
@@ -200,6 +200,7 @@ public slots:
 private:
 	tlp::Graph* _graph;
 	QScriptEngine* _engine;
+	static suseconds_t inFunctionTime;
 };
 
 void saveGraph(const QGraph* graph, QString filename);

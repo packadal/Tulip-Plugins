@@ -128,61 +128,88 @@ ADD_FUNCTION(applyAlgorithm);
 
 #endif //JAMBI_BUILD
 
-bool QGraph::computeProperty(const QString &algo, const QProperty* property, const QString &msg, const QObject* dataSet)
+tlp::DataSet* DataSetFromQScriptValue(const QScriptValue& dataSet) {
+  tlp::DataSet* set = new tlp::DataSet();
+  
+  QScriptValueIterator it(dataSet);
+  while(it.hasNext()) {
+    it.next();
+    //std::cout << it.name().toStdString() << ":" << it.value().toString().toStdString() << "(" << it.value().toVariant().typeName() << ")" << std::endl;borderWidth
+    QString name(it.name());
+    QVariant value = it.value().toVariant();
+    
+    if(it.value().isBool()) {
+      set->set<bool>(name.toStdString(), value.toBool());
+      std::cout << "setting : " << it.name().toStdString() << ":" << it.value().toString().toStdString() << "(" << it.value().toVariant().typeName() << ")" << std::endl;
+    }
+    else if(it.value().isString()) {
+      std::cout << "setting : " << it.name().toStdString() << ":" << it.value().toString().toStdString() << "(" << it.value().toVariant().typeName() << ")" << std::endl;
+      set->set<std::string>(name.toStdString(), value.toString().toStdString());
+    }
+    else if(it.value().isNumber()) {
+      std::cout << "setting : " << it.name().toStdString() << ":" << it.value().toString().toStdString() << "(" << it.value().toVariant().typeName() << ")" << std::endl;
+      set->set<int>(name.toStdString(), value.toInt());
+    }
+    else if(it.value().isObject()) {
+      QVariant variant = it.value().toVariant();
+      if(variant.type() == QVariant::Color)
+      {
+	QColor c = value.value<QColor>();
+	tlp::Color col = Color(c.red(), c.green(), c.blue(), c.alpha());
+	set->set<tlp::Color>(name.toStdString(), col);
+	std::cout << "setting : " << it.name().toStdString() << ": (" << c.red() << "," << c.green() << "," <<  c.blue() << "," << c.alpha() << ")" << "(" << it.value().toVariant().typeName() << ")" << std::endl;
+      }
+    }
+    else if(it.value().isQObject()) {
+      QObject* object = it.value().toQObject();
+      std::cout << object->metaObject()->className() << std::endl;
+      
+      if(object->metaObject()->className() == "QProperty")
+      {
+	std::cout << "not setting anything : " << it.name().toStdString() << ":" << it.value().toString().toStdString() << "(" << it.value().toVariant().typeName() << ")" << std::endl;
+      }
+      else if(object->metaObject()->className() == QString("QDoubleProperty"))
+      {
+	tlp::DoubleProperty* prop = qobject_cast<QDoubleProperty*>(object)->asProperty();
+	set->set<tlp::DoubleProperty*>(name.toStdString(), prop);
+	std::cout << "setting : " << it.name().toStdString() << ":" << it.value().toString().toStdString() << "(" << it.value().toVariant().typeName() << ")" << std::endl;
+      }
+    }
+  }
+
+  return set;
+}
+
+bool QGraph::computeProperty(const QString &algo, const QProperty* qproperty, const QString &msg, const QScriptValue& data)
 {
         std::string algorithm = algo.toStdString();
         std::string message = msg.toStdString();
 
-        tlp::DataSet* set = new tlp::DataSet();
+        tlp::DataSet* set = DataSetFromQScriptValue(data);
 
-        QList<QByteArray> properties = dataSet->dynamicPropertyNames();
-        foreach(QByteArray b, properties) {
-                QString name(b);
-                QVariant value = dataSet->property(name.toStdString().c_str());
+        const std::string Typename = qproperty->asProperty()->getTypename();
+	bool res = false;
+	tlp::PropertyContext context;
+	if (Typename == "double")
+	  res = asGraph()->computeProperty(algorithm, dynamic_cast<DoubleProperty*>(qproperty->asProperty()), message, 0, set);
+	else if (Typename == "layout")
+	  res = asGraph()->computeProperty(algorithm, dynamic_cast<LayoutProperty*>(qproperty->asProperty()), message, 0, set);
+	else if (Typename == "string")
+	  res = asGraph()->computeProperty(algorithm, dynamic_cast<StringProperty*>(qproperty->asProperty()), message, 0, set);
+	else if (Typename == "int")
+	  res = asGraph()->computeProperty(algorithm, dynamic_cast<IntegerProperty*>(qproperty->asProperty()), message, 0, set);
+	else if (Typename == "color") {
+//	  ColorProperty::PAlgorithm *algo = ColorProperty::factory->getPluginObject(algorithm, context);
+//	  algo->getParameters().getField()
+	  res = asGraph()->computeProperty(algorithm, dynamic_cast<ColorProperty*>(qproperty->asProperty()), message, 0, set);
+	}
+	else if (Typename == "size")
+	  res = asGraph()->computeProperty(algorithm, dynamic_cast<SizeProperty*>(qproperty->asProperty()), message, 0, set);
+	else if (Typename == "bool")
+	  res = asGraph()->computeProperty(algorithm, dynamic_cast<BooleanProperty*>(qproperty->asProperty()), message, 0, set);
 
-                QColor c;
-                tlp::Color col;
-                switch(value.type())
-                {
-
-                        case QVariant::Bool:
-                                set->set<bool>(name.toStdString(), value.toBool());
-                                break;
-                        case QVariant::String:
-                                set->set<std::string>(name.toStdString(), value.toString().toStdString());
-                                break;
-                        case QVariant::Int:
-                                set->set<int>(name.toStdString(), value.toInt());
-                                break;
-                        case QVariant::Color:
-								c = value.value<QColor>();
-								col = Color(c.red(), c.green(), c.blue(), c.alpha());
-								set->set<tlp::Color>(name.toStdString(), col);
-								break;
-                        default:
-                                break;
-                }
-        }
-        const std::string Typename = property->asProperty()->getTypename();
-		   bool res = false;
-		   if (Typename == "double")
-				   res = asGraph()->computeProperty(algorithm, dynamic_cast<DoubleProperty*>(property->asProperty()), message, 0, set);
-		   else if (Typename == "layout")
-				   res = asGraph()->computeProperty(algorithm, dynamic_cast<LayoutProperty*>(property->asProperty()), message, 0, set);
-		   else if (Typename == "string")
-				   res = asGraph()->computeProperty(algorithm, dynamic_cast<StringProperty*>(property->asProperty()), message, 0, set);
-		   else if (Typename == "int")
-				   res = asGraph()->computeProperty(algorithm, dynamic_cast<IntegerProperty*>(property->asProperty()), message, 0, set);
-		   else if (Typename == "color")
-				   res = asGraph()->computeProperty(algorithm, dynamic_cast<ColorProperty*>(property->asProperty()), message, 0, set);
-		   else if (Typename == "size")
-				   res = asGraph()->computeProperty(algorithm, dynamic_cast<SizeProperty*>(property->asProperty()), message, 0, set);
-		   else if (Typename == "bool")
-				   res = asGraph()->computeProperty(algorithm, dynamic_cast<BooleanProperty*>(property->asProperty()), message, 0, set);
-
-
-		   delete set;
-		   return res;
+	delete set;
+	return res;
    }
 
 void QGraph::clear()
@@ -192,7 +219,8 @@ void QGraph::clear()
 
 QGraph* QGraph::addSubGraph(QBooleanProperty *selection)
 {
-	return new QGraph(_graph->addSubGraph(selection->asProperty()));
+  tlp::BooleanProperty* property = (selection == 0 ? 0 : selection->asProperty());
+	return new QGraph(_graph->addSubGraph(property));
 }
 
 QIterator* QGraph::getSubGraphs() const
@@ -356,9 +384,9 @@ QDoubleProperty* QGraph::getDoubleProperty(QString name){
 	return new QDoubleProperty(_graph->getProperty<tlp::DoubleProperty>(name.toStdString()));
 }
 
-/*QLayoutProperty* QGraph::getLayoutProperty(QString name){
+QLayoutProperty* QGraph::getLayoutProperty(QString name){
 	return new QLayoutProperty(_graph->getProperty<tlp::LayoutProperty>(name.toStdString()));
-}*/
+}
 
 QStringProperty* QGraph::getStringProperty(QString name){
 	return new QStringProperty(_graph->getProperty<tlp::StringProperty>(name.toStdString()));

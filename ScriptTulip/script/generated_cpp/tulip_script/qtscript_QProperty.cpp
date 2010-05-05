@@ -99,8 +99,15 @@ static QScriptValue qtscript_QProperty_static_call(QScriptContext *context, QScr
     _id &= 0x0000FFFF;
     switch (_id) {
     case 0:
-    return context->throwError(QScriptContext::TypeError,
-        QString::fromLatin1("QProperty cannot be constructed"));
+    if (context->thisObject().strictlyEquals(context->engine()->globalObject())) {
+        return context->throwError(QString::fromLatin1("QProperty(): Did you forget to construct with 'new'?"));
+    }
+    if (context->argumentCount() == 0) {
+        QtScriptShell_QProperty* _q_cpp_result = new QtScriptShell_QProperty();
+        QScriptValue _q_result = context->engine()->newQObject(context->thisObject(), (QProperty*)_q_cpp_result, QScriptEngine::AutoOwnership);
+        _q_cpp_result->__qtscript_self = _q_result;
+        return _q_result;
+    }
     break;
 
     default:

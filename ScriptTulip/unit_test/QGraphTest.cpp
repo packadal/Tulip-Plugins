@@ -337,7 +337,7 @@ void QGraphTest::testDeleteSubgraph() {
 
 void QGraphTest::testSubgraphId() {
   _graph->clear();
-  BooleanProperty* sel = new BooleanProperty(_graph->asGraph());
+  QBooleanProperty* sel = new QBooleanProperty(_graph);
   QGraph *g1 = _graph->addSubGraph(sel);
   int id = g1->getId();
   for (unsigned int i = 1; i<1000; ++i) {

@@ -13,7 +13,7 @@ QLayoutProperty::~QLayoutProperty() {
 	delete _property;
 }
 
-tlp::LayoutProperty* QLayoutProperty::asProperty() {
+tlp::LayoutProperty* QLayoutProperty::asProperty() const {
 	return dynamic_cast<tlp::LayoutProperty*> (_property);
 }
 
