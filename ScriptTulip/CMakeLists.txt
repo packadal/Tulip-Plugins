@@ -108,9 +108,8 @@ add_library(script_plugin-${TulipVersion} SHARED editor/editor.cpp ${EDITOR_SOUR
 
 set(QTSCRIPTLIBS /home/packadal/src/qtscriptgenerator/plugins/script/libqtscript_core.a
 		 /home/packadal/src/qtscriptgenerator/plugins/script/libqtscript_gui.a)
-set(QTLIBS /home/packadal/qt4.7/lib/libQtGui.so /home/packadal/qt4.7/lib/libQtCore.so /home/packadal/qt4.7/lib/libQtScript.so)
-target_link_libraries(script_plugin-${TulipVersion} ${TULIP} ${QTSCRIPTLIBS} ${QTLIBS})
-#target_link_libraries(script_plugin-${TulipVersion} ${TULIP} ${QTSCRIPTLIBS} ${QT_QTGUI_LIBRARY} ${QT_QTCORE_LIBRARY} ${QT_QTSCRIPT_LIBRARY})
+
+target_link_libraries(script_plugin-${TulipVersion} ${TULIP} ${QTSCRIPTLIBS} ${QT_QTGUI_LIBRARY} ${QT_QTCORE_LIBRARY} ${QT_QTSCRIPT_LIBRARY} ${QT_QTSCRIPTTOOLS_LIBRARY})
 
 ##----------------------------------------------------------------------------------------------------------------------------
 SET(TESTS_SOURCES 

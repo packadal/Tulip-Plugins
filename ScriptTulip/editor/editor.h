@@ -16,6 +16,8 @@
 #include <QtGui/QVBoxLayout>
 #include <QFileDialog>
 #include <QFile>
+#include <QtScriptTools/QScriptEngineDebugger>
+#include <QtScriptTools/QtScriptTools>
 #include "scriptedit.h"
 #include "TulipScriptEngine.h"
 #include "QGraph.h"
@@ -29,7 +31,7 @@ class Editor : public tlp::View {
 public:
   
 	Editor()
-	  : _engine(new TulipScriptEngine()), _interactors(new std::list<tlp::Interactor*>()){
+	  : _engine(new TulipScriptEngine()), _debugger(new QScriptEngineDebugger()), _interactors(new std::list<tlp::Interactor*>()){
 	}
 	
 	~Editor()
@@ -40,6 +42,8 @@ public:
         /* tulip view plugin API */
         QWidget* construct(QWidget* parent) {
 
+		_debugger->attachTo(_engine);
+	  
                 this->_widget = new QWidget(parent);
 		this->_widget->setMinimumSize(QSize(500, 300));
                 _editor = new ScriptEdit();
@@ -47,6 +51,11 @@ public:
                 _label = new QLabel();
                 QVBoxLayout* layout = new QVBoxLayout();
 
+// 		QWidget* widget = _debugger->widget(QScriptEngineDebugger::CodeWidget);
+// 		std::cout << widget->metaObject()->className() << std::endl;
+// 		QScriptDebuggerCodeWidget* codeWidget = qobject_cast<QScriptDebuggerCodeWidget* >(widget);
+// 		codeWidget
+		
                 layout->addWidget(_editor);
                 layout->addWidget(_label);
                 layout->addWidget(_button);
@@ -68,6 +77,10 @@ public:
 		this->_interactors->push_back(interactor);
 		connect (interactor->getAction(), SIGNAL(triggered()), this, SLOT(loadScript()));
 
+		interactor = new ScriptInteractor("Show Debugger");
+		this->_interactors->push_back(interactor);
+		connect (interactor->getAction(), SIGNAL(triggered()), this, SLOT(fireDebugger()));
+		
 		QShortcut *undo = new QShortcut(QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_Z), this->_widget);
                 QObject::connect(undo, SIGNAL(activated()), this, SLOT(undo()));
 		
@@ -119,6 +132,10 @@ public:
 
 public slots:
 
+	void fireDebugger() {
+	  _debugger->action(QScriptEngineDebugger::InterruptAction)->trigger();
+	}
+	
 	void generate() {
 		Translater t(_engine);
 		QString res = t.parse(_editor->document()->toPlainText());
@@ -212,8 +229,10 @@ private:
         std::list<tlp::Interactor *>* _interactors;
         QGraph* _graph;
         TulipScriptEngine* _engine;
+	QScriptEngineDebugger* _debugger;
         QLabel* _label;
-        ScriptEdit* _editor;
+        
+	ScriptEdit* _editor;
 	QPushButton* _button;
 };
 
