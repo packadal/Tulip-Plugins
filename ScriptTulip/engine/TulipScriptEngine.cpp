@@ -21,8 +21,6 @@ ScriptFunctions* ScriptFunctions::_instance = 0;
 TulipScriptEngine::TulipScriptEngine()
 :QScriptEngine()
 {
-	_agent = new Profiler(this);
-	this->setAgent(_agent);
 	QScriptValue v = globalObject();
 // 	qScriptRegisterMetaType<QProperty>(this, QPropertyToScriptValue, QPropertyFromScriptValue);
 
@@ -45,7 +43,6 @@ TulipScriptEngine::TulipScriptEngine()
 }
 
 TulipScriptEngine::~TulipScriptEngine() {
-	delete _agent;
 }
 
 void TulipScriptEngine::addScriptFunction(const FunctionSignature &function, const QString &functionName) {

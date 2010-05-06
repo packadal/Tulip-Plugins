@@ -24,8 +24,6 @@
 #include <tulip/View.h>
 #include "ScriptInteractor.h"
 
-#include "profiler.h"
-
 class Editor : public tlp::View {
         Q_OBJECT;
 public:
@@ -36,6 +34,7 @@ public:
 	
 	~Editor()
 	{
+	  delete _engine;
 	}
 	
         /* tulip view plugin API */
@@ -169,10 +168,9 @@ public slots:
 	void evaluate() {
 	  if(this->_engine->canEvaluate(_editor->document()->toPlainText()))
 	  {
-		long totalTime = getTimeOfDay();
+		_graph->asGraph()->holdObservers();
 		_engine->evaluate(_editor->document()->toPlainText());
-		totalTime = getTimeOfDay() - totalTime;
-		std::cout << "totalTime: " << totalTime << std::endl; 
+		_graph->asGraph()->unholdObservers();
 		
 		_label->setText(_engine->hasUncaughtException() ? _engine->uncaughtException().toString() : QString::null);
 		QString backtrace = QString();

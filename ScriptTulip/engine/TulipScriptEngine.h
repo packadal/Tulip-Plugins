@@ -7,8 +7,6 @@
 #include <tulip/Graph.h>
 #include "QGraph.h"
 
-#include "profiler.h"
-
 class TulipScriptEngine : public QScriptEngine {
 public:
 	TulipScriptEngine();
@@ -18,7 +16,6 @@ public:
 	void setGraph(tlp::Graph* arg1);
 	QGraph* getGraph();
   private:
-    Profiler* _agent;
     QGraph* _graph;
 };
 
