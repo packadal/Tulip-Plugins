@@ -1,5 +1,16 @@
+project(TulipScript)
+cmake_minimum_required(VERSION 2.6)
+
+set(CMAKE_MODULE_PATH /home/packadal/tulip/share)
+
+set(TULIP_DIR /home/packadal/tulip)
+
+find_package(Qt4 REQUIRED)
+find_package(Tulip REQUIRED)
+
 include_directories(${CMAKE_CURRENT_SOURCE_DIR} editor translater engine)
-INCLUDE_DIRECTORIES(${TulipInclude} ${TulipBuildInclude} ${TulipOGLInclude} ${TulipQtInclude} ${CMAKE_CURRENT_BINARY_DIR} .)	
+include_directories(${TULIP_INCLUDE_DIR} ${CMAKE_CURRENT_BINARY_DIR} .)
+include_directories(${QT_INCLUDE_DIR} ${QT_INCLUDES})
 
 # set(CMAKE_CXX_FLAGS "-Wall")
 # set(CMAKE_CXX_FLAGS_DEBUG "-g")
