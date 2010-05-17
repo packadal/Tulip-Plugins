@@ -103,27 +103,12 @@ QScriptValue applyAlgorithm(QScriptContext *context, QScriptEngine*) {
 	std::string errorMsg = context->argument(1).toString().toStdString();
 	QScriptValue dataSet = context->argument(2);
 	std::string alg = context->argument(3).toString().toStdString();
-// 	QScriptValue plugProgress = context->argument(4);
+ 	QScriptValue plugProgress = context->argument(4);
+	tlp::PluginProgress* progress = qobject_cast<QtProgress*>(plugProgress.toQObject());
 
-	tlp::DataSet* set = new tlp::DataSet();
+	tlp::DataSet* set = new DataSet(TulipScriptEngine::DataSetFromQScriptValue(context->argument(4)));
 
-	if(dataSet.isObject())
-	{
-		//TODO use properties from now on
-		QScriptValueIterator it(dataSet);
-		while(it.hasNext()) {
-			it.next();
-			if(it.value().isBoolean())
-				set->set<bool>(it.name().toStdString(), it.value().toBoolean());
-			if(it.value().isString())
-				set->set<std::string>(it.name().toStdString(), it.value().toString().toStdString());
-			if(it.value().isNumber())
-				set->set<int>(it.name().toStdString(), it.value().toInt32());
-//			std::cout << "dataSet[" << it.name().toStdString() << "] : " << qPrintable(it.value().toString()) << std::endl;
-		}
-	}
-
-	tlp::applyAlgorithm(graph->asGraph(), errorMsg, set, alg/*, plugProgress*/);
+	tlp::applyAlgorithm(graph->asGraph(), errorMsg, set, alg, progress);
 	
 	return QScriptValue();
 }
