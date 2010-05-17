@@ -14,8 +14,8 @@
 #include <QtGui/QPushButton>
 #include <QtGui/QLabel>
 #include <QtGui/QVBoxLayout>
-#include <QFileDialog>
-#include <QFile>
+#include <QtGui/QFileDialog>
+#include <QtCore/QFile>
 #include <QtScriptTools/QScriptEngineDebugger>
 #include <QtScriptTools/QtScriptTools>
 #include "scriptedit.h"

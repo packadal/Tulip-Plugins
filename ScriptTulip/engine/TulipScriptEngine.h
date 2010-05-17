@@ -15,6 +15,8 @@ public:
 	void addQObject(QObject* qobject, const QString &objectName);
 	void setGraph(tlp::Graph* arg1);
 	QGraph* getGraph();
+	
+	static tlp::DataSet DataSetFromQScriptValue(const QScriptValue& dataSet);
   private:
     QGraph* _graph;
 };

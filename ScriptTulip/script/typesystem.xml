@@ -1,9 +1,8 @@
 <typesystem package="tulip.script"
             default-superclass="com.trolltech.qt.core.QObject">
 
-    <load-typesystem name=":/trolltech/generator/typesystem_core.txt" generate="no" />
-    <!--<load-typesystem name=":/trolltech/generator/typesystem_gui.txt"
-                     generate="no" />-->
+    <load-typesystem name=":/trolltech/generator/typesystem_core.txt"	generate="no" />
+    <load-typesystem name=":/trolltech/generator/typesystem_gui.txt"	generate="no" />
 		     
         <object-type name="QGraph" />
         <object-type name="QNode" />
@@ -24,7 +23,10 @@
         <object-type name="QColorProperty" />
         <object-type name="QSizeProperty" />
 
-	<!-- ne marche aps car le generateur ne trouve pas l'include  -->
+        <object-type name="QView" />
+	<object-type name="QControllerViewsManager" />
+
+	<!-- does not work because the compiler cannot find the include  -->
         <!--<object-type name="QtProgress" />-->
 
 

@@ -171,7 +171,7 @@ public slots:
 
 //	QProperty getLocalProperty(const QString &name);
 	
- 	bool computeProperty(const QString& algo, const QProperty* qproperty, const QString& msg, const QScriptValue& data);
+ 	bool computeProperty(const QString& algo, const QProperty* qproperty, const QString& msg, const QScriptValue& data, QObject* progressObject = 0);
 
 	//template<typename Proxytype>
 	//Proxytype* getProperty(const std::string &name);

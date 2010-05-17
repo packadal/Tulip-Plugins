@@ -3,13 +3,14 @@ cmake_minimum_required(VERSION 2.6)
 
 set(CMAKE_MODULE_PATH /home/packadal/tulip/share)
 
-set(TULIP_DIR /home/packadal/tulip)
+set(TULIP_DIR /home/packadal/tulip-3.3.1)
 
 find_package(Qt4 REQUIRED)
 find_package(Tulip REQUIRED)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR} editor translater engine)
-include_directories(${TULIP_INCLUDE_DIR} ${CMAKE_CURRENT_BINARY_DIR} .)
+# include_directories(${TULIP_INCLUDE_DIR} ${CMAKE_CURRENT_BINARY_DIR} .)
+include_directories(/home/packadal/tulip-3.3.1/include ${CMAKE_CURRENT_BINARY_DIR} .)
 include_directories(${QT_INCLUDE_DIR} ${QT_INCLUDES})
 
 # set(CMAKE_CXX_FLAGS "-Wall")
@@ -34,6 +35,8 @@ set (SCRIPT_SOURCES
 	script/generated_cpp/tulip_script/qtscript_QIntegerProperty.cpp 
 	script/generated_cpp/tulip_script/qtscript_QIterator.cpp 
 	script/generated_cpp/tulip_script/qtscript_QNode.cpp 
+	script/generated_cpp/tulip_script/qtscript_QView.cpp 
+	script/generated_cpp/tulip_script/qtscript_QControllerViewsManager.cpp 
 	script/generated_cpp/tulip_script/qtscript_QProperty.cpp 
 	script/generated_cpp/tulip_script/qtscript_QLayoutProperty.cpp 
 	script/generated_cpp/tulip_script/qtscript_QSize3D.cpp 
@@ -72,6 +75,8 @@ set(ENGINE_SOURCES engine/QIterator.cpp
     engine/QNode.cpp 
     engine/QEdge.cpp 
     engine/QSize3D.cpp
+    engine/QView.cpp
+    engine/QControllerViewsManager.cpp
     engine/TulipScriptEngine.cpp
 #     engine/TulipScriptEngineAgent.cpp
 )
@@ -85,7 +90,9 @@ set(ENGINE_HEADERS engine/QIterator.h
     engine/QIntegerProperty.h 
     engine/QColorProperty.h 
     engine/QSizeProperty.h 
-    engine/QGraphProperty.h 
+    engine/QGraphProperty.h
+    engine/QView.h
+    engine/QControllerViewsManager.h
     engine/QGraph.h 
     engine/QNode.h 
     engine/QEdge.h 
@@ -115,12 +122,12 @@ set(EDITOR_SOURCES ${EDITOR_SOURCES} ${EDITOR_SOURCES_MOC})
 set(TRANSLATER_SOURCES translater/Translater.cpp)
 
 ##----------------------------------------------------------------------------------------------------------------------------
-add_library(script_plugin-${TulipVersion} SHARED editor/editor.cpp ${EDITOR_SOURCES} ${TRANSLATER_SOURCES} ${SCRIPT_SOURCES} ${ENGINE_SOURCES})
+add_library(script_plugin-${TULIP_VERSION} SHARED editor/editor.cpp ${EDITOR_SOURCES} ${TRANSLATER_SOURCES} ${SCRIPT_SOURCES} ${ENGINE_SOURCES})
 
 set(QTSCRIPTLIBS /home/packadal/src/qtscriptgenerator/plugins/script/libqtscript_core.a
 		 /home/packadal/src/qtscriptgenerator/plugins/script/libqtscript_gui.a)
 
-target_link_libraries(script_plugin-${TulipVersion} ${TULIP} ${QTSCRIPTLIBS} ${QT_QTGUI_LIBRARY} ${QT_QTCORE_LIBRARY} ${QT_QTSCRIPT_LIBRARY} ${QT_QTSCRIPTTOOLS_LIBRARY})
+target_link_libraries(script_plugin-${TULIP_VERSION} ${TULIP} ${QTSCRIPTLIBS} ${QT_QTGUI_LIBRARY} ${QT_QTCORE_LIBRARY} ${QT_QTSCRIPT_LIBRARY} ${QT_QTSCRIPTTOOLS_LIBRARY})
 
 ##----------------------------------------------------------------------------------------------------------------------------
 SET(TESTS_SOURCES 
@@ -139,5 +146,5 @@ SET(TESTS_SOURCES
 # add_executable(editor_test editor/main.cpp)
 # target_link_libraries(editor_test script_editor ${QT_QTGUI_LIBRARY} ${QT_QTCORE_LIBRARY} ${QT_QTSCRIPT_LIBRARY} ${TULIP} ${QTSCRIPTLIBS})
 
-INSTALL(TARGETS script_plugin-${TulipVersion}
-	DESTINATION ${CMAKE_INSTALL_PREFIX}${TulipLibInstallDir}tlp/)
+INSTALL(TARGETS script_plugin-${TULIP_VERSION}
+	DESTINATION ${CMAKE_INSTALL_PREFIX}${TulipLibInstallDir}/lib/tlp/)

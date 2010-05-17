@@ -14,7 +14,7 @@
 #include "../engine/QIntegerProperty.h"
 #include "../engine/Scriptmacros.h"
 #include "../engine/TulipScriptEngine.h"
+#include "../engine/QView.h"
+#include "../engine/QControllerViewsManager.h"
 
 #include <QtCore/QChildEvent>
-
-#include <tulip/QtProgress.h>

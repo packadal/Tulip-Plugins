@@ -36,6 +36,7 @@ public slots:
 	QString getEdgeDefaultStringValue();
 	QString getNodeStringValue(const QNode *node);
 	QString getEdgeStringValue(const QEdge *edge);
+	QString getName();
 	bool setNodeStringValue(const QNode *node, const QString value);
 	bool setEdgeStringValue(const QEdge *edge, const QString value);
 	bool setAllNodeStringValue(const QString value);

@@ -80,3 +80,8 @@ QString QProperty::getTypename() {
 QString QProperty::getTypename(QProperty *prop) {
 	return QString::fromStdString(PropertyInterface::getTypename(prop->asProperty()));
 }
+
+QString QProperty::getName()
+{
+  return QString::fromStdString(_property->getName());
+}
