@@ -31,7 +31,7 @@ class Editor : public tlp::View {
 public:
   
 	Editor()
-	  : _engine(new TulipScriptEngine()), _debugger(new QScriptEngineDebugger()), _interactors(new std::list<tlp::Interactor*>()){
+	  : _interactors(new std::list<tlp::Interactor*>()), _engine(new TulipScriptEngine()), _debugger(new QScriptEngineDebugger()){
 	}
 	
 	~Editor()
@@ -127,8 +127,8 @@ public:
 	}
 	
 	//TODO implement
-        virtual void setActiveInteractor(tlp::Interactor *interactor) {}
-        virtual void createPicture(const std::string &pictureName,int width=0, int height=0) {}
+        virtual void setActiveInteractor(tlp::Interactor *) {}
+        virtual void createPicture(const std::string &,int width=0, int height=0) {}
 
 public slots:
 

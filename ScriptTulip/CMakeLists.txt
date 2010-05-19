@@ -3,14 +3,16 @@ cmake_minimum_required(VERSION 2.6)
 
 set(CMAKE_MODULE_PATH /home/packadal/tulip/share)
 
-set(TULIP_DIR /home/packadal/tulip-3.3.1)
+set(TULIP_DIR /home/packadal/tulip)
+
+SET(CMAKE_CXX_FLAGS_DEBUG  "-g -Wall -Wextra")
 
 find_package(Qt4 REQUIRED)
 find_package(Tulip REQUIRED)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR} editor translater engine)
 # include_directories(${TULIP_INCLUDE_DIR} ${CMAKE_CURRENT_BINARY_DIR} .)
-include_directories(/home/packadal/tulip-3.3.1/include ${CMAKE_CURRENT_BINARY_DIR} .)
+include_directories(/home/packadal/tulip/include ${CMAKE_CURRENT_BINARY_DIR} .)
 include_directories(${QT_INCLUDE_DIR} ${QT_INCLUDES})
 
 # set(CMAKE_CXX_FLAGS "-Wall")
