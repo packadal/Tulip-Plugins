@@ -23,6 +23,7 @@ public:
 
 void qtscript_initialize_com_trolltech_qt_core_bindings(QScriptValue &);
 void qtscript_initialize_com_trolltech_qt_gui_bindings(QScriptValue &);
+void qtscript_initialize_com_trolltech_qt_network_bindings(QScriptValue &);
 void qtscript_initialize_tulip_script_bindings(QScriptValue &);
 
 #endif /* TULIPSCRIPTENGINE_H_ */

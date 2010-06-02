@@ -28,6 +28,10 @@
 #include <QtScript/QScriptEngine>
 #include <QtScript/QScriptValueIterator>
 
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkReply>
+#include <QtNetwork/QNetworkRequest>
+
 #include <tulip/Node.h>
 #include <tulip/Edge.h>
 #include "tulip/Algorithm.h"
@@ -64,6 +68,7 @@ void saveGraph(const QGraph* graph, QString filename)
 #include "ScriptFunctions.h"
 #include <tulip/QtProgress.h>
 #include "TulipScriptEngine.h"
+#include <QUrl>
 
 QScriptValue saveGraph(QScriptContext* context, QScriptEngine *)
 {
@@ -86,6 +91,11 @@ QScriptValue loadGraph(QScriptContext *context, QScriptEngine *engine){
 	return value;
 }
 ADD_FUNCTION(loadGraph);
+
+QScriptValue QByteArrayToQString(QScriptContext *context, QScriptEngine*) {
+	return QScriptValue(QString(qscriptvalue_cast<QByteArray>(context->argument(0))));
+}
+ADD_FUNCTION(QByteArrayToQString);
 
 QGraph* newGraph() {
 	return new QGraph(tlp::newGraph());
@@ -461,6 +471,16 @@ bool QGraph::canPop()
 bool QGraph::canUnpop()
 {
 	return _graph->canUnpop();
+}
+
+void QGraph::holdObservers()
+{
+	_graph->holdObservers();
+}
+
+void QGraph::unHoldObservers()
+{
+	_graph->unholdObservers();
 }
 
 /*bool QGraph::computeProperty(const QString &algorithm, Proxytype result, QString &msg,

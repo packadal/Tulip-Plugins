@@ -191,6 +191,9 @@ public slots:
 	QStringIterator* getInheritedProperties();
 	QStringIterator* getProperties();
 
+	void holdObservers();
+	void unHoldObservers();
+	
 	//updates management
 	virtual void push();
 	virtual void pop();
@@ -206,6 +209,7 @@ private:
 void saveGraph(const QGraph* graph, QString filename);
 QGraph* loadGraph(QString filename);
 QGraph* newGraph();
+QScriptValue QByteArrayToQString(QScriptContext *context, QScriptEngine *engine);
 QScriptValue saveGraph(QScriptContext *context, QScriptEngine *engine);
 QScriptValue loadGraph(QScriptContext *context, QScriptEngine *engine);
 QScriptValue applyAlgorithm(QScriptContext *context, QScriptEngine *engine);

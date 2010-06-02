@@ -128,7 +128,7 @@ public:
 	
 	//TODO implement
         virtual void setActiveInteractor(tlp::Interactor *) {}
-        virtual void createPicture(const std::string &,int width=0, int height=0) {}
+        virtual void createPicture(const std::string &,int =0, int =0) {}
 
 public slots:
 

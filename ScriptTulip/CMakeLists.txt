@@ -127,7 +127,8 @@ set(TRANSLATER_SOURCES translater/Translater.cpp)
 add_library(script_plugin-${TULIP_VERSION} SHARED editor/editor.cpp ${EDITOR_SOURCES} ${TRANSLATER_SOURCES} ${SCRIPT_SOURCES} ${ENGINE_SOURCES})
 
 set(QTSCRIPTLIBS /home/packadal/src/qtscriptgenerator/plugins/script/libqtscript_core.a
-		 /home/packadal/src/qtscriptgenerator/plugins/script/libqtscript_gui.a)
+		/home/packadal/src/qtscriptgenerator/plugins/script/libqtscript_gui.a
+		/home/packadal/src/qtscriptgenerator/plugins/script/libqtscript_network.a)
 
 target_link_libraries(script_plugin-${TULIP_VERSION} ${TULIP} ${QTSCRIPTLIBS} ${QT_QTGUI_LIBRARY} ${QT_QTCORE_LIBRARY} ${QT_QTSCRIPT_LIBRARY} ${QT_QTSCRIPTTOOLS_LIBRARY})
 

@@ -27,6 +27,7 @@ TulipScriptEngine::TulipScriptEngine()
 
 	qtscript_initialize_com_trolltech_qt_core_bindings(v);
 	qtscript_initialize_com_trolltech_qt_gui_bindings(v);
+	qtscript_initialize_com_trolltech_qt_network_bindings(v);
 	qtscript_initialize_tulip_script_bindings(v);
 	
 	if(this->hasUncaughtException())
@@ -57,15 +58,12 @@ void TulipScriptEngine::addQObject(QObject* qobject, const QString &objectName){
 	this->globalObject().setProperty(objectName,value);
 }
 
-
-void TulipScriptEngine::setGraph(tlp::Graph* arg1)
-{
+void TulipScriptEngine::setGraph(tlp::Graph* arg1) {
 	this->_graph = new QGraph(arg1);
 	this->addQObject(_graph, "graph");
 }
 
-QGraph* TulipScriptEngine::getGraph()
-{
+QGraph* TulipScriptEngine::getGraph() {
   return this->_graph;
 }
 
