@@ -1,10 +1,6 @@
 project(TulipScript)
 cmake_minimum_required(VERSION 2.6)
 
-set(CMAKE_MODULE_PATH /home/packadal/tulip/share)
-
-set(TULIP_DIR /home/packadal/tulip)
-
 SET(CMAKE_CXX_FLAGS_DEBUG  "-g -Wall -Wextra")
 
 find_package(Qt4 REQUIRED)
@@ -44,6 +40,7 @@ set (SCRIPT_SOURCES
 	script/generated_cpp/tulip_script/qtscript_QSize3D.cpp 
 	script/generated_cpp/tulip_script/qtscript_QSizeProperty.cpp 
 	script/generated_cpp/tulip_script/qtscript_QStringProperty.cpp 
+	script/generated_cpp/tulip_script/qtscript_QStringVectorProperty.cpp 
 	script/generated_cpp/tulip_script/qtscriptshell_QBooleanProperty.cpp 
 	script/generated_cpp/tulip_script/qtscriptshell_QColorProperty.cpp 
 	script/generated_cpp/tulip_script/qtscriptshell_QDoubleProperty.cpp 
@@ -58,6 +55,7 @@ set (SCRIPT_SOURCES
 	script/generated_cpp/tulip_script/qtscriptshell_QLayoutProperty.cpp 
 	script/generated_cpp/tulip_script/qtscriptshell_QSizeProperty.cpp 
 	script/generated_cpp/tulip_script/qtscriptshell_QStringProperty.cpp 
+	script/generated_cpp/tulip_script/qtscriptshell_QStringVectorProperty.cpp 
 	script/generated_cpp/tulip_script/tulip_script_init.cpp
 	script/generated_cpp/tulip_script/plugin.cpp)
 
@@ -67,6 +65,7 @@ set(ENGINE_SOURCES engine/QIterator.cpp
     engine/QProperty.cpp 
     engine/QDoubleProperty.cpp 
     engine/QStringProperty.cpp 
+		engine/QStringVectorProperty.cpp 
     engine/QBooleanProperty.cpp 
     engine/QLayoutProperty.cpp
     engine/QIntegerProperty.cpp 
@@ -87,6 +86,7 @@ set(ENGINE_HEADERS engine/QIterator.h
     engine/QProperty.h 
     engine/QDoubleProperty.h 
     engine/QStringProperty.h 
+		engine/QStringVectorProperty.h 
     engine/QBooleanProperty.h 
     engine/QLayoutProperty.h
     engine/QIntegerProperty.h 

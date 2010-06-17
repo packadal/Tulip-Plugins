@@ -1,5 +1,5 @@
-<typesystem package="tulip.script"
-            default-superclass="com.trolltech.qt.core.QObject">
+<typesystem package="tulip.script" 
+	default-superclass="com.trolltech.qt.core.QObject">
 
     <load-typesystem name=":/trolltech/generator/typesystem_core.txt"	generate="no" />
     <load-typesystem name=":/trolltech/generator/typesystem_gui.txt"	generate="no" />
@@ -9,7 +9,7 @@
         <object-type name="QEdge" />
         <object-type name="QSize3D" />
 
-	<object-type name="QIterator" />
+				<object-type name="QIterator" />
 
         <!-- Properties  -->
         <object-type name="QProperty" />
@@ -20,11 +20,12 @@
         <object-type name="QLayoutProperty" /> 
         <object-type name="QGraphProperty" />
         <object-type name="QStringProperty" />
+        <object-type name="QStringVectorProperty" />
         <object-type name="QColorProperty" />
         <object-type name="QSizeProperty" />
 
         <object-type name="QView" />
-	<object-type name="QControllerViewsManager" />
+				<object-type name="QControllerViewsManager" />
 
 	<!-- does not work because the compiler cannot find the include  -->
         <!--<object-type name="QtProgress" />-->

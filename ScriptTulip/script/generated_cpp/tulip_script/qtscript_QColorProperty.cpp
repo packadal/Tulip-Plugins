@@ -13,7 +13,6 @@
 #include <QVariant>
 #include <qbytearray.h>
 #include <qcolor.h>
-#include <qcoreevent.h>
 #include <qlist.h>
 #include <qobject.h>
 

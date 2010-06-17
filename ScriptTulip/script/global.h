@@ -11,10 +11,12 @@
 #include "../engine/QLayoutProperty.h"
 #include "../engine/QSizeProperty.h"
 #include "../engine/QStringProperty.h"
+#include "../engine/QStringVectorProperty.h"
 #include "../engine/QIntegerProperty.h"
 #include "../engine/Scriptmacros.h"
 #include "../engine/TulipScriptEngine.h"
 #include "../engine/QView.h"
 #include "../engine/QControllerViewsManager.h"
 
-#include <QtCore/QChildEvent>
+//commandline to run shiboken
+//generatorrunner --generatorSet=shiboken --output-directory=python_generated_cpp/ global.h typesystem.xml --typesystem-paths=/home/packadal/src/pythonBindings/typesystems --include-paths=/home/packadal/PythonBindings/pyside/include/PySide/:/usr/share/qt4/include/:/usr/share/qt4/include/QtCore/:/usr/share/qt4/include/QtGui/:/usr/share/qt4/include/Qt/

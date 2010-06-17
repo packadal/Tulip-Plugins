@@ -16,7 +16,6 @@
 #include <QStringProperty.h>
 #include <QVariant>
 #include <qbytearray.h>
-#include <qcoreevent.h>
 #include <qlist.h>
 #include <qobject.h>
 

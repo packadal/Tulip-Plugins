@@ -185,16 +185,14 @@ public slots:
 	void evaluate() {
 	  if(this->_engine->canEvaluate(_editor->document()->toPlainText()))
 	  {
-		_graph->asGraph()->holdObservers();
-		_engine->evaluate(_editor->document()->toPlainText());
-		_graph->asGraph()->unholdObservers();
-		
-		_label->setText(_engine->hasUncaughtException() ? _engine->uncaughtException().toString() : QString::null);
-		QString backtrace = QString();
-		foreach(const QString element, _engine->uncaughtExceptionBacktrace()) {
-		  backtrace += element + "\n";
-		}
-		_label->setToolTip(backtrace);
+			_engine->evaluate(_editor->document()->toPlainText());
+			
+			_label->setText(_engine->hasUncaughtException() ? _engine->uncaughtException().toString() : QString::null);
+			QString backtrace = QString();
+			foreach(const QString element, _engine->uncaughtExceptionBacktrace()) {
+				backtrace += element + "\n";
+			}
+			_label->setToolTip(backtrace);
 	  }
 	}
 

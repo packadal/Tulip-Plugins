@@ -10,7 +10,6 @@
 #include <QVariant>
 #include <QView.h>
 #include <qbytearray.h>
-#include <qcoreevent.h>
 #include <qlist.h>
 #include <qobject.h>
 #include <qvector.h>

@@ -15,6 +15,7 @@
 // #include "TulipScriptEngineAgent.h"
 
 // DECLARE_TYPE_TO_SCRIPT(QGraph)
+Q_DECLARE_METATYPE(QVector<QString>)
 #include <QtScript/QScriptValueIterator>
 
 ScriptFunctions* ScriptFunctions::_instance = 0;
@@ -30,6 +31,7 @@ TulipScriptEngine::TulipScriptEngine()
 	qtscript_initialize_com_trolltech_qt_network_bindings(v);
 	qtscript_initialize_tulip_script_bindings(v);
 	
+	qScriptRegisterSequenceMetaType<QVector<QString> >(this);
 	if(this->hasUncaughtException())
 		std::cout << qPrintable(uncaughtException().toString()) << std::endl;
 
@@ -92,12 +94,12 @@ tlp::DataSet TulipScriptEngine::DataSetFromQScriptValue(const QScriptValue& data
       QList<QVariant> list = it.value().toVariant().toList();
       if(list.at(0).type() == QVariant::String)
       {
-	tlp::StringCollection stringCollection;
-	foreach(QVariant var, list)
-	{
-	  stringCollection.push_back(var.toString().toStdString());
-	}
-	set.set<tlp::StringCollection>(name, stringCollection);
+				tlp::StringCollection stringCollection;
+				foreach(QVariant var, list)
+				{
+					stringCollection.push_back(var.toString().toStdString());
+				}
+				set.set<tlp::StringCollection>(name, stringCollection);
       }
     }
     else if(it.value().isQObject()) {
